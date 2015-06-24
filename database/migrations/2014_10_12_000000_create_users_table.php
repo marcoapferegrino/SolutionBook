@@ -15,9 +15,18 @@ class CreateUsersTable extends Migration {
 		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
+			$table->string('username')->unique();
 			$table->string('email')->unique();
 			$table->string('password', 60);
+            $table->enum('rol',['problem','solver','super']);
+            $table->integer('ranking');
+            $table->string('avatar')->nullable();//path de la foto de perfil
+            $table->enum('state',['active','inactive','suspended','blocked']);
+            $table->integer('numWarnings');
+            $table->string('institution',50)->nullable();//escuela a la que pertenece
+
+
+
 			$table->rememberToken();
 			$table->timestamps();
 		});

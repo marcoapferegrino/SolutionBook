@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Warning extends Model {
+use App\Entities;
+class Warning extends Entity {
 
 	//
 

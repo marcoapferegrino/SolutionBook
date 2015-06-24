@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Tag extends Model {
+use App\Entities;
+class Tag extends Entity {
 
 	//
 

@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Problem extends Model {
+use App\Entities;
+class Problem extends Entity {
 
 	//
 

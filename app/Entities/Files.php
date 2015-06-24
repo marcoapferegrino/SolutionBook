@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Files extends Model {
+use App\Entities;
+class Files extends Entity {
 
 	//
 

@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class JudgesList extends Model {
+use App\Entities;
+class JudgesList extends Entity {
 
 	//
 

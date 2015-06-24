@@ -1,8 +1,8 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Link extends Model {
+use App\Entities;
+class Link extends Entity {
 
 	//
 

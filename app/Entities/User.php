@@ -34,15 +34,36 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 	protected $hidden = ['password', 'remember_token'];
 
 
+    /**
+     * Regresa las notitificaciones que tiene el usuario
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function notifications()
     {
         return $this->hasMany(Notification::getClass());
     }
 
+    /**
+     * Regresa las noticias que tiene este usuario
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function notices()
     {
         return $this->hasMany(Notice::getClass());
     }
+
+    /**
+     * Esta es la relacion de muchos a muchos likes
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany SolutionUser
+     */
+    public function likesEnSoluciones()
+    {
+        return $this->belongsToMany(Solution::getClass());
+    }
+
+
+
+
 
 
 

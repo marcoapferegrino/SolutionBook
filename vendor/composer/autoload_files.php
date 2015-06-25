@@ -11,7 +11,7 @@ return array(
     $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',
     $vendorDir . '/danielstjules/stringy/src/Create.php',
     $vendorDir . '/psy/psysh/src/Psy/functions.php',
+    $vendorDir . '/laravelcollective/html/src/helpers.php',
     $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
     $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
-    $vendorDir . '/laravelcollective/html/src/helpers.php',
 );

@@ -16,10 +16,15 @@ class CreateLinksTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('link', 120);
-            $table->enum('type',['youtube','github','judge']);
-			$table->foreign('solution_id')->references('id')->on('solutions')->onDelete('cascade')->nullable();
-			$table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade')->nullable();
-			$table->timestamps();
+            $table->enum('type',['youTube','Github','Facebook','Twitter','juezOnline','amonestacion']);
+
+            $table->integer('solution_id')->unsigned()->nullable();
+			$table->foreign('solution_id')->references('id')->on('solutions')->onDelete('cascade');
+
+            $table->integer('problem_id')->unsigned()->nullable();
+            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+
+            $table->timestamps();
 		});
 	}
 

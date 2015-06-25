@@ -15,7 +15,18 @@ class CreateSolutionsTable extends Migration {
 		Schema::create('solutions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->timestamps();
+			$table->longText('explanation');
+			$table->enum('state',['suspended','blocked']);
+			$table->double('ranking');
+			$table->string('solutionLink',45);
+			$table->integer('numWarnings');
+			$table->integer('numLikes');
+			$table->integer('dislikes');
+			$table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('codeSolution_id')->references('id')->on('code_solutions')->onDelete('cascade');
+			
+            $table->timestamps();
 		});
 	}
 

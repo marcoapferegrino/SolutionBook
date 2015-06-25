@@ -15,6 +15,10 @@ class CreateCodeSolutionsTable extends Migration {
 		Schema::create('code_solutions', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('path',120);
+            $table->enum('language',['c','c++','java','python']);
+            $table->time('limitTime')->nullable();
+            $table->double('limitMemory',20,15)->nullable();
 			$table->timestamps();
 		});
 	}

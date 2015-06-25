@@ -15,6 +15,10 @@ class CreateLinksTable extends Migration {
 		Schema::create('links', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('link', 120);
+            $table->enum('type',['youtube','github','judge']);
+			$table->foreign('solution_id')->references('id')->on('solutions')->onDelete('cascade')->nullable();
+			$table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade')->nullable();
 			$table->timestamps();
 		});
 	}

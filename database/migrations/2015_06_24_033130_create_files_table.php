@@ -27,8 +27,8 @@ class CreateFilesTable extends Migration {
             $table->integer('problem_id')->unsigned()->nullable();
 			$table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
 
-            $table->integer('notification_id')->unsigned()->nullable();
-			$table->foreign('notification_id')->references('id')->on('notifications')->onDelete('cascade');
+            $table->integer('notice_id')->unsigned()->nullable();
+			$table->foreign('notice_id')->references('id')->on('notices')->onDelete('cascade');
 			
 			$table->timestamps();
 		});

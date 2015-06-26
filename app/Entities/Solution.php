@@ -26,7 +26,7 @@ class Solution extends Entity {
     	return $this->hasMany(Warning::getClass());
     }
     public function files(){
-    	return $this->hasMany(Files::getClass()):
+    	return $this->hasMany(Files::getClass());
     }
 
     public function user(){

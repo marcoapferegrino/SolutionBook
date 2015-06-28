@@ -56,7 +56,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
      * Esta es la relacion de muchos a muchos likes
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany SolutionUser
      */
-    public function likesEnSoluciones()
+    public function likes()
     {
         return $this->belongsToMany(Solution::getClass());
     }

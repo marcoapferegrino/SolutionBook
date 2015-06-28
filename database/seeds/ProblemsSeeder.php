@@ -17,23 +17,31 @@ class ProblemsSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
+        $users = \App\Entities\User::all();
+        $ids=array();
+
+        foreach ($users as $user) {
+            array_push($ids,$user->id);
+        }
 
 
-        for($i=0;$i<10;$i++)
+        for($i=0;$i<count($users);$i++)
         {
 
-            $problem= Problem::create([
+            Problem::create([
                 'title'=>$faker->catchPhrase,
                 'author'=>$faker->name,
                 'institution'=> $faker->company,
                 'description'=> $faker->text,
-                'numSoluions' =>$faker ->numberBetween(0,100),
+                'numSolutions' =>$faker ->numberBetween(0,100),
                 'limitTime'=> $faker ->numberBetween(0,10),
                 'limitMemory' => 10.0,
                 'numWarnings' => 0,
-                'state' => $faker->randomElement(['Active','Suspended','Blocked','Deleted']),
-                'problemLink'=> 'SERVER\url\data\problem\id' .  $faker->unique() ->numberBetween(0,1000000),
-                                //  SERVER\url\data\problem\id1244356
+                'state' => $faker->randomElement(['active','suspended','blocked','deleted']),
+                'problemLink'=> 'SERVER\url\data\problem\id' .$faker->numberBetween(0,1000000), //  SERVER\url\data\problem\id1244356
+
+                'user_id' => $faker->randomElement($ids),
+
             ]);
         }
 

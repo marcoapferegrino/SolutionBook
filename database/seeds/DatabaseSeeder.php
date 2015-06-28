@@ -18,14 +18,25 @@ class DatabaseSeeder extends Seeder {
 
             'users',
             'password_resets',
-            'solutions'
+            'problems',
+            'solutions',
+            'code_solutions',
+            'solution_user'
+
 
         ));
 
 
 
         $this->call('UsersSeeder');
+        //$this->call('JudgesSeeder');
+        //$this->call('TagsSeeder');
+        $this->call('CodeSolutionSeeder');
+        $this->call('ProblemsSeeder');
         $this->call('SolutionsSeeder');
+        $this->call('LikesSeeder');
+
+
 
 
 

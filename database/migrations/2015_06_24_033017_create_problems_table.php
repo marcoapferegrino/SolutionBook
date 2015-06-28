@@ -23,17 +23,17 @@ class CreateProblemsTable extends Migration {
             $table->tinyInteger('limitTime');
             $table->double('limitMemory');
             $table->integer('numWarnings');
-            $table->enum('state',['Active','Suspended','Blocked','Deleted']);
+            $table->enum('state',['active','suspended','blocked','deleted']);
             $table->string('problemLink', 120);
 
-            $table->integer('listJudge_id')->unsigned();
-            $table->foreign('listJudge_id')->references('id')->on('judgesList')->onDelete('cascade');
+            $table->integer('judgeList_id')->unsigned()->nullable();
+            $table->foreign('judgeList_id')->references('id')->on('judges_lists');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('tag_id')->unsigned();
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->integer('tag_id')->unsigned()->nullable();
+            $table->foreign('tag_id')->references('id')->on('tags');
 
 
 

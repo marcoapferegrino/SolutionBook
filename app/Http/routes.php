@@ -19,3 +19,15 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('likes',function(){
+
+     $solutionsUsers = DB::table('users')
+        ->join('solution_user', 'solution_user.user_id', '=', 'users.id')
+         ->join('solutions', 'solutions.id', '=', 'solution_user.solution_id')
+        ->select('users.id','users.username', 'solution_user.user_id', 'solution_user.solution_id', 'solutions.id', 'solutions.explanation')
+        ->get();
+
+    dd($solutionsUsers);
+});
+

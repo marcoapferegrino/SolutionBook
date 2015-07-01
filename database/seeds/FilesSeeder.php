@@ -27,7 +27,7 @@ class FilesSeeder extends Seeder {
         for($i=0;$i<count($solutions);$i++)
         {
 
-            $name =$faker->catchPhrase;
+            $name =$faker->word;
             if($i%2){
                 Files::create([
                     'name'=> $name.$faker->randomElement(['.jpg','.png','.pdf','.mp3','.txt']),

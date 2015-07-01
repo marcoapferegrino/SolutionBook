@@ -21,7 +21,10 @@ class DatabaseSeeder extends Seeder {
             'problems',
             'solutions',
             'code_solutions',
-            'solution_user'
+            'solution_user',
+            'files',
+            'links',
+            'notices'
 
 
         ));

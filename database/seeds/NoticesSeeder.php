@@ -24,7 +24,7 @@ class NoticesSeeder extends Seeder {
             Notice::create([
                 'title'=>$faker->catchPhrase,
                 'description'=> $faker->text,
-                'finishDate' =>$faker ->numberBetween(0,100),
+                'finishDate' =>$faker->dateTimeBetween($startDate = 'now', $endDate = '+2 years'),
 
                 'user_id' => $faker->randomElement($ids),
 

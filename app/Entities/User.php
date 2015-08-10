@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use App\Entities;
+
 
 
 class User extends Entity implements AuthenticatableContract, CanResetPasswordContract {
@@ -59,6 +59,24 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
     public function likes()
     {
         return $this->belongsToMany(Solution::getClass());
+    }
+
+    /**
+     * Mis usuarios que promovi como ProbleSetter
+     * @return Users
+     */
+    public function usersPromoted()
+    {
+        return $this->hasMany(User::getClass());
+    }
+
+    /**
+     * Regresa el problem setter que me promovio
+     * @return User
+     */
+    public function promoter()
+    {
+        return $this->belongsTo(User::getClass());
     }
 
 

@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration {
             $table->string('institution',50)->nullable();//escuela a la que pertenece
 
 
+			$table->integer('userProblem_id')->unsigned()->nullable();
+			$table->foreign('userProblem_id')->references('id')->on('users');
 
 			$table->rememberToken();
 			$table->timestamps();

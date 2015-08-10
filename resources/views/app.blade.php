@@ -17,6 +17,9 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -28,23 +31,65 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">Home</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
+					<a class="navbar-brand" href="{{url('/')}}">
+						@if (!Auth::guest())
+							@if(Auth::getRol()=="super")
+								Super
+							@elseif(Auth::getRol()=="problem")
+								Problem Setter
+							@elseif(Auth::getRol()=="solver")
+								Solver
+							@else
+								Home
+							@endif
+						@endif
+					</a>
+					@if (!Auth::guest())
+						@if(Auth::getRol()=="super")
+							<li><a href="">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
+							<li><a href="">Noticias <i class="fa fa-newspaper-o"></i></a></li>
+							<li><a href="">Jueces <i class="fa fa-graduation-cap"></i></a></li>
+
+						@elseif(Auth::getRol()=="problem")
+							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
+							<li><a href="">Mis problemas</a></li>
+							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
+						@elseif(Auth::getRol()=="solver")
+
+							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
+
+
+						@endif
+					@endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
+					@if (!Auth::guest())
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell-o fa-2x"></i> <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="">1</a></li>
+								<li><a href="">2</a></li>
+								<li><a href="">3</a></li>
+
+							</ul>
+						</li>
+					@endif
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/auth/register') }}">Register</a></li>
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
+								<li><a href="">Mi perfil</a></li>
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+								<li><a href="">Configuración</a></li>
 							</ul>
 						</li>
 					@endif

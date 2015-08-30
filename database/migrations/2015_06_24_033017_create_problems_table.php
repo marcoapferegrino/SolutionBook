@@ -20,10 +20,10 @@ class CreateProblemsTable extends Migration {
             $table->string('institution', 60);
             $table->mediumText('description');
             $table->integer('numSolutions');
-            $table->tinyInteger('limitTime');
-            $table->double('limitMemory');
-            $table->integer('numWarnings');
-            $table->enum('state',['active','suspended','blocked','deleted']);
+            $table->time('limitTime')->default(0);
+            $table->double('limitMemory')->default(0);//kb
+            $table->integer('numWarnings')->default(0);
+            $table->enum('state',['active','suspended','blocked','deleted'])->default('active');
             $table->string('problemLink', 120);
 
             $table->integer('judgeList_id')->unsigned()->nullable();

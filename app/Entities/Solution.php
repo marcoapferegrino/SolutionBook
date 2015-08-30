@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solution extends Entity {
 
-
+    protected $fillable = array('explanation','state','ranking','solutionLink','numWarnings','numLikes','dislikes','problem_id','user_id','codeSolution_id');
     /**
      * Esta es la relacion de muchos a muchos de los Likes
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -17,8 +17,8 @@ class CreateCodeSolutionsTable extends Migration {
 			$table->increments('id');
             $table->string('path',120);
             $table->enum('language',['c','c++','java','python']);
-            $table->time('limitTime')->nullable();
-            $table->double('limitMemory',20,15)->nullable();
+            $table->time('limitTime')->default(0);
+            $table->double('limitMemory')->default(0);
 			$table->timestamps();
 		});
 	}

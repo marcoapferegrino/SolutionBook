@@ -14,7 +14,7 @@
  *
  * The expected value is passed in the constructor.
  *
- * @since      Class available since Release 3.0.0
+ * @since Class available since Release 3.0.0
  */
 class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
 {
@@ -34,21 +34,21 @@ class PHPUnit_Framework_Constraint_IsType extends PHPUnit_Framework_Constraint
      * @var array
      */
     protected $types = array(
-      'array'    => true,
-      'boolean'  => true,
-      'bool'     => true,
-      'double'   => true,
-      'float'    => true,
-      'integer'  => true,
-      'int'      => true,
-      'null'     => true,
-      'numeric'  => true,
-      'object'   => true,
-      'real'     => true,
-      'resource' => true,
-      'string'   => true,
-      'scalar'   => true,
-      'callable' => true
+        'array'    => true,
+        'boolean'  => true,
+        'bool'     => true,
+        'double'   => true,
+        'float'    => true,
+        'integer'  => true,
+        'int'      => true,
+        'null'     => true,
+        'numeric'  => true,
+        'object'   => true,
+        'real'     => true,
+        'resource' => true,
+        'string'   => true,
+        'scalar'   => true,
+        'callable' => true
     );
 
     /**

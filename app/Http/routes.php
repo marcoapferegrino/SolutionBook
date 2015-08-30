@@ -128,9 +128,17 @@ Route::group(['middleware' => 'auth'],function(){
 
 
     Route::group(['middleware' => 'role:solver'],function() {
-        Route::post('/addSolution', [
+
+
+
+        Route::post('/addSolution', [ //peticion para agregar solucion
             'as' => 'solution.addSolution',
             'uses' => 'SolutionsController@addSolution'
+        ]);
+
+        Route::get('/addFormSolution', [ //muestra formulario para agregar solucion
+            'as' => 'solution.getFormSolution',
+            'uses' => 'SolutionsController@getFormSolution'
         ]);
 
         Route::delete('/deleteSolution/{$id}', [

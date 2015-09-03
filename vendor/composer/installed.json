@@ -582,68 +582,6 @@
         ]
     },
     {
-        "name": "phpspec/prophecy",
-        "version": "v1.4.1",
-        "version_normalized": "1.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpspec/prophecy.git",
-            "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
-            "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/instantiator": "^1.0.2",
-            "phpdocumentor/reflection-docblock": "~2.0",
-            "sebastian/comparator": "~1.1"
-        },
-        "require-dev": {
-            "phpspec/phpspec": "~2.0"
-        },
-        "time": "2015-04-27 22:15:08",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Prophecy\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Konstantin Kudryashov",
-                "email": "ever.zet@gmail.com",
-                "homepage": "http://everzet.com"
-            },
-            {
-                "name": "Marcello Duarte",
-                "email": "marcello.duarte@gmail.com"
-            }
-        ],
-        "description": "Highly opinionated mocking framework for PHP 5.3+",
-        "homepage": "https://github.com/phpspec/prophecy",
-        "keywords": [
-            "Double",
-            "Dummy",
-            "fake",
-            "mock",
-            "spy",
-            "stub"
-        ]
-    },
-    {
         "name": "phpunit/php-text-template",
         "version": "1.2.1",
         "version_normalized": "1.2.1.0",
@@ -684,57 +622,6 @@
         "homepage": "https://github.com/sebastianbergmann/php-text-template/",
         "keywords": [
             "template"
-        ]
-    },
-    {
-        "name": "phpunit/php-token-stream",
-        "version": "1.4.3",
-        "version_normalized": "1.4.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-            "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
-            "reference": "7a9b0969488c3c54fd62b4d504b3ec758fd005d9",
-            "shasum": ""
-        },
-        "require": {
-            "ext-tokenizer": "*",
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.2"
-        },
-        "time": "2015-06-19 03:43:16",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Sebastian Bergmann",
-                "email": "sebastian@phpunit.de"
-            }
-        ],
-        "description": "Wrapper around PHP's tokenizer extension.",
-        "homepage": "https://github.com/sebastianbergmann/php-token-stream/",
-        "keywords": [
-            "tokenizer"
         ]
     },
     {
@@ -1900,84 +1787,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "monolog/monolog",
-        "version": "1.16.0",
-        "version_normalized": "1.16.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "c0c0b4bee3aabce7182876b0d912ef2595563db7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c0c0b4bee3aabce7182876b0d912ef2595563db7",
-            "reference": "c0c0b4bee3aabce7182876b0d912ef2595563db7",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0",
-            "psr/log": "~1.0"
-        },
-        "provide": {
-            "psr/log-implementation": "1.0.0"
-        },
-        "require-dev": {
-            "aws/aws-sdk-php": "^2.4.9",
-            "doctrine/couchdb": "~1.0@dev",
-            "graylog2/gelf-php": "~1.0",
-            "php-console/php-console": "^3.1.3",
-            "phpunit/phpunit": "~4.5",
-            "phpunit/phpunit-mock-objects": "2.3.0",
-            "raven/raven": "~0.8",
-            "ruflin/elastica": ">=0.90 <3.0",
-            "swiftmailer/swiftmailer": "~5.3",
-            "videlalvaro/php-amqplib": "~2.4"
-        },
-        "suggest": {
-            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
-            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mongo": "Allow sending log messages to a MongoDB server",
-            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "php-console/php-console": "Allow sending log messages to Google Chrome",
-            "raven/raven": "Allow sending log messages to a Sentry server",
-            "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
-        },
-        "time": "2015-08-09 17:44:44",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.16.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Monolog\\": "src/Monolog"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jordi Boggiano",
-                "email": "j.boggiano@seld.be",
-                "homepage": "http://seld.be"
-            }
-        ],
-        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-        "homepage": "http://github.com/Seldaek/monolog",
-        "keywords": [
-            "log",
-            "logging",
-            "psr-3"
-        ]
-    },
-    {
         "name": "league/flysystem",
         "version": "1.0.11",
         "version_normalized": "1.0.11.0",
@@ -2190,188 +1999,6 @@
             "console",
             "interactive",
             "shell"
-        ]
-    },
-    {
-        "name": "laravel/framework",
-        "version": "v5.1.10",
-        "version_normalized": "5.1.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/laravel/framework.git",
-            "reference": "d47ccc8de10ccb6f328cc90f901ca5e47e077c93"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/d47ccc8de10ccb6f328cc90f901ca5e47e077c93",
-            "reference": "d47ccc8de10ccb6f328cc90f901ca5e47e077c93",
-            "shasum": ""
-        },
-        "require": {
-            "classpreloader/classpreloader": "~2.0",
-            "danielstjules/stringy": "~1.8",
-            "doctrine/inflector": "~1.0",
-            "ext-mbstring": "*",
-            "ext-openssl": "*",
-            "jeremeamia/superclosure": "~2.0",
-            "league/flysystem": "~1.0",
-            "monolog/monolog": "~1.11",
-            "mtdowling/cron-expression": "~1.0",
-            "nesbot/carbon": "~1.19",
-            "php": ">=5.5.9",
-            "psy/psysh": "~0.5.1",
-            "swiftmailer/swiftmailer": "~5.1",
-            "symfony/console": "2.7.*",
-            "symfony/css-selector": "2.7.*",
-            "symfony/debug": "2.7.*",
-            "symfony/dom-crawler": "2.7.*",
-            "symfony/finder": "2.7.*",
-            "symfony/http-foundation": "2.7.*",
-            "symfony/http-kernel": "2.7.*",
-            "symfony/process": "2.7.*",
-            "symfony/routing": "2.7.*",
-            "symfony/translation": "2.7.*",
-            "symfony/var-dumper": "2.7.*",
-            "vlucas/phpdotenv": "~1.0"
-        },
-        "replace": {
-            "illuminate/auth": "self.version",
-            "illuminate/broadcasting": "self.version",
-            "illuminate/bus": "self.version",
-            "illuminate/cache": "self.version",
-            "illuminate/config": "self.version",
-            "illuminate/console": "self.version",
-            "illuminate/container": "self.version",
-            "illuminate/contracts": "self.version",
-            "illuminate/cookie": "self.version",
-            "illuminate/database": "self.version",
-            "illuminate/encryption": "self.version",
-            "illuminate/events": "self.version",
-            "illuminate/exception": "self.version",
-            "illuminate/filesystem": "self.version",
-            "illuminate/foundation": "self.version",
-            "illuminate/hashing": "self.version",
-            "illuminate/http": "self.version",
-            "illuminate/log": "self.version",
-            "illuminate/mail": "self.version",
-            "illuminate/pagination": "self.version",
-            "illuminate/pipeline": "self.version",
-            "illuminate/queue": "self.version",
-            "illuminate/redis": "self.version",
-            "illuminate/routing": "self.version",
-            "illuminate/session": "self.version",
-            "illuminate/support": "self.version",
-            "illuminate/translation": "self.version",
-            "illuminate/validation": "self.version",
-            "illuminate/view": "self.version"
-        },
-        "require-dev": {
-            "aws/aws-sdk-php": "~3.0",
-            "iron-io/iron_mq": "~2.0",
-            "mockery/mockery": "~0.9.1",
-            "pda/pheanstalk": "~3.0",
-            "phpunit/phpunit": "~4.0",
-            "predis/predis": "~1.0"
-        },
-        "suggest": {
-            "aws/aws-sdk-php": "Required to use the SQS queue driver and SES mail driver (~3.0).",
-            "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
-            "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
-            "guzzlehttp/guzzle": "Required to use the Mailgun and Mandrill mail drivers (~5.3|~6.0).",
-            "iron-io/iron_mq": "Required to use the iron queue driver (~2.0).",
-            "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
-            "league/flysystem-rackspace": "Required to use the Flysystem Rackspace driver (~1.0).",
-            "pda/pheanstalk": "Required to use the beanstalk queue driver (~3.0).",
-            "predis/predis": "Required to use the redis cache and queue drivers (~1.0).",
-            "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (~2.0)."
-        },
-        "time": "2015-08-12 18:16:08",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/Illuminate/Queue/IlluminateQueueClosure.php"
-            ],
-            "files": [
-                "src/Illuminate/Foundation/helpers.php",
-                "src/Illuminate/Support/helpers.php"
-            ],
-            "psr-4": {
-                "Illuminate\\": "src/Illuminate/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
-            }
-        ],
-        "description": "The Laravel Framework.",
-        "homepage": "http://laravel.com",
-        "keywords": [
-            "framework",
-            "laravel"
-        ]
-    },
-    {
-        "name": "laravelcollective/html",
-        "version": "v5.1.4",
-        "version_normalized": "5.1.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/LaravelCollective/html.git",
-            "reference": "59f124084c9135a6a8d87323e5c5562ab823deb4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/LaravelCollective/html/zipball/59f124084c9135a6a8d87323e5c5562ab823deb4",
-            "reference": "59f124084c9135a6a8d87323e5c5562ab823deb4",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/http": "5.1.*",
-            "illuminate/routing": "5.1.*",
-            "illuminate/session": "5.1.*",
-            "illuminate/support": "5.1.*",
-            "php": ">=5.5.9"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9",
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2015-07-28 03:18:41",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Collective\\Html\\": "src/"
-            },
-            "files": [
-                "src/helpers.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
-            },
-            {
-                "name": "Adam Engebretson",
-                "email": "adam@laravelcollective.com"
-            }
         ]
     },
     {
@@ -2667,64 +2294,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "phpunit/phpunit-mock-objects",
-        "version": "2.3.6",
-        "version_normalized": "2.3.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-            "reference": "18dfbcb81d05e2296c0bcddd4db96cade75e6f42"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/18dfbcb81d05e2296c0bcddd4db96cade75e6f42",
-            "reference": "18dfbcb81d05e2296c0bcddd4db96cade75e6f42",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/instantiator": "~1.0,>=1.0.2",
-            "php": ">=5.3.3",
-            "phpunit/php-text-template": "~1.2",
-            "sebastian/exporter": "~1.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.4"
-        },
-        "suggest": {
-            "ext-soap": "*"
-        },
-        "time": "2015-07-10 06:54:24",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Sebastian Bergmann",
-                "email": "sb@sebastian-bergmann.de",
-                "role": "lead"
-            }
-        ],
-        "description": "Mock Object library for PHPUnit",
-        "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
-        "keywords": [
-            "mock",
-            "xunit"
-        ]
-    },
-    {
         "name": "phpunit/php-timer",
         "version": "1.0.7",
         "version_normalized": "1.0.7.0",
@@ -2881,18 +2450,449 @@
         ]
     },
     {
-        "name": "phpunit/phpunit",
-        "version": "4.8.3",
-        "version_normalized": "4.8.3.0",
+        "name": "monolog/monolog",
+        "version": "1.17.1",
+        "version_normalized": "1.17.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d"
+            "url": "https://github.com/Seldaek/monolog.git",
+            "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fd3050e26e3105f416d74c4d33aea659b406c59d",
-            "reference": "fd3050e26e3105f416d74c4d33aea659b406c59d",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0524c87587ab85bc4c2d6f5b41253ccb930a5422",
+            "reference": "0524c87587ab85bc4c2d6f5b41253ccb930a5422",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
+        },
+        "provide": {
+            "psr/log-implementation": "1.0.0"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "^2.4.9",
+            "doctrine/couchdb": "~1.0@dev",
+            "graylog2/gelf-php": "~1.0",
+            "php-console/php-console": "^3.1.3",
+            "phpunit/phpunit": "~4.5",
+            "phpunit/phpunit-mock-objects": "2.3.0",
+            "raven/raven": "~0.11",
+            "ruflin/elastica": ">=0.90 <3.0",
+            "swiftmailer/swiftmailer": "~5.3",
+            "videlalvaro/php-amqplib": "~2.4"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+            "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+            "php-console/php-console": "Allow sending log messages to Google Chrome",
+            "raven/raven": "Allow sending log messages to a Sentry server",
+            "rollbar/rollbar": "Allow sending log messages to Rollbar",
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+        },
+        "time": "2015-08-31 09:17:37",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.16.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Monolog\\": "src/Monolog"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+        "homepage": "http://github.com/Seldaek/monolog",
+        "keywords": [
+            "log",
+            "logging",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "laravel/framework",
+        "version": "v5.1.13",
+        "version_normalized": "5.1.13.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravel/framework.git",
+            "reference": "2226a0abfe3776c5023601e59d496784d1de21fd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/2226a0abfe3776c5023601e59d496784d1de21fd",
+            "reference": "2226a0abfe3776c5023601e59d496784d1de21fd",
+            "shasum": ""
+        },
+        "require": {
+            "classpreloader/classpreloader": "~2.0",
+            "danielstjules/stringy": "~1.8",
+            "doctrine/inflector": "~1.0",
+            "ext-mbstring": "*",
+            "ext-openssl": "*",
+            "jeremeamia/superclosure": "~2.0",
+            "league/flysystem": "~1.0",
+            "monolog/monolog": "~1.11",
+            "mtdowling/cron-expression": "~1.0",
+            "nesbot/carbon": "~1.19",
+            "php": ">=5.5.9",
+            "psy/psysh": "~0.5.1",
+            "swiftmailer/swiftmailer": "~5.1",
+            "symfony/console": "2.7.*",
+            "symfony/css-selector": "2.7.*",
+            "symfony/debug": "2.7.*",
+            "symfony/dom-crawler": "2.7.*",
+            "symfony/finder": "2.7.*",
+            "symfony/http-foundation": "2.7.*",
+            "symfony/http-kernel": "2.7.*",
+            "symfony/process": "2.7.*",
+            "symfony/routing": "2.7.*",
+            "symfony/translation": "2.7.*",
+            "symfony/var-dumper": "2.7.*",
+            "vlucas/phpdotenv": "~1.0"
+        },
+        "replace": {
+            "illuminate/auth": "self.version",
+            "illuminate/broadcasting": "self.version",
+            "illuminate/bus": "self.version",
+            "illuminate/cache": "self.version",
+            "illuminate/config": "self.version",
+            "illuminate/console": "self.version",
+            "illuminate/container": "self.version",
+            "illuminate/contracts": "self.version",
+            "illuminate/cookie": "self.version",
+            "illuminate/database": "self.version",
+            "illuminate/encryption": "self.version",
+            "illuminate/events": "self.version",
+            "illuminate/exception": "self.version",
+            "illuminate/filesystem": "self.version",
+            "illuminate/foundation": "self.version",
+            "illuminate/hashing": "self.version",
+            "illuminate/http": "self.version",
+            "illuminate/log": "self.version",
+            "illuminate/mail": "self.version",
+            "illuminate/pagination": "self.version",
+            "illuminate/pipeline": "self.version",
+            "illuminate/queue": "self.version",
+            "illuminate/redis": "self.version",
+            "illuminate/routing": "self.version",
+            "illuminate/session": "self.version",
+            "illuminate/support": "self.version",
+            "illuminate/translation": "self.version",
+            "illuminate/validation": "self.version",
+            "illuminate/view": "self.version"
+        },
+        "require-dev": {
+            "aws/aws-sdk-php": "~3.0",
+            "iron-io/iron_mq": "~2.0",
+            "mockery/mockery": "~0.9.1",
+            "pda/pheanstalk": "~3.0",
+            "phpunit/phpunit": "~4.0",
+            "predis/predis": "~1.0"
+        },
+        "suggest": {
+            "aws/aws-sdk-php": "Required to use the SQS queue driver and SES mail driver (~3.0).",
+            "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
+            "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
+            "guzzlehttp/guzzle": "Required to use the Mailgun and Mandrill mail drivers (~5.3|~6.0).",
+            "iron-io/iron_mq": "Required to use the iron queue driver (~2.0).",
+            "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
+            "league/flysystem-rackspace": "Required to use the Flysystem Rackspace driver (~1.0).",
+            "pda/pheanstalk": "Required to use the beanstalk queue driver (~3.0).",
+            "predis/predis": "Required to use the redis cache and queue drivers (~1.0).",
+            "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (~2.0)."
+        },
+        "time": "2015-09-02 16:18:46",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/Illuminate/Queue/IlluminateQueueClosure.php"
+            ],
+            "files": [
+                "src/Illuminate/Foundation/helpers.php",
+                "src/Illuminate/Support/helpers.php"
+            ],
+            "psr-4": {
+                "Illuminate\\": "src/Illuminate/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            }
+        ],
+        "description": "The Laravel Framework.",
+        "homepage": "http://laravel.com",
+        "keywords": [
+            "framework",
+            "laravel"
+        ]
+    },
+    {
+        "name": "laravelcollective/html",
+        "version": "v5.1.5",
+        "version_normalized": "5.1.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/LaravelCollective/html.git",
+            "reference": "59f124084c9135a6a8d87323e5c5562ab823deb4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/LaravelCollective/html/zipball/59f124084c9135a6a8d87323e5c5562ab823deb4",
+            "reference": "59f124084c9135a6a8d87323e5c5562ab823deb4",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/http": "5.1.*",
+            "illuminate/routing": "5.1.*",
+            "illuminate/session": "5.1.*",
+            "illuminate/support": "5.1.*",
+            "php": ">=5.5.9"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-07-28 03:18:41",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Collective\\Html\\": "src/"
+            },
+            "files": [
+                "src/helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            },
+            {
+                "name": "Adam Engebretson",
+                "email": "adam@laravelcollective.com"
+            }
+        ]
+    },
+    {
+        "name": "phpspec/prophecy",
+        "version": "v1.5.0",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpspec/prophecy.git",
+            "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4745ded9307786b730d7a60df5cb5a6c43cf95f7",
+            "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/instantiator": "^1.0.2",
+            "phpdocumentor/reflection-docblock": "~2.0",
+            "sebastian/comparator": "~1.1"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "~2.0"
+        },
+        "time": "2015-08-13 10:07:40",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Prophecy\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Konstantin Kudryashov",
+                "email": "ever.zet@gmail.com",
+                "homepage": "http://everzet.com"
+            },
+            {
+                "name": "Marcello Duarte",
+                "email": "marcello.duarte@gmail.com"
+            }
+        ],
+        "description": "Highly opinionated mocking framework for PHP 5.3+",
+        "homepage": "https://github.com/phpspec/prophecy",
+        "keywords": [
+            "Double",
+            "Dummy",
+            "fake",
+            "mock",
+            "spy",
+            "stub"
+        ]
+    },
+    {
+        "name": "phpunit/phpunit-mock-objects",
+        "version": "2.3.7",
+        "version_normalized": "2.3.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
+            "reference": "5e2645ad49d196e020b85598d7c97e482725786a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5e2645ad49d196e020b85598d7c97e482725786a",
+            "reference": "5e2645ad49d196e020b85598d7c97e482725786a",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/instantiator": "^1.0.2",
+            "php": ">=5.3.3",
+            "phpunit/php-text-template": "~1.2",
+            "sebastian/exporter": "~1.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.4"
+        },
+        "suggest": {
+            "ext-soap": "*"
+        },
+        "time": "2015-08-19 09:14:08",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian Bergmann",
+                "email": "sb@sebastian-bergmann.de",
+                "role": "lead"
+            }
+        ],
+        "description": "Mock Object library for PHPUnit",
+        "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
+        "keywords": [
+            "mock",
+            "xunit"
+        ]
+    },
+    {
+        "name": "phpunit/php-token-stream",
+        "version": "1.4.6",
+        "version_normalized": "1.4.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/php-token-stream.git",
+            "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+            "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+            "shasum": ""
+        },
+        "require": {
+            "ext-tokenizer": "*",
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.2"
+        },
+        "time": "2015-08-16 08:51:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian Bergmann",
+                "email": "sebastian@phpunit.de"
+            }
+        ],
+        "description": "Wrapper around PHP's tokenizer extension.",
+        "homepage": "https://github.com/sebastianbergmann/php-token-stream/",
+        "keywords": [
+            "tokenizer"
+        ]
+    },
+    {
+        "name": "phpunit/phpunit",
+        "version": "4.8.6",
+        "version_normalized": "4.8.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit.git",
+            "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
+            "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
             "shasum": ""
         },
         "require": {
@@ -2919,7 +2919,7 @@
         "suggest": {
             "phpunit/php-invoker": "~1.1"
         },
-        "time": "2015-08-10 09:16:56",
+        "time": "2015-08-24 04:09:38",
         "bin": [
             "phpunit"
         ],
@@ -2952,6 +2952,452 @@
             "phpunit",
             "testing",
             "xunit"
+        ]
+    },
+    {
+        "name": "guzzle/guzzle",
+        "version": "v3.9.3",
+        "version_normalized": "3.9.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle3.git",
+            "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/0645b70d953bc1c067bbc8d5bc53194706b628d9",
+            "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3.3",
+            "symfony/event-dispatcher": "~2.1"
+        },
+        "replace": {
+            "guzzle/batch": "self.version",
+            "guzzle/cache": "self.version",
+            "guzzle/common": "self.version",
+            "guzzle/http": "self.version",
+            "guzzle/inflection": "self.version",
+            "guzzle/iterator": "self.version",
+            "guzzle/log": "self.version",
+            "guzzle/parser": "self.version",
+            "guzzle/plugin": "self.version",
+            "guzzle/plugin-async": "self.version",
+            "guzzle/plugin-backoff": "self.version",
+            "guzzle/plugin-cache": "self.version",
+            "guzzle/plugin-cookie": "self.version",
+            "guzzle/plugin-curlauth": "self.version",
+            "guzzle/plugin-error-response": "self.version",
+            "guzzle/plugin-history": "self.version",
+            "guzzle/plugin-log": "self.version",
+            "guzzle/plugin-md5": "self.version",
+            "guzzle/plugin-mock": "self.version",
+            "guzzle/plugin-oauth": "self.version",
+            "guzzle/service": "self.version",
+            "guzzle/stream": "self.version"
+        },
+        "require-dev": {
+            "doctrine/cache": "~1.3",
+            "monolog/monolog": "~1.0",
+            "phpunit/phpunit": "3.7.*",
+            "psr/log": "~1.0",
+            "symfony/class-loader": "~2.1",
+            "zendframework/zend-cache": "2.*,<2.3",
+            "zendframework/zend-log": "2.*,<2.3"
+        },
+        "suggest": {
+            "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
+        },
+        "time": "2015-03-18 18:23:50",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.9-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Guzzle": "src/",
+                "Guzzle\\Tests": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Guzzle Community",
+                "homepage": "https://github.com/guzzle/guzzle/contributors"
+            }
+        ],
+        "description": "PHP HTTP client. This library is deprecated in favor of https://packagist.org/packages/guzzlehttp/guzzle",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
+        "name": "league/oauth1-client",
+        "version": "1.6.0",
+        "version_normalized": "1.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/oauth1-client.git",
+            "reference": "4d4edd9b6014f882e319231a9b3351e3a1dfdc81"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/4d4edd9b6014f882e319231a9b3351e3a1dfdc81",
+            "reference": "4d4edd9b6014f882e319231a9b3351e3a1dfdc81",
+            "shasum": ""
+        },
+        "require": {
+            "guzzle/guzzle": "3.*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0",
+            "squizlabs/php_codesniffer": "~2.0"
+        },
+        "time": "2015-08-22 09:49:14",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\OAuth1\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ben Corlett",
+                "email": "bencorlett@me.com",
+                "homepage": "http://www.webcomm.com.au",
+                "role": "Developer"
+            }
+        ],
+        "description": "OAuth 1.0 Client Library",
+        "keywords": [
+            "Authentication",
+            "SSO",
+            "authorization",
+            "bitbucket",
+            "identity",
+            "idp",
+            "oauth",
+            "oauth1",
+            "single sign on",
+            "trello",
+            "tumblr",
+            "twitter"
+        ]
+    },
+    {
+        "name": "guzzlehttp/promises",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/promises.git",
+            "reference": "97fe7210def29451ec74923b27e552238defd75a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/promises/zipball/97fe7210def29451ec74923b27e552238defd75a",
+            "reference": "97fe7210def29451ec74923b27e552238defd75a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-08-15 19:37:21",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Promise\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle promises library",
+        "keywords": [
+            "promise"
+        ]
+    },
+    {
+        "name": "psr/http-message",
+        "version": "1.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+            "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2015-05-04 20:22:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
+        "name": "guzzlehttp/psr7",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/psr7.git",
+            "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
+            "reference": "4ef919b0cf3b1989523138b60163bbcb7ba1ff7e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "psr/http-message": "~1.0"
+        },
+        "provide": {
+            "psr/http-message-implementation": "1.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-08-15 19:32:36",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Psr7\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "PSR-7 message implementation",
+        "keywords": [
+            "http",
+            "message",
+            "stream",
+            "uri"
+        ]
+    },
+    {
+        "name": "guzzlehttp/guzzle",
+        "version": "6.0.2",
+        "version_normalized": "6.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "a8dfeff00eb84616a17fea7a4d72af35e750410f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a8dfeff00eb84616a17fea7a4d72af35e750410f",
+            "reference": "a8dfeff00eb84616a17fea7a4d72af35e750410f",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/promises": "~1.0",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "~4.0",
+            "psr/log": "~1.0"
+        },
+        "time": "2015-07-04 20:09:24",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "6.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/functions_include.php"
+            ],
+            "psr-4": {
+                "GuzzleHttp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
+        "name": "laravel/socialite",
+        "version": "v2.0.12",
+        "version_normalized": "2.0.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravel/socialite.git",
+            "reference": "0bb08c8666f4c01e55e3b3b0e42f2b5075be6a6e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravel/socialite/zipball/0bb08c8666f4c01e55e3b3b0e42f2b5075be6a6e",
+            "reference": "0bb08c8666f4c01e55e3b3b0e42f2b5075be6a6e",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "~5.0|~6.0",
+            "illuminate/contracts": "~5.0",
+            "illuminate/http": "~5.0",
+            "illuminate/support": "~5.0",
+            "league/oauth1-client": "~1.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-08-30 01:12:56",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Laravel\\Socialite\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            }
+        ],
+        "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
+        "keywords": [
+            "laravel",
+            "oauth"
         ]
     }
 ]

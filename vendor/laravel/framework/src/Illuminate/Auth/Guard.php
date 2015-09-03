@@ -113,15 +113,6 @@ class Guard implements GuardContract
     }
 
     /**
-     * @return  rol
-     */
-    public function getRol(){
-
-        return $this->user->rol;
-
-    }
-
-    /**
      * Determine if the current user is a guest.
      *
      * @return bool

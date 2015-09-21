@@ -28,27 +28,30 @@ class FilesSeeder extends Seeder {
         {
 
             $name =$faker->word;
+            $id =0;
             if($i%2){
+                $id=$faker->randomElement($idsSolutions);
                 Files::create([
                     'name'=> $name.$faker->randomElement(['.jpg','.png','.pdf','.mp3','.txt']),
-                    'path'=>'solution/'.$faker->numberBetween(1,12).'solution',
+                    'path'=>'solution/'.$id.'solution',
                     'description'=> $faker->text,
                     'type' =>$faker->randomElement(['imagenEjemplo','imagenApoyo','notaVoz','fileinput','fileOutput']),
 
 
-                    'solution_id'=> $faker->randomElement($idsSolutions),
+                    'solution_id'=> $id,
 
                 ]);
             }
             else
             {
+                $id=$faker->randomElement($idsProblems);
                 Files::create([
                     'name'=> $name.$faker->randomElement(['.jpg','.png','.pdf','.mp3','.txt']),
-                    'path'=>'problema/'.$faker->numberBetween(1,12).'problema',
+                    'path'=>'problema/'.$id.'problema',
                     'description'=> $faker->text,
                     'type' =>$faker->randomElement(['imagenEjemplo','imagenApoyo','notaVoz','fileinput','fileOutput']),
 
-                    'problem_id'=> $faker->randomElement($idsProblems),
+                    'problem_id'=> $id,
 
 
                 ]);

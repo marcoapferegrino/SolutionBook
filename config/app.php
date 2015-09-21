@@ -138,6 +138,7 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
 		'Collective\Html\HtmlServiceProvider',
 
+        'Laravel\Socialite\SocialiteServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
@@ -197,6 +198,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form' 		=> 'Collective\Html\FormFacade',
 		'Html' 		=> 'Collective\Html\HtmlFacade',
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
 	],
 

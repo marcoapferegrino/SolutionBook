@@ -7,7 +7,10 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 
-
+/**
+ * Class User
+ * @package App\Entities
+ */
 class User extends Entity implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
@@ -79,6 +82,31 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         return $this->belongsTo(User::getClass());
     }
 
+    public function liked()
+    {
+        return $this->belongsToMany(Solution::getClass(),'solution_user');
+    }
+
+    public function hasLiked($idSolution)
+    {
+        return $this->liked()->where('solution_id',$idSolution)->count();
+    }
+
+    /**
+     * @param Solution  $solution->id
+     * @return bool
+     */
+    public function like($idSolution)
+    {
+        if($this->hasLiked($idSolution)) return false;
+
+        $this->liked()->attach($idSolution);
+        return true;
+    }
+    public function disLike($idSolution)
+    {
+        $this->liked()->detach($idSolution);
+    }
 
 
 

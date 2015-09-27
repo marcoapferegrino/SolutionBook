@@ -123,6 +123,18 @@ class Guard implements GuardContract
     }
 
     /**
+    +     * Return role in the system
+    +     *
+    +     * @return  rol
+    +     */
+
+    public function getRol(){
+
+            return $this->user->rol;
+
+    }
+
+    /**
      * Get the currently authenticated user.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null

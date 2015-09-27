@@ -47,7 +47,7 @@ return [
 		"string"  => "The :attribute may not be greater than :max characters.",
 		"array"   => "The :attribute may not have more than :max items.",
 	],
-	"mimes"                => "The :attribute must be a file of type: :values.",
+	"mimes"                => "El :attribute debe ser de tipo: :values.",
 	"min"                  => [
 		"numeric" => "The :attribute must be at least :min.",
 		"file"    => "The :attribute must be at least :min kilobytes.",
@@ -56,8 +56,8 @@ return [
 	],
 	"not_in"               => "The selected :attribute is invalid.",
 	"numeric"              => "The :attribute must be a number.",
-	"regex"                => "The :attribute format is invalid.",
-	"required"             => "The :attribute field is required.",
+	"regex"                => "El :attribute no coincide con la expresión que debe ser.",
+	"required"             => "El :attribute es requerido.",
 	"required_if"          => "The :attribute field is required when :other is :value.",
 	"required_with"        => "The :attribute field is required when :values is present.",
 	"required_with_all"    => "The :attribute field is required when :values is present.",
@@ -73,7 +73,8 @@ return [
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
-
+	"languaje_with_file_extension" => "El lenguaje no coincide con la extensión del código",
+	"extension"=>"La extensión de :attribute no coincide con los archivos permitidos",
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines

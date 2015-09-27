@@ -1239,6 +1239,7 @@ class Validator implements ValidatorContract
      */
     protected function validateMimes($attribute, $value, $parameters)
     {
+        //dd($value);
         if (! $this->isAValidFileInstance($value)) {
             return false;
         }

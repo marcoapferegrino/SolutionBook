@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Entities\CodeSolution;
+use App\Entities\Files;
+use App\Entities\Link;
 use App\Entities\Problem;
 use App\Entities\Solution;
-use App\Entities\Tools;
+use App\Entities\EvaluateCodeTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\AddSolutionRequest;
 
 use App\Http\Requests;
 
@@ -27,68 +30,38 @@ class SolutionsController extends Controller
     public function getFormSolution()
     {
 
-        $idProblem = 9;
+        $idProblem = 10;
 
 
-        return view('solver.addSolution2',compact('idProblem'));
+        return view('solver.addSolution',compact('idProblem'));
 
     }
 
 
-    public function addSolution(Request $request)
+    public function addSolution(AddSolutionRequest $request)
     {
+//        dd($request->all());
+        $idProblem      =$request->idProblem;
+        $idUser         = auth()->user()->getAuthIdentifier();
 
+        $images         = $request->file('images');
+        $fileCode       = $request->file('fileCode');
 
-        //dd($request->all());
-        $idProblem =$request->idProblem;
-        $idUser= auth()->user()->getAuthIdentifier();
+        $nameFileCode   = $fileCode->getClientOriginalName();
+        $audioFile      = $request->file('audioFile');
+        $nameAudioFile  = $audioFile->getClientOriginalName();
+        $language       = $request->optionsLanguages;
+        $problem        = Problem::find($idProblem);
 
-        $images = $request->file('images');
-        $fileCode = $request->file('fileCode');
-        $extension = "";
-        $timeStatus = false;
-        $path = "testing/";
-        $nameFileCode = $fileCode->getClientOriginalName();
-
-        //$fileCode->move($path, $nameFileCode );
-
-
-
-        switch($request->language)
-        {
-            case 'c':
-                $extension='c';
-                //$compileCmd = "gcc ". $path.$nameFileCode. " -o testing/prueba";
-                $compileCmd = "gcc testing/pruebaC.c -o testing/prueba 2>&1";
-
-                exec($compileCmd,$output);
-
-                dd($output,$extension);
-                break;
-            case 'c++':
-                $extension = 'cpp';
-                break;
-            case 'java':
-                $extension = 'class';
-                break;
-            case 'python':
-                $problem = Problem::find(9);
-                //dd($problem->toArray());
-                $extension='py';
-
-                $results = Tools::evaluateCodeSolution($problem, $fileCode, $extension);
-
-                break;
-
-        }
-
+        $extension      = EvaluateCodeTool::getExtentionByLanguage($language);
+        $results        = EvaluateCodeTool::evaluateCodeSolution($problem, $fileCode, $extension);
 
         if ($results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo
             $codeSolution = CodeSolution::create([
-                'language'      => $request->language,
+                'language'      => $language,
                 'path'          => '', //path donde esta el codigo fuente
                 'limitTime'     => $results['timeExecution'],//tiempo de ejecucion del codigo
-                'limitMemory'   => $results['memUsed'],
+                'limitMemory'   => $results['memUsed'], //memoria usada por el codigo
 
             ]);
 
@@ -105,11 +78,10 @@ class SolutionsController extends Controller
                 'problem_id'        => $idProblem
             ]);
 
-
-
-            $path ='uploads/'.$idProblem.'/'.$solution->id.'/';
+            $path ='uploads/'.$idProblem.'/solutions/'.$solution->id.'/';
             $pathImages = $path.'images/'; //path donde guardare imagenes
             $pathCode   = $path.'code/'; //path donde guardaré el código
+            $pathAudioFile   = $path.'audio/'; //path donde guardaré audio
 
             CodeSolution::where('id', '=', $codeSolution->id)->update(array('path' => $pathCode.$nameFileCode));
 
@@ -119,24 +91,60 @@ class SolutionsController extends Controller
                 mkdir($path,0,true);
                 chmod($path,0755);
             }
-
+            //guardando Código
             if ($fileCode->getClientOriginalExtension() == $extension)
             {
                 $fileCode->move($pathCode,$nameFileCode);
             }
+            //guardando audio
+            if ($audioFile->getClientOriginalExtension() == "mp3")
+            {
+                $fileAudio = Files::create([
+                    'name' => $nameAudioFile,
+                    'path' => $pathAudioFile.$nameAudioFile,
+                    'type'=>'notaVoz',
+                    'solution_id'=>$solution->id,
+                ]);
 
-
+                $fileAudio->save();
+                $audioFile->move($pathAudioFile,$nameAudioFile);
+            }
+            //guardando imagenes
             foreach ($images as $image)
             {
-
                 $nameImage = $image->getClientOriginalName();
+                $fileImage = Files::create([
+                    'name' => $nameImage,
+                    'path' => $pathImages.$nameImage,
+                    'type'=>'imagenApoyo',
+                    'solution_id'=>$solution->id,
+                ]);
+                $fileImage->save();
                 $image->move($pathImages,$nameImage);
-
             }
+
+            Link::create([
+                'link' => $request->youtube,
+                'type' => 'youTube',
+                'solution_id'=>$solution->id
+            ]);
+            Link::create([
+                'link' => $request->repositorio,
+                'type' => 'Github',
+                'solution_id'=>$solution->id
+            ]);
+            Link::create([
+                'link' => $request->web,
+                'type' => 'Facebook',
+                'solution_id'=>$solution->id
+            ]);
+
+
+
             Session::flash('message', 'Si paso todo bien');
             return redirect()->route('solution.getFormSolution');
 
-        }//if timeStatus and memStatus
+        }//end if de timeStatus and memStatus
         else
         {
             return redirect()->route('solution.getFormSolution');
@@ -145,7 +153,32 @@ class SolutionsController extends Controller
 
     }
 
+    public function partialSolutions()
+    {
+        $idProblem = 10;
+        $problem = Problem::find($idProblem);
+        $solutions = $problem->solutionsPreview();
+        return view('solver.previewsSolution',compact('solutions'));
 
+    }
+
+    public function showSolution($idSolution)
+    {
+        //dd($id);
+        $solution = Solution::findOrFail($idSolution);
+//        dd($solution->toArray());
+        $images = Files::where('solution_id',$solution->id)->where('type','imagenApoyo')->get();
+        $audio = Files::where('solution_id',$solution->id)->where('type','notaVoz')->get();
+        $solutionComplete = $solution->solutionComplete();
+//        dd($solutionComplete);
+        $links = Link::all()->where('solution_id',intval($idSolution));
+//   dd($idSolution,$links->toArray());
+        $code = file_get_contents($solutionComplete->path);
+
+        $code=htmlspecialchars("\n".$code);
+        //dd($files->toArray());
+        return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution'));
+    }
 
 
 

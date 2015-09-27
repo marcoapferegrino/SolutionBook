@@ -4,8 +4,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Files extends Entity {
 
-	//
-	public function notice(){
+	protected $fillable = ['name','path','description','type','solution_id','problem_id','notice_id'];
+
+    public function notice(){
     	return $this->belongsTo(Notice::getClass());
     }
     public function solution(){

@@ -8,22 +8,26 @@
 
 namespace App\Entities;
 
-
  use Illuminate\Support\Facades\Session;
 
- class Tools extends Entity
+ class EvaluateCodeTool
 {
 
      public static $results = array();
 
      /**
       * @param $problem Problem
-      * @param $fileCode File
+      * @param $fileCode
       * @param String $extension
       * @return array timeExecution, $timeStatus
       */
+     /*
+      * Revisar cuando código esta mal
+      * Revisar cuando Los tiempos y memoria de problema son libres
+      * */
      static function evaluateCodeSolution($problem,$fileCode,$extension)
     {
+//        dd("Entre aqui en evaluateCodeSolution");
         switch($extension) {
             case 'c':
 
@@ -57,7 +61,8 @@ namespace App\Entities;
      private static function evaluateTimeAndMemory($timeCodeTimestamp,$timeProblemP,$memUsed,$memProblem)
      {
          $timeProblem = strtotime($timeProblemP);
-         if ($timeCodeTimestamp <= $timeProblem)
+
+         if ($timeProblemP == "00:00:00" || $timeCodeTimestamp <= $timeProblem )
          {
              self::$results['timeStatus'] = true;
          }
@@ -69,7 +74,7 @@ namespace App\Entities;
              //return redirect()->route('solution.getFormSolution');
          }
 
-         if($memUsed <= $memProblem)
+         if($memUsed <= $memProblem ||$memProblem == 0)
          {
              self::$results['memStatus'] = true;
          }
@@ -99,6 +104,27 @@ namespace App\Entities;
          $unit=array('b','kb','mb','gb','tb','pb');
          return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
      }
+
+     public static function getExtentionByLanguage($language)
+    {
+        $extension ="";
+        switch($language)
+        {
+            case 'c':
+                $extension='c';
+                break;
+            case 'c++':
+                $extension = 'cpp';
+                break;
+            case 'java':
+                $extension = 'class';
+                break;
+            case 'python':
+                $extension='py';
+                break;
+        }
+        return $extension;
+    }
 
 
 

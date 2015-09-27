@@ -16,7 +16,11 @@ class LikesController extends Controller
 
         $solution = Solution::findOrFail($id);
         $solution->numLikes+=1;
-        $solution->dislikes-=1;
+        $numDislikes = $solution->dislikes;
+        if($numDislikes!=0)
+        {
+            $solution->dislikes-=1;
+        }
         $solution->save();
 
         $user = auth()->user();

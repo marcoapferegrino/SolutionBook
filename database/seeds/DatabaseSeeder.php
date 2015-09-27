@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder {
             'solution_user',
             'files',
             'links',
-            'notices'
+            'notices',
+            'judges_lists',
+            'tags'
 
 
         ));
@@ -32,8 +34,8 @@ class DatabaseSeeder extends Seeder {
 
 
         $this->call('UsersSeeder');
-        //$this->call('JudgesSeeder');
-        //$this->call('TagsSeeder');
+        $this->call('JudgesListSeeder');
+        $this->call('TagsSeeder');
         $this->call('CodeSolutionSeeder');
         $this->call('ProblemsSeeder');
         $this->call('SolutionsSeeder');

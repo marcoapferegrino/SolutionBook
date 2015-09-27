@@ -8,10 +8,8 @@
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
 use App\Entities\Tag;
-<<<<<<< HEAD
 use App\Entities\Problem;
-=======
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
+
 class TagsSeeder  extends Seeder {
 
 
@@ -19,10 +17,9 @@ class TagsSeeder  extends Seeder {
     {
         $faker = Faker::create();
 
-<<<<<<< HEAD
+
         $problems = Problem::all();
-=======
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
+
         for($i=0;$i<10;$i++)
         {
 
@@ -33,7 +30,7 @@ class TagsSeeder  extends Seeder {
             ]);
         }
 
-<<<<<<< HEAD
+
         $tagsAll= Tag::all();
         foreach ($tagsAll as $tag){
 
@@ -47,22 +44,7 @@ class TagsSeeder  extends Seeder {
 
         }
 
-        /*
-        $tagsAll= Tag::all();
-        foreach ($problems as $problem){
 
-            for($j=1;$j<rand(1,5);$j++){
-
-                $tag=Tag::find($j);
-                $problem->tags()->save($tag);
-            }
-
-        }
-        */
-
-
-=======
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
 
 
     }

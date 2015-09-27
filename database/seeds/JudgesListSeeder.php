@@ -21,7 +21,7 @@ class JudgesListSeeder extends Seeder {
 
                 'name'=> $faker->text(),
                 'addressWeb' =>$faker->url,
-                'contact' =>$faker->name,
+//                'contact' =>$faker->name,
                 'facebook' =>$faker->name,
                 'twitter' =>"@". $faker->name,
                 'image' =>"A/directory/image.jpg",

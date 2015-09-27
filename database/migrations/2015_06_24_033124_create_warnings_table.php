@@ -16,11 +16,7 @@ class CreateWarningsTable extends Migration {
 		{
 			$table->increments('id');
 
-<<<<<<< HEAD
             $table->string('description');
-=======
-     $table->string('description');
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
             $table->enum('reason',['copiedCode','notWorking','contentInapropiate']);
             $table->enum('state',['process','expired']);
             $table->integer('hoursToAttend');
@@ -37,11 +33,9 @@ class CreateWarningsTable extends Migration {
             $table->integer('link_id')->unsigned();
             $table->foreign('link_id')->references('id')->on('links')->onDelete('cascade');
 
-<<<<<<< HEAD
             $table->timestamps();
-=======
-			$table->timestamps();
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
+
+
 		});
 	}
 

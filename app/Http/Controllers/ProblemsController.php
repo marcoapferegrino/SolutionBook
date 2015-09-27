@@ -52,7 +52,7 @@ class ProblemsController extends Controller
     {
         //
         $result = \DB::table('judges_lists')->get();
- $judgeList=array("");
+        $judgeList=array("");
         foreach ($result as $r) {
             array_push($judgeList,$r->id);
         }
@@ -76,23 +76,27 @@ class ProblemsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function showProblem()
+    public function showProblem(/*$idProblem*/)
     {
         //
-        $dataProblem=Problem::find(7);
+        $dataProblem=Problem::find(10);
         //dd($dataProblem);
-        $files=Problem::find(7)->files;
-       // $files=Problem::find(7)->judgeList;
-        //$files=Problem::find(7)->tags;
+        $files=Problem::find(10)->files;
+       // $files=Problem::find(10)->judgeList;
+        //$files=Problem::find(10)->tags;
 
-        $warnings=Problem::find(7)->warnings;
+//        $warnings=Problem::find(10)->warnings;
 
-        $links=Problem::find(8)->links;
+        $links=Problem::find(10)->links;
 
-        $solutions=Problem::find(7)->solutions;
+//      $solutions=Problem::find(10)->solutions;
+
+        $problem = Problem::find(/*idProblem*/10);
+        $solutions = $problem->solutionsPreview();
+
         //dd($files);
         //dd($solutions);
-        return view('problem/verProblema',compact('dataProblem','files','warnings','links','solutions'));
+        return view('problem/verProblema',compact('dataProblem','files','links','solutions'));
     }
 
     /**

@@ -28,7 +28,7 @@ class LinksSeeder extends Seeder {
             {
                 Link::create([
                     'link' =>$faker->url,
-                    'type' =>$faker->randomElement(['youTube','Github','Facebook','Twitter','juezOnline','amonestacion']),
+                    'type' =>$faker->randomElement(['YouTube','Github','BitBucket','Facebook','Twitter','JuezOnline','Amonestación']),
 
                     'solution_id'=> $faker->randomElement($idsSolutions),
                 ]);
@@ -36,7 +36,7 @@ class LinksSeeder extends Seeder {
             else{
                 Link::create([
                     'link' =>$faker->url,
-                    'type' =>$faker->randomElement(['youTube','Github','Facebook','Twitter','juezOnline','amonestacion']),
+                    'type' =>$faker->randomElement(['YouTube','Github','BitBucket','Facebook','Twitter','JuezOnline','Amonestación']),
 
                     'problem_id'=> $faker->randomElement($idsProblems),
                 ]);

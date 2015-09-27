@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * Class CreateproblemTags
  */
-class CreateProblemTags extends Migration {
+class CreateProblemTagsTable extends Migration {
 
 	/**
 	 * Run the migrations.

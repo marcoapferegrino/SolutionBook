@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\DB;
  */
 class Problem extends Entity {
 
-<<<<<<< HEAD
-	//
+
     protected $fillable = ['title', 'author', 'institution', 'description', 'numSolutions', 'limitTime', 'limitMemory', 'numWarnings', 'state', 'problemLink', 'user_id', 'judgeList_id'];
-=======
+
 	protected $table = 'problems';
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
+
 
     public function user(){
         return $this->belongsTo(User::getClass());

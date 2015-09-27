@@ -16,22 +16,14 @@ class CreateJudgesListsTable extends Migration {
 		{
 			$table->increments('id');
 
-<<<<<<< HEAD
+
             $table->string('name',45);
             $table->string('addressWeb',30);
-            $table->string('contact',45);
+//            $table->string('contact',45);
             $table->string('facebook');
             $table->string('twitter');
             $table->string('image');
 
-=======
-			 $table->string('name',45);
-			    $table->string('addressWeb',30);
-			    $table->string('contact',45);
-			    $table->string('facebook');
-			    $table->string('twitter');
-			    $table->string('image');
->>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
 			$table->timestamps();
 		});
 	}

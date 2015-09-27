@@ -103,9 +103,17 @@ Route::group(['middleware' => 'auth'],function(){
         });
     Route::group(['middleware' => 'role:problem'],function() {
 
-        Route::post('/addProblem', [
+       Route::post('/addProblem', [
             'as' => 'problem.addProblem',
             'uses' => 'ProblemsController@addProblem'
+        ]);
+        Route::get('/allProblems', [
+            'as' => 'problem.allProblems',
+            'uses' => 'ProblemsController@allProblems'
+        ]);
+        Route::get('/addFormProblem', [
+            'as' => 'problem.addFormProblem',
+            'uses' => 'ProblemsController@addFormProblem'
         ]);
 
         Route::delete('/deleteProblem/{$id}', [

@@ -1,6 +1,7 @@
 <?php namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Entities;
 
 class Warning extends Entity {
 
@@ -30,5 +31,9 @@ class Warning extends Entity {
 
         return $this->hasMany(Link::getClass());
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86fba373a95e3e2c0b7d62449c7c986059013178
 
 }

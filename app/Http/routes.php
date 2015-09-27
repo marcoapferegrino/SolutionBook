@@ -20,6 +20,28 @@ Route::get('homeSolver', 'HomeController@indexSolver');
 Route::get('homeAdmin', 'HomeController@indexAdmin');
 
 
+Route::get('/testCompare',function(){
+    $outputProblem = file_get_contents(public_path('output.txt'));
+
+
+    exec("/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ".public_path('python.py')." 2>&1",$output);
+    unset($output[count($output)-1]);
+    unset($output[count($output)-1]);
+    $output = implode("\n",$output);
+
+
+    $bool = strcmp($outputProblem,$output);
+    dd($outputProblem,$output,$bool);
+
+    if($bool==0){
+        dd('soy igual');
+
+    }
+    else{
+        dd('no soy igual :(');
+    }
+});
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -145,6 +167,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'SolutionsController@getFormSolution'
         ]);
 
+        Route::get('/partialSolutions', [ //muestra formulario para agregar solucion
+            'as' => 'solution.partialsSolutions',
+            'uses' => 'SolutionsController@partialSolutions'
+        ]);
+
         Route::delete('/deleteSolution/{$id}', [
             'as' => 'solution.deleteSolution',
             'uses' => 'SolutionsController@deleteSolution'
@@ -158,18 +185,9 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'solution.mySolutions',
             'uses' => 'SolutionsController@mySolutions'
         ]);
-        Route::get('/showSolution', [ //para guest
+        Route::get('/showSolution/{id}', [ //para guest
             'as' => 'solution.showSolution',
             'uses' => 'SolutionsController@showSolution'
-        ]);
-        Route::post('/addlike', [
-            'as' => 'likes.addLike',
-            'uses' => 'LikesController@addLike'
-        ]);
-
-        Route::post('/dislike', [
-            'as' => 'likes.disLike',
-            'uses' => 'LikesController@disLike'
         ]);
 
         Route::post('/suspendAccount', [
@@ -177,7 +195,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'UsersController@suspendAccount'
         ]);
 
-        Route::post('/addWarning/{$type}', [ //si es 1 es problema si es 0 es solución
+        Route::post('/addWarning/{type}', [ //si es 1 es problema si es 0 es solución
             'as' => 'warning.addWarning',
             'uses' => 'WarningsController@addWarning'
         ]);
@@ -186,7 +204,15 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'warning.myWarnings',
             'uses' => 'WarningsController@myWarnings'
         ]);
+        Route::post('/addlike/{id}', [
+            'as' => 'likes.addLike',
+            'uses' => 'LikesController@addLike'
+        ]);
 
+        Route::delete('/dislike/{id}', [
+            'as' => 'likes.disLike',
+            'uses' => 'LikesController@disLike'
+        ]);
 
         });
 

@@ -3844,6 +3844,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
+    font-size: 140%; /* */
+    font-weight: bold;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
@@ -4097,18 +4099,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
+    margin-right: 0; /* -15 px*/
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
+  background-color: #95c4f9;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777777;
+  color: #f8f8f8;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4116,10 +4118,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777777;
+  color: #f8f8f8;
+
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777777;
+  color: #f8f8f8;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -6231,3 +6234,4 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+

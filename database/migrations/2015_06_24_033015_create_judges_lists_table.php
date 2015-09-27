@@ -15,6 +15,14 @@ class CreateJudgesListsTable extends Migration {
 		Schema::create('judges_lists', function(Blueprint $table)
 		{
 			$table->increments('id');
+
+            $table->string('name',45);
+            $table->string('addressWeb',30);
+            $table->string('contact',45);
+            $table->string('facebook');
+            $table->string('twitter');
+            $table->string('image');
+
 			$table->timestamps();
 		});
 	}

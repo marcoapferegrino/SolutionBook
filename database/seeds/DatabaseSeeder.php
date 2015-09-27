@@ -32,8 +32,8 @@ class DatabaseSeeder extends Seeder {
 
 
         $this->call('UsersSeeder');
-        //$this->call('JudgesSeeder');
-        //$this->call('TagsSeeder');
+        $this->call('JudgesSeeder');
+        $this->call('TagsSeeder');
         $this->call('CodeSolutionSeeder');
         $this->call('ProblemsSeeder');
         $this->call('SolutionsSeeder');

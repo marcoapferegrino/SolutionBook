@@ -15,6 +15,10 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('homeProblemSetter', 'HomeController@indexProblem');
+Route::get('homeSolver', 'HomeController@indexSolver');
+Route::get('homeAdmin', 'HomeController@indexAdmin');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

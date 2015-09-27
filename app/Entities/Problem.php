@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Problem extends Entity {
 
 	//
+    protected $fillable = ['title', 'author', 'institution', 'description', 'numSolutions', 'limitTime', 'limitMemory', 'numWarnings', 'state', 'problemLink', 'user_id', 'judgeList_id'];
 
     public function user(){
         return $this->belongsTo(User::getClass());
@@ -19,6 +20,7 @@ class Problem extends Entity {
     public function tags()
     {
         return $this->hasMany(Tag::getClass());
+
     }
 
     public function warnings(){

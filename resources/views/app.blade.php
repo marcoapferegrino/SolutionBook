@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>Solution Book</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	@yield('styles')
@@ -22,6 +22,10 @@
 
 </head>
 <body>
+<div class="page-header" >
+    <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i> &nbsp;&nbsp;</h3>
+
+</div>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -31,7 +35,6 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Home</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -53,25 +56,36 @@
 						@if(Auth::getRol()=="super")
 							<li><a href="">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
 							<li><a href="">Noticias <i class="fa fa-newspaper-o"></i></a></li>
-							<li><a href="">Jueces <i class="fa fa-graduation-cap"></i></a></li>
+                            <li><a href="">Jueces <i class="fa fa-graduation-cap"></i></a></li>
+
+                            <li><a href="">Lista usuarios <i class="fa fa-group"></i></a></li>
+                            <li><a href="">Catálogo de problemas<i class="fa fa-list"></i></a></li>
+
 
 						@elseif(Auth::getRol()=="problem")
 							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
-							<li><a href="">Mis problemas</a></li>
+							<li><a href="">Mis problemas <i class="fa fa-list-ol"></i></a></li>
 							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
+
+                            <li><a href="">Catálogo de problemas<i class="fa fa-list"></i></a></li>
 						@elseif(Auth::getRol()=="solver")
 
 							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
 
+                            <li><a href="">Catálogo de problemas<i class="fa fa-sign-in"></i></a></li>
+
 
 						@endif
-					@endif
+
+
+                    @endif
+
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (!Auth::guest())
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell-o fa-2x"></i> <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell-o "></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="">1</a></li>
 								<li><a href="">2</a></li>
@@ -82,12 +96,11 @@
 					@endif
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
-						<li><a href="{{ url('/auth/register') }}">Register</a></li>
+                            <li><a href="">Registrarse<i class="fa fa-list"></i></a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="">Mi perfil</a></li>
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 								<li><a href="">Configuración</a></li>
 							</ul>
@@ -98,7 +111,17 @@
 		</div>
 	</nav>
 
+
+
 	@yield('content')
+
+<div class="row" >
+
+    <div class="col-md-13 navbar-fixed-bottom" >
+        <div class="panel-footer "  style="background-color: #333333;" > <div class="text-center" style="color: #f7f7f7;font-weight: bold;">Solution Book, No es otro tonto TT más ® 2015 </div> </div>
+    </div>
+</div>
+
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

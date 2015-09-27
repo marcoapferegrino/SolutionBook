@@ -29,7 +29,7 @@ class ProblemsSeeder extends Seeder {
         {
 
             Problem::create([
-                'title'=>$faker->catchPhrase,
+                'title'=>$faker->text,
                 'author'=>$faker->name,
                 'institution'=> $faker->company,
                 'description'=> $faker->text,
@@ -39,6 +39,7 @@ class ProblemsSeeder extends Seeder {
                 'numWarnings' => 0,
                 'state' => $faker->randomElement(['active','suspended','blocked','deleted']),
                 'problemLink'=> 'SERVER\url\data\problem\id' .$faker->numberBetween(0,1000000), //  SERVER\url\data\problem\id1244356
+
 
                 'user_id' => $faker->randomElement($ids),
 

@@ -14,7 +14,7 @@ class CreateSolutionUserTable extends Migration {
 	 */
 	public function up()
 	{
-        /*Esta es la tabla de likes , por convencion de laravel se cambio el nombre para hacer el pivote */
+        /*Esta asi le dej para o perder eles la tabla de likes , por convencion de laravel se cambio el nombre para hacer el pivote */
 		Schema::create('solution_user', function(Blueprint $table)
 		{
 			$table->increments('id');

@@ -116,11 +116,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@addFormProblem'
         ]);
 
-        Route::delete('/deleteProblem/{$id}', [
+        Route::delete('/deleteProblem/{id}', [
             'as' => 'problem.deleteProblem',
             'uses' => 'ProblemsController@deleteProblem'
         ]);
-        Route::post('/updateProblem/{$id}', [
+        Route::post('/updateProblem/{id}', [
             'as' => 'problem.updateProblem',
             'uses' => 'ProblemsController@updateProblem'
         ]);
@@ -129,7 +129,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.myProblems',
             'uses' => 'ProblemsController@myProblems'
         ]);
-        Route::get('/showProblem', [ //para guest
+        Route::get('/showProblem/{id}', [ //para guest
             'as' => 'problem.showProblem',
             'uses' => 'ProblemsController@showProblem'
         ]);

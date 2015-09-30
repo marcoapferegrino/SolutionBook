@@ -36,17 +36,11 @@ class ProblemsController extends Controller
     public function allProblems()
     {
         //->groupBy('problems.id')
-        $result= \DB::table('problems as problems')->leftjoin('files','problems.id','=','files.problem_id')
-            ->select('problems.id as pid ','files.id as fid','path','name','limitTime','title','problems.description as description','numWarnings')
-            ->groupBy('problems.id')->paginate(3);
-        foreach ($result as $key => $r) {
-            # code...
-            if (is_null($r->fid)) {
-                # code...
-                $r->path="default/1.png";
-            }
-        }
-        return view('problem/problemas',compact('result'));
+        $result= \DB::table('problems')
+            ->select('problems.id as pid ','limitTime','title','problems.description as description','numWarnings')
+            ->paginate(9);
+
+        return view('problem/allProblems',compact('result'));
     }
     public function addFormProblem()
     {
@@ -68,6 +62,7 @@ class ProblemsController extends Controller
     public function deleteProblem($id)
     {
         //
+        return "En desarrollo";
     }
 
     /**
@@ -76,27 +71,27 @@ class ProblemsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function showProblem(/*$idProblem*/)
+    public function showProblem($idProblem)
     {
         //
-        $dataProblem=Problem::find(10);
+        $dataProblem=Problem::find($idProblem);
         //dd($dataProblem);
-        $files=Problem::find(10)->files;
-       // $files=Problem::find(10)->judgeList;
-        //$files=Problem::find(10)->tags;
+        $files=Problem::find($idProblem)->files;
+       // $files=Problem::find($idProblem)->judgeList;
+        //$files=Problem::find($idProblem)->tags;
 
-//        $warnings=Problem::find(10)->warnings;
+//        $warnings=Problem::find($idProblem)->warnings;
 
-        $links=Problem::find(10)->links;
+        $links=Problem::find($idProblem)->links;
 
 //      $solutions=Problem::find(10)->solutions;
 
-        $problem = Problem::find(/*idProblem*/10);
+        $problem = Problem::find($idProblem);
         $solutions = $problem->solutionsPreview();
 
         //dd($files);
         //dd($solutions);
-        return view('problem/verProblema',compact('dataProblem','files','links','solutions'));
+        return view('problem/showProblem',compact('dataProblem','files','links','solutions'));
     }
 
     /**
@@ -108,6 +103,7 @@ class ProblemsController extends Controller
     public function edit($id)
     {
         //
+        return "En desarrollo";
     }
 
     /**
@@ -119,6 +115,7 @@ class ProblemsController extends Controller
     public function updateProblem($id)
     {
         //
+        return "En desarrollo";
     }
 
     /**
@@ -133,6 +130,6 @@ class ProblemsController extends Controller
         $idUser= auth()->user()->getAuthIdentifier();
         $result= \DB::table('problems')->where('problems.user_id','=',$idUser)->paginate(9);
 
-        return view('problem/misProblemas',compact('result'));
+        return view('problem/myProblems',compact('result'));
     }
 }

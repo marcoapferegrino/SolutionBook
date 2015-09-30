@@ -3,23 +3,28 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1" >
+
                     @if($result->total()==0)
                         <h3>No tienes Problemas</h3>
                     @else
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         @foreach($result as $i=>$r)
-
                             <div class="panel-success">
                                 <div class="panel-heading ">
                                     <h3 class="panel-title">
-                                        <a class="panel-title col-md-10" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{$r->id}}" aria-expanded="false" >
+                                        @if($i==0) 
+                                <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="true" aria-controls="p{{$r->id}}">
+                                        @else 
+                                <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="false" aria-controls="p{{$r->id}}">
+                                        @endif
                                         
                                             <b class="col-xs-1">{{$r->id}}</b> {{$r->title}}
                                         </a></h3> 
-                                    <a class="btn btn-default btn-warning btn-sm" href="/showProblem" role="button">
+                                    <a class="btn btn-default btn-warning btn-sm" href="{{route('problem.showProblem',$r->id)}}" role="button">
                                         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
                                     </a>
-                                    <a href="/updateProblem/{{$r->id}}" role="button" class="btn btn-info btn-sm">
+                                    <a href="{{route('problem.updateProblem',$r->id)}}" role="button" class="btn btn-info btn-sm">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
                                     </a>
                                     <a data-toggle="modal" data-target="#eliminar" data-whatever="{{$r->id}}" role="button" class="btn btn-danger btn-sm">
@@ -27,9 +32,9 @@
                                     </a>
                                 </div>
                                 @if($i==0) 
-                                <div id="{{$r->id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="p{{$r->id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{$r->id}}">
                                 @else 
-                                <div id="{{$r->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="p{{$r->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$r->id}}">
                                 @endif
                                     <div class="panel-body" > 
                                         <table class="table table-hover info">
@@ -66,8 +71,9 @@
                             </div>
 
                         @endforeach
+                            </div>
                     @endif
-                                <a class="btn btn-default btn-success pull-right" href="/addFormProblem" role="button">
+                                <a class="btn btn-default btn-success pull-right" href="{{route('problem.addFormProblem')}}" role="button">
                                     Nuevo
                                 </a>
                

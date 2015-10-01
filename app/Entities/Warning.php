@@ -1,7 +1,7 @@
-<?php namespace App\Entities;
+<?php namespace SolutionBook\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Entities;
+use SolutionBook\Entities;
 
 class Warning extends Entity
 {

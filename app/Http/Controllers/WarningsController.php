@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use SolutionBook\Http\Requests;
+use SolutionBook\Http\Controllers\Controller;
 
 class WarningsController extends Controller
 {

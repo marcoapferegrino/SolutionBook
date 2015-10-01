@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SolutionBook\Http\Controllers;
 
-use App\Entities\Solution;
+use SolutionBook\Entities\Solution;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use SolutionBook\Http\Requests;
+use SolutionBook\Http\Controllers\Controller;
 
 class LikesController extends Controller
 {

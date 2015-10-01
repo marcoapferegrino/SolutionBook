@@ -6,7 +6,7 @@
  * Time: 11:46
  */
 
-namespace App\Entities;
+namespace SolutionBook\Entities;
 
  use Illuminate\Support\Facades\Session;
 

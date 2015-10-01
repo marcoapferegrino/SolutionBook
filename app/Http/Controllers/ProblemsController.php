@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SolutionBook\Http\Controllers;
 
-use App\Entities\JudgesList;
+use SolutionBook\Entities\JudgesList;
 use Illuminate\Http\Request;
-use App\Entities\Problem;
+use SolutionBook\Entities\Problem;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use SolutionBook\Http\Requests;
+use SolutionBook\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class ProblemsController extends Controller

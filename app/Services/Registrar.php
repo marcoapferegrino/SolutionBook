@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace SolutionBook\Services;
 
-use App\User;
+use SolutionBook\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

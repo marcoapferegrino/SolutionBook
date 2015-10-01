@@ -1,4 +1,4 @@
-<?php namespace App\Entities;
+<?php namespace SolutionBook\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Class Problem
- * @package App\Entities
+ * @package SolutionBook\Entities
  */
 class Problem extends Entity {
 

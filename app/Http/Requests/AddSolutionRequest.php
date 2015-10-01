@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace SolutionBook\Http\Requests;
 
-use App\Http\Requests\Request;
+use SolutionBook\Http\Requests\Request;
 
 class AddSolutionRequest extends Request
 {

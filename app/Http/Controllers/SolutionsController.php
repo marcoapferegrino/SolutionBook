@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SolutionBook\Http\Controllers;
 
-use App\Entities\CodeSolution;
-use App\Entities\Files;
-use App\Entities\Link;
-use App\Entities\Problem;
-use App\Entities\Solution;
-use App\Entities\EvaluateCodeTool;
+use SolutionBook\Entities\CodeSolution;
+use SolutionBook\Entities\Files;
+use SolutionBook\Entities\Link;
+use SolutionBook\Entities\Problem;
+use SolutionBook\Entities\Solution;
+use SolutionBook\Entities\EvaluateCodeTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\AddSolutionRequest;
+use SolutionBook\Http\Requests\AddSolutionRequest;
 
-use App\Http\Requests;
+use SolutionBook\Http\Requests;
 
 
 class SolutionsController extends Controller

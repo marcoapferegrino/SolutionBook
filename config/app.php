@@ -136,17 +136,17 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
         'Illuminate\Broadcasting\BroadcastServiceProvider',
-		'Collective\Html\HtmlServiceProvider',
-
+//		'Collective\Html\HtmlServiceProvider',
+		'SolutionBook\Providers\HtmlServiceProvider',
         'Laravel\Socialite\SocialiteServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'SolutionBook\Providers\AppServiceProvider',
+		'SolutionBook\Providers\BusServiceProvider',
+		'SolutionBook\Providers\ConfigServiceProvider',
+		'SolutionBook\Providers\EventServiceProvider',
+		'SolutionBook\Providers\RouteServiceProvider',
 
 
 	],

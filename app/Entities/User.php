@@ -1,4 +1,4 @@
-<?php namespace App\Entities;
+<?php namespace SolutionBook\Entities;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
  * Class User
- * @package App\Entities
+ * @package SolutionBook\Entities
  */
 class User extends Entity implements AuthenticatableContract, CanResetPasswordContract {
 

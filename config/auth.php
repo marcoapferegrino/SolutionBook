@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'App\Entities\User',
+	'model' => 'SolutionBook\Entities\User',
 
 	/*
 	|--------------------------------------------------------------------------

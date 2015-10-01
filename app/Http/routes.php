@@ -23,7 +23,6 @@ Route::get('homeAdmin', 'HomeController@indexAdmin');
 Route::get('/testCompare',function(){
     $outputProblem = file_get_contents(public_path('output.txt'));
 
-
     exec("/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ".public_path('python.py')." 2>&1",$output);
     unset($output[count($output)-1]);
     unset($output[count($output)-1]);

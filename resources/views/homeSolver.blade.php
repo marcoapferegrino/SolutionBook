@@ -112,15 +112,12 @@
                     </ul>
                 </div>
 
-
-
-
                 </tbody>
-
 
             </table>
 
 
         </div>
+    </div>
 @endsection
 

@@ -14,13 +14,14 @@
                                 <div class="panel-heading ">
                                     <h3 class="panel-title">
                                         @if($i==0) 
-                                <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="true" aria-controls="p{{$r->id}}">
+                                        <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="true" aria-controls="p{{$r->id}}">
                                         @else 
-                                <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="false" aria-controls="p{{$r->id}}">
+                                        <a class="panel-title col-md-10 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#p{{$r->id}}" aria-expanded="false" aria-controls="p{{$r->id}}">
                                         @endif
                                         
                                             <b class="col-xs-1">{{$r->id}}</b> {{$r->title}}
-                                        </a></h3> 
+                                        </a>
+                                    </h3>
                                     <a class="btn btn-default btn-warning btn-sm" href="{{route('problem.showProblem',$r->id)}}" role="button">
                                         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
                                     </a>
@@ -80,6 +81,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 <div class="modal fade" id="eliminar">

@@ -52,7 +52,10 @@
 								<a class="btn btn-link" href="{{ url('/password/email') }}">¿Olvidaste tu contraseña?</a>
 							</div>
 						</div>
+
+                        @include('auth.loginSocial')
 					</form>
+
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\User;
+use SolutionBook\Entities\User;
 
 
 class UsersSeeder extends Seeder{

@@ -7,7 +7,7 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\CodeSolution;
+use SolutionBook\Entities\CodeSolution;
 class CodeSolutionSeeder extends Seeder {
 
     public function run()

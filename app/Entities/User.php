@@ -27,7 +27,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['username', 'email', 'password','rol','ranking','avatar','state','numWarnings','institution','userProblem_id','remember_token'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

@@ -4,13 +4,13 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\Notice;
+use SolutionBook\Entities\Notice;
 class NoticesSeeder extends Seeder {
 
     public function run()
     {
         $faker = Faker::create();
-        $users = \App\Entities\User::all();
+        $users = \SolutionBook\Entities\User::all();
         $ids=array();
 
         foreach ($users as $user) {

@@ -7,7 +7,7 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\JudgesList;
+use SolutionBook\Entities\JudgesList;
 class JudgesListSeeder extends Seeder {
 
     public function run()

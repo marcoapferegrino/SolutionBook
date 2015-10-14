@@ -6,7 +6,7 @@
  * Time: 11:17
  */
 use \Illuminate\Database\Seeder;
-use \App\Entities\Solution;
+use \SolutionBook\Entities\Solution;
 use Faker\Factory as Faker;
 class SolutionsSeeder extends Seeder {
 
@@ -14,9 +14,9 @@ class SolutionsSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        $problems = \App\Entities\Problem::all();
-        $codeSolutions = \App\Entities\CodeSolution::all();
-        $users = \App\Entities\User::all();
+        $problems = \SolutionBook\Entities\Problem::all();
+        $codeSolutions = \SolutionBook\Entities\CodeSolution::all();
+        $users = \SolutionBook\Entities\User::all();
 
         $idsUsers=array();
         $idsProblems=array();

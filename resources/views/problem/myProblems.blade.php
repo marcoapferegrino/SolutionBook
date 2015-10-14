@@ -56,7 +56,7 @@
                                                     {{$r->description}}
                                                 </td>
                                                 <td>
-                                                    Tiempo: {{$r->limitTime}} Memoria: {{$r->limitMemory}}
+                                                    Tiempo: {{$r->limitTime}} segundos <br> Memoria: {{$r->limitMemory}} bytes
                                                 </td>
                                                 <td>
                                                     {{$r->numSolutions}}
@@ -97,7 +97,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-   {!!$result->render()!!}
+ <center> {!!$result->render()!!}</center>
 @endsection
 @section('scripts')
 <script type="text/javascript">

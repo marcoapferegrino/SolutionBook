@@ -7,7 +7,7 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\Warning;
+use SolutionBook\Entities\Warning;
 class WarningsSeeder extends Seeder {
     public function run()
     {

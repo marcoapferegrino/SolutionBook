@@ -10,8 +10,8 @@
                     <div class="panel-body">
                         <div class="well well-sm  pull-right ">
                                     <b>No Soluciones: </b>{{$dataProblem->numSolutions}}<br>
-                                    <b>Límite de tiempo: </b>{{$dataProblem->limitTime}}<br>
-                                    <b>Límite de memoria: </b>{{$dataProblem->limitMemory}}<br>
+                                    <b>Límite de tiempo: </b>{{$dataProblem->limitTime}} segundos<br>
+                                    <b>Límite de memoria: </b>{{$dataProblem->limitMemory}} bytes<br>
                                     <table class="table table-hover">
 
                                         <tr><th>Jueces:</th></tr>
@@ -50,17 +50,18 @@
                             
                         <div class="row">
                             <div class="panel panel-success  col-sm-12  ">
-                            <div class=" col-sm-6">
-                                Entrada: <br>6
-                                <br>2
-                                <br>3
-                                <br>5
-                            </div>
-                            <div class=" col-sm-6">
-                                Salida:<br>2
-                                <br>3
-                                <br>6
-                            </div>
+                                @foreach($inputs as $in)
+                                    <div class=" col-sm-6">
+                                        Entradas: <br>
+                                        <pre>{{$in}}</pre>
+                                    </div>
+                                @endforeach
+                                    @foreach($outputs as $out)
+                                        <div class=" col-sm-6">
+                                            Salidas:<br>
+                                            <pre>{{$out}}</pre>
+                                        </div>
+                                    @endforeach
                             </div>
                         </div>
                         <div class=" row">
@@ -89,14 +90,14 @@
                             @foreach($files as $i=>$f)
                             @if($i==0)
                             <div class="item active">
-                              <img src="{{$f->path}}" alt="{{$f->name}}">
+                                <center><img width=600px height="550px" src="{{asset($f->path)}}" alt="{{$f->name}}"></center>
                               <div class="carousel-caption">
-                                ...
+                                {{$f->name}}
                               </div>
                             </div>
                             @else
                             <div class="item">
-                              <img src="{{$f->path}}" alt="{{$f->name}}">
+                              <center><img width=600px height="550px" src="{{asset($f->path)}}" alt="{{$f->name}}"></center>
                               <div class="carousel-caption">
                                 {{$f->name}}
                               </div>
@@ -128,6 +129,8 @@
                                 {{--<br>{{$s->id}} <b>{{$s->ranking}}</b>--}}
                         {{--@endforeach--}}
                         @include('solver.previewsSolution')
+
+                        @include('problem.disqus')
                     </div>
 
                 </div>

@@ -12,10 +12,10 @@
                             @if (($i+1)%3==0) <div class="row"> @endif
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="..." alt="...">
+                                        <img src="{{$avatar[$i]}}" alt="{{$avatar[$i]}}">
                                         <div class="caption">
                                             <h3>{{{$result[$i]->title}}}</h3>
-                                            <p>Límite de tiempo: {{{$result[$i]->limitTime}}}</p>
+                                            <p>Límite de tiempo: {{{$result[$i]->limitTime}}} segundos</p>
                                             <p><a href="{{route('problem.showProblem',$result[$i]->pid)}}" class="btn btn-primary" role="button">Ver</a>
                                                 <!-- <a href="#" class="btn btn-default" role="button">Button</a> --></p>
 

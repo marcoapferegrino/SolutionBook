@@ -48,7 +48,7 @@
 								Super
                                 </a>
 							@elseif(Auth::getRol()=="problem")
-                                <a class="navbar-brand" href="{{url('/homeProblem')}}">
+                                <a class="navbar-brand" href="{{url('/homeProblemSetter')}}">
                                     Problem Setter
                                 </a>
 							@elseif(Auth::getRol()=="solver")
@@ -83,15 +83,15 @@
 
 						@elseif(Auth::getRol()=="problem")
 							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
-							<li><a href="">Mis problemas <i class="fa fa-list-ol"></i></a></li>
+							<li><a href="{{url('/myProblems')}}">Mis problemas <i class="fa fa-list-ol"></i></a></li>
 							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
 
-                            <li><a href="">Catálogo de problemas <i class="fa fa-list"></i></a></li>
+                            <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-list"></i></a></li>
 						@elseif(Auth::getRol()=="solver")
 
 							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
 
-                            <li><a href="">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
+                            <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
 
 
 						@endif

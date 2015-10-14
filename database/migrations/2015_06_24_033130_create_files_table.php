@@ -18,7 +18,7 @@ class CreateFilesTable extends Migration {
 			$table->string('name', 45);
 			$table->string('path', 120);
 			$table->text('description')->nullable();
-            $table->enum('type',['imagenEjemplo','imagenApoyo','notaVoz','fileinput','fileOutput']);
+            $table->enum('type',['imagenEjemplo','imagenApoyo','notaVoz','fileinput','fileOutput','pdf','word']);
 
 
             $table->integer('solution_id')->unsigned()->nullable();

@@ -14,8 +14,13 @@
                                     <div class="thumbnail">
                                         <img src="{{$avatar[$i]}}" alt="{{$avatar[$i]}}">
                                         <div class="caption">
+<<<<<<< Updated upstream
                                             <h3>{{{$result[$i]->title}}}</h3>
                                             <p>Límite de tiempo: {{{$result[$i]->limitTime}}} segundos</p>
+=======
+                                            <h3>{{$result[$i]->title}}</h3>
+                                            <p>Límite de tiempo: {{$result[$i]->limitTime}}</p>
+>>>>>>> Stashed changes
                                             <p><a href="{{route('problem.showProblem',$result[$i]->pid)}}" class="btn btn-primary" role="button">Ver</a>
                                                 <!-- <a href="#" class="btn btn-default" role="button">Button</a> --></p>
 

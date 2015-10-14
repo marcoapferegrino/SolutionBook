@@ -8,7 +8,9 @@
             <div class="col-md-12 ">
 
                 <div class="panel panel-info">
-                    <div class="panel-heading">Agregar Solución para el problema {{$idProblem}} mi Id</div>
+                    <div class="panel-heading">
+                        <h3>Agregar Solución para el problema: #{{$idProblem}}</h3>
+                    </div>
 
                     <div class="panel-body">
                         @include('partials.messages')

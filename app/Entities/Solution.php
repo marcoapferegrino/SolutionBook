@@ -35,6 +35,8 @@ class Solution extends Entity {
         return $this->belongsTo(User::getClass());
     }
 
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Problem
      */

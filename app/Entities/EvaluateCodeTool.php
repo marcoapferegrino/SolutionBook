@@ -14,7 +14,11 @@ namespace SolutionBook\Entities;
 {
 
      public static $results = array();
+     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) '";
+     public static $redirectOutput = " 2>&1";
 
+     public static $pythonSentence  = "python ";
+     public static $cCompilationSentence="gcc";
      /**
       * @param $problem Problem
       * @param $fileCode
@@ -27,6 +31,24 @@ namespace SolutionBook\Entities;
       * */
      static function evaluateCodeSolution($problem,$fileCode,$extension)
     {
+
+        $inputFile = Files::where('problem_id',$problem->id)->where('type','fileinput');
+        $outputFile = Files::where('problem_id',$problem->id)->where('type','fileOutput');
+
+
+        /*File content String with newlines*/
+        $outputProblem = file_get_contents(public_path($inputFile->path));
+        $inputProblem = file_get_contents(public_path($outputFile->path));
+
+        /*Removing newlines of Problem´s arguments*/
+        $inputProblemString = self::withoutNewlines($inputProblem);
+
+        /*Removing newlines of Problem´s output to compare presentation*/
+        $outputProblemString = self::withoutNewlines($outputProblem);
+        $outputProblemString = self::withoutSpaces($outputProblemString);
+
+
+
 //        dd("Entre aqui en evaluateCodeSolution");
         switch($extension) {
             case 'c':
@@ -39,26 +61,88 @@ namespace SolutionBook\Entities;
 
                 break;
             case 'py':
-                exec("/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ".$fileCode->getRealPath()." 2>&1",$output);
+                /*Executing python program*/
+                exec(self::$baseSentence.self::$pythonSentence.$fileCode->getRealPath()." ".$inputProblemString.self::$redirectOutput,$output);
 
-                $timeAndMem = self::explodeMemAndTime($output);
+                /*Removing time and memory of output*/
+                $outputToCompare = self::removeTwolastestPositions($output);
 
-                self::$results['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]); //regreso tiempo para guardarlo en code Solution en formato de time mySQL
-                self::$results['memUsed']=$timeAndMem['mem'][0];
+                /*Making output string*/
+                $outputToCompare = implode("\n",$outputToCompare);
 
-                $timeCodeTimestamp = \DateTime::createFromFormat('H:i.s',$timeAndMem['time'][0])->getTimestamp();
+                /*Comparing original outputProblem with outputSolution for presententation and result*/
 
-                $memProblem= $problem->limitMemory;
+                self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
 
-                self::evaluateTimeAndMemory($timeCodeTimestamp,$problem->limitTime,$timeAndMem['mem'][0],$memProblem);
+                /*Si la solución es igual a la del problema evaluamos tiempo y memoria*/
+                if (self::$results['compare']) {
+                    /*Evaluating time & Memory*/
+                    $timeAndMem = self::explodeMemAndTime($output);
+                    self::saveTimeAndMemory($timeAndMem);
 
-                //$memory = self::convert(memory_get_usage(true));
+                    $timeCodeTimestamp = \DateTime::createFromFormat('H:i.s',$timeAndMem['time'][0])->getTimestamp();
+
+                    $memProblem = $problem->limitMemory;
+
+                    self::evaluateTime($timeCodeTimestamp,$problem->limitTime);
+                    self::evaluateMemory($timeAndMem['mem'][0],$memProblem);
+                }
+
                 return self::$results;
                 break;
         }
     }
 
-     private static function evaluateTimeAndMemory($timeCodeTimestamp,$timeProblemP,$memUsed,$memProblem)
+     /**
+      * @internal Comparing original outputProblem with outputSolution for presententation and result
+      * @param $outputProblemString
+      * @param $outputProblem
+      * @param $output
+      */
+     private static function evaluateOutputComparison ($outputProblemString,$outputProblem,$output)
+     {
+
+         /*Comparing original outputProblem with outputSolution for presententation and result*/
+         $boolPresentation = strcmp($outputProblemString,$output);
+         $bool = strcmp($outputProblem,$output);
+         $results = "\n Solución de Problema:".$outputProblem."\n Tú solución: \n".$output;
+
+         /*Sending messages*/
+         if($bool==0){
+             self::$results['compare']=true;
+             self::$results['presentation']=true;
+             Session::flash('message', 'Solución correcta'.$results);
+         }
+         elseif($boolPresentation){
+             self::$results['compare']=true;
+             self::$results['presentation']=false;
+             Session::flash('message', "Soy igual pero la presentación esta mal :(".$results);
+
+         }
+         else{
+             self::$results['compare']=false;
+             self::$results['presentation']=false;
+             Session::flash('message', 'La salida no es igual debería ser:'.$results);
+
+         }
+     }
+
+     /**
+      * regreso tiempo para guardarlo en code Solution en formato de time mySQL
+      * @param $timeAndMem
+      */
+     private static function saveTimeAndMemory($timeAndMem)
+     {
+         self::$results['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]);
+         self::$results['memUsed']=$timeAndMem['mem'][0];
+     }
+
+     /**
+      * Compare Problem´s time with Solution´s time
+      * @param $timeCodeTimestamp
+      * @param $timeProblemP
+      */
+     private static function evaluateTime($timeCodeTimestamp,$timeProblemP)
      {
          $timeProblem = strtotime($timeProblemP);
 
@@ -70,10 +154,18 @@ namespace SolutionBook\Entities;
          {
              self::$results['timeStatus'] = false;
              //unlink($fileCode->getRealPath().$fileCode->getClientOriginalName());
-             Session::flash('error', 'Excedio el limite de tiempo de ejecución: Tu tiempo '.self::$results['timeExecution'].' Debería ser menor a: '.$timeProblemP);
+             Session::flash('error', 'Excedio el límite de tiempo de ejecución: Tu tiempo '.self::$results['timeExecution'].' Debería ser menor a: '.$timeProblemP);
              //return redirect()->route('solution.getFormSolution');
          }
+     }
 
+     /**
+      * Compare Problem´s memory with Solution´s memory
+      * @param $memUsed
+      * @param $memProblem
+      */
+     private static function evaluateMemory ($memUsed,$memProblem)
+     {
          if($memUsed <= $memProblem ||$memProblem == 0)
          {
              self::$results['memStatus'] = true;
@@ -82,12 +174,17 @@ namespace SolutionBook\Entities;
          {
              self::$results['memStatus'] = false;
              //unlink($fileCode->getRealPath().$fileCode->getClientOriginalName());
-             Session::flash('error', 'Excedio el limite de memoria:'.'Usaste:'.$memUsed.' kb'.' Debería ser menor a : '.$memProblem.' kb');
+             Session::flash('error', 'Excedio el límite de memoria:'.'Usaste:'.$memUsed.' kb'.' Debería ser menor a : '.$memProblem.' kb');
              //return redirect()->route('solution.getFormSolution');
          }
-
      }
 
+
+     /**
+      * return just tehe time and memory without other text
+      * @param $output
+      * @return array
+      */
      private static function explodeMemAndTime($output)
      {
          $fin    =   count($output);
@@ -105,6 +202,45 @@ namespace SolutionBook\Entities;
          return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
      }
 
+     /**
+      * Removing newlines of Problem´s arguments
+      * @param $inputProblema
+      * @return mixed|string
+      */
+     private static function withoutNewlines ($inputProblema)
+     {
+         $inputProblema = urlencode($inputProblema);
+         $inputProblema= str_replace('%0A'," ",$inputProblema);
+
+         return $inputProblema;
+     }
+
+     private static function withoutSpaces ($outputProblemString)
+     {
+        return str_replace('+'," ",$outputProblemString);
+     }
+
+     /**
+      * Removing texts time and memory of output
+      * @param $output
+      * @return mixed
+      */
+     private static function removeTwolastestPositions ($output)
+     {
+         unset($output[count($output)-1]);
+         unset($output[count($output)-1]);
+
+         return $output;
+     }
+
+
+
+
+     /**
+      * Return extension according with the language
+      * @param $language
+      * @return string
+      */
      public static function getExtentionByLanguage($language)
     {
         $extension ="";

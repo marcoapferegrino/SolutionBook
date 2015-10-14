@@ -2,6 +2,7 @@
 
 namespace SolutionBook\Http\Controllers;
 
+use Psy\Exception\ErrorException;
 use SolutionBook\Entities\CodeSolution;
 use SolutionBook\Entities\Files;
 use SolutionBook\Entities\Link;
@@ -27,11 +28,8 @@ class SolutionsController extends Controller
         return "Hola";
     }
 
-    public function getFormSolution()
+    public function getFormSolution($idProblem)
     {
-
-        $idProblem = 10;
-
 
         return view('solver.addSolution',compact('idProblem'));
 
@@ -40,7 +38,7 @@ class SolutionsController extends Controller
 
     public function addSolution(AddSolutionRequest $request)
     {
-//        dd($request->all());
+//       dd($request->all());
         $idProblem      =$request->idProblem;
         $idUser         = auth()->user()->getAuthIdentifier();
 
@@ -56,7 +54,7 @@ class SolutionsController extends Controller
         $extension      = EvaluateCodeTool::getExtentionByLanguage($language);
         $results        = EvaluateCodeTool::evaluateCodeSolution($problem, $fileCode, $extension);
 
-        if ($results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo
+        if ($results['compare'] && $results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo
             $codeSolution = CodeSolution::create([
                 'language'      => $language,
                 'path'          => '', //path donde esta el codigo fuente
@@ -153,13 +151,21 @@ class SolutionsController extends Controller
 
     }
 
-    public function partialSolutions()
-    {
-        $idProblem = 10;
-        $problem = Problem::find($idProblem);
-        $solutions = $problem->solutionsPreview();
-        return view('solver.previewsSolution',compact('solutions'));
+//    public function partialSolutions()
+//    {
+//        $idProblem = 10;
+//        $problem = Problem::find($idProblem);
+//        $solutions = $problem->solutionsPreview();
+//        return view('solver.previewsSolution',compact('solutions'));
+//
+//    }
 
+    public function mySolutions()
+    {
+        $user = auth()->user();
+        $solutions = $user->mySolutions();
+
+        return view('solver.mySolutions',compact('solutions'));
     }
 
     public function showSolution($idSolution)
@@ -173,9 +179,19 @@ class SolutionsController extends Controller
 //        dd($solutionComplete);
         $links = Link::all()->where('solution_id',intval($idSolution));
 //   dd($idSolution,$links->toArray());
-        $code = file_get_contents($solutionComplete->path);
+//        try {
+            $code = @file_get_contents($solutionComplete->path);
+//        dd($code);
+            if(!$code===false)
+            {
+                $code=htmlspecialchars("\n".$code);
+            }
 
-        $code=htmlspecialchars("\n".$code);
+
+
+//        } catch (ErrorException $e) {
+//            Session::flash('error', 'Esta solución no tiene código que extraño, deberías reportarla');
+//        }
         //dd($files->toArray());
         return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution'));
     }

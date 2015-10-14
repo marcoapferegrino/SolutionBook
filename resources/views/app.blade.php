@@ -7,6 +7,7 @@
 	<title>Solution Book</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/notifications.css') }}" rel="stylesheet">
 	@yield('styles')
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -22,6 +23,7 @@
 
 </head>
 <body>
+<div id="notifications"></div>
 <div class="page-header" >
     <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
     <small class="pull-right" > <i style="font-family: Robotofont-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
@@ -80,14 +82,14 @@
 
 
 						@elseif(Auth::getRol()=="problem")
-							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
+							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
 							<li><a href="">Mis problemas <i class="fa fa-list-ol"></i></a></li>
 							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
 
                             <li><a href="">Catálogo de problemas <i class="fa fa-list"></i></a></li>
 						@elseif(Auth::getRol()=="solver")
 
-							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
+							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
 
                             <li><a href="">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
 
@@ -118,8 +120,9 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-								<li><a href="">Configuración</a></li>
+								<li><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+								<li><a href="{{ url('/miPerfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
+								<li><a href=""><i class="fa fa-cogs"></i> Configuración</a></li>
 							</ul>
 						</li>
 					@endif
@@ -143,6 +146,8 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="{{ asset('/js/likes.js') }}"></script>
+	<script src="{{ asset('/js/alerts.js') }}"></script>
 	@yield('scripts')
 </body>
 </html>

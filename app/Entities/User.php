@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -55,6 +56,33 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         return $this->hasMany(Notice::getClass());
     }
 
+    public function solutions()
+    {
+        return $this->hasMany(Solution::getClass());
+    }
+    public function problems()
+    {
+        return $this->hasMany(Problem::getClass());
+    }
+    /**
+     * @return mixed
+     */
+    public function mySolutions()
+    {
+        $previewSolutions = DB::table('solutions')
+            ->join('users','users.id','=','solutions.user_id')
+            ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
+            ->join('problems','problems.id','=','solutions.problem_id')
+            ->select('users.username','solutions.id','solutions.explanation', 'solutions.numLikes',
+                'solutions.dislikes','solutions.ranking','solutions.state','code_solutions.limitTime','code_solutions.limitMemory',
+                'code_solutions.language','problems.title','problems.id as idProblem')
+            ->where('users.id',$this->id)
+            ->orderBy('solutions.ranking','desc')
+            ->paginate(10);
+
+        return $previewSolutions;
+    }
+
     /**
      * Esta es la relacion de muchos a muchos likes
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany SolutionUser
@@ -103,9 +131,12 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         $this->liked()->attach($idSolution);
         return true;
     }
+
     public function disLike($idSolution)
     {
+        if(!$this->hasLiked($idSolution)) return false;
         $this->liked()->detach($idSolution);
+        return true;
     }
 
 

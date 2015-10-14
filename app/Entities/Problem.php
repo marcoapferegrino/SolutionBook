@@ -59,9 +59,9 @@ class Problem extends Entity {
         $previewSolutions = DB::table('solutions')
             ->join('users','users.id','=','solutions.user_id')
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
-            ->select('users.username','solutions.id','solutions.explanation', 'solutions.numLikes','solutions.dislikes','solutions.ranking','code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language')
+            ->select('users.username','solutions.id','solutions.explanation','solutions.state', 'solutions.numLikes','solutions.dislikes','solutions.ranking','code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language')
             ->where('solutions.problem_id',$this->id)
-            ->where('solutions.state','active')
+//            ->where('solutions.state','active')
             ->orderBy('solutions.ranking','desc')
             ->paginate(2);
 

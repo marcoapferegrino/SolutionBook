@@ -53,6 +53,7 @@ Route::get('/testCompare',function(){
     /*Executing python program*/
     exec($pythonSentece.public_path('arguments.py')." ".$inputProblemaString." 2>&1",$output);
 
+
     /*Removing time and memory of output*/
     unset($output[count($output)-1]);
     unset($output[count($output)-1]);
@@ -101,6 +102,10 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'notices.getNotices',
             'uses' => 'NoticesController@getNotices'
         ]);
+       Route::get('/getNotices', [
+           'as' => 'notices.getNotices',
+           'uses' => 'NoticesController@getNotices'
+       ]);
 
         Route::post('/addNotice', [
             'as' => 'notices.addNotice',

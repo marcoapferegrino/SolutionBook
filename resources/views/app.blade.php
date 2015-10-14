@@ -23,8 +23,8 @@
 </head>
 <body>
 <div class="page-header" >
-    <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i> &nbsp;&nbsp;</h3>
-
+    <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
+    <small class="pull-right" > <i style="font-family: Robotofont-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
 </div>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -39,27 +39,44 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<a class="navbar-brand" href="{{url('/')}}">
+
 						@if (!Auth::guest())
 							@if(Auth::getRol()=="super")
+                                <a class="navbar-brand" href="{{url('/homeAdmin')}}">
 								Super
+                                </a>
 							@elseif(Auth::getRol()=="problem")
-								Problem Setter
+                                <a class="navbar-brand" href="{{url('/homeProblem')}}">
+                                    Problem Setter
+                                </a>
 							@elseif(Auth::getRol()=="solver")
-								Solver
+                                <a class="navbar-brand" href="{{url('/homeSolver')}}">
+                                    Solver
+                                </a>
 							@else
+                            <a class="navbar-brand" href="{{url('/')}}">
 								Home
+                                </a>
 							@endif
 						@endif
-					</a>
+
 					@if (!Auth::guest())
 						@if(Auth::getRol()=="super")
 							<li><a href="">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
-							<li><a href="">Noticias <i class="fa fa-newspaper-o"></i></a></li>
+
+                            <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Noticias <i class="fa fa-newspaper-o"></i><span class="caret"></span></a>
+                                 <ul class="dropdown-menu" role="menu">
+                                 <li><a href="{{ url('/getAddNotice') }}">Crear noticia  <i class="fa fa-newspaper-o"></i></a></li>
+                                 <li><a href="{{url('/getNotices')}}">Listas de noticias</a></li>
+                                 </ul>
+                            </li>
+
+
                             <li><a href="">Jueces <i class="fa fa-graduation-cap"></i></a></li>
 
                             <li><a href="">Lista usuarios <i class="fa fa-group"></i></a></li>
-                            <li><a href="">Catálogo de problemas<i class="fa fa-list"></i></a></li>
+                            <li><a href="">Catálogo de problemas <i class="fa fa-list"></i></a></li>
 
 
 						@elseif(Auth::getRol()=="problem")
@@ -67,12 +84,12 @@
 							<li><a href="">Mis problemas <i class="fa fa-list-ol"></i></a></li>
 							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
 
-                            <li><a href="">Catálogo de problemas<i class="fa fa-list"></i></a></li>
+                            <li><a href="">Catálogo de problemas <i class="fa fa-list"></i></a></li>
 						@elseif(Auth::getRol()=="solver")
 
 							<li><a href="">Mis soluciones <i class="fa fa-wrench"></i></a></li>
 
-                            <li><a href="">Catálogo de problemas<i class="fa fa-sign-in"></i></a></li>
+                            <li><a href="">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
 
 
 						@endif
@@ -96,7 +113,7 @@
 					@endif
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
-                            <li><a href="">Registrarse<i class="fa fa-list"></i></a></li>
+                            <li><a href="{{ url('/register') }}">Registrarse <i class="fa fa-list"></i></a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
@@ -117,8 +134,8 @@
 
 <div class="row" >
 
-    <div class="col-md-13 navbar-fixed-bottom" >
-        <div class="panel-footer "  style="background-color: #333333;" > <div class="text-center" style="color: #f7f7f7;font-weight: bold;">Solution Book, No es otro tonto TT más ® 2015 </div> </div>
+    <div class="col-md-13 " >
+        <div class="panel-footer "  style="background-color: #333333;" > <div class="text-center" style="color: #f7f7f7;font-weight: bold;">Solution Book®, By Marco, Valeria & Luis  2015 </div> </div>
     </div>
 </div>
 

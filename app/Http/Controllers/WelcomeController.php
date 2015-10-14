@@ -33,4 +33,16 @@ class WelcomeController extends Controller {
 		return view('welcome');
 	}
 
+    public function getRegister()
+    {
+        return view('register');
+    }
+
+    public function addRegister()
+    {
+
+
+        return view('homeAdmin');
+    }
+
 }

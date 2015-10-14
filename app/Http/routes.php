@@ -19,42 +19,87 @@ Route::get('homeProblemSetter', 'HomeController@indexProblem');
 Route::get('homeSolver', 'HomeController@indexSolver');
 Route::get('homeAdmin', 'HomeController@indexAdmin');
 
+Route::get('/register', [
+    'as' => 'welcome.register',
+    'uses' => 'WelcomeController@getRegister'
+]);
+Route::post('/addRegister', [
+    'as' => 'welcome.addRegister',
+    'uses' => 'WelcomeController@addRegister'
+]);
+
+Route::get('redirect/{provider}', 'AccountController@github_redirect');
+// Get back to redirect url
+Route::get('login/{provider}', 'AccountController@github');
 
 Route::get('/testCompare',function(){
-    $outputProblem = file_get_contents(public_path('output.txt'));
 
-    exec("/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ".public_path('python.py')." 2>&1",$output);
+
+    $pythonSentece = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ";
+
+    /*File content String with newlines*/
+    $outputProblem = file_get_contents(public_path('output.txt'));
+    $inputProblema = file_get_contents(public_path('input.txt'));
+
+    /*Removing newlines of Problem´s arguments*/
+    $inputProblemaString = urlencode($inputProblema);
+    $inputProblemaString= str_replace('%0A'," ",$inputProblemaString);
+
+    /*Removing newlines of Problem´s output to compare presentation*/
+    $outputProblemString = urlencode($outputProblem);
+    $outputProblemString= str_replace('%0A'," ",$outputProblemString);
+    $outputProblemString= str_replace('+'," ",$outputProblemString);
+
+    /*Executing python program*/
+    exec($pythonSentece.public_path('arguments.py')." ".$inputProblemaString." 2>&1",$output);
+
+    /*Removing time and memory of output*/
     unset($output[count($output)-1]);
     unset($output[count($output)-1]);
+
+    /*Making output string*/
     $output = implode("\n",$output);
 
+//    dd($outputProblemString,$output);
 
+    /*Comparing original outputProblem with outputSolution for presententation and result*/
+    $boolPresentation = strcmp($outputProblemString,$output);
     $bool = strcmp($outputProblem,$output);
-    dd($outputProblem,$output,$bool);
 
+    /*Sending messages*/
     if($bool==0){
-        dd('soy igual');
+        dd('soy igual genial :D'."\n".$outputProblem."\ntu solución \n".$output);
+
+    }
+    elseif($boolPresentation){
+        dd("soy igual pero la presentacion esta mal"."\n".$outputProblem."\ntu solución \n".$output);
 
     }
     else{
-        dd('no soy igual :(');
+        dd('la salida no es igual deberia ser:'."\n".$outputProblem."\n y  fue :"."\n".$output);
     }
+
+
 });
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 
 ]);
 
 Route::group(['middleware' => 'auth'],function(){
 
 
-   Route::group(['middleware' => 'role:super'],function() {
+    Route::group(['middleware' => 'role:super'],function() {
         //susped account
         Route::post('/activeAccount', [
-           'as' => 'users.activeAccount',
-           'uses' => 'UsersController@activeAccount'
+            'as' => 'users.activeAccount',
+            'uses' => 'UsersController@activeAccount'
+        ]);
+        Route::get('/getNotices', [
+            'as' => 'notices.getNotices',
+            'uses' => 'NoticesController@getNotices'
         ]);
 
         Route::post('/addNotice', [
@@ -99,10 +144,10 @@ Route::group(['middleware' => 'auth'],function(){
 
 
 
-        });
+    });
     Route::group(['middleware' => 'role:problem'],function() {
 
-       Route::post('/addProblem', [
+        Route::post('/addProblem', [
             'as' => 'problem.addProblem',
             'uses' => 'ProblemsController@addProblem'
         ]);
@@ -132,6 +177,15 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.showProblem',
             'uses' => 'ProblemsController@showProblem'
         ]);
+        Route::post('/similarProblems/{cadena}', [
+            'as' => 'problem.similarProblems',
+            'uses' => 'ProblemsController@similarProblems'
+        ]);
+
+        Route::post('/similarTags/{cadena}', [
+            'as' => 'problem.similarTags',
+            'uses' => 'ProblemsController@similarTags'
+        ]);
         Route::post('/promotion', [ //+ y -
             'as' => 'users.promotion',
             'uses' => 'UsersController@promotion'
@@ -157,7 +211,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'WarningsController@resolution'
         ]);
 
-        });
+    });
 
 
     Route::group(['middleware' => 'role:solver'],function() {
@@ -169,7 +223,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'SolutionsController@addSolution'
         ]);
 
-        Route::get('/addFormSolution', [ //muestra formulario para agregar solucion
+        Route::get('/addFormSolution/idProblem:{idProblem}', [ //muestra formulario para agregar solucion
             'as' => 'solution.getFormSolution',
             'uses' => 'SolutionsController@getFormSolution'
         ]);
@@ -179,11 +233,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'SolutionsController@partialSolutions'
         ]);
 
-        Route::delete('/deleteSolution/{$id}', [
+        Route::delete('/deleteSolution/{id}', [
             'as' => 'solution.deleteSolution',
             'uses' => 'SolutionsController@deleteSolution'
         ]);
-        Route::post('/updateSolution/{$id}', [
+        Route::post('/updateSolution/{id}', [
             'as' => 'solution.updateSolution',
             'uses' => 'SolutionsController@updateSolution'
         ]);
@@ -211,6 +265,10 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'warning.myWarnings',
             'uses' => 'WarningsController@myWarnings'
         ]);
+        Route::get('/miPerfil', [
+            'as' => 'users.myPerfil',
+            'uses' => 'UsersController@myPerfil'
+        ]);
         Route::post('/addlike/{id}', [
             'as' => 'likes.addLike',
             'uses' => 'LikesController@addLike'
@@ -221,10 +279,9 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'LikesController@disLike'
         ]);
 
-        });
-
-
     });
 
+
+});
 
 

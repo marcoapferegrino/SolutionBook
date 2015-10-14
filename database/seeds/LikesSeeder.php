@@ -7,9 +7,9 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\Like;
-use \App\Entities\User;
-use \App\Entities\Solution;
+use SolutionBook\Entities\Like;
+use \SolutionBook\Entities\User;
+use \SolutionBook\Entities\Solution;
 
 
 class LikesSeeder extends Seeder {

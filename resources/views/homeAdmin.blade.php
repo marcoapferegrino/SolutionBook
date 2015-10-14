@@ -11,12 +11,7 @@
                 <tbody>
                 <tr>
                     <div class="col-md-1">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="active " ><a href="#">Mi cuenta</a></li>
 
-                            <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user-times fa-4x"></i>
-                                </a></li>
-                        </ul>
                     </div>
 
                     <div class="col-md-1">
@@ -88,9 +83,19 @@
                                 </div>
 
                             </div>
+                            <ul class="nav  list-group-item-info">
+
+                                @foreach($notices as $notice)
+                                    <li ><a href="#"> <span>{{$notice->title}} </span> <span class="pull-right">{{$notice->finishDate}} </span> </a></li>
+
+                                @endforeach
+
+                            </ul>
                         </div>
 
+
                     </div>
+
 
                 </tr>
 
@@ -100,14 +105,8 @@
 
                     </div>
 
-                </tr>   <div class="col-md-1 " >
-                    <ul class="nav nav-pills navbar-right list-group-item-danger">
-                        <li class=" list-group-item list-group-item-info" style="background-color: #a92222" ><a href="#">Pendientes</a></li>
-                        <li ><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-4x"></i>
-                            </a></li>
+                </tr>
 
-                    </ul>
-                </div>
 
 
 
@@ -118,6 +117,6 @@
             </table>
 
 
-        </div>
+        </div></div>
 @endsection
 

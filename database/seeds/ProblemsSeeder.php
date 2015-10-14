@@ -7,7 +7,7 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\Problem;
+use SolutionBook\Entities\Problem;
 class ProblemsSeeder extends Seeder {
 
 
@@ -17,7 +17,7 @@ class ProblemsSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
-        $users = \App\Entities\User::all();
+        $users = \SolutionBook\Entities\User::all();
         $ids=array();
 
         foreach ($users as $user) {

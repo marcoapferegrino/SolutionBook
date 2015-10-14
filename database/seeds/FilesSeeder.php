@@ -3,14 +3,14 @@
  */
 use Faker\Factory as Faker;
 use \Illuminate\Database\Seeder;
-use App\Entities\Files;
+use SolutionBook\Entities\Files;
 class FilesSeeder extends Seeder {
 
     public function run()
     {
         $faker = Faker::create();
-        $problems = \App\Entities\Problem::all();
-        $solutions = \App\Entities\Solution::all();
+        $problems = \SolutionBook\Entities\Problem::all();
+        $solutions = \SolutionBook\Entities\Solution::all();
         $idsSolutions=array();
         $idsProblems=array();
 

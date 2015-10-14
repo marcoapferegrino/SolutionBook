@@ -1,5 +1,7 @@
 <?php namespace SolutionBook\Http\Controllers;
 
+use SolutionBook\Entities\Notice;
+
 class HomeController extends Controller {
 
 	/*
@@ -45,7 +47,10 @@ class HomeController extends Controller {
 
     public function indexAdmin()
     {
-        return view('homeAdmin');
+        $notices = Notice::all();
+
+        return view('homeAdmin' ,compact('notices'));
     }
+
 
 }

@@ -1,11 +1,15 @@
 @extends('app')
 
 @section('content')
+    @include('partials.messages')
 <div class="container">
+
+
     <div class="col-lg-9 col-md-push-2 " >
         {!! Form::open(['route' => 'welcome.addRegister','method' => 'POST','class'=>'form-inline']) !!}
 
         <br>
+
         <span>Ya casi podras disfrutar de Solution Book!!</span>
         <div class="panel-body ">
 
@@ -32,13 +36,15 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('password', 'Contraseña*') !!}
-                                {!! Form::text('password',null, array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
+                                {!! Form::password('password',null, array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+
+            <!--
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Datos personales</h3>
@@ -73,7 +79,7 @@
 
 
 
-            </div>
+            </div>-->
 
             <div class="form-group navbar-default nav-justified  " >
                 {!! Form::submit('Registrar',array('class'=>'btn btn-success btn-block')) !!}

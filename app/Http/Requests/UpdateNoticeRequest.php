@@ -4,7 +4,7 @@ namespace SolutionBook\Http\Requests;
 
 use SolutionBook\Http\Requests\Request;
 
-class AddNoticeRequest extends Request
+class UpdateNoticeRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

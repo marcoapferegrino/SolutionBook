@@ -9,6 +9,8 @@
             <div class="modal-body">
 
                 {!! Form::open(['route' => 'notices.updateNotice','method' => 'POST','class'=>'form-inline']) !!}
+
+                {!! Form::hidden('id',$notice->id) !!}
                          <div class="panel panel-success">
                         <div class="panel-heading">
                             <h3 class="panel-title">Editar </h3>

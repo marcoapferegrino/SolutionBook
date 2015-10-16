@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+    @include('partials.messages')
+
     <div class="table">
 
         <div class="row ">

@@ -1,5 +1,12 @@
 <?php namespace SolutionBook\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
+use SolutionBook\Entities\User;
+use SolutionBook\Http\Requests\AddUserRequest;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\QueryException;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -33,16 +40,21 @@ class WelcomeController extends Controller {
 		return view('welcome');
 	}
 
+
     public function getRegister()
     {
         return view('register');
     }
 
-    public function addRegister()
+    public function addRegister(AddUserRequest $request)
     {
+        $password = bcrypt($request->password);
+        $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>'solver', 'password'=>$password));
 
+        Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
 
-        return view('homeAdmin');
+        return Redirect::to('/auth/login');
+
     }
 
 }

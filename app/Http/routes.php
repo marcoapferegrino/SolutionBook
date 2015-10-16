@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'WelcomeController@index');
+Route::get('loginN', 'WelcomeController@loginN');
 
 Route::get('home', 'HomeController@index');
 
@@ -102,6 +103,11 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'notices.getNotices',
             'uses' => 'NoticesController@getNotices'
         ]);
+        Route::get('/getAddNotice', [
+            'as' => 'notices.getAddNotice',
+            'uses' => 'NoticesController@getAddNotice'
+        ]);
+
        Route::get('/getNotices', [
            'as' => 'notices.getNotices',
            'uses' => 'NoticesController@getNotices'
@@ -112,7 +118,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'NoticesController@addNotice'
         ]);
 
-        Route::delete('/deleteNotice', [
+        Route::delete('/deleteNotice/{id}', [
             'as' => 'notices.deleteNotice',
             'uses' => 'NoticesController@deleteNotice'
         ]);

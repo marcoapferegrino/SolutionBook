@@ -34,6 +34,7 @@
             <div class="col-md-3">
                 <i class="fa fa-gavel"></i> <small>{{$solution->ranking}} ranking</small>
             </div>
+
         
     </div>
 @endif

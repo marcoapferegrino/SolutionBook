@@ -53,7 +53,7 @@ class Solution extends Entity {
         $previewSolutions = DB::table('solutions')->where('solutions.id',$this->id)
             ->join('users','users.id','=','solutions.user_id')
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
-            ->select('users.username','users.email','users.rol','solutions.id',
+            ->select('users.username','users.email','users.rol','users.avatar','solutions.id',
                 'solutions.explanation', 'solutions.numLikes','solutions.dislikes','solutions.ranking',
                 'code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language',
                 'code_solutions.path')

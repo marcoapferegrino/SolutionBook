@@ -14,10 +14,10 @@ namespace SolutionBook\Entities;
 {
 
      public static $results = array();
-     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) '";
+     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ";
      public static $redirectOutput = " 2>&1";
 
-     public static $pythonSentence  = "python ";
+     public static $pythonSentence  = " python ";
      public static $cCompilationSentence="gcc";
      /**
       * @param $problem Problem
@@ -32,22 +32,23 @@ namespace SolutionBook\Entities;
      static function evaluateCodeSolution($problem,$fileCode,$extension)
     {
 
-        $inputFile = Files::where('problem_id',$problem->id)->where('type','fileinput');
-        $outputFile = Files::where('problem_id',$problem->id)->where('type','fileOutput');
-
+        $inputFile = Files::where('problem_id',$problem->id)->where('type','fileinput')->first();
+        $outputFile = Files::where('problem_id',$problem->id)->where('type','fileOutput')->first();
+//        dd($inputFile->toArray(),$outputFile->toArray());
 
         /*File content String with newlines*/
-        $outputProblem = file_get_contents(public_path($inputFile->path));
-        $inputProblem = file_get_contents(public_path($outputFile->path));
-
+        $outputProblem = file_get_contents(public_path($outputFile->path));
+        $inputProblem = file_get_contents(public_path($inputFile->path));
+//        dd($inputProblem,$outputProblem);
         /*Removing newlines of Problem´s arguments*/
         $inputProblemString = self::withoutNewlines($inputProblem);
+        $inputProblemString = self::withoutSpaces($inputProblemString);
 
         /*Removing newlines of Problem´s output to compare presentation*/
         $outputProblemString = self::withoutNewlines($outputProblem);
         $outputProblemString = self::withoutSpaces($outputProblemString);
 
-
+//         dd($inputProblemString,$outputProblemString);
 
 //        dd("Entre aqui en evaluateCodeSolution");
         switch($extension) {
@@ -62,11 +63,15 @@ namespace SolutionBook\Entities;
                 break;
             case 'py':
                 /*Executing python program*/
-                exec(self::$baseSentence.self::$pythonSentence.$fileCode->getRealPath()." ".$inputProblemString.self::$redirectOutput,$output);
-
+//                exec("time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) 'python 1 2 3 2>&1",$salida);
+//                dd($salida);
+                $sentence=self::$baseSentence.$fileCode->getRealPath().".py"." ".$inputProblemString.self::$redirectOutput;
+//                dd($sentence);
+                exec($sentence,$output);
+                dd($output);
                 /*Removing time and memory of output*/
                 $outputToCompare = self::removeTwolastestPositions($output);
-
+                dd($outputToCompare);
                 /*Making output string*/
                 $outputToCompare = implode("\n",$outputToCompare);
 
@@ -209,9 +214,13 @@ namespace SolutionBook\Entities;
       */
      private static function withoutNewlines ($inputProblema)
      {
-         $inputProblema = urlencode($inputProblema);
-         $inputProblema= str_replace('%0A'," ",$inputProblema);
 
+         $inputProblema = urlencode($inputProblema);
+         $inputProblema = str_replace('%0A'," ",$inputProblema);
+         $inputProblema = str_replace('%0D'," ",$inputProblema);
+         $inputProblema = preg_replace('[\s+]'," ",$inputProblema); //varios espacios por solo uno
+
+//         $inputProblema = str_replace('%0D%0A'," ",$inputProblema);dd($inputProblema);
          return $inputProblema;
      }
 

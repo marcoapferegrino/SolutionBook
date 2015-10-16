@@ -13,19 +13,27 @@
             <div class="col-md-11 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                       <h3>
-                           <div class="col-md-6 ">
-                               <small>Solución por</small> <strong class="text-capitalize">{{$solutionComplete->username}}</strong>
-                               <br> <small>Email</small>
-                               <a href="mailto:{{$solutionComplete->email}}">{{$solutionComplete->email}}</a>
-                           </div>
-                           <div class="col-md-6 ">
-                               @include('partials.likesButtons')
-                           </div>
+                       <div class="row">
+                           <h3>
+                               <div class="col-md-6 ">
+                                   <img src="{{$solutionComplete->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
+                                   <small>Solución por</small>
+                                   <strong class="text-capitalize">{{$solutionComplete->username}}</strong>
+                                   <br> <small>Email</small>
+                                   <a href="mailto:{{$solutionComplete->email}}">{{$solutionComplete->email}}</a>
+                               </div>
+                               <div class="col-md-6 ">
+                                   @include('partials.likesButtons')
+
+                               </div>
+
+                           </h3>
+                       </div>
+                        <div class="row">
                             <div class="text-center">
                                 <button type="button" class="btn btn-warning">Descargar ZIP multimedia</button>
                             </div>
-                       </h3>
+                        </div>
                     </div>
             
 

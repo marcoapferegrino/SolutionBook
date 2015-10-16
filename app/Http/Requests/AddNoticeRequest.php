@@ -2,7 +2,7 @@
 
 namespace SolutionBook\Http\Requests;
 
-use SolutionBook\Http\Requests\Request;
+
 
 class AddNoticeRequest extends Request
 {
@@ -21,7 +21,7 @@ class AddNoticeRequest extends Request
      *
      * @return array
      */
-    public function rules(\Illuminate\Http\Request $request)
+    public function rules()
     {
 
         $rules = [

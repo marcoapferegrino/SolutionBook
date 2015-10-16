@@ -53,7 +53,7 @@ Route::get('/testCompare',function(){
 
     /*Executing python program*/
     exec($pythonSentece.public_path('arguments.py')." ".$inputProblemaString." 2>&1",$output);
-
+    dd($output);
 
     /*Removing time and memory of output*/
     unset($output[count($output)-1]);
@@ -162,10 +162,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.addProblem',
             'uses' => 'ProblemsController@addProblem'
         ]);
-        Route::get('/allProblems', [
-            'as' => 'problem.allProblems',
-            'uses' => 'ProblemsController@allProblems'
-        ]);
+
         Route::get('/addFormProblem', [
             'as' => 'problem.addFormProblem',
             'uses' => 'ProblemsController@addFormProblem'
@@ -184,10 +181,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.myProblems',
             'uses' => 'ProblemsController@myProblems'
         ]);
-        Route::get('/showProblem/{id}', [ //para guest
-            'as' => 'problem.showProblem',
-            'uses' => 'ProblemsController@showProblem'
-        ]);
+
         Route::post('/similarProblems/{cadena}', [
             'as' => 'problem.similarProblems',
             'uses' => 'ProblemsController@similarProblems'
@@ -288,6 +282,14 @@ Route::group(['middleware' => 'auth'],function(){
         Route::delete('/dislike/{id}', [
             'as' => 'likes.disLike',
             'uses' => 'LikesController@disLike'
+        ]);
+        Route::get('/allProblems', [
+            'as' => 'problem.allProblems',
+            'uses' => 'ProblemsController@allProblems'
+        ]);
+        Route::get('/showProblem/{id}', [ //para guest
+            'as' => 'problem.showProblem',
+            'uses' => 'ProblemsController@showProblem'
         ]);
 
     });

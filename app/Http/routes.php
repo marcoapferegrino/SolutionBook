@@ -1,10 +1,5 @@
 <?php
 
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,31 +10,6 @@ use Symfony\Component\Process\ProcessBuilder;
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/compile',function(){
-
-    //$path = public_path("testing/cosas.out");
-    exec("python testing/cepy.py 2>&1",$output,$status);
-    //exec("./testing/test.sh 2>&1",$output);
-    //exec(".".$path." 2>&1",$output,$status);
-  //  exec("dpkg -l | grep gcc 2>&1",$output,$status);
-  //exec("./testing/from.out  2>&1",$output);
-  // $output=passthru("/usr/bin/gcc -Wall -Wextra  testing/pruebaC.c -o  testing/from.out  2>&1");
-    //exec("pwd",$output,$status);
-   // dd($output);
-
-
-    $process = new Process('/usr/lib/gcc/x86_64-linux-gnu/4.9/cc1 testing/pruebaC.c -o  testing/from.out');
-    $process->setTimeout(3600);
-    $process->run();
-    if (!$process->isSuccessful()) {
-        throw new ProcessFailedException($process);
-    }
-
-    print $process->getOutput();
-   // dd($output);
-
-});
 
 Route::get('/', 'WelcomeController@index');
 Route::get('loginN', 'WelcomeController@loginN');
@@ -54,65 +24,37 @@ Route::get('/register', [
     'as' => 'welcome.register',
     'uses' => 'WelcomeController@getRegister'
 ]);
+
+
 Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
 ]);
+Route::get('/compile',function(){
+//    $path = public_path("testing/cosas.out");
+//
+    //exec(".".$path." 2>&1",$output,$status);
+//    exec("gcc testing/pruebaC.c -o testing/frommm.out 2>&1",$output,$status);
+    //exec("pwd",$output,$status);
+//    dd($output,$status);
+    $process = new \Symfony\Component\Process\Process('gcc testing/pruebaC.c -o testing/frommm.out 2>&1');
+    $process->setTimeout(3600);
+    $process->run();
+    dd($process->getOutput());
+//        exec("whoami",$output);
+//    $exitCode = \Illuminate\Support\Facades\Artisan::call(
+//        'say:name', [
+//        'idUser' => 1,
+//    ]);
+//     dd($output);
+
+});
 
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
 
-Route::get('/testCompare',function(){
 
-
-    $pythonSentece = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ";
-
-    /*File content String with newlines*/
-    $outputProblem = file_get_contents(public_path('output.txt'));
-    $inputProblema = file_get_contents(public_path('input.txt'));
-
-    /*Removing newlines of Problem´s arguments*/
-    $inputProblemaString = urlencode($inputProblema);
-    $inputProblemaString= str_replace('%0A'," ",$inputProblemaString);
-
-    /*Removing newlines of Problem´s output to compare presentation*/
-    $outputProblemString = urlencode($outputProblem);
-    $outputProblemString= str_replace('%0A'," ",$outputProblemString);
-    $outputProblemString= str_replace('+'," ",$outputProblemString);
-
-    /*Executing python program*/
-    exec($pythonSentece.public_path('arguments.py')." ".$inputProblemaString." 2>&1",$output);
-
-
-    /*Removing time and memory of output*/
-    unset($output[count($output)-1]);
-    unset($output[count($output)-1]);
-
-    /*Making output string*/
-    $output = implode("\n",$output);
-
-//    dd($outputProblemString,$output);
-
-    /*Comparing original outputProblem with outputSolution for presententation and result*/
-    $boolPresentation = strcmp($outputProblemString,$output);
-    $bool = strcmp($outputProblem,$output);
-
-    /*Sending messages*/
-    if($bool==0){
-        dd('soy igual genial :D'."\n".$outputProblem."\ntu solución \n".$output);
-
-    }
-    elseif($boolPresentation){
-        dd("soy igual pero la presentacion esta mal"."\n".$outputProblem."\ntu solución \n".$output);
-
-    }
-    else{
-        dd('la salida no es igual deberia ser:'."\n".$outputProblem."\n y  fue :"."\n".$output);
-    }
-
-
-});
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
@@ -138,10 +80,10 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'NoticesController@getAddNotice'
         ]);
 
-       Route::get('/getNotices', [
-           'as' => 'notices.getNotices',
-           'uses' => 'NoticesController@getNotices'
-       ]);
+        Route::get('/getNotices', [
+            'as' => 'notices.getNotices',
+            'uses' => 'NoticesController@getNotices'
+        ]);
 
         Route::post('/addNotice', [
             'as' => 'notices.addNotice',
@@ -156,11 +98,6 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/updateNotice', [
             'as' => 'notices.updateNotice',
             'uses' => 'NoticesController@updateNotice'
-        ]);
-
-        Route::get('/getAddProblemSetter', [
-            'as' => 'users.getAddProblemSetter',
-            'uses' => 'UsersController@getAddProblemSetter'
         ]);
 
         Route::post('/addProblemSetter', [
@@ -197,10 +134,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.addProblem',
             'uses' => 'ProblemsController@addProblem'
         ]);
-        Route::get('/allProblems', [
-            'as' => 'problem.allProblems',
-            'uses' => 'ProblemsController@allProblems'
-        ]);
+
         Route::get('/addFormProblem', [
             'as' => 'problem.addFormProblem',
             'uses' => 'ProblemsController@addFormProblem'
@@ -214,15 +148,16 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.updateProblem',
             'uses' => 'ProblemsController@updateProblem'
         ]);
+        Route::get('/updateGetProblem/{id}', [
+            'as' => 'problem.updateGetProblem',
+            'uses' => 'ProblemsController@updateGetProblem'
+        ]);
 
         Route::get('/myProblems', [
             'as' => 'problem.myProblems',
             'uses' => 'ProblemsController@myProblems'
         ]);
-        Route::get('/showProblem/{id}', [ //para guest
-            'as' => 'problem.showProblem',
-            'uses' => 'ProblemsController@showProblem'
-        ]);
+
         Route::post('/similarProblems/{cadena}', [
             'as' => 'problem.similarProblems',
             'uses' => 'ProblemsController@similarProblems'
@@ -279,7 +214,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'SolutionsController@partialSolutions'
         ]);
 
-        Route::delete('/deleteSolution/{id}', [
+        Route::get('/deleteSolution/{id}', [
             'as' => 'solution.deleteSolution',
             'uses' => 'SolutionsController@deleteSolution'
         ]);
@@ -324,10 +259,22 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'likes.disLike',
             'uses' => 'LikesController@disLike'
         ]);
+        Route::get('/allProblems', [
+            'as' => 'problem.allProblems',
+            'uses' => 'ProblemsController@allProblems'
+        ]);
+        Route::get('/showProblem/{id}', [ //para guest
+            'as' => 'problem.showProblem',
+            'uses' => 'ProblemsController@showProblem'
+        ]);
+
+        Route::get('/getZipSolutionMultimedia/{idProblem}/{idSolution}', [
+            'as' => 'solution.multimediaZip',
+            'uses' => 'SolutionsController@getZipMultimediaSolution'
+        ]);
 
     });
 
 
 });
-
 

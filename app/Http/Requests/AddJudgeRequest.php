@@ -2,9 +2,9 @@
 
 namespace SolutionBook\Http\Requests;
 
+use SolutionBook\Http\Requests\Request;
 
-
-class AddNoticeRequest extends Request
+class AddJudgeRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,16 +21,15 @@ class AddNoticeRequest extends Request
      *
      * @return array
      */
-    public function rules()
+    public function rules(\Illuminate\Http\Request $request)
     {
-
         $rules = [
-            'title'=> 'required ',
-            'description'=> 'required',
-            'finishDate'=> 'required',
-            'file'    => 'extension:jpg,png,bmp'
+            'name'=> 'required',
+            'addressWeb'=> 'url|required',
+            'images'=> 'mimes:jpeg,bmp,png',
+            'facebook' => array('url','regex:/facebook/'),
+            'twitter' => array('url','regex:/twitter/'),
         ];
-
 
         return $rules;
     }

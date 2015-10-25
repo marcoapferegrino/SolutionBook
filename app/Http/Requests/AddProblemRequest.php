@@ -24,16 +24,19 @@ class AddProblemRequest extends Request
     public function rules(\Illuminate\Http\Request $request)
     {
         $images = $request->all();
-//        dd($images);
-        $rules = [
+       // dd($request);
+       $rules = [
             'title'=> 'required',
+            'institucion'=>'required',
             'descripcion'=> 'required',
-            'limitTime'=> 'required',
-            'limitMemory'=> 'required',
-            'judgeList'=> 'required',
+            'limitTime'=> 'numeric|required',
+            'limitMemory'=> 'numeric|required',
+            'judgeList'=> '',
+            'ejemploen'=>'required',
+            'ejemplosa'=>'required',
             'tags'=> 'required',
-            'inputs'=> 'array|required',
-            'outputs'=> 'array|required',
+            'inputs'=> 'required',
+            'outputs'=> 'required',
             'images'=> 'array',
             'youtube' => array('url','regex:/youtube/'),
             'github' => array('url','regex:/github|bitbucket/'),

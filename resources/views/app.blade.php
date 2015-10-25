@@ -25,7 +25,11 @@
 <body>
 <div class="page-header"  style="background-color: #E0F2E5; margin-top: 0%" >
     <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
+<<<<<<< HEAD
     <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
+=======
+    <small class="pull-right" > <i style="font-family: Roboto; font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
+>>>>>>> 8ff107ed11a771b7e2cb3767249f9fc0b14aaf46
 </div>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -86,6 +90,7 @@
 							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
 
                             <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-list"></i></a></li>
+							<li><a href="{{url('/addFormProblem')}}">Problema <i class="fa fa-plus"></i></a></li>
 						@elseif(Auth::getRol()=="solver")
 
 							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
@@ -117,7 +122,7 @@
                             <li><a href="{{ url('/register') }}">Registrarse <i class="fa fa-list"></i></a></li>
 					@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->username }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{Auth::user()->avatar}}" alt="no imagen" class="img-rounded" height="22" width="22"> &nbsp;&nbsp;{{ Auth::user()->username }}<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
 								<li><a href="{{ url('/miPerfil') }}"><i class="fa fa-user"></i> Mi perfil</a></li>
@@ -142,6 +147,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="{{ asset('/js/likes.js') }}"></script>
+<script src="{{ asset('/js/disqus.js') }}"></script>
 	<script src="{{ asset('/js/alerts.js') }}"></script>
 	@yield('scripts')
 </body>

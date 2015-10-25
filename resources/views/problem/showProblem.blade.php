@@ -137,5 +137,8 @@
             </div>
         </div>
     </div>
-
+    @include('solver.partials.deleteSolutionModal')
+@endsection
+@section('scripts')
+    <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
 @endsection

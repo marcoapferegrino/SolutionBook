@@ -64,6 +64,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
     {
         return $this->hasMany(Problem::getClass());
     }
+
     /**
      * @return mixed
      */
@@ -73,7 +74,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
             ->join('users','users.id','=','solutions.user_id')
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
             ->join('problems','problems.id','=','solutions.problem_id')
-            ->select('users.username','solutions.id','solutions.explanation', 'solutions.numLikes',
+            ->select('users.id as userId','users.username','solutions.id','solutions.explanation', 'solutions.numLikes',
                 'solutions.dislikes','solutions.ranking','solutions.state','code_solutions.limitTime','code_solutions.limitMemory',
                 'code_solutions.language','problems.title','problems.id as idProblem')
             ->where('users.id',$this->id)

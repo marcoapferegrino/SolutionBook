@@ -11,6 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-11 col-md-offset-1">
+                @include('partials.messages')
                 <div class="panel panel-default">
                     <div class="panel-heading">
                        <div class="row">
@@ -31,7 +32,11 @@
                        </div>
                         <div class="row">
                             <div class="text-center">
-                                <button type="button" class="btn btn-warning">Descargar ZIP multimedia</button>
+                                {!! Form::open(['route' => ['solution.multimediaZip',$solutionComplete->problem_id,$solutionComplete->id],'method' => 'get']) !!}
+                                <button type="submit" class="btn btn-warning">Descargar ZIP multimedia</button>
+
+                                {!! Form::close() !!}
+
                             </div>
                         </div>
                     </div>
@@ -79,8 +84,11 @@
                                             @if(count($links)>0)
                                             <div class="list-group">
                                                 @foreach($links as $link)
+                                                    @if($link->type == 'YouTube')
+                                                        <?php $youtubeLink=$link;?>
+                                                    @endif
                                                     <a href="{{$link->link}}" class="list-group-item">
-                                                        <h5 class="list-group-item-heading">{{$link->type}}</h5>
+                                                        <h5 class="list-group-item-heading">{{$link->link}}</h5>
                                                     </a>
                                                 @endforeach
                                             </div>
@@ -107,12 +115,17 @@
                                 @endif
                         </div>
                         <br><br>
+                        {{--@if(isset($youtubeLink))--}}
+                            {{--<div class="embed-responsive embed-responsive-4by3">--}}
+                                {{--<iframe class="embed-responsive-item" src="{{$youtubeLink->link}}" allowfullscreen></iframe>--}}
+                            {{--</div>--}}
+                        {{--@endif--}}
 
                         <div class="panel panel-default">
                             <p class="lead"><i class="fa fa-file-image-o"></i> <strong>Imágenes de apoyo</strong> </p>
                             <div class="panel-body">
                                 @if(count($images)>0)
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 480px; width: 720px;">
                                         <!-- Indicators -->
                                         <ol class="carousel-indicators">
 
@@ -156,6 +169,7 @@
             </div>
         </div>
     </div>
+    @include('solver.partials.deleteSolutionModal')
 @endsection
 @section('scripts')
     <script src="{{ asset('/js/highlight.pack.js') }}"></script>
@@ -163,4 +177,6 @@
         hljs.initHighlightingOnLoad();
     </script>
     <script src="{{ asset('/js/changeIconRow.js') }}"></script>
+    <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
+
 @endsection

@@ -1,4 +1,4 @@
-<?php
+o<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,7 +17,7 @@ class CreateProblemsTable extends Migration {
 			$table->increments('id');
             $table->string('title', 50);
             $table->string('author', 50);
-            $table->string('institution', 60);
+            $table->string('institution', 60)->nullable();
             $table->mediumText('description');
             $table->integer('numSolutions');
             $table->time('limitTime')->default(0);

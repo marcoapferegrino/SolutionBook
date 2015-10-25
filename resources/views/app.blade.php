@@ -25,11 +25,9 @@
 <body>
 <div class="page-header"  style="background-color: #E0F2E5; margin-top: 0%" >
     <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
-<<<<<<< HEAD
+
     <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
-=======
-    <small class="pull-right" > <i style="font-family: Roboto; font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
->>>>>>> 8ff107ed11a771b7e2cb3767249f9fc0b14aaf46
+
 </div>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">

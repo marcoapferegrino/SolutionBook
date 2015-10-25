@@ -143,7 +143,7 @@ class ProblemsController extends Controller
                 'type'=>'fileinput',
                 'problem_id'=>$idProblem,
             ]);
-            mkdir($pathInput,null, true);
+            mkdir($pathInput,0755, true);
             $fp = fopen($namePathIn, "w");
             fputs($fp, $in);
             fclose($fp);
@@ -158,7 +158,7 @@ class ProblemsController extends Controller
                 'type'=>'fileOutput',
                 'problem_id'=>$idProblem,
             ]);
-            mkdir($pathOutput,null, true);
+            mkdir($pathOutput,0755, true);
             $fp = fopen($namePathOut, "w");
             fputs($fp, $out);
             fclose($fp);

@@ -20,10 +20,20 @@ class UsersSeeder extends Seeder{
         $faker = Faker::create();
 
         User::create([
-            'username'=>'marco',
+            'username'=>'marcoProblemS',
             'email'=>'ferefuc@gmail.com',
             'password'=> bcrypt('secret'),
-            'rol'=> 'super',
+            'rol'=> 'problem',
+            'ranking' => $faker->randomNumber(),
+            'avatar'=> 'marco'.'/avatar.jpg',
+            'state' => 'active',
+            'numWarnings' => 0,
+        ]);
+        User::create([
+            'username'=>'marcoSolver',
+            'email'=>'ferefuc@hotmail.com',
+            'password'=> bcrypt('secret'),
+            'rol'=> 'solver',
             'ranking' => $faker->randomNumber(),
             'avatar'=> 'marco'.'/avatar.jpg',
             'state' => 'active',

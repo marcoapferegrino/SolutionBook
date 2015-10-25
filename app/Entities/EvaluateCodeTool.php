@@ -14,10 +14,10 @@ namespace SolutionBook\Entities;
 {
 
      public static $results = array();
-     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb)' python ";
-     public static $redirectOutput = " 2>&1";
+     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
+     public static $python = "python ";
+     public static $redirectOutput = " 2>&1 ";
 
-     public static $pythonSentence  = " python ";
      public static $cCompilationSentence="gcc";
      /**
       * @param $problem Problem
@@ -31,6 +31,7 @@ namespace SolutionBook\Entities;
       * */
      static function evaluateCodeSolution($problem,$fileCode,$extension)
     {
+        $nameFileCode   = $fileCode->getClientOriginalName();
 
         $inputFile = Files::where('problem_id',$problem->id)->where('type','fileinput')->first();
         $outputFile = Files::where('problem_id',$problem->id)->where('type','fileOutput')->first();
@@ -39,7 +40,11 @@ namespace SolutionBook\Entities;
         /*File content String with newlines*/
         $outputProblem = file_get_contents(public_path($outputFile->path));
         $inputProblem = file_get_contents(public_path($inputFile->path));
-//        dd($inputProblem,$outputProblem);
+
+         $outputProblem = self::withoutCarReturn($outputProblem);
+
+//         dd($outputProblem);
+
         /*Removing newlines of Problem´s arguments*/
         $inputProblemString = self::withoutNewlines($inputProblem);
         $inputProblemString = self::withoutSpaces($inputProblemString);
@@ -48,8 +53,11 @@ namespace SolutionBook\Entities;
         $outputProblemString = self::withoutNewlines($outputProblem);
         $outputProblemString = self::withoutSpaces($outputProblemString);
 
+         $fileCodeTemp = $fileCode->move("temporal/",$nameFileCode);
+//         dd($fileCodeTemp->getRealPath());
 //         dd($inputProblemString,$outputProblemString);
-
+         self::$results["pathCode"] = "temporal/".$fileCode->getClientOriginalName();
+//         dd(self::$results["pathCode"]);
 //        dd("Entre aqui en evaluateCodeSolution");
         switch($extension) {
             case 'c':
@@ -65,18 +73,18 @@ namespace SolutionBook\Entities;
                 /*Executing python program*/
 //                exec("time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) 'python 1 2 3 2>&1",$salida);
 //                dd($salida);
-                $sentence=self::$baseSentence.$fileCode->getRealPath().".py"." ".$inputProblemString.self::$redirectOutput;
+                $sentence = self::$baseSentence.self::$python.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$redirectOutput;
 //                dd($sentence);
                 exec($sentence,$output);
-                dd($output);
+//                dd($sentence,$output);
                 /*Removing time and memory of output*/
                 $outputToCompare = self::removeTwolastestPositions($output);
-                dd($outputToCompare);
+//                dd($outputToCompare);
                 /*Making output string*/
                 $outputToCompare = implode("\n",$outputToCompare);
-
+//                dd($outputToCompare);
                 /*Comparing original outputProblem with outputSolution for presententation and result*/
-
+//                dd($outputProblemString,$outputProblem,$outputToCompare);
                 self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
 
                 /*Si la solución es igual a la del problema evaluamos tiempo y memoria*/
@@ -108,7 +116,8 @@ namespace SolutionBook\Entities;
      {
 
          /*Comparing original outputProblem with outputSolution for presententation and result*/
-         $boolPresentation = strcmp($outputProblemString,$output);
+//         $boolPresentation = strcmp($outputProblemString,$output);
+//         dd($outputProblem,$output);
          $bool = strcmp($outputProblem,$output);
          $results = "\n Solución de Problema:".$outputProblem."\n Tú solución: \n".$output;
 
@@ -116,18 +125,22 @@ namespace SolutionBook\Entities;
          if($bool==0){
              self::$results['compare']=true;
              self::$results['presentation']=true;
+//             dd("soy igual todo bien");
              Session::flash('message', 'Solución correcta'.$results);
-         }
-         elseif($boolPresentation){
-             self::$results['compare']=true;
-             self::$results['presentation']=false;
-             Session::flash('message', "Soy igual pero la presentación esta mal :(".$results);
 
          }
+//         elseif($boolPresentation){
+//             self::$results['compare']=true;
+//             self::$results['presentation']=false;
+//             dd("soy igual pero segun presentacion mal");
+//             Session::flash('message', "Soy igual pero la presentación esta mal :(".$results);
+//
+//         }
          else{
              self::$results['compare']=false;
              self::$results['presentation']=false;
-             Session::flash('message', 'La salida no es igual debería ser:'.$results);
+//             dd("Esto se fue al carajo");
+             Session::flash('error', 'La salida no es igual debería ser:'.$results);
 
          }
      }
@@ -271,6 +284,17 @@ namespace SolutionBook\Entities;
         return $extension;
     }
 
+     /**
+      * @param $outputProblem
+      * @return mixed|string
+      */
+     private static function withoutCarReturn($outputProblem)
+     {
+         $outputProblemS = urlencode($outputProblem);
+         $outputProblemS = str_replace('%0D', "", $outputProblemS);
+         $outputProblemS = urldecode($outputProblemS);
+         return $outputProblemS;
+     }
 
 
-}
+ }

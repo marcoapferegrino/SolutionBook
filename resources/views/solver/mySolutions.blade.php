@@ -4,7 +4,9 @@
 
     <div class="container">
         <div class="row">
+            @include('partials.messages')
             <div class="col-md-11">
+
                 <div class="panel panel-info">
                     <div class="panel-heading"><h3>Solutions <i class="fa fa-code"></i></h3></div>
 
@@ -26,7 +28,9 @@
                                         <strong>{{$solution->id}} | Solver : <span class="text-capitalize">{{$solution->username}}</span></strong>
 
                                         @include('partials.likesButtons')
+
                                     </h5>
+
 
                                 </div>
                                 <div class="panel-body">
@@ -73,8 +77,12 @@
             </div>
         </div>
     </div>
+    @include('solver.partials.deleteSolutionModal')
 
 
 
+@endsection
 
+@section('scripts')
+    <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
 @endsection

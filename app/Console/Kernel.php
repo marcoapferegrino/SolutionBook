@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'SolutionBook\Console\Commands\Inspire',
+		'SolutionBook\Console\Commands\TestCommand',
 	];
 
 	/**

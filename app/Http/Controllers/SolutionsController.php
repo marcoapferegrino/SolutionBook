@@ -2,7 +2,7 @@
 
 namespace SolutionBook\Http\Controllers;
 
-use Psy\Exception\ErrorException;
+use Exception;
 use SolutionBook\Entities\CodeSolution;
 use SolutionBook\Entities\Files;
 use SolutionBook\Entities\Link;
@@ -11,6 +11,7 @@ use SolutionBook\Entities\Solution;
 use SolutionBook\Entities\EvaluateCodeTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Http\Requests\AddSolutionRequest;
 
 use SolutionBook\Http\Requests;
@@ -38,22 +39,27 @@ class SolutionsController extends Controller
 
     public function addSolution(AddSolutionRequest $request)
     {
-//       dd($request->all());
+//        dd($request->all());
         $idProblem      =$request->idProblem;
         $idUser         = auth()->user()->getAuthIdentifier();
 
-        $images         = $request->file('images');
+        $images = $request->file('images');
         $fileCode       = $request->file('fileCode');
-
-        $nameFileCode   = $fileCode->getClientOriginalName();
         $audioFile      = $request->file('audioFile');
-        $nameAudioFile  = $audioFile->getClientOriginalName();
         $language       = $request->optionsLanguages;
+
         $problem        = Problem::find($idProblem);
+
+        if ($audioFile!=null) {
+            $nameAudioFile  = $audioFile->getClientOriginalName();
+        }
+        $nameFileCode   = $fileCode->getClientOriginalName();
 
         $extension      = EvaluateCodeTool::getExtentionByLanguage($language);
         $results        = EvaluateCodeTool::evaluateCodeSolution($problem, $fileCode, $extension);
 
+
+//        dd($results);
         if ($results['compare'] && $results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo
             $codeSolution = CodeSolution::create([
                 'language'      => $language,
@@ -84,65 +90,94 @@ class SolutionsController extends Controller
             CodeSolution::where('id', '=', $codeSolution->id)->update(array('path' => $pathCode.$nameFileCode));
 
             //creamos la carpeta si no existe
-            if(!is_dir($path))
-            {
-                mkdir($path,0,true);
-                chmod($path,0755);
-            }
+
+                mkdir($path,0755,true);
+                mkdir($pathCode,0755,true);
+//                chmod($path,0777);
+
             //guardando Código
             if ($fileCode->getClientOriginalExtension() == $extension)
             {
-                $fileCode->move($pathCode,$nameFileCode);
+                try {
+                    $pathTemporal = public_path()."/".$results["pathCode"];
+                    $pathNow = public_path()."/".$pathCode.$nameFileCode;
+
+                    if (!rename($pathTemporal,$pathNow)) {
+                        Session::flash('error', 'No se pudo mover el archivo del código');
+                    }
+                } catch (Exception $e) {
+                    Session::flash('error', 'No se pudo mover el archivo del código');
+                }
             }
             //guardando audio
-            if ($audioFile->getClientOriginalExtension() == "mp3")
+            if($audioFile!=null)
             {
-                $fileAudio = Files::create([
-                    'name' => $nameAudioFile,
-                    'path' => $pathAudioFile.$nameAudioFile,
-                    'type'=>'notaVoz',
-                    'solution_id'=>$solution->id,
-                ]);
+                if ($audioFile->getClientOriginalExtension() == "mp3")
+                {
+                    try {
+                        $fileAudio = Files::create([
+                            'name' => $nameAudioFile,
+                            'path' => $pathAudioFile.$nameAudioFile,
+                            'type'=>'notaVoz',
+                            'solution_id'=>$solution->id,
+                        ]);
 
-                $fileAudio->save();
-                $audioFile->move($pathAudioFile,$nameAudioFile);
+                        $fileAudio->save();
+                        $audioFile->move($pathAudioFile,$nameAudioFile);
+                    } catch (Exception $e) {
+                        Session::flash('error', 'No se pudo mover el archivo del audio');
+                    }
+                }
             }
             //guardando imagenes
-            foreach ($images as $image)
-            {
-                $nameImage = $image->getClientOriginalName();
-                $fileImage = Files::create([
-                    'name' => $nameImage,
-                    'path' => $pathImages.$nameImage,
-                    'type'=>'imagenApoyo',
-                    'solution_id'=>$solution->id,
+            if ($images[0]!=null) {
+                foreach ($images as $image)
+                {
+                    try {
+                        $nameImage = $image->getClientOriginalName();
+                        $fileImage = Files::create([
+                            'name' => $nameImage,
+                            'path' => $pathImages.$nameImage,
+                            'type'=>'imagenApoyo',
+                            'solution_id'=>$solution->id,
+                        ]);
+                        $fileImage->save();
+                    } catch (Exception $e) {
+                        Session::flash('error', 'no se pudo gruardar la imagen:'.$nameImage);
+                    }
+                    try {
+                        $image->move($pathImages,$nameImage);
+                    } catch (Exception $e) {
+                        Session::flash('error', 'No se pudo mover la imagen:'.$nameImage);
+                    }
+                }
+            }
+            if ($request->youtube!="") {
+                Link::create([
+                    'link' => $request->youtube,
+                    'type' => 'youTube',
+                    'solution_id'=>$solution->id
                 ]);
-                $fileImage->save();
-                $image->move($pathImages,$nameImage);
+            }
+            if ($request->repositorio!="") {
+                Link::create([
+                    'link' => $request->repositorio,
+                    'type' => 'Github',
+                    'solution_id'=>$solution->id
+                ]);
+            }
+            if ($request->web!="") {
+                Link::create([
+                    'link' => $request->web,
+                    'type' => 'Facebook',
+                    'solution_id'=>$solution->id
+                ]);
             }
 
-            Link::create([
-                'link' => $request->youtube,
-                'type' => 'youTube',
-                'solution_id'=>$solution->id
-            ]);
-            Link::create([
-                'link' => $request->repositorio,
-                'type' => 'Github',
-                'solution_id'=>$solution->id
-            ]);
-            Link::create([
-                'link' => $request->web,
-                'type' => 'Facebook',
-                'solution_id'=>$solution->id
-            ]);
+            Session::flash('message', 'Ea todo genial si funciono :D ');
+            return redirect('/showSolution/'.$solution->id);
 
-
-
-            Session::flash('message', 'Si paso todo bien');
-            return redirect()->route('solution.getFormSolution');
-
-        }//end if de timeStatus and memStatus
+        }//end if de timeStatus and memStatus and compare
         else
         {
             return redirect()->route('solution.getFormSolution');
@@ -164,12 +199,13 @@ class SolutionsController extends Controller
     {
         $user = auth()->user();
         $solutions = $user->mySolutions();
-
+//        dd($solutions->toArray());
         return view('solver.mySolutions',compact('solutions'));
     }
 
     public function showSolution($idSolution)
     {
+
         //dd($id);
         $solution = Solution::findOrFail($idSolution);
 //        dd($solution->toArray());
@@ -194,6 +230,44 @@ class SolutionsController extends Controller
 //        }
         //dd($files->toArray());
         return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution'));
+    }
+
+    public function deleteSolution($idSolution)
+    {
+
+        $solution = Solution::find($idSolution);
+        $solutionDir=public_path().'/uploads/'.$solution->problem_id.'/solutions/'.$solution->id;
+        $ownerSolution = $solution->user;
+//        dd($solutionDir);
+//        dd($solution->toArray(),$solution->user);
+        if($ownerSolution->id == auth()->user()->getAuthIdentifier())
+        {
+            try {
+                $solution->delete();//mantenemos el modelo
+                CodeSolution::destroy($solution->codeSolution_id); //no mantenemos el modelo lo destruimos completamente
+                Session::flash('message', 'Listo :D se ha borrado la solución : #'.$solution->id);
+            } catch (Exception $e) {
+                Session::flash('error', 'Paso algo extraño:'.$e->getMessage());
+            }
+
+            Tools::deleteDirectory($solutionDir); //borramos sus archivos del servidor
+        }
+        else
+        {
+            Session::flash('error', 'Creemos que esta solución no te pertenece lo sentimos no puedes borrarla :D');
+        }
+        return redirect()->route('solution.mySolutions');
+
+    }
+
+    public function getZipMultimediaSolution($idProblem,$idSolution)
+    {
+//        dd($idProblem,$idSolution);
+        $zipRoot = public_path()."/uploads/".$idProblem."/solutions/".$idSolution."/";
+        $zipName = "Problem".$idProblem."Solution".$idSolution.".zip";
+        Tools::getZip($zipRoot,$zipName);
+
+
     }
 
 

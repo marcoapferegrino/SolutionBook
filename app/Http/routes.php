@@ -100,6 +100,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'NoticesController@updateNotice'
         ]);
 
+        Route::get('/getAddProblemSetter', [
+            'as' => 'users.getAddProblemSetter',
+            'uses' => 'UsersController@getAddProblemSetter'
+        ]);
+
         Route::post('/addProblemSetter', [
             'as' => 'users.addProblemSetter',
             'uses' => 'UsersController@addProblemSetter'

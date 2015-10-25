@@ -25,7 +25,7 @@
                                     <a class="btn btn-default btn-warning btn-sm" href="{{route('problem.showProblem',$r->id)}}" role="button">
                                         <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
                                     </a>
-                                    <a href="{{route('problem.updateProblem',$r->id)}}" role="button" class="btn btn-info btn-sm">
+                                    <a href="{{route('problem.updateGetProblem',$r->id)}}" role="button" class="btn btn-info btn-sm">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 
                                     </a>
                                     <a data-toggle="modal" data-target="#eliminar" data-whatever="{{$r->id}}" role="button" class="btn btn-danger btn-sm">

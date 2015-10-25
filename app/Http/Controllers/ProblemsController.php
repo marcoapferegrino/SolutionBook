@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Link;
 
+use Illuminate\Support\Facades\Session;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddProblemRequest;
 use SolutionBook\Entities\Files;
@@ -37,17 +38,23 @@ class ProblemsController extends Controller
         $title=$request->title;
         $idUser= auth()->user()->getAuthIdentifier();
         $nameUser= auth()->user()->username;
-        $institution= auth()->user()->institution;
+        $institution= $request->institucion;
         $description= $request->descripcion;
         $limitTime= $request->limitTime;
         $limitMem= $request->limitMemory;
         $judge= $request->judgeList;
+        $ejemploen=$request->ejemploen;
+        $ejemplosa=$request->ejemplosa;
         $input= $request->inputs;
         $output= $request->outputs;
         $tags= $request->tags;
         $images= $request->images;
         $youtube= $request->youtube;
         $github= $request->github;
+
+        if($judge='#'){
+            $judge=null;
+        }
         $problem=Problem::create([
             'title'=>$title,
             'author'=>$nameUser,
@@ -58,46 +65,79 @@ class ProblemsController extends Controller
             'limitMemory' => $limitMem,
             'numWarnings' => 0,
             'state' => 'active',
-            'judgeList_id'=> $judge,
+            'judgeList_id'=>$judge,
             'user_id' => $idUser,
 
         ]);
         $problem->save();
         $idProblem= $problem->id;
         $path ='uploads/'.$idProblem.'/';
-
+        $pathEjem = $path.'ejemplos/';
         $pathInput= $path.'inputs/';
         $pathOutput= $path.'outputs/';
         //dd($images);
         $find='image';
-        foreach ($images as $image)
-        {
-            $pos=strpos($image->getClientMimeType(),$find);
-            echo $pos."\n";
-            if($pos === false){
-                $tipo='Documento';
-                $pathImages = $path.'docs/';
-        }
-            else{
-                $tipo="imagenApoyo";
-                $pathImages = $path.'images/';
-        }
-            $nameImage = $image->getClientOriginalName();
+        print_r($images);
+        if($images[0]!=null){
+            foreach ($images as $image)
+            {
+                $pos=strpos($image->getClientMimeType(),$find);
+                echo $pos."\n";
+                if($pos === false){
+                    $find='pdf';
+                    $pos=strpos($image->getClientMimeType(),$find);
+                    $pathImages = $path.'docs/';
+                    if($pos === false)
+                        $tipo='doc';
+                    else
+                        $tipo='pdf';
+                }
+                else{
+                    $tipo="imagenApoyo";
+                    $pathImages = $path.'images/';
+                }
+                $nameImage = $image->getClientOriginalName();
 
-            $fileImage = Files::create([
-                'name' => $nameImage,
-                'path' => $pathImages.$nameImage,
-                'type'=>$tipo,
-                'problem_id'=>$idProblem,
-            ]);
-            $fileImage->save();
+                $fileImage = Files::create([
+                    'name' => $nameImage,
+                    'path' => $pathImages.$nameImage,
+                    'type'=>$tipo,
+                    'problem_id'=>$idProblem,
+                ]);
+                $fileImage->save();
 
-            $image->move($pathImages,$nameImage);
+                $image->move($pathImages,$nameImage);
+            }
         }
-        foreach($input as $i=>$in){
-            $nameIn="input".$i.".txt";
+
+        mkdir($pathEjem,null, true);
+        Files::create([
+            'name' => 'entrada',
+            'path' => $pathEjem.'entrada.txt',
+            'type'=>'fileinput',
+            'problem_id'=>$idProblem,
+        ]);
+        Files::create([
+            'name' => 'salida',
+            'path' => $pathEjem.'salida.txt',
+            'type'=>'fileinput',
+            'problem_id'=>$idProblem,
+        ]);
+
+        $fp = fopen($pathEjem.'entrada.txt', "w");
+        fputs($fp, $ejemploen);
+        fclose($fp);
+
+        $fp = fopen($pathEjem.'salida.txt', "w");
+        fputs($fp, $ejemplosa);
+        fclose($fp);
+
+
+
+        $in=$input;//foreach($input as $i=>$in){
+            $nameIn="input0.txt";
             $namePathIn=$pathInput.$nameIn;
-            $fileInput = Files::create([
+            Files::create([
                 'name' => $nameIn,
                 'path' => $namePathIn,
                 'type'=>'fileinput',
@@ -107,12 +147,12 @@ class ProblemsController extends Controller
             $fp = fopen($namePathIn, "w");
             fputs($fp, $in);
             fclose($fp);
-        }
+       // }
 
-        foreach($output as $i=>$out){
-            $nameOut="output".$i.".txt";
+        $out=$output;//foreach($output as $i=>$out){
+            $nameOut="output0.txt";
             $namePathOut=$pathOutput.$nameOut;
-            $fileOutput = Files::create([
+            Files::create([
                 'name' => $nameOut,
                 'path' => $namePathOut,
                 'type'=>'fileOutput',
@@ -123,17 +163,25 @@ class ProblemsController extends Controller
             fputs($fp, $out);
             fclose($fp);
 
+       // }
+        if($youtube!=null){
+            Link::create([
+                'link' => $youtube,
+                'type' => 'youTube',
+                'problem_id'=>$idProblem,
+            ]);
         }
-        Link::create([
-            'link' => $youtube,
-            'type' => 'youTube',
-            'problem_id'=>$idProblem,
-        ]);
-        Link::create([
-            'link' => $github,
-            'type' => 'Github',
-            'problem_id'=>$idProblem,
-        ]);
+
+        if($github!=null){
+            Link::create([
+                'link' => $github,
+                'type' => 'Github',
+                'problem_id'=>$idProblem,
+            ]);
+        }
+
+        Session::flash('message', 'Se agregó exitosamente a la base de datos');
+        return redirect()->route('problem.addFormProblem');
 
     }
 
@@ -154,13 +202,11 @@ class ProblemsController extends Controller
     public function addFormProblem()
     {
         //
-        $result = \DB::table('judges_lists')->get();
-        $judgeList=array("");
-        foreach ($result as $r) {
-            array_push($judgeList,$r->id);
-        }
+        //$result = \DB::table('judges_lists')->get();
+        $judgeList= JudgesList::all('id','name');
 
         return view('problem/addProblem',compact('judgeList'));
+
     }
 
     /**
@@ -245,11 +291,71 @@ class ProblemsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function updateProblem($id)
+    public function updateProblem(Request $request)
     {
         //
-        return "En desarrollo";
+        dd($request);
     }
+
+    public function updateGetProblem($idProblem)
+    {
+        //
+
+        $dataProblem=Problem::find($idProblem);
+        $filesAll=Problem::find($idProblem)->files;
+        // $files=Problem::find($idProblem)->judgeList;
+        //$files=Problem::find($idProblem)->tags;
+
+//        $warnings=Problem::find($idProblem)->warnings;
+
+        $links=Problem::find($idProblem)->links;
+
+        $judgeList= JudgesList::all('id','name');
+//      $solutions=Problem::find(10)->solutions;
+
+        $problem = Problem::find($idProblem);
+        $solutions = $problem->solutionsPreview();
+        $files = array();$entrada="";$salida="";$inputs="";$outputs="";
+        $docs = array();
+        foreach($filesAll as $f ){
+            $type=$f->type;
+            if($type=='ejEntrada'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $entrada=$text;
+            }
+            elseif($type=='ejSalida'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $salida=$text;
+            }
+            elseif($type=='fileinput'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $inputs=$text;
+            }
+            elseif($type=='fileOutput'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $outputs=$text;
+            }
+            elseif($type=='imagenApoyo'){
+                array_push($files,$f);
+            }
+            else{
+                array_push($docs,$f);
+            }
+        }
+        //dd($files);
+        //dd($solutions);
+        return view('problem/updateProblem',compact('dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','links','solutions'));
+
+    }
+
 
     /**
      * specified resource from storage.

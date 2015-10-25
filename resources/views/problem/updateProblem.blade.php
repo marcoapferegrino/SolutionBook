@@ -10,15 +10,16 @@
                     <div class="panel-body">
                         @include('partials.messages')
                         {!! Form::open([
-                        'route' => 'problem.addProblem',
+                        'route' => 'problem.updateProblem',
                         'method' => 'post',
                         'class'=>'form-horizontal',
                         'id'=>'',
                         'files'=>true]) !!}
+                        <input type="text" value="{{$dataProblem->id}}" hidden name="idProblem">
                         <div class="form-group">
                             <label for="titulo" class="col-sm-2 control-label"><strong>Título</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('title','',['class'=>'form-control','id'=>'title'])!!}
+                                {!!Form::text('title',$dataProblem->title,['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                             </div>
 
@@ -27,7 +28,7 @@
                         <div class="form-group">
                             <label for="titulo" class="col-sm-2 control-label"><strong>Institución</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('institucion','',['class'=>'form-control'])!!}
+                                {!!Form::text('institucion',$dataProblem->institution,['class'=>'form-control'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                             </div>
 
@@ -36,7 +37,7 @@
                         <div class="form-group">
                             <label for="descripcion" class="col-sm-2 control-label"><strong>Descripción</strong></label>
                             <div class="col-sm-8">
-                                {!!Form::textArea('descripcion', '',['class'=>'form-control','placeholder'=>'Descripción del problema'])!!}
+                                {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control','placeholder'=>'Descripción del problema'])!!}
                             </div>
 
                         </div>
@@ -44,7 +45,7 @@
                         <div class="form-group">
                             <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo *</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('limitTime','',['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos'])!!}
                             </div>
 
                         </div>
@@ -52,7 +53,7 @@
                         <div class="form-group">
                             <label for="limitMemory" class="col-sm-2 control-label"><strong>Limite de Memoria *</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('limitMemory','',['class'=>'form-control','placeholder'=>'bytes'])!!}
+                                {!!Form::text('limitMemory',$dataProblem->limitMemory,['class'=>'form-control','placeholder'=>'bytes'])!!}
                             </div>
 
                         </div>
@@ -61,11 +62,15 @@
                         <div class="form-group">
                             <label for="judgeList" class="col-sm-2 control-label"><strong>Juez en Línea</strong></label>
                             <div class="col-sm-6">
-                                <select class="form-control" name="judgeList" id="judges">
+                                <select class="form-control" name="judgeList">
                                     <option value='#'></option>
-                                    @foreach($judgeList as $j)
+                                @foreach($judgeList as $j)
+                                    @if($j->id==$dataProblem->judgeList_id)
+                                        <option value="{{$j->id}}" selected>{{$j->name}}</option>
+                                    @else
                                         <option value="{{$j->id}}">{{$j->name}}</option>
-                                    @endforeach
+                                    @endif
+                                @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-1 ">
@@ -75,31 +80,31 @@
                             </div>
                         </div>
                         <div class="form-group" >
-                            <label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label>
-                            <div class="col-sm-4">
-                                <textarea rows=8  name="ejemploen" class="form-control" ></textarea>
+                                <label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label>
+                                <div class="col-sm-4">
+                                    <textarea rows=8  name="eejmploen" class="form-control" >{{$entrada}}</textarea>
+                                </div>
+                                <label for="output" class="col-sm-1 control-label"><strong>Ejemplo salida *</strong></label>
+                                <div class="col-sm-4">
+                                    <textarea rows=8 name="ejemplosa" class="form-control" >{{$salida}}</textarea>
+                                </div>
+                                {{--<div class="col-sm-1 ">
+                                    <button type="button" class="btn btn-primary btn-lg ">
+                                        <a href="#" onclick="agregar();">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </a>
+                                    </button>
+                                </div>--}}
                             </div>
-                            <label for="output" class="col-sm-1 control-label"><strong>Ejemplo salida *</strong></label>
-                            <div class="col-sm-4">
-                                <textarea rows=8 name="ejemplosa" class="form-control" ></textarea>
-                            </div>
-                            {{--<div class="col-sm-1 ">
-                                <button type="button" class="btn btn-primary btn-lg ">
-                                    <a href="#" onclick="agregar();">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </a>
-                                </button>
-                            </div>--}}
-                        </div>
                         <div id="emails">
                             <div class="form-group" >
                                 <label for="input" class="col-sm-2 control-label"><strong>Entrada *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" ></textarea>
+                                    <textarea rows=8 id='textarea'  name="inputs[]" class="form-control" >{{$inputs}}</textarea>
                                 </div>
                                 <label for="output" class="col-sm-1 control-label"><strong>Salida *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 name="outputs" class="form-control" ></textarea>
+                                    <textarea rows=8 name="outputs[]" class="form-control" >{{$outputs}}</textarea>
                                 </div>
                                 {{--<div class="col-sm-1 ">
                                     <button type="button" class="btn btn-primary btn-lg ">
@@ -119,6 +124,9 @@
 
                         </div>
 
+                        @foreach($links as $l)
+                            <a href="{{$l->url}}">{{$l->type}}</a>
+                        @endforeach
                         <div class="form-group">
                             <label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label>
                             <div class="col-sm-6">
@@ -134,7 +142,20 @@
                             </div>
 
                         </div>
-
+                        
+                        <div class="row">
+                        @foreach($files as $i=>$f)
+                          <div class="col-sm-4 col-md-2">
+                            <div class="thumbnail">
+                              <img src="{{$f->url}}" alt="{{$f->name}}">
+                              <div class="caption">
+                                <p><a href="#" class="btn btn-primary" role="button">Borrar</a> </p>
+                              </div>
+                            </div>
+                          </div>
+                        @endforeach
+                        </div>
+                            
 
                         <div class="form-group">
                             <label for="images" class="col-sm-2 control-label"><strong>Archivos de apoyo</strong></label>
@@ -146,8 +167,8 @@
 
                         <div class="form-group">
                             <label for="submit" class="col-sm-5 control-label"><strong></strong></label>
-                            <div class="col-sm-12">
-                                {!!Form::submit('Agregar',['class'=>'form-control btn-lg btn-info'])!!}
+                            <div class="col-sm-4">
+                                {!!Form::submit('Agregar',['class'=>'form-control btn-info'])!!}
                             </div>
 
                         </div>
@@ -163,7 +184,7 @@
     {!! Form::open(['route' => ['problem.similarTags',':TEXT'],'method' => 'post','id'=>'form-tag']) !!}
     {!! Form::close() !!}
 
-    @include('problem.formJudge')
+@include('problem.formJudge')
 
 @endsection
 @section('scripts')
@@ -223,35 +244,16 @@
         });
 
         $("#textarea")
-                .bind("dragover", false)
-                .bind("dragenter", false)
-                .bind("drop", function(e) {
-                    this.value = e.originalEvent.dataTransfer.getData("text") ||
-                    e.originalEvent.dataTransfer.getData("text/plain");
+        .bind("dragover", false)
+        .bind("dragenter", false)
+        .bind("drop", function(e) {
+            this.value = e.originalEvent.dataTransfer.getData("text") ||
+                e.originalEvent.dataTransfer.getData("text/plain");
 
-                    $("#textarea").append("dropped!");
+            $("#textarea").append("dropped!");
 
-                    return false;
-                });
-
-    </script>
-    <script type="text/javascript">
-
-        var form =  $( "#judgesForm" );
-        form.bind('submit',function () {
-            var url = form.attr('action');
-            var data = form.serialize();
-            $.post(url,data,function(result){
-
-                    $("#judges").append(result.message);
-
-            }).fail(function(){
-                $("#addJudge").('show');
-
-        });
-            return false;
-        });
-
+    return false;
+});
 
     </script>
 

@@ -88,7 +88,7 @@ class ProblemsController extends Controller
                     $pos=strpos($image->getClientMimeType(),$find);
                     $pathImages = $path.'docs/';
                     if($pos === false)
-                        $tipo='doc';
+                        $tipo='word';
                     else
                         $tipo='pdf';
                 }
@@ -114,13 +114,13 @@ class ProblemsController extends Controller
         Files::create([
             'name' => 'entrada',
             'path' => $pathEjem.'entrada.txt',
-            'type'=>'fileinput',
+            'type'=>'ejEntrada',
             'problem_id'=>$idProblem,
         ]);
         Files::create([
             'name' => 'salida',
             'path' => $pathEjem.'salida.txt',
-            'type'=>'fileinput',
+            'type'=>'ejSalida',
             'problem_id'=>$idProblem,
         ]);
 

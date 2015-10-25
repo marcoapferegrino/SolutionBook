@@ -3,6 +3,8 @@
 @section('content')
     <div class="table">
 
+
+        @include('partials.messages')
         <div class=" row">
 
 
@@ -18,7 +20,11 @@
 
                     </div>
                 </tr>
-                <tr><div class="col-md-8 ">
+
+                <tr>
+
+                    <div class="col-md-8 ">
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">Noticias
 
@@ -27,48 +33,39 @@
                             <div class="panel-body">
 
 
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <div id="myCarousel" class="carousel slide col-md-8 col-lg-push-2" data-ride="carousel">
+
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">
+
                                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                                        @foreach($notices as $i=>$notice)
+                                            <li data-target="#myCarousel" data-slide-to="{{$i+1}}" ></li>
+                                        @endforeach
+
                                     </ol>
 
                                     <!-- Wrapper for slides -->
-                                    <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-inner" role="listbox" style="height: 60%">
                                         <div class="item active">
-                                            <img src="img/11.jpg" alt="1">
+                                            <img src="default.jpg" width="500"  height="500"   >
                                             <div class="carousel-caption">
-                                                <h3>Noticia #1</h3>
-                                                <p>Poe ataca de nuevo</p>
+                                                <h3>//</h3>
+                                                <p>******</p>
                                             </div>
                                         </div>
 
-                                        <div class="item">
-                                            <img src="img/2.jpg" alt="2">
-                                            <div class="carousel-caption">
-                                                <h3>Noticia #2</h3>
-                                                <p>Eres un baka</p>
-                                            </div>
-                                        </div>
+                                        @foreach($notices as $i=>$notice)
 
-                                        <div class="item">
-                                            <img src="img/3.png" alt="3">
-                                            <div class="carousel-caption">
-                                                <h3>Noticia #3</h3>
-                                                <p>Gatos.</p>
+                                            <div class="item ">
+                                                <img width="500"  height="500"  src="{{$notice->path}}" >
+                                                <div class="carousel-caption">
+                                                    <h3>{{$notice->title}}</h3>
+                                                    <p>{{$notice->description}}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
 
-                                        <div class="item">
-                                            <img src="img/4.jpg" alt="4">
-                                            <div class="carousel-caption">
-                                                <h3>Noticia #4</h3>
-                                                <p>Smiths</p>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <!-- Left and right controls -->

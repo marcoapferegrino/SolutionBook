@@ -49,7 +49,27 @@ class WelcomeController extends Controller {
     public function addRegister(AddUserRequest $request)
     {
         $password = bcrypt($request->password);
+        $image=$request->file('avatar');
+        // dd($request->all());
+
         $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>'solver', 'password'=>$password));
+//        dd($user->id);
+
+        $idUser = $user->id;
+        $path ='users/'.$idUser.'/';
+        $pathAvatar = $path.'avatar/';
+
+        mkdir($pathAvatar,null, true);
+
+        $nameImage = $image->getClientOriginalName();
+        // dd($image,$pathAvatar,$nameImage);
+
+        $image->move($pathAvatar,$nameImage);
+        $renameImg= 'avatar.'.$image->getClientOriginalExtension();
+
+        rename($pathAvatar.$nameImage,$pathAvatar.$renameImg );
+        $user->avatar= $pathAvatar.$renameImg;
+        $user->save();
 
         Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
 

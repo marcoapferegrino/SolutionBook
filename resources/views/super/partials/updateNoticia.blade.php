@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                {!! Form::open(['route' => 'notices.updateNotice','method' => 'POST','class'=>'form-inline']) !!}
+                {!! Form::open(['route' => 'notices.updateNotice','method' => 'POST','class'=>'form-inline','files'=>true]) !!}
 
                 {!! Form::hidden('id',$notice->id) !!}
                          <div class="panel panel-success">
@@ -35,6 +35,15 @@
                                     {!! Form::label('finishDate', 'Fecha de Expiración*') !!} <br>
                                     <input type="date" value="{{$notice->finishDate}}" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(18)}} >
                                 </div>
+
+                            <div class="form-group">
+                                <label for="file" class="col-sm-2 control-label">Imagen representativa:</label> <br><br>
+                                <div class="col-sm-6">
+                                    {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
+                                </div>
+
+                            </div>
+
 
                         </div>
 

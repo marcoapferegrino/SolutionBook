@@ -47,7 +47,8 @@ class HomeController extends Controller {
 
     public function indexAdmin()
     {
-        $notices = Notice::all();
+
+        $notices = Notice::getNoticesWithFiles();
 
         return view('homeAdmin' ,compact('notices'));
     }

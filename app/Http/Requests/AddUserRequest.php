@@ -25,9 +25,11 @@ class AddUserRequest extends Request
     {
 
         $rules = [
-            'username'=> 'required ',
-            'email'=> 'required',
-            'password'=> 'required'
+            'username'  => 'required',
+            'email'     => 'required',
+            'password'  => 'required',
+            'avatar'    => 'extension:jpg,png,bmp'
+
         ];
 
 

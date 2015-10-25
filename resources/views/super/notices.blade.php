@@ -19,6 +19,7 @@
                                         <th> Título </th>
 
                                         <th> Fecha </th>
+                                        <th> Imagen </th>
 
                                         <th> Acciones </th>
 
@@ -34,6 +35,7 @@
 
                                             <th>{{$notice->title}}</th>
                                             <th>{{$notice->finishDate}}</th>
+                                            <th> <img src="{{$notice->path}}"  height="52" width="52"> </th>
                                             <th>
                                                 <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#modalEditNotice{{$notice->id}}">
                                                     <i class="fa fa-pencil-square-o"></i>

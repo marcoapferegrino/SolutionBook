@@ -5,7 +5,7 @@
 
     <div class="col-lg-9 col-md-push-2 " >
 
-        {!! Form::open(['route' => 'notices.addNotice','method' => 'POST','class'=>'form-inline']) !!}
+        {!! Form::open(['route' => 'notices.addNotice','method' => 'POST','class'=>'form-inline','files'=>true]) !!}
 
         <div class="panel-body ">
 
@@ -43,6 +43,14 @@
                         {!! Form::label('finishDate', 'Fecha de Expiración*') !!} <br>
                         <input type="date" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(18)}} >
                     </div>
+                    </div>
+                    <br> <br><br> <br>
+                    <div class="form-group">
+                        <label for="file" class="col-sm-2 control-label">Imagen representativa:</label> <br><br>
+                        <div class="col-sm-6">
+                            {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
+                        </div>
+
                     </div>
                 </div>
 

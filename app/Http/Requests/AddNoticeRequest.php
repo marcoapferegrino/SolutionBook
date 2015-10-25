@@ -27,7 +27,8 @@ class AddNoticeRequest extends Request
         $rules = [
             'title'=> 'required ',
             'description'=> 'required',
-            'finishDate'=> 'required'
+            'finishDate'=> 'required',
+            'file'    => 'extension:jpg,png,bmp'
         ];
 
 

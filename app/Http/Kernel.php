@@ -27,7 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'SolutionBook\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'SolutionBook\Http\Middleware\RedirectIfAuthenticated',
-		'role' => 'SolutionBook\Http\Middleware\role'
+		'role' => 'SolutionBook\Http\Middleware\Role'
 	];
 
 }

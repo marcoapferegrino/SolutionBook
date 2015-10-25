@@ -1,5 +1,10 @@
 <?php
 
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ProcessBuilder;
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,6 +15,31 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+Route::get('/compile',function(){
+
+    //$path = public_path("testing/cosas.out");
+    exec("python testing/cepy.py 2>&1",$output,$status);
+    //exec("./testing/test.sh 2>&1",$output);
+    //exec(".".$path." 2>&1",$output,$status);
+  //  exec("dpkg -l | grep gcc 2>&1",$output,$status);
+  //exec("./testing/from.out  2>&1",$output);
+  // $output=passthru("/usr/bin/gcc -Wall -Wextra  testing/pruebaC.c -o  testing/from.out  2>&1");
+    //exec("pwd",$output,$status);
+   // dd($output);
+
+
+    $process = new Process('/usr/lib/gcc/x86_64-linux-gnu/4.9/cc1 testing/pruebaC.c -o  testing/from.out');
+    $process->setTimeout(3600);
+    $process->run();
+    if (!$process->isSuccessful()) {
+        throw new ProcessFailedException($process);
+    }
+
+    print $process->getOutput();
+   // dd($output);
+
+});
 
 Route::get('/', 'WelcomeController@index');
 Route::get('loginN', 'WelcomeController@loginN');
@@ -126,6 +156,11 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/updateNotice', [
             'as' => 'notices.updateNotice',
             'uses' => 'NoticesController@updateNotice'
+        ]);
+
+        Route::get('/getAddProblemSetter', [
+            'as' => 'users.getAddProblemSetter',
+            'uses' => 'UsersController@getAddProblemSetter'
         ]);
 
         Route::post('/addProblemSetter', [

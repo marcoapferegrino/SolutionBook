@@ -13,12 +13,13 @@ namespace SolutionBook\Entities;
  class EvaluateCodeTool
 {
 
-     public static $results = array();
-     public static $baseSentence = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
-     public static $python = "python ";
-     public static $redirectOutput = " 2>&1 ";
+     public static $RESULTS = array();
+     public static $BASE_SENTENCE = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
+     public static $PYTHON = "python ";
+     public static $GCC = "clang ";
+     public static $REDIRECT_OUTPUT = " 2>&1 ";
 
-     public static $cCompilationSentence="gcc";
+
      /**
       * @param $problem Problem
       * @param $fileCode
@@ -56,12 +57,35 @@ namespace SolutionBook\Entities;
          $fileCodeTemp = $fileCode->move("temporal/",$nameFileCode);
 //         dd($fileCodeTemp->getRealPath());
 //         dd($inputProblemString,$outputProblemString);
-         self::$results["pathCode"] = "temporal/".$fileCode->getClientOriginalName();
-//         dd(self::$results["pathCode"]);
+         self::$RESULTS["pathCode"] = "temporal/".$fileCode->getClientOriginalName();
+//         dd(self::$RESULTS["pathCode"]);
 //        dd("Entre aqui en evaluateCodeSolution");
         switch($extension) {
             case 'c':
+                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().".out";
+                $sentenceCompile = self::$GCC . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile .self::$REDIRECT_OUTPUT;
 
+                exec($sentenceCompile,$outputCompile);
+//                dd($outputCompile);
+                if(empty($outputCompile))
+                {
+                    $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    exec($sentenceToExecute,$output);
+                    $outputToCompare = self::removeTwolastestPositions($output);
+//                    dd($outputToCompare);
+                    $outputToCompare = implode("\n",$outputToCompare);
+//                    dd($outputToCompare);
+                    self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
+
+                    self::evaluateTimeAndMemory($problem, $output);
+                    unlink(public_path()."/temporal/".$nameOutputFile);
+                    return self::$RESULTS;
+                    break;
+                }
+                else{
+                    unset($outputCompile[0]);
+                    dd($outputCompile);
+                }
                 break;
             case 'cpp':
 
@@ -73,7 +97,7 @@ namespace SolutionBook\Entities;
                 /*Executing python program*/
 //                exec("time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) 'python 1 2 3 2>&1",$salida);
 //                dd($salida);
-                $sentence = self::$baseSentence.self::$python.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$redirectOutput;
+                $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
 //                dd($sentence);
                 exec($sentence,$output);
 //                dd($sentence,$output);
@@ -88,20 +112,9 @@ namespace SolutionBook\Entities;
                 self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
 
                 /*Si la solución es igual a la del problema evaluamos tiempo y memoria*/
-                if (self::$results['compare']) {
-                    /*Evaluating time & Memory*/
-                    $timeAndMem = self::explodeMemAndTime($output);
-                    self::saveTimeAndMemory($timeAndMem);
+                self::evaluateTimeAndMemory($problem, $output);
 
-                    $timeCodeTimestamp = \DateTime::createFromFormat('H:i.s',$timeAndMem['time'][0])->getTimestamp();
-
-                    $memProblem = $problem->limitMemory;
-
-                    self::evaluateTime($timeCodeTimestamp,$problem->limitTime);
-                    self::evaluateMemory($timeAndMem['mem'][0],$memProblem);
-                }
-
-                return self::$results;
+                return self::$RESULTS;
                 break;
         }
     }
@@ -119,28 +132,28 @@ namespace SolutionBook\Entities;
 //         $boolPresentation = strcmp($outputProblemString,$output);
 //         dd($outputProblem,$output);
          $bool = strcmp($outputProblem,$output);
-         $results = "\n Solución de Problema:".$outputProblem."\n Tú solución: \n".$output;
+         $RESULTS = "\n Solución de Problema:".$outputProblem."\n Tú solución: \n".$output;
 
          /*Sending messages*/
          if($bool==0){
-             self::$results['compare']=true;
-             self::$results['presentation']=true;
+             self::$RESULTS['compare']=true;
+             self::$RESULTS['presentation']=true;
 //             dd("soy igual todo bien");
-             Session::flash('message', 'Solución correcta'.$results);
+             Session::flash('message', 'Solución correcta'.$RESULTS);
 
          }
 //         elseif($boolPresentation){
-//             self::$results['compare']=true;
-//             self::$results['presentation']=false;
+//             self::$RESULTS['compare']=true;
+//             self::$RESULTS['presentation']=false;
 //             dd("soy igual pero segun presentacion mal");
-//             Session::flash('message', "Soy igual pero la presentación esta mal :(".$results);
+//             Session::flash('message', "Soy igual pero la presentación esta mal :(".$RESULTS);
 //
 //         }
          else{
-             self::$results['compare']=false;
-             self::$results['presentation']=false;
+             self::$RESULTS['compare']=false;
+             self::$RESULTS['presentation']=false;
 //             dd("Esto se fue al carajo");
-             Session::flash('error', 'La salida no es igual debería ser:'.$results);
+             Session::flash('error', 'La salida no es igual debería ser:'.$RESULTS);
 
          }
      }
@@ -151,8 +164,8 @@ namespace SolutionBook\Entities;
       */
      private static function saveTimeAndMemory($timeAndMem)
      {
-         self::$results['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]);
-         self::$results['memUsed']=$timeAndMem['mem'][0];
+         self::$RESULTS['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]);
+         self::$RESULTS['memUsed']=$timeAndMem['mem'][0];
      }
 
      /**
@@ -166,13 +179,13 @@ namespace SolutionBook\Entities;
 
          if ($timeProblemP == "00:00:00" || $timeCodeTimestamp <= $timeProblem )
          {
-             self::$results['timeStatus'] = true;
+             self::$RESULTS['timeStatus'] = true;
          }
          else
          {
-             self::$results['timeStatus'] = false;
+             self::$RESULTS['timeStatus'] = false;
              //unlink($fileCode->getRealPath().$fileCode->getClientOriginalName());
-             Session::flash('error', 'Excedio el límite de tiempo de ejecución: Tu tiempo '.self::$results['timeExecution'].' Debería ser menor a: '.$timeProblemP);
+             Session::flash('error', 'Excedio el límite de tiempo de ejecución: Tu tiempo '.self::$RESULTS['timeExecution'].' Debería ser menor a: '.$timeProblemP);
              //return redirect()->route('solution.getFormSolution');
          }
      }
@@ -186,11 +199,11 @@ namespace SolutionBook\Entities;
      {
          if($memUsed <= $memProblem ||$memProblem == 0)
          {
-             self::$results['memStatus'] = true;
+             self::$RESULTS['memStatus'] = true;
          }
          else
          {
-             self::$results['memStatus'] = false;
+             self::$RESULTS['memStatus'] = false;
              //unlink($fileCode->getRealPath().$fileCode->getClientOriginalName());
              Session::flash('error', 'Excedio el límite de memoria:'.'Usaste:'.$memUsed.' kb'.' Debería ser menor a : '.$memProblem.' kb');
              //return redirect()->route('solution.getFormSolution');
@@ -294,6 +307,26 @@ namespace SolutionBook\Entities;
          $outputProblemS = str_replace('%0D', "", $outputProblemS);
          $outputProblemS = urldecode($outputProblemS);
          return $outputProblemS;
+     }
+
+     /**
+      * @param $problem
+      * @param $output
+      */
+     private static function evaluateTimeAndMemory($problem, $output)
+     {
+         if (self::$RESULTS['compare']) {
+             /*Evaluating time & Memory*/
+             $timeAndMem = self::explodeMemAndTime($output);
+             self::saveTimeAndMemory($timeAndMem);
+
+             $timeCodeTimestamp = \DateTime::createFromFormat('H:i.s', $timeAndMem['time'][0])->getTimestamp();
+
+             $memProblem = $problem->limitMemory;
+
+             self::evaluateTime($timeCodeTimestamp, $problem->limitTime);
+             self::evaluateMemory($timeAndMem['mem'][0], $memProblem);
+         }
      }
 
 

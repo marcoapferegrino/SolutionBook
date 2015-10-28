@@ -14,9 +14,7 @@ use Illuminate\Database\QueryException;
 use SolutionBook\Http\Requests\AddNoticeRequest;
 
 use SolutionBook\Http\Requests\UpdateNoticeRequest;
-use SolutionBook\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\DB;
 
 
 class NoticesController extends Controller

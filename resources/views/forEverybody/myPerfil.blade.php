@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
-                                    <img src="{{$user->avatar}}" alt="...">
+                                    <img class="img-responsive" src="{{$user->avatar}}" alt="...">
                                     <div class="caption">
                                         <h1 class="text-capitalize"> {{$user->rol=='problem' ? 'Problem Setter' : 'Solver' }}:  <small>{{$user->username}}</small></h1>
                                         @if(auth()->user()->getAuthIdentifier()==$user->id)
@@ -43,7 +43,7 @@
                                             <td
                                             {!! Html::classes(['warning'=>$user->numWarnings==1,'danger'=>$user->numWarnings==2])!!}>
 
-                                            {{$user->numWarnings}}
+                                                {{$numWarnings}}
                                             <div class="pull-right">
                                                 <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#helpWarning">
                                                     ¿?

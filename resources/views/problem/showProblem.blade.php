@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-info">
-                    <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b></div>
+                    <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b>
+                        <div class="pull-right">
+                            <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><small>Reportar</small></a>
+                        </div></div>
 
                     <div class="panel-body">
                         <div class="well well-sm  pull-right ">

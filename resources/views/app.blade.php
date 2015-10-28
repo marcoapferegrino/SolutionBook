@@ -29,6 +29,7 @@
     <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
 
 </div>
+<div id="notifications"></div>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -88,18 +89,25 @@
 
 
 						@elseif(Auth::getRol()=="problem")
-							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
-							<li><a href="{{url('/myProblems')}}">Mis problemas <i class="fa fa-list-ol"></i></a></li>
-							<li><a href="">Promover <i class="fa fa-hand-o-up"></i></a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-smile-o"></i> Mine<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{url('/myProblems')}}"><i class="fa fa-list-ol"></i> Mis problemas </a></li>
+									<li><a href="{{url('/mySolutions')}}"><i class="fa fa-wrench"></i> Mis soluciones </a></li>
+									<li><a href="{{url('/myWarnings')}}"><i class="fa fa-exclamation-triangle"></i> Mis Amonestaciones</a></li>
+								</ul>
+							</li>
 
-                            <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-list"></i></a></li>
-							<li><a href="{{url('/addFormProblem')}}">Problema <i class="fa fa-plus"></i></a></li>
+
+							<li><a href=""><i class="fa fa-hand-o-up"></i> Promover </a></li>
+
+                            <li><a href="{{url('/allProblems')}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
+							<li><a href="{{url('/addFormProblem')}}"><i class="fa fa-plus"></i> Problema </a></li>
 						@elseif(Auth::getRol()=="solver")
 
 							<li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
-
                             <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
-
+							<li><a href="{{url('/myWarnings')}}">Mis Amonestaciones <i class="fa fa-list-ol"></i></a></li>
 
 						@endif
 
@@ -150,7 +158,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="{{ asset('/js/likes.js') }}"></script>
-<script src="{{ asset('/js/disqus.js') }}"></script>
+	<script src="{{ asset('/js/disqus.js') }}"></script>
 	<script src="{{ asset('/js/alerts.js') }}"></script>
 	@yield('scripts')
 </body>

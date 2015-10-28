@@ -4,6 +4,7 @@ namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Psy\Exception\ErrorException;
 use SolutionBook\Entities\Files;
 use SolutionBook\Entities\Notice;
 use SolutionBook\Http\Requests;
@@ -29,6 +30,30 @@ class NoticesController extends Controller
         return view('super.addNotice');
     }
 
+    public function oneNotice($id)
+    {
+
+        try{
+            $notice = Notice::getOneNoticeWithFiles($id);
+            $tam= getimagesize($notice[0]->path);
+            if($tam[0]>$tam[1]){
+                $tam='largo';
+
+            }
+            else{
+
+                $tam='ancho';
+            }
+           // dd($tam);
+        }
+        catch(\Exception $e){
+            dd('no hay noticia');
+
+        }
+
+        return view('forEverybody.oneNotice',compact('notice','tam'));
+    }
+
     public function getNotices()
     {
         $notices = Notice::getNoticesWithFiles();
@@ -40,7 +65,6 @@ class NoticesController extends Controller
 
     public function addNotice(AddNoticeRequest $request)
     {
-
 
         $notice = Notice::create(
                         array('title'=>$request->title,
@@ -60,7 +84,7 @@ class NoticesController extends Controller
         $path ='users/'.$idUser.'/';
         $pathFile = $path.'notices/'.$notice->id.'/';
 
-        mkdir($pathFile,null, true);
+        mkdir($pathFile,null, true);///////imagenes
         if($fileImg!='default.jpg'){
         $nameFile = $fileImg->getClientOriginalName();
         }
@@ -85,6 +109,50 @@ class NoticesController extends Controller
         $fileImg->move($pathFile,$nameFile);
         }
 
+        ///////////////////////////////////////archivos
+        $apoyo       = $request->file('apoyo');
+        if($apoyo[0]!=null){
+        $pathApoyo=$pathFile.'docs/';
+        foreach($apoyo as $fileA){
+            try {
+                $nameApoyo = $fileA->getClientOriginalName();
+                $ext=$fileA->guessExtension() ;  //getOriginalExtension()
+                $type='';
+                if($ext=='jpg'||$ext=='bmp'||$ext=='png'||$ext=='jpeg'){
+
+                    $type='imagenApoyo';
+                }elseif(($ext=='mp3'||$ext=='wav'||$ext=='mpga')){
+                    $type='notaVoz';
+
+                }elseif(($ext=='pdf')){
+                    $type='pdf';
+
+                }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip')){
+                    $type='word';
+
+                }
+
+                $fileApoyo= Files::create([
+                    'name' => $nameApoyo,
+                    'path' => $pathApoyo.$nameApoyo,
+                    'type' => $type,
+                    'notice_id'=>$notice->id,
+                ]);
+                $fileApoyo->save();
+            } catch (Exception $e) {
+                Session::flash('error', 'no se pudo gruardar ');
+            }
+            try {
+                $fileA->move($pathApoyo,$nameApoyo);
+            } catch (Exception $e) {
+                Session::flash('error', 'No se pudo mover ');
+            }
+
+
+        }
+        }
+
+        Session::flash('message', 'si se guardo ');
         return redirect()->action('HomeController@indexAdmin');
 
     }
@@ -94,9 +162,60 @@ class NoticesController extends Controller
         $notice = Notice::findOrFail($id);
         try
         {
+
+
+            $files=Files::where('notice_id',$notice->id)->get()->all();
+            $pathEraser = $files[0]->path;
+            $pathEraser=strrev ($pathEraser );
+            $aux='';
+            $explode= str_split($pathEraser);
+            $flag=0;
+                foreach($explode as $ind=>$letter) {
+
+                    if ($letter == '/' || $letter == '\\'||$flag==1) {
+                        $flag=1;
+                        $aux = $aux.$letter;
+
+                    }
+                }
+
+            foreach($files as $i=>$file){
+
+                    $realFile=Files::find($file['id']);
+                    if($realFile->path!=null){
+                        unlink($realFile->path);
+                    }
+                    $file->delete();
+
+
+            }
+            try{
+                if(is_dir(strrev ($aux ).'docs')){
+                rmdir(strrev ($aux ).'docs');
+                }
+
+            }
+            catch(ErrorException $e){
+
+
+        } try{
             $notice->delete();
+        }
+        catch(ErrorException $e){
+
+
+        } try{
+            rmdir(strrev ($aux ));
+        }
+        catch(ErrorException $e){
+
+
+        }
+
+
             Session::flash('message', 'Se ha eliminado la noticia');
         }
+
         catch(QueryException $e)
         {
 
@@ -112,6 +231,8 @@ class NoticesController extends Controller
     {
 
         $fileImg      = $request->file('file');
+        $apoyo        =  $request->file('apoyo');
+
         $notice = Notice::find($request->id);
 
         $notice->title      = $request->title;
@@ -120,7 +241,8 @@ class NoticesController extends Controller
         $notice->save();
         if($fileImg!=null)
         {
-            $file=Files::where('notice_id',$notice->id)->get()->all() ;
+            $file=Files::where('notice_id',$notice->id)->get()->all();
+         //   dd($file);
             if($file!=null){
 
                 $realFile=Files::find($file[0]['id']);
@@ -171,6 +293,79 @@ class NoticesController extends Controller
 
 
         }
+        if($apoyo!=null)
+        {
+
+            $files=Files::where('notice_id',$notice->id)->get()->all();
+
+            foreach($files as $i=>$file){
+                if($i!=0){
+                $realFile=Files::find($file['id']);
+
+
+                if($realFile->path!=null){
+                    unlink($realFile->path);
+                }
+                $file->delete();
+                }
+
+            }
+            /////////////
+
+            ///////////////////////////////////////archivos
+            $apoyo       = $request->file('apoyo');
+            $idUser = auth()->user()->id;
+            $path ='users/'.$idUser.'/';
+            $pathFile = $path.'notices/'.$notice->id.'/';
+            if($apoyo[0]!=null){
+                $pathApoyo=$pathFile.'docs/';
+                foreach($apoyo as $fileA){
+                    try {
+                        $nameApoyo = $fileA->getClientOriginalName();
+                        $ext=$fileA->guessExtension() ;
+                        $type='';
+                        if($ext=='jpg'||$ext=='bmp'||$ext=='png'||$ext=='jpeg'){
+
+                            $type='imagenApoyo';
+                        }elseif(($ext=='mp3'||$ext=='wav'||$ext=='mpga')){
+                            $type='notaVoz';
+
+                        }elseif(($ext=='pdf')){
+                            $type='pdf';
+
+                        }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip')){
+                            $type='word';
+
+                        }
+
+                        $fileApoyo= Files::create([
+                            'name' => $nameApoyo,
+                            'path' => $pathApoyo.$nameApoyo,
+                            'type' => $type,
+                            'notice_id'=>$notice->id,
+                        ]);
+                        $fileApoyo->save();
+                    } catch (Exception $e) {
+                        Session::flash('error', 'no se pudo gruardar ');
+                    }
+                    try {
+                        $fileA->move($pathApoyo,$nameApoyo);
+                    } catch (Exception $e) {
+                        Session::flash('error', 'No se pudo mover ');
+                    }
+
+
+                }
+            }
+
+
+
+            //////////////
+
+
+
+        }
+
 
         Session::flash('message','Noticia ha sido actualizada');
         return redirect()->action('NoticesController@getNotices');

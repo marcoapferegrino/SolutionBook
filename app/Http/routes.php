@@ -13,8 +13,9 @@
 
 Route::get('/', 'WelcomeController@index');
 Route::get('loginN', 'WelcomeController@loginN');
+Route::get('home', 'WelcomeController@indexGuest');
 
-Route::get('home', 'HomeController@index');
+Route::get('homes', 'HomeController@index');
 
 Route::get('homeProblemSetter', 'HomeController@indexProblem');
 Route::get('homeSolver', 'HomeController@indexSolver');
@@ -53,6 +54,10 @@ Route::get('/compile',function(){
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
+
+Route::get('/notice/{id}', 'NoticesController@oneNotice');
+
+
 
 
 

@@ -23,7 +23,7 @@
 
 </head>
 <body>
-<div class="page-header"  style="background-color: #E0F2E5; margin-top: 0%" >
+<div class="page-header" style="margin-top: 0%" >
     <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
 
     <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
@@ -61,6 +61,11 @@
 								Home
                                 </a>
 							@endif
+                            @else
+                        <a class="navbar-brand" href="{{url('/home')}}">
+                            Home
+                        </a>
+
 						@endif
 
 					@if (!Auth::guest())

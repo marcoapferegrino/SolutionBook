@@ -37,9 +37,19 @@
                                 </div>
 
                             <div class="form-group">
-                                <label for="file" class="col-sm-2 control-label">Imagen representativa:</label> <br><br>
+                                <label for="file" class="col-sm-4 control-label">Imagen representativa:</label> <br><br>
                                 <div class="col-sm-6">
                                     {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
+                                </div>
+
+                            </div>
+
+                            <br><br>
+                            <div class="form-group">
+                                <label for="file" class="col-sm-4 control-label">Archivos de apoyo:</label> <br><br><br>
+                                <div class="col-sm-6">
+
+                                    <input type="file"  name="apoyo[]" class="btn btn-info" id="apoyo" multiple>
                                 </div>
 
                             </div>

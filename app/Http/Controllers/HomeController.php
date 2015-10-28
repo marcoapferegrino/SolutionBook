@@ -32,17 +32,38 @@ class HomeController extends Controller {
 	 */
     public function index()
     {
-        return view('home');
+        if(auth()->user()->rol=="super"){
+
+            return redirect()->action('HomeController@indexAdmin');
+
+        }
+        elseif(auth()->user()->rol=="problem"){
+
+            return redirect()->action('HomeController@indexProblem');
+        }
+        elseif(auth()->user()->rol=="solver"){
+
+            return redirect()->action('HomeController@indexSolver');
+        }
+
+        else
+
+        $notices = Notice::getNoticesWithFiles();
+        return view('home',compact('notices'));
     }
 
     public function indexProblem()
     {
-        return view('homeProblemSetter');
+
+        $notices = Notice::getNoticesWithFiles();
+        return view('homeProblemSetter',compact('notices'));
     }
 
     public function indexSolver()
     {
-        return view('homeSolver');
+
+        $notices = Notice::getNoticesWithFiles();
+        return view('homeSolver',compact('notices'));
     }
 
     public function indexAdmin()

@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Support\Facades\Redirect;
+use SolutionBook\Entities\Notice;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddUserRequest;
 
@@ -27,7 +28,7 @@ class WelcomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('guest');
+		//$this->middleware('guest');
 	}
 
 	/**
@@ -40,6 +41,17 @@ class WelcomeController extends Controller {
 		return view('welcome');
 	}
 
+    public function indexGuest()
+    {
+
+        if(auth()->user()){
+
+        return redirect()->action('HomeController@index');
+        }
+
+        $notices = Notice::getNoticesWithFiles();
+        return view('home',compact('notices'));
+    }
 
     public function getRegister()
     {

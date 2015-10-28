@@ -21,15 +21,21 @@ class UpdateNoticeRequest extends Request
      *
      * @return array
      */
-    public function rules()
+    public function rules(\Illuminate\Http\Request $request)
     {
 
+        $apoyo=$request->all();
         $rules = [
             'title'=> 'required ',
             'description'=> 'required',
+            'apoyo'=> 'array',
             'finishDate'=> 'required',
             'file'    => 'extension:jpg,png,bmp'
         ];
+        foreach($apoyo['apoyo'] as $key => $val)
+        {
+            $rules['apoyo.'.$key] = 'extension:pdf,doc,docx,bmp,jpg,png,mp3,wav';
+        }
 
 
         return $rules;

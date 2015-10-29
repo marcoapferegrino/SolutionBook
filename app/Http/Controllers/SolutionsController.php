@@ -266,7 +266,7 @@ class SolutionsController extends Controller
         $zipRoot = public_path()."/uploads/".$idProblem."/solutions/".$idSolution."/";
         $zipName = "Problem".$idProblem."Solution".$idSolution.".zip";
         Tools::getZip($zipRoot,$zipName);
-
+        unlink(public_path().'/'.$zipName);//eliminamos el zip del server
 
     }
 

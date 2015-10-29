@@ -5,6 +5,7 @@ namespace SolutionBook\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use SolutionBook\Entities\User;
+use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddUserRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -19,9 +20,11 @@ class UsersController extends Controller
     public function myPerfil()
     {
         $user = auth()->user();
+
         $numSolutions = count($user->solutions);
         $numProblems = count($user->problems);
-        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems'));
+        $numWarnings = count(Warning::all()->where('user_id',$user->id));
+        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems','numWarnings'));
     }
 
     public function getAddProblemSetter()

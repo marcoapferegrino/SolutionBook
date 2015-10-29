@@ -883,7 +883,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #E0F2F1;   /* fondito */
+  background-color: #F5FFFB;   /* fondito */
 }
 input,
 button,
@@ -1341,13 +1341,16 @@ pre {
   display: block;
   padding: 9.5px;
   margin: 0 0 10px;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.42857143;
-  word-break: break-all;
+  white-space:pre-wrap;  /* commentario */
+  word-break: normal;
   word-wrap: break-word;
   color: #333333;
-  background-color: #f5f5f5;
-  border: 1px solid #cccccc;
+  text-justify: inter-word;
+  font-family: Helvetica;
+  background-color: #E3EDFF;  /*  background-color: #f5f5f5;*/
+  border: 3px solid #cccccc;  /*  border: 1px solid #cccccc; */
   border-radius: 4px;
 }
 pre code {

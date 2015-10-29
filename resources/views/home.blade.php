@@ -1,19 +1,45 @@
 @extends('app')
 
- @section('content')
-<div class="container">
+@section('content')
+    <div class="table">
 
-    @include('partials.messages')
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
 
-				<div class="panel-body">
-					You are logged in!
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+        @include('partials.messages')
+        <div class=" row">
+
+
+            <table class="table">
+
+                <tbody>
+                <tr>
+                    <div class="col-md-1">
+
+                    </div>
+
+                    <div class="col-md-1">
+
+                    </div>
+                </tr>
+
+                <tr>
+
+                    @include('forEverybody.partials.noticesHome')
+
+                </tr>
+
+
+                <tr>
+                    <div class="col-md-1">
+
+                    </div>
+
+                </tr>
+            </tbody>
+
+
+            </table>
+
+
+        </div></div>
 @endsection
+

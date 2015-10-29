@@ -38,7 +38,7 @@ $(document).ready(function(){
         var voteForm = new LikeForm($('#form-like'),$(this),'.btn-unlike');
 
         voteForm.submit(function(response){
-            console.log("response function like:"+response);
+            //console.log("response function like:"+response);
             if(response.success){
                 notification.success('¡Gracias por tu like!');
                 voteForm.updateCount(voteForm.getLikes()+1);

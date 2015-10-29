@@ -5,6 +5,7 @@ use SolutionBook\Entities;
 
 class Warning extends Entity
 {
+    protected $fillable = array('description','reason','hoursToAttend','state','alerter_user','type','problem_id','user_id','solution_id','link_id');
 
 
     public function warnings()
@@ -28,7 +29,6 @@ class Warning extends Entity
 
     public function links()
     {
-
-        return $this->hasMany(Link::getClass());
+        return $this->hasMany(Link::getClass(),'id','link_id');
     }
 }

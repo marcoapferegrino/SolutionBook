@@ -29,7 +29,7 @@ class AddProblemRequest extends Request
             'title'=> 'required',
             'institucion'=>'required',
             'descripcion'=> 'required',
-            'limitTime'=> 'numeric|required',
+            'limitTime'=> 'required',
             'limitMemory'=> 'numeric|required',
             'judgeList'=> '',
             'ejemploen'=>'required',

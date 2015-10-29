@@ -2,7 +2,7 @@
 use Redirect;
 use Socialize;
 use Illuminate\Contracts\Auth\Guard;
-use Request;
+use Illuminate\Http\Request;
 use SolutionBook\Entities\User;
 
 class AccountController extends Controller {
@@ -41,9 +41,10 @@ class AccountController extends Controller {
 
         $correo = $user->getEmail();
         $avatar = $user->getAvatar();
-        echo $nombre.$correo.$avatar;
+       // echo $nombre.$correo.$avatar;
         if(!$userStore){
-            $userStore = User::create([
+
+            /*$userStore = User::create([
                 'username'=>$nombre,
                 'email'=>$correo,
                 'password'=> '',
@@ -52,7 +53,8 @@ class AccountController extends Controller {
                 'avatar'=>$avatar,
                 'state' => 'active',
                 'numWarnings' => 0,
-            ]);
+            ]);*/
+            return view('auth/terminosCondiciones',compact('correo','avatar','nombre'));
         }
         $userStore->username= $nombre;
         $userStore->avatar= $avatar;
@@ -60,6 +62,23 @@ class AccountController extends Controller {
         $this->auth->login($userStore, true);
         return redirect('/home');
 
+    }
+    public function termsConditions(Request $request){
+        $nombre=$request->nombre;
+        $correo=$request->correo;
+        $avatar=$request->avatar;
+        $userStore = User::create([
+            'username'=>$nombre,
+            'email'=>$correo,
+            'password'=> '',
+            'rol'=> 'solver',
+            'ranking' => 0,
+            'avatar'=>$avatar,
+            'state' => 'active',
+            'numWarnings' => 0,
+        ]);
+        $this->auth->login($userStore, true);
+        return redirect('/home');
     }
 
 }

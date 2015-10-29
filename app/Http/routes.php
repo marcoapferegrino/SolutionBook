@@ -53,6 +53,10 @@ Route::get('/compile',function(){
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
+Route::post('/termsAndConditions', [
+    'as' => 'account.termsConditions',
+    'uses' => 'AccountController@termsConditions'
+]);
 
 
 
@@ -145,7 +149,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@addFormProblem'
         ]);
 
-        Route::delete('/deleteProblem/{id}', [
+        Route::get('/deleteProblem/{id}', [
             'as' => 'problem.deleteProblem',
             'uses' => 'ProblemsController@deleteProblem'
         ]);

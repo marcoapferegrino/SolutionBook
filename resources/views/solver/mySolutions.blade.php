@@ -85,4 +85,6 @@
 
 @section('scripts')
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
+    <script src="{{ asset('/js/likes.js') }}"></script>
+    <script src="{{ asset('/js/alerts.js') }}"></script>
 @endsection

@@ -23,7 +23,9 @@
                                     <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{date('d/M/Y',strtotime($notice[0]->finishDate))}} </span><br> <br> </samp>
                                 <br> <br>
                                 <samp style="display: block">
-                                    <pre>{{$notice[0]->description}}</pre>
+                                    <div>
+                                        <pre>{{$notice[0]->description}}</pre>
+                                    </div>
 
                                 </samp>
 

@@ -7,7 +7,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b>
                         <div class="pull-right">
-                            <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><small>Reportar</small></a>
+                            <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
                         </div></div>
 
                     <div class="panel-body">
@@ -146,7 +146,7 @@
                         {{--<br>{{$s->id}} <b>{{$s->ranking}}</b>--}}
                         {{--@endforeach--}}
                         @include('solver.previewsSolution')
-
+                        @include('solver.partials.deleteSolutionModal')
                         @include('problem.disqus')
                     </div>
 
@@ -156,7 +156,9 @@
     </div>
 @endsection
 @section('scripts')
-    <!--<script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>-->
-
+    <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
+    <script src="{{ asset('/js/likes.js') }}"></script>
+    <script src="{{ asset('/js/alerts.js') }}"></script>
     <script src="{{ asset('/js/disqus.js') }}"></script>
+    <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
 @endsection

@@ -27,31 +27,35 @@ Route::get('/register', [
 ]);
 
 
+
+
 Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
 ]);
-Route::get('/compile',function(){
+Route::get('/test',function(){
 //    $path = public_path("testing/cosas.out");
-//
-    //exec(".".$path." 2>&1",$output,$status);
-//    exec("/usr/bin/gcc testing/pruebaC.c -o testing/frommm.out 2>&1",$output,$status);
-    //exec("pwd",$output,$status);
-//    dd($output,$status);
+    $nombre = "Marco Perez";
+    $key= "P erez";
+    dd(strpos($nombre,$key));
 
-//    exec('gcc/x86_64-linux-gnu/4.8/cc1 testing/pruebaC.c -o testing/frommm.out 2>&1',$compil);
-    exec('clang testing/pruebaC.c -o testing/frommm.out 2>&1',$compil);
-    exec('./testing/frommm.out 2>&1',$output);
-//    exec("./testing/frommm.out 2>&1",$executions);
-    dd($compil,$output);
+    $contentFile = file_get_contents(public_path()."/testing/pruebaC.c");
+    $badWords = array('thread','while(1)','while(true)','for(;;)','exec','system','fork','pthread_t','pthread_create');
 
-//    $exitCode = \Illuminate\Support\Facades\Artisan::call(
-//        'say:name', [
-//        'idUser' => 1,
-//    ]);
-//     dd($output);
-
-//        $exitCode = \Illuminate\Support\Facades\Artisan::call('compile:cosa');
+    $wordsFinded=array();
+    foreach($badWords as $bw)
+    {
+        if(str_contains($contentFile,$bw))
+        {
+            array_push($wordsFinded,$bw);
+        }
+    }
+    if (empty($wordsFinded)) {
+        dd("No hay malas palabras");
+    }
+    else{
+        dd($wordsFinded);
+    }
 
 });
 

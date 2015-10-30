@@ -41,7 +41,7 @@
                                                 Amonestaciones:
                                             </th>
                                             <td
-                                            {!! Html::classes(['warning'=>$user->numWarnings==1,'danger'=>$user->numWarnings==2])!!}>
+                                            {!! Html::classes(['warning'=>$user->numWarnings==1,'danger'=>$user->numWarnings>=2])!!}>
 
                                                 {{$numWarnings}}
                                             <div class="pull-right">

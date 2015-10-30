@@ -17,6 +17,7 @@ namespace SolutionBook\Entities;
      public static $BASE_SENTENCE = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
      public static $PYTHON = "python ";
      public static $GCC = "clang ";
+     public static $GCCMASMAS = "clang++ ";
      public static $REDIRECT_OUTPUT = " 2>&1 ";
 
 
@@ -88,7 +89,30 @@ namespace SolutionBook\Entities;
                 }
                 break;
             case 'cpp':
+                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().".out";
+                $sentenceCompile = self::$GCCMASMAS . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile .self::$REDIRECT_OUTPUT;
 
+                exec($sentenceCompile,$outputCompile);
+//                dd($outputCompile);
+                if(empty($outputCompile))
+                {
+                    $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    exec($sentenceToExecute,$output);
+                    $outputToCompare = self::removeTwolastestPositions($output);
+//                    dd($outputToCompare);
+                    $outputToCompare = implode("\n",$outputToCompare);
+//                    dd($outputToCompare);
+                    self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
+
+                    self::evaluateTimeAndMemory($problem, $output);
+                    unlink(public_path()."/temporal/".$nameOutputFile);
+                    return self::$RESULTS;
+                    break;
+                }
+                else{
+                    unset($outputCompile[0]);
+                    dd($outputCompile);
+                }
                 break;
             case 'class':
 

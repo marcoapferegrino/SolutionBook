@@ -24,6 +24,7 @@ class UsersController extends Controller
         $numSolutions = count($user->solutions);
         $numProblems = count($user->problems);
         $numWarnings = count(Warning::all()->where('user_id',$user->id));
+//        dd($numWarnings);
         return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems','numWarnings'));
     }
 

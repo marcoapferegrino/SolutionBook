@@ -58,7 +58,9 @@
                                     @endif
                                 </div>
                                 <p class="lead"><strong>Explicación</strong></p>
-                                <p class="text-justify">{{$solutionComplete->explanation}}</p>
+                                <pre>
+                                    <p class="text-justify">{{$solutionComplete->explanation}}</p>
+                                </pre>
                             </div>
                         </div>
                         <div class="row">
@@ -67,12 +69,12 @@
                                     <div class="panel-body">
                                         <p class="lead"><strong>Detalles</strong></p>
                                         <dl class="dl-horizontal">
-                                            <dt>Tiempo límite</dt>
+                                            <dt>Tiempo hecho</dt>
                                             <dd>{{$solutionComplete->limitTime}} segs</dd>
-                                            <dt>Memoria límite</dt>
+                                            <dt>Memoria usada</dt>
                                             <dd>{{$solutionComplete->limitMemory}} kb</dd>
                                             <dt>Lenguaje</dt>
-                                            <dd>{{$solutionComplete->language}}</dd>
+                                            <dd class="text-capitalize">{{$solutionComplete->language}}</dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -183,5 +185,7 @@
     </script>
     <script src="{{ asset('/js/changeIconRow.js') }}"></script>
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
+    <script src="{{ asset('/js/likes.js') }}"></script>
+    <script src="{{ asset('/js/alerts.js') }}"></script>
 
 @endsection

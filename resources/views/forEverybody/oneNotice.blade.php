@@ -26,7 +26,6 @@
                                     <div>
                                         <pre>{{$notice[0]->description}}</pre>
                                     </div>
-
                                 </samp>
 
                                 @if(count($notice)>1)

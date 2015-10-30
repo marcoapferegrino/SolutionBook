@@ -35,25 +35,33 @@ Route::get('/compile',function(){
 //    $path = public_path("testing/cosas.out");
 //
     //exec(".".$path." 2>&1",$output,$status);
-//    exec("gcc testing/pruebaC.c -o testing/frommm.out 2>&1",$output,$status);
+//    exec("/usr/bin/gcc testing/pruebaC.c -o testing/frommm.out 2>&1",$output,$status);
     //exec("pwd",$output,$status);
 //    dd($output,$status);
-    $process = new \Symfony\Component\Process\Process('gcc testing/pruebaC.c -o testing/frommm.out 2>&1');
-    $process->setTimeout(3600);
-    $process->run();
-    dd($process->getOutput());
-//        exec("whoami",$output);
+
+//    exec('gcc/x86_64-linux-gnu/4.8/cc1 testing/pruebaC.c -o testing/frommm.out 2>&1',$compil);
+    exec('clang testing/pruebaC.c -o testing/frommm.out 2>&1',$compil);
+    exec('./testing/frommm.out 2>&1',$output);
+//    exec("./testing/frommm.out 2>&1",$executions);
+    dd($compil,$output);
+
 //    $exitCode = \Illuminate\Support\Facades\Artisan::call(
 //        'say:name', [
 //        'idUser' => 1,
 //    ]);
 //     dd($output);
 
+//        $exitCode = \Illuminate\Support\Facades\Artisan::call('compile:cosa');
+
 });
 
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
+Route::post('/termsAndConditions', [
+    'as' => 'account.termsConditions',
+    'uses' => 'AccountController@termsConditions'
+]);
 
 //Route::get('/notice/{id}', 'NoticesController@oneNotice');
 
@@ -158,7 +166,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@addFormProblem'
         ]);
 
-        Route::delete('/deleteProblem/{id}', [
+        Route::get('/deleteProblem/{id}', [
             'as' => 'problem.deleteProblem',
             'uses' => 'ProblemsController@deleteProblem'
         ]);
@@ -255,7 +263,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'UsersController@suspendAccount'
         ]);
 
-        Route::post('/addWarning/{type}', [ //si es 1 es problema si es 0 es solución
+        Route::get('/addWarning/{id}{type}', [ //si es 1 es problema si es 0 es solución
+            'as' => 'warning.getAddWarning',
+            'uses' => 'WarningsController@getAddWarning'
+        ]);
+        Route::post('/addWarning', [ //si es 1 es problema si es 0 es solución
             'as' => 'warning.addWarning',
             'uses' => 'WarningsController@addWarning'
         ]);

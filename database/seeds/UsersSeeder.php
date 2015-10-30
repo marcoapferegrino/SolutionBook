@@ -18,6 +18,16 @@ class UsersSeeder extends Seeder{
     {
         $num_users = 10;
         $faker = Faker::create();
+        User::create([
+            'username'=>'SolutionBook',
+            'email'=>'solutionBook@gmail.com',
+            'password'=> bcrypt('secret'),
+            'rol'=> 'super',
+            'ranking' => $faker->randomNumber(),
+            'avatar'=> 'marco'.'/avatar.jpg',
+            'state' => 'active',
+            'numWarnings' => 0,
+        ]);
 
         User::create([
             'username'=>'marcoProblemS',

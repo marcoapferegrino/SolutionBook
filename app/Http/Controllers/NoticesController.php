@@ -14,6 +14,11 @@ use Illuminate\Database\QueryException;
 use SolutionBook\Http\Requests\AddNoticeRequest;
 
 use SolutionBook\Http\Requests\UpdateNoticeRequest;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1b9f50d1b60598f09bd6b64fe8ae8bd9f93a5aa5
 
 class NoticesController extends Controller
 {

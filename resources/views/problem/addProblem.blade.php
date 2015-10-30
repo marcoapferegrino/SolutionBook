@@ -111,8 +111,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="tags" class="col-sm-2 control-label"><strong>Palabras clave</strong></label>
+                        <div class="form-group" data-toggle="tooltip" data-placement="top" title="ej. arboles binarios, estructuras de datos, recursividad">
+                            <label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label>
                             <div class="col-sm-6">
                                 {!!Form::text('tags','',['class'=>'form-control','id'=>'tags'])!!}
                             </div>
@@ -202,7 +202,7 @@
 
             var x = $(this).val();
 
-            if (x=='') {x='a'};
+            if (x=='') {x='a#'};
             var form = $('#form-tag');
             var url = form.attr('action').replace(':TEXT',x);
             var data = form.serialize();
@@ -243,12 +243,12 @@
             var data = form.serialize();
             $.post(url,data,function(result){
 
-                    $("#judges").append(result.message);
+                $("#judges").append(result.message);
 
             }).fail(function(){
                 $("#addJudge").('show');
 
-        });
+            });
             return false;
         });
 

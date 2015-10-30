@@ -45,6 +45,7 @@ class Tools
         header('Content-disposition: attachment; filename='.$zipName);
         header('Content-Length: ' . filesize($zipName));
         readfile($zipName);
+
     }
 
    public static function deleteDirectory($dir) {

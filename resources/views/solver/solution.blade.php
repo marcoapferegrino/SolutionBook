@@ -16,14 +16,14 @@
                     <div class="panel-heading">
                        <div class="row">
                            <h3>
-                               <div class="col-md-6 ">
+                               <div class="col-md-4">
                                    <img src="{{$solutionComplete->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
                                    <small>Solución por</small>
                                    <strong class="text-capitalize">{{$solutionComplete->username}}</strong>
                                    <br> <small>Email</small>
                                    <a href="mailto:{{$solutionComplete->email}}">{{$solutionComplete->email}}</a>
                                </div>
-                               <div class="col-md-6 ">
+                               <div class="col-md-8 ">
                                    @include('partials.likesButtons')
 
                                </div>
@@ -120,48 +120,53 @@
                                 {{--<iframe class="embed-responsive-item" src="{{$youtubeLink->link}}" allowfullscreen></iframe>--}}
                             {{--</div>--}}
                         {{--@endif--}}
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="panel panel-default">
+                                    <p class="lead"><i class="fa fa-file-image-o"></i> <strong>Imágenes de apoyo</strong> </p>
+                                    <div class="panel-body">
+                                        @if(count($images)>0)
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 480px; width: 720px;">
+                                                <!-- Indicators -->
+                                                <ol class="carousel-indicators">
 
-                        <div class="panel panel-default">
-                            <p class="lead"><i class="fa fa-file-image-o"></i> <strong>Imágenes de apoyo</strong> </p>
-                            <div class="panel-body">
-                                @if(count($images)>0)
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 480px; width: 720px;">
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators">
+                                                    <li data-target="#myCarousel" data-slide-to="{{$images[0]->id}}" class="active"></li>
+                                                    @for($j=1;$j<count($images);$j++)
+                                                        <li data-target="#myCarousel" data-slide-to="{{$images[$j]->id}}" class="active"></li>
+                                                    @endfor
 
-                                            <li data-target="#myCarousel" data-slide-to="{{$images[0]->id}}" class="active"></li>
-                                            @for($j=1;$j<count($images);$j++)
-                                                <li data-target="#myCarousel" data-slide-to="{{$images[$j]->id}}" class="active"></li>
-                                            @endfor
+                                                </ol>
+                                                <div class="carousel-inner" role="listbox">
 
-                                        </ol>
-                                        <div class="carousel-inner" role="listbox">
-
-                                            <div class="item active">
-                                                <img src="{{ asset($images[0]->path)}}" alt="path">
-                                            </div>
-                                            @for($i=1;$i<count($images);$i++)
-                                                <div class="item">
-                                                    <img src="{{ asset($images[$i]->path)}}" alt="{{$images[$i]}}">
+                                                    <div class="item active">
+                                                        <img src="{{ asset($images[0]->path)}}" alt="path">
+                                                    </div>
+                                                    @for($i=1;$i<count($images);$i++)
+                                                        <div class="item">
+                                                            <img class="img-responsive" src="{{ asset($images[$i]->path)}}" alt="{{$images[$i]}}">
+                                                        </div>
+                                                    @endfor
                                                 </div>
-                                            @endfor
-                                        </div>
-                                        <!-- Wrapper for slides -->
-                                        <!-- Controls -->
-                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
+                                                <!-- Wrapper for slides -->
+                                                <!-- Controls -->
+                                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <p class="text-danger">Esta solución no tiene imágenes de apoyo</p>
+                                        @endif
                                     </div>
-                                    @else
-                                    <p class="text-danger">Esta solución no tiene imágenes de apoyo</p>
-                                @endif
+                                </div>
                             </div>
                         </div>
+
+
 
                         {{--End carousel--}}
                     </div>

@@ -6,6 +6,8 @@ use SolutionBook\Entities\JudgesList;
 use Illuminate\Http\Request;
 use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Link;
+use SolutionBook\Entities\Tag;
+use SolutionBook\Entities\ProblemasTags;
 
 use Illuminate\Support\Facades\Session;
 use SolutionBook\Entities\User;
@@ -51,8 +53,7 @@ class ProblemsController extends Controller
         $images= $request->images;
         $youtube= $request->youtube;
         $github= $request->github;
-
-        if($judge='#'){
+        if($judge=='#'){
             $judge=null;
         }
         $problem=Problem::create([
@@ -135,35 +136,35 @@ class ProblemsController extends Controller
 
 
         $in=$input;//foreach($input as $i=>$in){
-            $nameIn="input0.txt";
-            $namePathIn=$pathInput.$nameIn;
-            Files::create([
-                'name' => $nameIn,
-                'path' => $namePathIn,
-                'type'=>'fileinput',
-                'problem_id'=>$idProblem,
-            ]);
-            mkdir($pathInput,0755, true);
-            $fp = fopen($namePathIn, "w");
-            fputs($fp, $in);
-            fclose($fp);
-       // }
+        $nameIn="input0.txt";
+        $namePathIn=$pathInput.$nameIn;
+        Files::create([
+            'name' => $nameIn,
+            'path' => $namePathIn,
+            'type'=>'fileinput',
+            'problem_id'=>$idProblem,
+        ]);
+        mkdir($pathInput,0755, true);
+        $fp = fopen($namePathIn, "w");
+        fputs($fp, $in);
+        fclose($fp);
+        // }
 
         $out=$output;//foreach($output as $i=>$out){
-            $nameOut="output0.txt";
-            $namePathOut=$pathOutput.$nameOut;
-            Files::create([
-                'name' => $nameOut,
-                'path' => $namePathOut,
-                'type'=>'fileOutput',
-                'problem_id'=>$idProblem,
-            ]);
-            mkdir($pathOutput,0755, true);
-            $fp = fopen($namePathOut, "w");
-            fputs($fp, $out);
-            fclose($fp);
+        $nameOut="output0.txt";
+        $namePathOut=$pathOutput.$nameOut;
+        Files::create([
+            'name' => $nameOut,
+            'path' => $namePathOut,
+            'type'=>'fileOutput',
+            'problem_id'=>$idProblem,
+        ]);
+        mkdir($pathOutput,0755, true);
+        $fp = fopen($namePathOut, "w");
+        fputs($fp, $out);
+        fclose($fp);
 
-       // }
+        // }
         if($youtube!=null){
             Link::create([
                 'link' => $youtube,
@@ -178,6 +179,23 @@ class ProblemsController extends Controller
                 'type' => 'Github',
                 'problem_id'=>$idProblem,
             ]);
+        }
+
+        if($tags!="")
+        {
+            $palabrasClave=explode(",",$tags);
+            foreach ($palabrasClave as $key => $tag) {
+                # code...
+                if($tag!=''and$tag!=null){
+                    $existe=Tag::where('name','=',$tag)->first();
+                    if(!$existe){
+                        $existe=Tag::create(['name'=>$tag]);
+                    }
+                    ProblemasTags::create(['tag_id'=>$existe->id,'problem_id'=>$idProblem]);
+                }
+
+            }
+
         }
 
         Session::flash('message', 'Se agregó exitosamente a la base de datos');
@@ -217,7 +235,17 @@ class ProblemsController extends Controller
     public function deleteProblem($id)
     {
         //
-        return "En desarrollo";
+        $problem=Problem::find($id);
+        $idUser= auth()->user()->getAuthIdentifier();
+
+        if($problem->user_id==$idUser)
+            $problem->update(['user_id'=>1]);
+        else
+            Session::flash('error', 'No puedes borrar este problema');
+        $result= \DB::table('problems')->where('problems.user_id','=',$idUser)->paginate(9);
+
+        return view('problem/myProblems',compact('result'));
+
     }
 
     /**
@@ -232,85 +260,23 @@ class ProblemsController extends Controller
         $dataProblem=Problem::find($idProblem);
         //dd($dataProblem);
         $filesAll=Problem::find($idProblem)->files;
-       // $files=Problem::find($idProblem)->judgeList;
+        $tagsAll=Problem::find($idProblem)->tags;
         //$files=Problem::find($idProblem)->tags;
+        $tags='';
+        $judge=JudgesList::find($dataProblem->judgeList_id);
+        foreach ($tagsAll as $key => $t) {
+            # code...
+            $tag=Tag::find($t->tag_id);
+            if($key==0)
+                $tags.=$tag->name;
+            else
+                $tags.=','.$tag->name;
 
-//        $warnings=Problem::find($idProblem)->warnings;
-
-        $links=Problem::find($idProblem)->links;
-
-//      $solutions=Problem::find(10)->solutions;
-
-        $problem = Problem::find($idProblem);
-        $solutions = $problem->solutionsPreview();
-        $files = array();
-        $inputs= array();
-        $outputs = array();
-        $docs = array();
-        foreach($filesAll as $f ){
-            $type=$f->type;
-            if($type=='fileinput'){
-                $myfile = fopen($f->path, "r") or die("Unable to open file!");
-                $text= fread($myfile,filesize($f->path));
-                fclose($myfile);
-                array_push($inputs,$text);
-            }
-            elseif($type=='fileOutput'){
-                $myfile = fopen($f->path, "r") or die("Unable to open file!");
-                $text= fread($myfile,filesize($f->path));
-                fclose($myfile);
-                array_push($outputs,$text);
-            }
-            elseif($type=='imagenApoyo'){
-                array_push($files,$f);
-            }
-            else{
-                array_push($docs,$f);
-            }
         }
-        //dd($files);
-        //dd($solutions);
-        return view('problem/showProblem',compact('dataProblem','files','inputs','outputs','docs','links','solutions'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-        return "En desarrollo";
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function updateProblem(Request $request)
-    {
-        //
-        dd($request);
-    }
-
-    public function updateGetProblem($idProblem)
-    {
-        //
-
-        $dataProblem=Problem::find($idProblem);
-        $filesAll=Problem::find($idProblem)->files;
-        // $files=Problem::find($idProblem)->judgeList;
-        //$files=Problem::find($idProblem)->tags;
-
 //        $warnings=Problem::find($idProblem)->warnings;
 
         $links=Problem::find($idProblem)->links;
 
-        $judgeList= JudgesList::all('id','name');
 //      $solutions=Problem::find(10)->solutions;
 
         $problem = Problem::find($idProblem);
@@ -352,7 +318,140 @@ class ProblemsController extends Controller
         }
         //dd($files);
         //dd($solutions);
-        return view('problem/updateProblem',compact('dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','links','solutions'));
+        return view('problem/showProblem',compact('tags','judge','dataProblem','files','entrada','salida','inputs','outputs','docs','links','solutions'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+        return "En desarrollo";
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function updateProblem(AddProblemRequest $request)
+    {
+        //
+        dd($request);
+        $idProblem=$request->idProblem;
+        $title=$request->title;
+        $idUser= auth()->user()->getAuthIdentifier();
+        $nameUser= auth()->user()->username;
+        $institution= $request->institucion;
+        $description= $request->descripcion;
+        $limitTime= $request->limitTime;
+        $limitMem= $request->limitMemory;
+        $judge= $request->judgeList;
+        $ejemploen=$request->ejemploen;
+        $ejemplosa=$request->ejemplosa;
+        $input= $request->inputs;
+        $output= $request->outputs;
+        $tags= $request->tags;
+        $images= $request->images;
+        $youtube= $request->youtube;
+        $github= $request->github;
+        if($judge=='#'){
+            $judge=null;
+        }
+        $problem=Problem::find($idProblem);
+        $problem->update([
+            'title'=>$title,
+            'author'=>$nameUser,
+            'institution'=> $institution,
+            'description'=> $description,
+            'limitTime'=> $limitTime,
+            'limitMemory' => $limitMem,
+            'judgeList_id'=>$judge,
+            'user_id' => $idUser,
+
+        ]);
+
+    }
+
+    public function updateGetProblem($idProblem)
+    {
+        //
+
+        $dataProblem=Problem::find($idProblem);
+        $filesAll=Problem::find($idProblem)->files;
+        $tagsAll=Problem::find($idProblem)->tags;
+        //$files=Problem::find($idProblem)->tags;
+        $tags='';
+        foreach ($tagsAll as $key => $t) {
+            # code...
+            $tag=Tag::find($t->tag_id);
+            if($key==0)
+                $tags.=$tag->name;
+            else
+                $tags.=','.$tag->name;
+
+        }
+//        $warnings=Problem::find($idProblem)->warnings;
+
+        $youtube=Link::whereRaw("type='YouTube' and problem_id =".$idProblem)->first();
+        $github=Link::whereRaw("type='Github' and problem_id =".$idProblem)->first();
+        //dd($youtube);
+        $judgeList= JudgesList::all('id','name');
+//      $solutions=Problem::find(10)->solutions;
+
+        $problem = Problem::find($idProblem);
+        $solutions = $problem->solutionsPreview();
+        $files = array();$entrada="";$salida="";$inputs="";$outputs="";
+        $docs = array();
+        foreach($filesAll as $f ){
+            $type=$f->type;
+            if($type=='ejEntrada'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $entrada=$text;
+            }
+            elseif($type=='ejSalida'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $salida=$text;
+            }
+            elseif($type=='fileinput'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $inputs=$text;
+            }
+            elseif($type=='fileOutput'){
+                $myfile = fopen($f->path, "r") or die("Unable to open file!");
+                $text= fread($myfile,filesize($f->path));
+                fclose($myfile);
+                $outputs=$text;
+            }
+            elseif($type=='imagenApoyo'){
+                array_push($files,$f);
+            }
+            else{
+                array_push($docs,$f);
+            }
+        }
+        /*foreach ($links as $l) {
+            # code...
+            if($l->type=='YouTube')
+                $youtube=$l;
+            if($l->type=='Github')
+                $github=$l;
+
+        }*/
+        //dd($files);
+        //dd($solutions);
+        return view('problem/updateProblem',compact('tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
 
     }
 
@@ -403,8 +502,10 @@ class ProblemsController extends Controller
     public function similarTags($cadena)
     {
         //
+        if($cadena=='a#')
+            return " ";
         $similares='';
-
+        $idBuscar=array();
         $similares='<table class="table table-hover">';
         $palabras = explode(",",$cadena);
         foreach($palabras as $p){
@@ -413,21 +514,41 @@ class ProblemsController extends Controller
             $result= \DB::select(DB::raw($sql));
 
             if(!$result){
-                $similares="No hay problemas similares";
-            }
-            elseif (count($result)==0) {
-                $similares="Problemas 0 similares";
+                $similares.=" ";
             }
             else{
                 foreach ($result as $key => $r) {
                     # code...
-                    $similares .='<tr><td><a href='.route('problem.showProblem',$r->id).' > '.$r->name.'</a></td></tr>';
-                    if($key>=3)
-                        break;
+                    //$similares .='<tr><td><a href='.route('problem.showProblem',$r->id).' > '.$r->name.'</a></td></tr>';
+
+                    array_push($idBuscar, $r->id);
                 }
             }
         }
+        //dd($idBuscar);
+        $sql="SELECT problem_id, count(problem_id) from problem_tag where tag_id in (";
+        foreach ($idBuscar as $key => $id) {
+            # code...
+            if($key==0)
+                $sql.="".$id." ";
+            $sql.=",".$id."";
 
+        }
+        $sql.=") group by problem_id, problem_id order by count(problem_id) desc";
+//echo $sql;
+        $result= \DB::select(DB::raw($sql));
+        if(!$result){
+            $similares="No hay problemas similares";
+        }
+        else{
+            foreach ($result as $key => $r) {
+                # code...
+                $problema=Problem::find($r->problem_id);
+                $similares .='<tr><td><a href='.route('problem.showProblem',$problema->id).' > '.$problema->title.'</a></td></tr>';
+
+            }
+        }
+        //dd($result);
         $similares .='</table>';
         echo $similares;
     }

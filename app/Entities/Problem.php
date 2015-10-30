@@ -28,7 +28,7 @@ class Problem extends Entity {
 
     public function tags()
     {
-        return $this->hasMany(Tag::getClass());
+        return $this->hasMany(ProblemasTags::getClass());
 
     }
 

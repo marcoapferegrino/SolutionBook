@@ -16,26 +16,5 @@ class Files extends Entity {
     	return $this->belongsTo(Problem::getClass());
     }
 
-    public static function icon( $type){
-
-        if($type=='imagenEjemplo'||$type=='imagenApoyo'){
-
-            return 'fa-file-image-o';
-
-        }elseif($type=='notaVoz'){
-
-             return 'fa-music';
-
-        }elseif($type=='pdf'){
-
-            return 'fa-file-pdf-o';
-        }elseif($type=='word'){
-
-            return 'fa-file-word-o';
-
-        }
-
-        return 'fa-file';
-    }
 
 }

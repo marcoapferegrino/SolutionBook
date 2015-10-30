@@ -4,6 +4,8 @@ namespace SolutionBook\Http\Requests;
 
 
 
+use Carbon\Carbon;
+
 class AddNoticeRequest extends Request
 {
     /**
@@ -23,17 +25,20 @@ class AddNoticeRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
+        $today = Carbon::now()->toDateString();
+        $minFecha=$today;
+        $maxFecha=Carbon::now()->addYears(1);
         $apoyo=$request->all();
         $rules = [
             'title'=> 'required ',
             'description'=> 'required',
             'apoyo'=> 'array',
-            'finishDate'=> 'required',
+            'finishDate'=> 'required|date|after:'.$minFecha.'|before:'.$maxFecha,
             'file'    => 'extension:jpg,png,bmp'
         ];
         foreach($apoyo['apoyo'] as $key => $val)
         {
-            $rules['apoyo.'.$key] = 'extension:pdf,doc,docx,bmp,jpg,png,mp3,wav';
+            $rules['apoyo.'.$key] = 'extension:pdf,doc,txt,docx,bmp,jpg,png,mp3,wav';
         }
 
         return $rules;

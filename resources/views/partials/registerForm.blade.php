@@ -1,34 +1,54 @@
  <div class="panel-body ">
 
-            <div class="panel panel-success">
+            <div class="panel panel-success ">
                 <div class="panel-heading">
                     <h3 class="panel-title">Cuenta</h3>
                 </div>
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('username', 'Nombre de usuario*') !!}
                                 {!! Form::text('username',null, array('class' => 'form-control','id'=>'username','placeholder'=>'Username','required'))!!}
-                                <button type="submit" class="btn btn-info pull-right"> <i class="fa fa-search">Buscar username Ajax</i> </button>
+
                             </div>
+
                         </div>
+                        <div class="col-md-1" id="icon" >
+
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <button type='button' name='getdata' id='getdata' class="btn btn-info pull-right"> <i class="fa fa-search">Buscar username</i> </button>
+
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('email', 'Email*') !!}
                                 {!! Form::email('email',null, array('class' => 'form-control','id'=>'email','placeholder'=>'Email','required'))!!}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {!! Form::label('password', 'Contraseña*') !!}
-                                {!! Form::password('password',null, array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
-                            </div>
-                        </div>
+
 
                         <br>
 
+                        <br>
+
+                        <br>
+
+                        <br>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-push-8">
+                            <div class="form-group">
+                                {!! Form::label('password', 'Contraseña*') !!} <br>
+                                {!! Form::password('password',null, array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
+                            </div>
+                        </div>
 
                     </div>
                     @if(Auth::user()==null)

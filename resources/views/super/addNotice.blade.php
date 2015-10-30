@@ -38,7 +38,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('description', 'Descripcion*') !!} <br>
-                                {!! Form::textarea('description',null, array('class' => 'field', 'size' => '90x5','id'=>'description','placeholder'=>'Texto','required'))!!}
+                                {!! Form::textarea('description',null, array('class' => 'field', 'size' => '90x8','id'=>'description','placeholder'=>'Texto','required'))!!}
                             </div>
                         </div>
                     <br> <br><br> <br>
@@ -47,7 +47,7 @@
                     <div class="col-md-12">
                     <div class="form-group">
                         {!! Form::label('finishDate', 'Fecha de Expiración*') !!} <br>
-                        <input type="date" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(18)}} >
+                        <input type="date" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(1)}} >
                     </div>
                     </div>
                     <br> <br><br> <br>

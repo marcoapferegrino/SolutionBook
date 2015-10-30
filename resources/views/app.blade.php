@@ -152,6 +152,8 @@
 	<script src="{{ asset('/js/likes.js') }}"></script>
 <script src="{{ asset('/js/disqus.js') }}"></script>
 	<script src="{{ asset('/js/alerts.js') }}"></script>
+
+<script src="{{ asset('/js/findUsername.js') }}"></script>
 	@yield('scripts')
 </body>
 </html>

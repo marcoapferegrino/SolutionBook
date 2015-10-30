@@ -55,8 +55,16 @@ Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
 
-Route::get('/notice/{id}', 'NoticesController@oneNotice');
+//Route::get('/notice/{id}', 'NoticesController@oneNotice');
 
+Route::get('/notice/{id}', [
+    'as' => 'notices.oneNotice',
+    'uses' => 'NoticesController@oneNotice'
+]);
+Route::post('/findUsername', [
+    'as' => 'welcome.findUsername',
+    'uses' => 'WelcomeController@findUsername'
+]);
 
 
 

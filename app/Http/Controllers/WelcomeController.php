@@ -1,5 +1,8 @@
 <?php namespace SolutionBook\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
 use SolutionBook\Entities\User;
@@ -7,6 +10,7 @@ use SolutionBook\Http\Requests\AddUserRequest;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
+
 
 class WelcomeController extends Controller {
 
@@ -58,15 +62,40 @@ class WelcomeController extends Controller {
         return view('register');
     }
 
+    public function findUsername()
+    {
+
+        $data = Input::all();
+
+        //$resultado =Input::get('username');
+        $users = User::where('username',$data['username'])->get()->all();
+
+        if($users==null){
+            return 'yes';
+
+        }else{
+       /* foreach($users as $results => $user){
+            $arr[] = array('id'=>$users->id, 'username'=>$users->username);
+        }*/
+       // return Response::json($arr);
+        return 'no';
+        }
+    }
+
+
+
     public function addRegister(AddUserRequest $request)
     {
         $password = bcrypt($request->password);
+
+       // $file = Input::file('avatar');
         $image=$request->file('avatar');
-        // dd($request->all());
+
 
         $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>'solver', 'password'=>$password));
 //        dd($user->id);
 
+        if($image!=null){
         $idUser = $user->id;
         $path ='users/'.$idUser.'/';
         $pathAvatar = $path.'avatar/';
@@ -82,6 +111,7 @@ class WelcomeController extends Controller {
         rename($pathAvatar.$nameImage,$pathAvatar.$renameImg );
         $user->avatar= $pathAvatar.$renameImg;
         $user->save();
+        }
 
         Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
 

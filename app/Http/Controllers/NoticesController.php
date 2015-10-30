@@ -14,10 +14,6 @@ use Illuminate\Database\QueryException;
 use SolutionBook\Http\Requests\AddNoticeRequest;
 
 use SolutionBook\Http\Requests\UpdateNoticeRequest;
-use SolutionBook\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\DB;
-
 
 class NoticesController extends Controller
 {
@@ -127,7 +123,7 @@ class NoticesController extends Controller
                 }elseif(($ext=='pdf')){
                     $type='pdf';
 
-                }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip')){
+                }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip'||$ext=='txt')){
                     $type='word';
 
                 }
@@ -152,8 +148,10 @@ class NoticesController extends Controller
         }
         }
 
-        Session::flash('message', 'si se guardo ');
-        return redirect()->action('HomeController@indexAdmin');
+        Session::flash('message', 'Noticia almacenada correctamente');
+        //return redirect()->action('HomeController@indexAdmin');
+
+        return redirect()->action('NoticesController@oneNotice',$notice->id);
 
     }
 
@@ -281,19 +279,11 @@ class NoticesController extends Controller
                 $file->save();
 
                 $fileImg->move($pathFile,$nameFile);
-
-
-
-
-
-
             }
 
 
-
-
         }
-        if($apoyo!=null)
+        if($apoyo[0]!=null)
         {
 
             $files=Files::where('notice_id',$notice->id)->get()->all();
@@ -333,7 +323,7 @@ class NoticesController extends Controller
                         }elseif(($ext=='pdf')){
                             $type='pdf';
 
-                        }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip')){
+                        }elseif(($ext=='doc'||$ext=='docx'||$ext=='txt'||$ext=='zip')){
                             $type='word';
 
                         }

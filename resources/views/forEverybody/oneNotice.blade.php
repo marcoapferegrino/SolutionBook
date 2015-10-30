@@ -11,8 +11,6 @@
                         <div >
                             <div class="panel-body col-md-12 text-justify">
                                 <div class="panel-body col-md-12 " align="middle">
-
-
                                     <h3 class="text-primary" style="color:#000000;"> <span style="font-size: 120%" class="label label-primary"> <strong>{{$notice[0]->title}}</strong></span></h3>
 
                                     <br><a>
@@ -23,7 +21,10 @@
                                     <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{date('d/M/Y',strtotime($notice[0]->finishDate))}} </span><br> <br> </samp>
                                 <br> <br>
                                 <samp style="display: block">
+                                    <div>
                                     <pre>{{$notice[0]->description}}</pre>
+
+                                    </div>
 
                                 </samp>
 
@@ -36,7 +37,7 @@
                                 @foreach($notice as $k=>$noticeFile)
                                     @if($k==0)
                                     @else
-                                    <i class="fa {{\SolutionBook\Entities\Files::icon($notice[$k]->type)}}"></i><a style="color:mediumblue;" href="{{url($notice[$k]->path)}}"> {{$notice[$k]->name}} </a>  <br>
+                                    <i class="fa {{Html::icon($notice[$k]->type)}}"></i><a style="color:mediumblue;" href="{{url($notice[$k]->path)}}"> {{$notice[$k]->name}} </a>  <br>
 
                                 @endif
 

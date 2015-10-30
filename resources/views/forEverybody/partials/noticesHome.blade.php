@@ -25,8 +25,8 @@
                     <div class="item active">
                         <img src="default.jpg" width="700"  height="600"   >
                         <div class="carousel-caption">
-                            <h3>//</h3>
-                            <p>******</p>
+                            <h3>Bienvenido a Solution Book</h3>
+                            <p>*************************</p>
                         </div>
                     </div>
 

@@ -37,16 +37,24 @@
                                             <th>{{$notice->finishDate}}</th>
                                             <th> <img src="{{$notice->path}}"  height="52" width="52"> </th>
                                             <th>
-                                                <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#modalEditNotice{{$notice->id}}">
-                                                    <i class="fa fa-pencil-square-o"></i>
-                                                </button>
+                                                <div class="row">
+                                                    <div class="col-sm-1">           <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#modalEditNotice{{$notice->id}}">
+                                                            <i class="fa fa-pencil-square-o"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-sm-2">
+
+                                                        {!! Form::open(['route' => ['notices.deleteNotice',$notice->id],'method' => 'DELETE']) !!}
+                                                        <button type="submit" onclick="return confirm('Seguro que quieres eliminar la noticia?')" class="btn btn-danger">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                    <div class="col-sm-4">     <a href="{{route('notices.oneNotice',$notice->id)}}">    <button >Ver noticia </button></a>
+                                                    </div>
+                                                </div>
 
 
-                                                {!! Form::open(['route' => ['notices.deleteNotice',$notice->id],'method' => 'DELETE']) !!}
-                                                <button type="submit" onclick="return confirm('Seguro que quieres eliminar la noticia?')" class="btn btn-danger">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </button>
-                                                {!! Form::close() !!}
 
 
 

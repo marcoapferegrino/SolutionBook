@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
+            @include('partials.messages')
             <div class="col-md-10 col-md-offset-1" >
 
                 @if($result->total()==0)

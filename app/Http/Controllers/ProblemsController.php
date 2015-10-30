@@ -236,8 +236,12 @@ class ProblemsController extends Controller
     {
         //
         $problem=Problem::find($id);
-        $problem->update(['user_id'=>1]);
         $idUser= auth()->user()->getAuthIdentifier();
+
+        if($problem->user_id==$idUser)
+            $problem->update(['user_id'=>1]);
+        else
+            Session::flash('error', 'No puedes borrar este problema');
         $result= \DB::table('problems')->where('problems.user_id','=',$idUser)->paginate(9);
 
         return view('problem/myProblems',compact('result'));
@@ -498,7 +502,7 @@ class ProblemsController extends Controller
     public function similarTags($cadena)
     {
         //
-        if($cadena=='#')
+        if($cadena=='a#')
             return " ";
         $similares='';
         $idBuscar=array();
@@ -522,7 +526,7 @@ class ProblemsController extends Controller
             }
         }
         //dd($idBuscar);
-        $sql="SELECT id, count(problem_id) from problem_tag where tag_id in (";
+        $sql="SELECT problem_id, count(problem_id) from problem_tag where tag_id in (";
         foreach ($idBuscar as $key => $id) {
             # code...
             if($key==0)
@@ -539,8 +543,7 @@ class ProblemsController extends Controller
         else{
             foreach ($result as $key => $r) {
                 # code...
-                $idp=$r->problem_id;
-                $problema=Problem::find($idp);
+                $problema=Problem::find($r->problem_id);
                 $similares .='<tr><td><a href='.route('problem.showProblem',$problema->id).' > '.$problema->title.'</a></td></tr>';
 
             }

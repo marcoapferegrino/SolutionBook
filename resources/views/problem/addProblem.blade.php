@@ -202,7 +202,7 @@
 
             var x = $(this).val();
 
-            if (x=='') {x='#'};
+            if (x=='') {x='a#'};
             var form = $('#form-tag');
             var url = form.attr('action').replace(':TEXT',x);
             var data = form.serialize();

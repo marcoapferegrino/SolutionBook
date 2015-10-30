@@ -37,7 +37,7 @@
                                 @foreach($notice as $k=>$noticeFile)
                                     @if($k==0)
                                     @else
-                                    <i class="fa {{\SolutionBook\Entities\Files::icon($notice[$k]->type)}}"></i><a style="color:mediumblue;" href="{{url($notice[$k]->path)}}"> {{$notice[$k]->name}} </a>  <br>
+                                    <i class="fa {{\SolutionBook\Components\HtmlBuilder::icon($notice[$k]->type)}}"></i><a style="color:mediumblue;" href="{{url($notice[$k]->path)}}"> {{$notice[$k]->name}} </a>  <br>
 
                                 @endif
 

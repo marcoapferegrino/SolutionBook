@@ -5,10 +5,12 @@
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-info">
-                    <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b>
+                    <h4><div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b><b class=" col-md-offset-1">Fecha de creación: {{$dataProblem->created_at}}</b>
                         <div class="pull-right">
                             <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
-                        </div></div>
+                        </div>
+                        </h4>
+                    </div>
 
                     <div class="panel-body">
                         <div class="well well-sm  pull-right ">
@@ -57,6 +59,13 @@
                             </div>
 
                         </div>
+                        @if(!($cSolutions==0 && $javaSolutions==0 && $pythonSolutions==0 && $cplusSolutions==0))
+                            <div class="row col-sm-10 ">
+                                <div class="well well-sm  pull-right " id="container" data-cnorm="{{$cSolutions}}" data-java="{{$javaSolutions}}" data-python="{{$pythonSolutions}}" data-cplus="{{$cplusSolutions}}" >
+
+                                </div>
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="panel panel-info  col-sm-12  ">
                                     <div class=" col-sm-6">
@@ -81,9 +90,9 @@
                                     </div>
                             </div>
                         </div>
-                        <div class=" row">
-                            <a class="btn btn-default btn-warning btn-lg pull-right " href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
-                                Agregar Solución
+                        <div class=" row col-sm-4">
+                            <a class="btn btn-warning btn-lg pull-right navbar-fixed-top" href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
+                                <i class="fa fa-code"></i> Agregar Solución
                             </a>
                             <br>
                         </div>
@@ -160,6 +169,62 @@
     <script src="{{ asset('/js/likes.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
     <script src="{{ asset('/js/disqus.js') }}"></script>
+    <script src="/jsCharts/highcharts.js"></script>
+    <script src="/jsCharts/modules/exporting.js"></script>
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
+    <script>
+        $(function () {
 
+            var cData =$('#container').data('cnorm');
+            var javaData =$('#container').data('java');
+            var pythonData =$('#container').data('python');
+            var cPlusData =$('#container').data('cplus');
+            $('#container').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Lenguajes de soluciones'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: "Lenguajes",
+                    colorByPoint: true,
+                    data: [{
+                        name: "C",
+                        y: cData,
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: "C++",
+                        y: cPlusData
+                    }, {
+                        name: "Python",
+                        y: pythonData
+                    }, {
+                        name: "Java",
+                        y: javaData
+                    }]
+                }]
+            });
+        });
+    </script>
 @endsection

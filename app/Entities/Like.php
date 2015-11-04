@@ -6,4 +6,6 @@ class Like extends Entity {
 
 	protected $table = 'solution_user';
 
+
+
 }

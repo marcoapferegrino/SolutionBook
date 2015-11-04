@@ -1,5 +1,6 @@
 <?php namespace SolutionBook\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -65,24 +66,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         return $this->hasMany(Problem::getClass());
     }
 
-    /**
-     * @return mixed
-     */
-    public function mySolutions()
-    {
-        $previewSolutions = DB::table('solutions')
-            ->join('users','users.id','=','solutions.user_id')
-            ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
-            ->join('problems','problems.id','=','solutions.problem_id')
-            ->select('users.id as userId','users.username','solutions.id','solutions.explanation', 'solutions.numLikes',
-                'solutions.dislikes','solutions.ranking','solutions.state','code_solutions.limitTime','code_solutions.limitMemory',
-                'code_solutions.language','problems.title','problems.id as idProblem')
-            ->where('users.id',$this->id)
-            ->orderBy('solutions.ranking','desc')
-            ->paginate(10);
 
-        return $previewSolutions;
-    }
 
     /**
      * Esta es la relacion de muchos a muchos likes
@@ -139,7 +123,23 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         $this->liked()->detach($idSolution);
         return true;
     }
+    /**
+     * @return mixed
+     */
+    public function mySolutions()
+    {
+        $previewSolutions = DB::table('solutions')
+            ->join('users','users.id','=','solutions.user_id')
+            ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
+            ->join('problems','problems.id','=','solutions.problem_id')
+            ->select('users.id as userId','users.username','solutions.id','solutions.explanation', 'solutions.numLikes',
+                'solutions.dislikes','solutions.state','code_solutions.limitTime','code_solutions.limitMemory',
+                'code_solutions.language','problems.title','problems.id as idProblem')
+            ->where('users.id',$this->id)
+            ->paginate(10);
 
+        return $previewSolutions;
+    }
     public static function searchUsername()
     {
         $usernames = DB::table('users')
@@ -152,6 +152,28 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 
     }
 
+    /**
+     * @param $language
+     * @return array
+     */
+    public function mySolutionsPerLanguageAnually($language){
+        $languageArray = array(0,0,0,0,0,0,0,0,0,0,0,0);
+//        dd($languageArray);
+        $solutions = DB::table('solutions')
+            ->join('users','users.id','=','solutions.user_id')
+            ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
+            ->select('code_solutions.language','code_solutions.created_at')
+            ->where('users.id',$this->id)
+            ->where('code_solutions.language',$language)->get();
+
+        foreach ($solutions as $solution)
+        {
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $solution->created_at);
+            $languageArray[$date->month-1]+=1;
+        }
+        return $languageArray;
+
+    }
 
 
 

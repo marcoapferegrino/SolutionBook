@@ -8,6 +8,12 @@
     </style>
 @endsection
 @section('content')
+    <h4>
+        <ol class="breadcrumb">
+            <li><a href="{{url('/showProblem/'.$solutionComplete->problem_id)}}">Problema#{{$solutionComplete->problem_id}}</a></li>
+            <li class="active">Solución#{{$solutionComplete->id}}</li>
+        </ol>
+    </h4>
     <div class="container">
         <div class="row">
             <div class="col-md-11 col-md-offset-1">
@@ -128,7 +134,7 @@
                                     <p class="lead"><i class="fa fa-file-image-o"></i> <strong>Imágenes de apoyo</strong> </p>
                                     <div class="panel-body">
                                         @if(count($images)>0)
-                                            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 480px; width: 720px;">
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: auto; width: 720px;">
                                                 <!-- Indicators -->
                                                 <ol class="carousel-indicators">
 

@@ -15,17 +15,32 @@ use Illuminate\Database\QueryException;
 use SolutionBook\Http\Requests;
 use SolutionBook\Http\Controllers\Controller;
 
+
 class UsersController extends Controller
 {
     public function myPerfil()
     {
         $user = auth()->user();
-
+        $allNumLikes = 0;
         $numSolutions = count($user->solutions);
         $numProblems = count($user->problems);
         $numWarnings = count(Warning::all()->where('user_id',$user->id));
-//        dd($numWarnings);
-        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems','numWarnings'));
+        foreach ($user->solutions as $solution ) {
+            $allNumLikes += $solution->numLikes;
+        }
+
+        $ranking = ($numSolutions*10)+$allNumLikes;
+        $user->ranking = $ranking;
+        $user->save();
+
+        $cSolutions = json_encode($user->mySolutionsPerLanguageAnually('c'));
+        $cPlusSolutions = json_encode($user->mySolutionsPerLanguageAnually('c++'));
+        $python = json_encode($user->mySolutionsPerLanguageAnually('python'));
+        $java = json_encode($user->mySolutionsPerLanguageAnually('java'));
+
+//        dd($java,$cSolutions,$cPlusSolutions,$python);
+        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems',
+            'numWarnings','cSolutions','cPlusSolutions','python','java'));
     }
 
     public function getAddProblemSetter()
@@ -64,6 +79,45 @@ class UsersController extends Controller
         Session::flash('message', '¡Ya puede iniciar sesión el usuario: '.$user->username.'!');
 
         return redirect()->action('HomeController@indexAdmin');//return Redirect::to('/auth/login');
+
+    }
+
+    public function viewPromotion(){
+        $idUser= auth()->user()->getAuthIdentifier();
+        $solver= User::where('rol','=','solver')->get();
+        $promovidos= User::where('userProblem_id','=',$idUser)->get();
+        //dd($promovidos->count());
+        return view('problem/promotion',compact('solver','promovidos'));
+
+    }
+
+    public function promotion(Request $request){
+
+        $idUser= auth()->user()->getAuthIdentifier();
+        $idRequest=$request->id;
+        $usuario=User::find($idRequest);
+        $tipo=$request->tipo;
+        if($tipo==0)
+        {
+            $usuario->update(['userProblem_id'=>$idUser,'rol'=>'problem']);
+            Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de solver a problem');
+        }
+        else
+        {
+            if($usuario->userProblem_id==$idUser)
+            {
+                $usuario->update(['userProblem_id'=>null,'rol'=>'solver']);
+                Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de problem a solver');
+            }
+            else
+                Session::flash('error', 'No tienes permitido realizar esta acción');
+        }
+
+        $solver= User::where('rol','=','solver')->get();
+        $promovidos= User::where('userProblem_id','=',$idUser)->get();
+       // return view('problem/viewPromotion',compact('solver','promovidos'));
+        return redirect()->back();
+
 
     }
 

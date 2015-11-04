@@ -4,6 +4,8 @@ namespace SolutionBook\Http\Requests;
 
 
 
+use Carbon\Carbon;
+
 class UpdateNoticeRequest extends Request
 {
     /**
@@ -23,6 +25,7 @@ class UpdateNoticeRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
+
         $today = Carbon::now()->toDateString();
         $minFecha=$today;
         $maxFecha=Carbon::now()->addYears(1);

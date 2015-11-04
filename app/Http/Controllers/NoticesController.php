@@ -1,9 +1,11 @@
 <?php
 namespace SolutionBook\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Psy\Exception\ErrorException;
 use SolutionBook\Entities\Files;
 use SolutionBook\Entities\Notice;
+use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\QueryException;
@@ -19,6 +21,18 @@ class NoticesController extends Controller
     }
     public function oneNotice($id)
     {
+        /*
+        $warnings=DB::table('warnings')
+            ->select('*')
+            // ->where('warnings.created_at','<',$today)
+            ->get();
+        foreach($warnings as $warning){
+            $warning->state='forAdmin';
+            $warning->save();
+
+        }*/
+
+
         try{
             $notice = Notice::getOneNoticeWithFiles($id);
             $tam= getimagesize($notice[0]->path);

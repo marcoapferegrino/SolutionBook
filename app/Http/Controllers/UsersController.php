@@ -67,4 +67,16 @@ class UsersController extends Controller
 
     }
 
+    public function suspendAccount(Request $request)
+    {
+        $id=$request->user_id;
+        $user= User::find($id);
+        if($user==null){return redirect()->back();}
+
+        $user->state='blocked';
+        $user->save();
+
+        return redirect()->route('warning.myWarnings');
+    }
+
 }

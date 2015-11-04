@@ -15,12 +15,12 @@ return [
 
 	"accepted"             => "The :attribute must be accepted.",
 	"active_url"           => "The :attribute is not a valid URL.",
-	"after"                => "The :attribute must be a date after :date.",
+	"after"                => ":attribute debe ser una fecha posterior a :date.",
 	"alpha"                => "The :attribute may only contain letters.",
 	"alpha_dash"           => "The :attribute may only contain letters, numbers, and dashes.",
 	"alpha_num"            => "The :attribute may only contain letters and numbers.",
 	"array"                => "The :attribute must be an array.",
-	"before"               => "The :attribute must be a date before :date.",
+	"before"               => ":attribute debe ser una fecha anterior a :date.",
 	"between"              => [
 		"numeric" => "The :attribute must be between :min and :max.",
 		"file"    => "The :attribute must be between :min and :max kilobytes.",
@@ -29,12 +29,12 @@ return [
 	],
 	"boolean"              => "The :attribute field must be true or false.",
 	"confirmed"            => "The :attribute confirmation does not match.",
-	"date"                 => "The :attribute is not a valid date.",
-	"date_format"          => "The :attribute does not match the format :format.",
+	"date"                 => ":attribute no es una fecha valida.",
+	"date_format"          => ":attribute no concuerda con el formato :format.",
 	"different"            => "The :attribute and :other must be different.",
 	"digits"               => "The :attribute must be :digits digits.",
 	"digits_between"       => "The :attribute must be between :min and :max digits.",
-	"email"                => "The :attribute must be a valid email address.",
+	"email"                => "The :attribute debe ser una dirección de email valida.",
 	"filled"               => "The :attribute field is required.",
 	"exists"               => "The selected :attribute is invalid.",
 	"image"                => "The :attribute must be an image.",
@@ -75,6 +75,7 @@ return [
 	"timezone"             => "The :attribute must be a valid zone.",
 	"languaje_with_file_extension" => "El lenguaje no coincide con la extensión del código",
 	"extension"=>"La extensión de :attribute no coincide con los archivos permitidos",
+    "oneword"     => ":attribute no debe contener espacios en blanco o caracteres especiales.",
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines

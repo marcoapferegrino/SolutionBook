@@ -203,7 +203,7 @@ class Blueprint
     /**
      * Indicate that the given columns should be dropped.
      *
-     * @param  string|array  $columns
+     * @param  array|mixed  $columns
      * @return \Illuminate\Support\Fluent
      */
     public function dropColumn($columns)
@@ -535,7 +535,7 @@ class Blueprint
     }
 
     /**
-     * Create a new unsigned small integer (2-byte) column on the table.
+     * Create a new unsigned tiny integer (1-byte) column on the table.
      *
      * @param  string  $column
      * @param  bool  $autoIncrement
@@ -810,6 +810,17 @@ class Blueprint
     public function binary($column)
     {
         return $this->addColumn('binary', $column);
+    }
+
+    /**
+     * Create a new uuid column on the table.
+     *
+     * @param  string  $column
+     * @return \Illuminate\Support\Fluent
+     */
+    public function uuid($column)
+    {
+        return $this->addColumn('uuid', $column);
     }
 
     /**

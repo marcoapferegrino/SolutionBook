@@ -662,6 +662,7 @@ class Validator implements ValidatorContract
         return true;
     }
 
+
     /**
      * Validate that an attribute exists when another attribute has a given value.
      *
@@ -958,7 +959,7 @@ class Validator implements ValidatorContract
         // is the size. If it is a file, we take kilobytes, and for a string the
         // entire length of the string will be considered the attribute size.
         if (is_numeric($value) && $hasNumeric) {
-            return Arr::get($this->data, $attribute);
+            return $value;
         } elseif (is_array($value)) {
             return count($value);
         } elseif ($value instanceof File) {
@@ -1239,7 +1240,6 @@ class Validator implements ValidatorContract
      */
     protected function validateMimes($attribute, $value, $parameters)
     {
-        //dd($value);
         if (! $this->isAValidFileInstance($value)) {
             return false;
         }
@@ -1585,7 +1585,7 @@ class Validator implements ValidatorContract
      * @param  string  $attribute
      * @param  string  $lowerRule
      * @param  array   $source
-     * @return string
+     * @return string|null
      */
     protected function getInlineMessage($attribute, $lowerRule, $source = null)
     {
@@ -2065,10 +2065,14 @@ class Validator implements ValidatorContract
     protected function parseRule($rules)
     {
         if (is_array($rules)) {
-            return $this->parseArrayRule($rules);
+            $rules = $this->parseArrayRule($rules);
+        } else {
+            $rules = $this->parseStringRule($rules);
         }
 
-        return $this->parseStringRule($rules);
+        $rules[0] = $this->normalizeRule($rules[0]);
+
+        return $rules;
     }
 
     /**
@@ -2118,6 +2122,24 @@ class Validator implements ValidatorContract
         }
 
         return str_getcsv($parameter);
+    }
+
+    /**
+     * Normalizes a rule so that we can accept short types.
+     *
+     * @param  string  $rule
+     * @return string
+     */
+    protected function normalizeRule($rule)
+    {
+        switch ($rule) {
+            case 'Int':
+                return 'Integer';
+            case 'Bool':
+                return 'Boolean';
+            default:
+                return $rule;
+        }
     }
 
     /**
@@ -2516,7 +2538,7 @@ class Validator implements ValidatorContract
      *
      * @param  string  $rule
      * @param  array   $parameters
-     * @return bool
+     * @return bool|null
      */
     protected function callExtension($rule, $parameters)
     {
@@ -2550,7 +2572,7 @@ class Validator implements ValidatorContract
      * @param  string  $attribute
      * @param  string  $rule
      * @param  array   $parameters
-     * @return string
+     * @return string|null
      */
     protected function callReplacer($message, $attribute, $rule, $parameters)
     {

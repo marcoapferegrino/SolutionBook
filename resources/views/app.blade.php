@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="page-header" style="margin-top: 0%" >
-    <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Alpha</small>  <i class="fa fa-qq "></i></h3>
+    <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp; Solution Book </b><small>.Beta</small>  <i class="fa fa-qq "></i></h3>
 
     <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
 
@@ -71,7 +71,9 @@
 
 					@if (!Auth::guest())
 						@if(Auth::getRol()=="super")
-							<li><a href="{{ url('/getAddProblemSetter') }}">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
+                                    <li><a href="{{ url('/myWarnings') }}">Resolver amonestaciones <i class="fa fa-exclamation-triangle "></i></a></li>
+
+                                    <li><a href="{{ url('/getAddProblemSetter') }}">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
 
                             <li class="dropdown">
                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Noticias <i class="fa fa-newspaper-o"></i><span class="caret"></span></a>

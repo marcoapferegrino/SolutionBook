@@ -12,9 +12,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                </div>
                 <div class="modal-body " align="middle">
-                    <img class="img-responsive" style="border-radius: 15px"  src = "{{url($notice[0]->path)}}" >
+                   <!-- <img class="img-responsive" style="border-radius: 15px"  src = "{ {url($notice[0]->path)}}" > -->
+                    <img class="img-responsive" style="border-radius: 15px"  src = "{{url($imagen)}}">
+
 
                 </div>
             </div>
         </div>
-        </div> </div>
+        </div>
+    </div>

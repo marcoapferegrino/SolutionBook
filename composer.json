@@ -8,7 +8,8 @@
       "laravel/framework": "5.1.*",
       "laravel/socialite":"~2.0",
       "laravelcollective/html": "5.1.*",
-		"symfony/process": "^2.7"
+		"symfony/process": "^2.7",
+		"vinkla/pusher": "^2.1"
 
 	},
 	"require-dev": {

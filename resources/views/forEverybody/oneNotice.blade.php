@@ -19,9 +19,12 @@
                                     <img data-toggle="modal" data-target="#imgExpand" class = "img-thumbnail" style=" cursor: pointer;;border-radius: 15px"  height="40%" width="40%" src = "{{url($notice[0]->path)}}" >
                                     </a>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
                                 <samp >
-                                    <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{date('d/M/Y',strtotime($notice[0]->finishDate))}} </span><br> <br> </samp>
+                                    <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice[0]->finishDate)))}} </span><br> <br> </samp>
                                 <br> <br>
+                                    </div> </div>
                                 <samp style="display: block">
                                     <div>
                                         <pre>{{$notice[0]->description}}</pre>
@@ -48,7 +51,7 @@
 
                             </div>
 
-                            @include('forEverybody.partials.modalImg')
+                            @include('forEverybody.partials.modalImg',['imagen'=>$notice[0]->path])
 
 
                         </div>

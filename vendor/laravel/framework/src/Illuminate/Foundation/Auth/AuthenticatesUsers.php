@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use SolutionBook\Entities\User;
 
 trait AuthenticatesUsers
 {
@@ -46,6 +47,14 @@ trait AuthenticatesUsers
         }
 
         $credentials = $this->getCredentials($request);
+        $usermail=$request->only($this->loginUsername());
+        $user = User::all()->where('email',$usermail['email'])->all();
+        foreach($user as $userAcc){
+        if($userAcc->state=='blocked')
+        {
+            return  redirect()->action('WelcomeController@blockedByAdmin');
+        }
+        }
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
             return $this->handleUserWasAuthenticated($request, $throttles);

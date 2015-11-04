@@ -147,6 +147,7 @@ return [
 		'SolutionBook\Providers\ConfigServiceProvider',
 		'SolutionBook\Providers\EventServiceProvider',
 		'SolutionBook\Providers\RouteServiceProvider',
+        'Vinkla\Pusher\PusherServiceProvider',
 
 
 	],

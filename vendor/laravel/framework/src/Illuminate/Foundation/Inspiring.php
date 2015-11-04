@@ -18,6 +18,7 @@ class Inspiring
     public static function quote()
     {
         return Collection::make([
+
             'No tengo miedo a los ordenadores. A lo que tengo miedo es a la falta de ellos." - Isaac Asimov',
             'Si usted quiere saber lo que una mujer dice realmente, mírela, no la escuche." - Oscar Wilde',
             'Y cuando empezamos a aprender este difícil oficio de vivir ya tenemos que morirnos." - Ernesto Sabato',

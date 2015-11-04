@@ -16,7 +16,7 @@ class CreateLinksTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('link', 120);
-            $table->enum('type',['YouTube','Github','BitBucket','Facebook','Twitter','JuezOnline','Amonestación']);
+            $table->enum('type',['YouTube','Github','BitBucket','Facebook','Twitter','JuezOnline','Amonestación','Referecia']);
 
             $table->integer('solution_id')->unsigned()->nullable();
 			$table->foreign('solution_id')->references('id')->on('solutions')->onDelete('cascade');

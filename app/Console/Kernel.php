@@ -2,6 +2,9 @@
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use SolutionBook\Entities\Warning;
 
 class Kernel extends ConsoleKernel {
 
@@ -11,8 +14,8 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'SolutionBook\Console\Commands\Inspire',
-		'SolutionBook\Console\Commands\TestCommand'
+		'SolutionBook\Console\Commands\Inspire'/*,
+		'SolutionBook\Console\Commands\TestCommand'*/
 	];
 
 	/**
@@ -23,8 +26,27 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('inspire')
-				 ->hourly();
+		/*$schedule->command('inspire')
+				 ->hourly();*/
+        $schedule->call(function () {
+
+            $today= Carbon::now()->subDays(14)->toDateString();
+            /*$warnings=DB::table('warnings')
+                ->select('*')
+               // ->where('warnings.created_at','<',$today)
+                ->get();
+            foreach($warnings as $warning){
+                $warning->state='forAdmin';
+                $warning->save();
+
+            }*/
+            $warnings=Warning::all();
+            foreach($warnings as $warning){
+                $warning->state='forAdmin';
+                $warning->save();
+
+            }
+        })->everyMinute();//->daily();
 	}
 
 }

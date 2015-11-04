@@ -18,7 +18,7 @@ class CreateWarningsTable extends Migration {
 
             $table->string('description');
             $table->enum('reason',['copiedCode','notWorking','contentInapropiate','other']);
-            $table->enum('state',['process','expired']);
+            $table->enum('state',['process','expired','forAdmin']);
             $table->integer('hoursToAttend');
             $table->integer('alerter_user')->unsigned();//user who makes warning
 

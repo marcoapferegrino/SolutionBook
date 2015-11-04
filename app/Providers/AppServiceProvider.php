@@ -58,6 +58,24 @@ class AppServiceProvider extends ServiceProvider {
 
 		});
 
+        Validator::extend('oneword', function($field, $value)
+        {
+            $resolution =  preg_match('/^[\pL\s]+$/u', $value);
+            if($resolution!=true){
+
+                return $resolution;
+
+            }
+            if (strpos($value," ") !== false){
+            return false;
+            }
+            else
+            {
+            return true;
+
+            }
+        });
+
 	}
 
 	/**

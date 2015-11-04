@@ -59,6 +59,7 @@ class WelcomeController extends Controller {
 
     public function getRegister()
     {
+        User::searchUsername();
         return view('register');
     }
 
@@ -66,20 +67,19 @@ class WelcomeController extends Controller {
     {
 
         $data = Input::all();
+        $cadena =strtoupper($data['username']);
+        $nicks= User::searchUsername();
 
-        //$resultado =Input::get('username');
-        $users = User::where('username',$data['username'])->get()->all();
+        foreach($nicks as $nick){
 
-        if($users==null){
-            return 'yes';
+            if(strtoupper($nick->username)==$cadena){
 
-        }else{
-       /* foreach($users as $results => $user){
-            $arr[] = array('id'=>$users->id, 'username'=>$users->username);
-        }*/
-       // return Response::json($arr);
-        return 'no';
+
+                return 'no';
+            }
+
         }
+        return 'yes';
     }
 
 
@@ -117,6 +117,16 @@ class WelcomeController extends Controller {
 
         return Redirect::to('/auth/login');
 
+    }
+
+    public function blockedByAdmin()
+    {
+        $user=auth()->user();
+        if($user!=null){
+           return redirect()->action('HomeController@index');
+        }
+
+        return view('forEverybody.blockedByAdmin');
     }
 
 }

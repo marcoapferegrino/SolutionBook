@@ -20,7 +20,6 @@
     </div>
 </div>
     <br><br> <br>
-    <div id="result_table" class=""></div>
 
 </div>
 

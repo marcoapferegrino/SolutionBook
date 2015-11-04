@@ -21,6 +21,7 @@
                             <div class="col-sm-6">
                                 {!!Form::text('title',$dataProblem->title,['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
+                                <div id="similarTitle"></div>
                             </div>
 
                         </div>
@@ -119,7 +120,8 @@
                         <div class="form-group">
                             <label for="tags" class="col-sm-2 control-label"><strong>Palabras clave</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('tags',$tags,['class'=>'form-control','id'=>'tags'])!!}
+                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
+                                <div id="similarTags"></div>
                             </div>
 
                         </div>
@@ -195,6 +197,9 @@
 @endsection
 @section('scripts')
 
+    <script src="{{ asset('/js/similarTitle.js') }}"></script>
+    <script src="{{ asset('/js/similarTags.js') }}"></script>
+
     <script type="text/javascript">
         function agregar() {
             campo = '<div class="form-group"><div class="col-sm-1"></div>                                <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo entrada</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8 name="inputs[]"  class="form-control" ></textarea>                         </div>   <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo salida</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8  name="outputs[]" class="form-control" ></textarea>        </div></div>';
@@ -207,53 +212,6 @@
         }
     </script>
     <script type="text/javascript">
-
-        $("#title").on('keyup',function(){
-
-            $(this).popover({
-                title: 'Ver Problemas similares:',
-                placement: 'bottom'
-            });
-            var x = $(this).val();
-            if (x=='') {x='a'};
-            var form = $('#form-titulo');
-            var url = form.attr('action').replace(':TEXT',x);
-            var data = form.serialize();
-
-            $.post(url,data,function(result){
-                $(".popover-content").html(result);
-            });
-            $(this).popover('show');
-
-        });
-        $("#title").change(function(){
-
-            $(this).popover('hide');
-        });
-
-        $("#tags").on('keyup',function(){
-
-            var x = $(this).val();
-
-            if (x=='') {x='a'};
-            var form = $('#form-tag');
-            var url = form.attr('action').replace(':TEXT',x);
-            var data = form.serialize();
-            $(this).popover({
-                title: 'Ver Problemas similares:',
-                placement: 'bottom'
-            });
-            $.post(url,data,function(result){
-                $(".popover-content").html(result);
-            });
-
-            $(this).popover('show');
-
-        });
-        $("#tags").change(function(){
-
-            $(this).popover('hide');
-        });
 
         $("#textarea")
                 .bind("dragover", false)

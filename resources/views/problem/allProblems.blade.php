@@ -12,7 +12,7 @@
                             @if (($i+1)%3==0) <div class="row"> @endif
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="{{$avatar[$i]}}" alt="{{$avatar[$i]}}">
+                                        <img width="100px" height="100px" src="{{$avatar[$i]}}" alt="{{$avatar[$i]}}">
                                         <div class="caption">
 
                                             <h3>{{$result[$i]->title}}</h3>

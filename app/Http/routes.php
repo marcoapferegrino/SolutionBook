@@ -197,6 +197,11 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.similarTags',
             'uses' => 'ProblemsController@similarTags'
         ]);
+
+        Route::get('/viewPromotion', [ //+ y -
+            'as' => 'users.viewPromotion',
+            'uses' => 'UsersController@viewPromotion'
+        ]);
         Route::post('/promotion', [ //+ y -
             'as' => 'users.promotion',
             'uses' => 'UsersController@promotion'

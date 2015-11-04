@@ -3,9 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row">
+            @include('partials.messages')
             <div class="col-md-12 ">
                 <div class="panel panel-info">
-                    <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b>
+                    <div class="panel-heading"><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b><b class=" col-md-offset-1">Fecha de creación: {{$dataProblem->created_at}}</b>
                         <div class="pull-right">
                             <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
                         </div></div>

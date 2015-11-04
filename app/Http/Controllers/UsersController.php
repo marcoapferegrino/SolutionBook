@@ -67,4 +67,43 @@ class UsersController extends Controller
 
     }
 
+    public function viewPromotion(){
+        $idUser= auth()->user()->getAuthIdentifier();
+        $solver= User::where('rol','=','solver')->get();
+        $promovidos= User::where('userProblem_id','=',$idUser)->get();
+        //dd($promovidos->count());
+        return view('problem/promotion',compact('solver','promovidos'));
+
+    }
+
+    public function promotion(Request $request){
+
+        $idUser= auth()->user()->getAuthIdentifier();
+        $idRequest=$request->id;
+        $usuario=User::find($idRequest);
+        $tipo=$request->tipo;
+        if($tipo==0)
+        {
+            $usuario->update(['userProblem_id'=>$idUser,'rol'=>'problem']);
+            Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de solver a problem');
+        }
+        else
+        {
+            if($usuario->userProblem_id==$idUser)
+            {
+                $usuario->update(['userProblem_id'=>null,'rol'=>'solver']);
+                Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de problem a solver');
+            }
+            else
+                Session::flash('error', 'No tienes permitido realizar esta acción');
+        }
+
+        $solver= User::where('rol','=','solver')->get();
+        $promovidos= User::where('userProblem_id','=',$idUser)->get();
+       // return view('problem/viewPromotion',compact('solver','promovidos'));
+        return redirect()->back();
+
+
+    }
+
 }

@@ -15,17 +15,32 @@ use Illuminate\Database\QueryException;
 use SolutionBook\Http\Requests;
 use SolutionBook\Http\Controllers\Controller;
 
+
 class UsersController extends Controller
 {
     public function myPerfil()
     {
         $user = auth()->user();
-
+        $allNumLikes = 0;
         $numSolutions = count($user->solutions);
         $numProblems = count($user->problems);
         $numWarnings = count(Warning::all()->where('user_id',$user->id));
-//        dd($numWarnings);
-        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems','numWarnings'));
+        foreach ($user->solutions as $solution ) {
+            $allNumLikes += $solution->numLikes;
+        }
+
+        $ranking = ($numSolutions*10)+$allNumLikes;
+        $user->ranking = $ranking;
+        $user->save();
+
+        $cSolutions = json_encode($user->mySolutionsPerLanguageAnually('c'));
+        $cPlusSolutions = json_encode($user->mySolutionsPerLanguageAnually('c++'));
+        $python = json_encode($user->mySolutionsPerLanguageAnually('python'));
+        $java = json_encode($user->mySolutionsPerLanguageAnually('java'));
+
+//        dd($java,$cSolutions,$cPlusSolutions,$python);
+        return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems',
+            'numWarnings','cSolutions','cPlusSolutions','python','java'));
     }
 
     public function getAddProblemSetter()

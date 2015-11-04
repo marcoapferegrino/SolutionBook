@@ -68,9 +68,81 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body" id="container">
+                            <input type="hidden" id="datosChart" data-java="{{$java}}" data-python="{{$python}}"
+                                   data-cnorm="{{$cSolutions}}" data-cplus="{{$cPlusSolutions}}">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     @include('forEverybody.partials.modalInfoWarnings')
+@endsection
+@section('scripts')
+    <script src="/jsCharts/highcharts.js"></script>
+    <script src="/jsCharts/modules/exporting.js"></script>
+
+    <script>
+        $(function () {
+            var cData =$('#datosChart').data('cnorm');
+            var javaData =$('#datosChart').data('java');
+            var pythonData =$('#datosChart').data('python');
+            var cPlusData =$('#datosChart').data('cplus');
+//            console.log(cData);
+//            console.log(javaData);
+//            console.log(pythonData);
+//            console.log(cPlusData);
+
+            $('#container').highcharts({
+                title: {
+                    text: 'Soluciones por Mes',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: 'Sitio: SolutionBook',
+                    x: -20
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Número de soluciones'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: 'solución'
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'C',
+                    data: cData
+                }, {
+                    name: 'C++',
+                    data: cPlusData
+                }, {
+                    name: 'Java',
+                    data: javaData
+                }, {
+                    name: 'Python',
+                    data: pythonData
+                }]
+            });
+        });
+    </script>
 @endsection

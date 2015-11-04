@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 class Solution extends Entity {
 
-    protected $fillable = array('explanation','state','ranking','solutionLink','numWarnings','numLikes','dislikes','problem_id','user_id','codeSolution_id');
+    protected $fillable = array('explanation','state','solutionLink','numWarnings','numLikes','dislikes','problem_id','user_id','codeSolution_id');
     protected $table = 'solutions';
     /**
      * Esta es la relacion de muchos a muchos de los Likes
@@ -54,7 +54,7 @@ class Solution extends Entity {
             ->join('users','users.id','=','solutions.user_id')
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
             ->select('users.id as userId','users.username','users.email','users.rol','users.avatar','solutions.id','problem_id',
-                'solutions.explanation', 'solutions.numLikes','solutions.dislikes','solutions.ranking',
+                'solutions.explanation', 'solutions.numLikes','solutions.dislikes',
                 'code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language',
                 'code_solutions.path')
             ->first();

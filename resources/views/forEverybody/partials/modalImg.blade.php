@@ -13,7 +13,6 @@
                                </div>
                 <div class="modal-body " align="middle">
                     <img class="img-responsive" style="border-radius: 15px"  src = "{{url($notice[0]->path)}}" >
-
                 </div>
             </div>
         </div>

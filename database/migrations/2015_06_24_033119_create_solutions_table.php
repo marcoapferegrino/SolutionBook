@@ -17,7 +17,7 @@ class CreateSolutionsTable extends Migration {
 			$table->increments('id');
 			$table->longText('explanation');
 			$table->enum('state',['active','suspended','blocked','deleted']);
-			$table->double('ranking');
+//			$table->double('ranking');
 			$table->string('solutionLink',45);
 			$table->integer('numWarnings');
 			$table->integer('numLikes');

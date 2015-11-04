@@ -9,6 +9,7 @@
 namespace SolutionBook\Entities;
 
  use Illuminate\Support\Facades\Session;
+ use Faker\Factory as Faker;
 
  class EvaluateCodeTool
 {
@@ -18,7 +19,10 @@ namespace SolutionBook\Entities;
      public static $PYTHON = "python ";
      public static $GCC = "clang ";
      public static $GCCMASMAS = "clang++ ";
+     public static $JAVAC = "javac ";
+     public static $JAVA = "java -cp ";
      public static $REDIRECT_OUTPUT = " 2>&1 ";
+     public static $LIMIT_TIME = "timeout ";
 
 
      /**
@@ -33,6 +37,7 @@ namespace SolutionBook\Entities;
       * */
      static function evaluateCodeSolution($problem,$fileCode,$extension)
     {
+        $faker = Faker::create();
         $nameFileCode   = $fileCode->getClientOriginalName();
 
         $inputFile = Files::where('problem_id',$problem->id)->where('type','fileinput')->first();
@@ -56,21 +61,31 @@ namespace SolutionBook\Entities;
         $outputProblemString = self::withoutSpaces($outputProblemString);
 
          $fileCodeTemp = $fileCode->move("temporal/",$nameFileCode);
+         $limitTime = self::getSeparetedTime($problem->limitTime);
+//         dd($limitTime[2]);
 //         dd($fileCodeTemp->getRealPath());
 //         dd($inputProblemString,$outputProblemString);
          self::$RESULTS["pathCode"] = "temporal/".$fileCode->getClientOriginalName();
 //         dd(self::$RESULTS["pathCode"]);
 //        dd("Entre aqui en evaluateCodeSolution");
+
         switch($extension) {
             case 'c':
-                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().".out";
+                $uniqueString=$faker->unique()->buildingNumber;
+                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().$uniqueString.".out";
+//                dd($nameOutputFile);
                 $sentenceCompile = self::$GCC . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile .self::$REDIRECT_OUTPUT;
 
                 exec($sentenceCompile,$outputCompile);
 //                dd($outputCompile);
                 if(empty($outputCompile))
                 {
-                    $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    if ($problem->limitTime == "00:00:00"){
+                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    }
+                    else{
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    }
                     exec($sentenceToExecute,$output);
                     $outputToCompare = self::removeTwolastestPositions($output);
 //                    dd($outputToCompare);
@@ -89,14 +104,22 @@ namespace SolutionBook\Entities;
                 }
                 break;
             case 'cpp':
-                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().".out";
+                $uniqueString=$faker->unique()->buildingNumber;
+                $nameOutputFile = $problem->id . auth()->user()->getRememberToken().$uniqueString.".out";
+//                dd($nameOutputFile);
                 $sentenceCompile = self::$GCCMASMAS . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile .self::$REDIRECT_OUTPUT;
 
                 exec($sentenceCompile,$outputCompile);
 //                dd($outputCompile);
                 if(empty($outputCompile))
                 {
-                    $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+
+                    if ($problem->limitTime == "00:00:00"){
+                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    }
+                    else{
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    }
                     exec($sentenceToExecute,$output);
                     $outputToCompare = self::removeTwolastestPositions($output);
 //                    dd($outputToCompare);
@@ -114,31 +137,86 @@ namespace SolutionBook\Entities;
                     dd($outputCompile);
                 }
                 break;
-            case 'class':
+            case 'java':
+                $sentenceCompile = self::$JAVAC.$fileCodeTemp->getRealPath().self::$REDIRECT_OUTPUT;
+                $nameOutputFile = $fileCode->getClientOriginalName();
+                $className = str_replace(".java","",$nameOutputFile);//File´s name is the Class´ name
 
+//               dd($sentenceCompile,$nameOutputFile,$className);
+
+                exec($sentenceCompile,$outputCompile);
+//                dd($sentenceCompile,$outputCompile);
+                if(empty($outputCompile))
+                {
+                    if ($problem->limitTime == "00:00:00"){
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$JAVA.public_path()."/temporal/ ".$className." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+
+                    }
+                    else{
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$JAVA.public_path()."/temporal/ ".$className." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    }
+
+//                    dd($sentenceToExecute);
+                    exec($sentenceToExecute,$output);
+
+                    if (str_contains($output[count($output)-3],"Command exited with non-zero status")) {
+                        Session::flash('error','Tu solución excedió el tiempo límite del Problema: '.$problem->limitTime." segs");
+                        redirect()->back();
+                    }
+                    else{
+                        $outputToCompare = self::removeTwolastestPositions($output);
+//                    dd($outputToCompare);
+                        $outputToCompare = implode("\n",$outputToCompare);
+//                    dd($outputToCompare);
+//                    dd($sentenceToExecute,$outputToCompare,$output);
+                        self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
+
+                        self::evaluateTimeAndMemory($problem, $output);
+                        chown(public_path()."/temporal/".$className.".class","vagrant");
+                        unlink(public_path()."/temporal/".$className.".class");
+                        return self::$RESULTS;
+                    }
+
+
+                    break;
+                }//end outputCompile
+                else{
+                    unset($outputCompile[0]);
+                    dd($outputCompile);
+                }
                 break;
             case 'py':
-                /*Executing python program*/
-//                exec("time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) 'python 1 2 3 2>&1",$salida);
-//                dd($salida);
-                $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
-//                dd($sentence);
+
+                if ($problem->limitTime == "00:00:00"){
+                    $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                }
+                else{
+                    $sentence = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                }
+
                 exec($sentence,$output);
+
+                if (str_contains($output[count($output)-3],"Command exited with non-zero status")) {
+                    Session::flash('error','Tu solución excedió el tiempo límite del Problema: '.$problem->limitTime." segs");
+                    redirect()->back();
+                }
+                else {
 //                dd($sentence,$output);
-                /*Removing time and memory of output*/
-                $outputToCompare = self::removeTwolastestPositions($output);
+                    /*Removing time and memory of output*/
+                    $outputToCompare = self::removeTwolastestPositions($output);
 //                dd($outputToCompare);
-                /*Making output string*/
-                $outputToCompare = implode("\n",$outputToCompare);
+                    /*Making output string*/
+                    $outputToCompare = implode("\n", $outputToCompare);
 //                dd($outputToCompare);
-                /*Comparing original outputProblem with outputSolution for presententation and result*/
+                    /*Comparing original outputProblem with outputSolution for presententation and result*/
 //                dd($outputProblemString,$outputProblem,$outputToCompare);
-                self::evaluateOutputComparison($outputProblemString,$outputProblem,$outputToCompare);
+                    self::evaluateOutputComparison($outputProblemString, $outputProblem, $outputToCompare);
 
-                /*Si la solución es igual a la del problema evaluamos tiempo y memoria*/
-                self::evaluateTimeAndMemory($problem, $output);
+                    /*Si la solución es igual a la del problema evaluamos tiempo y memoria*/
+                    self::evaluateTimeAndMemory($problem, $output);
 
-                return self::$RESULTS;
+                    return self::$RESULTS;
+                }
                 break;
         }
     }
@@ -312,7 +390,7 @@ namespace SolutionBook\Entities;
                 $extension = 'cpp';
                 break;
             case 'java':
-                $extension = 'class';
+                $extension = 'java';
                 break;
             case 'python':
                 $extension='py';
@@ -351,6 +429,10 @@ namespace SolutionBook\Entities;
              self::evaluateTime($timeCodeTimestamp, $problem->limitTime);
              self::evaluateMemory($timeAndMem['mem'][0], $memProblem);
          }
+     }
+     private static function getSeparetedTime($time){
+         $time = explode(":",$time);
+         return $time;
      }
 
 

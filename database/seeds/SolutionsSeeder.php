@@ -43,7 +43,7 @@ class SolutionsSeeder extends Seeder {
              Solution::create([
                 'explanation' => $faker->realText(500, $indexSize = 2),
                 'state' => $faker->randomElement(['active','suspended','blocked','deleted']),
-                'ranking' => $faker->numberBetween(1,100),
+//                'ranking' => $faker->numberBetween(1,100),
                 'solutionLink' => '/solutions/idSolution',
                 'numWarnings'=>0 ,
                 'numLikes' => $faker->numberBetween(0,1000),

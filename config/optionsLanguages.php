@@ -2,7 +2,7 @@
 
 return array(
 
-    'lenguajes' => [
+    'lenguages' => [
         '' => 'Seleccione el lenguaje',
         'c' => 'C',
         'c++' => 'C++',

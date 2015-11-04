@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             @include('partials.messages')
-            <div class="col-md-11">
+            <div class="col-md-12">
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h3>Solutions <i class="fa fa-code"></i></h3></div>
@@ -71,7 +71,7 @@
                             </div>
 
                         @endforeach
-                        {!! $solutions->render() !!}
+                        <div class="text-center">{!! $solutions->render() !!}</div>
                     </div>
                 </div>
             </div>

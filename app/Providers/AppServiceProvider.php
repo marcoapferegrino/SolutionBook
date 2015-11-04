@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider {
 			$extensionFile = $value->getClientOriginalExtension();
 			$languaje = $parameters[0];
 			//dd($parameters,$value->getClientOriginalExtension());
+//			dd($extensionFile);
 			$state = false;
 			switch($languaje)
 			{

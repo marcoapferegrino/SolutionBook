@@ -1,9 +1,15 @@
 
+
     <div class="container">
         <div class="row">
             <div class="col-md-11">
                 <div class="panel panel-info">
-                    <div class="panel-heading"><h3>Solutions <i class="fa fa-code"></i></h3></div>
+                    <div class="panel-heading">
+                        <h3><i class="fa fa-code"></i> Soluciones
+                            <a href="#problem"><small>del Problema</small> #{{isset($dataProblem->id)?$dataProblem->id:$idProblem}}</a>
+                        @include('solver.partials.orderSolutions')
+                        </h3>
+                    </div>
 
                     <div class="panel-body">
 
@@ -60,7 +66,7 @@
                                 </div>
 
                             @endforeach
-                            {!! $solutions->render() !!}
+                            <div class="text-center">{!! $solutions->render() !!}</div>
                            @else
                             <div class="alert alert-danger" role="alert"><strong>Aún no tenemos soluciones :( Sube una por favor</strong></div>
                        @endif
@@ -69,6 +75,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
 

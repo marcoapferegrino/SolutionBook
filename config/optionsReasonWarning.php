@@ -9,7 +9,7 @@
 return array(
     'reasonsWarnings'=>[
         'copiedCode'=>"Código copiado",
-    'notWorking'=>"No funciona",
-    'contentInapropiate'=>"Contenido inapropiado",
-    'other'=>"Otro"
+        'notWorking'=>"No funciona",
+        'contentInapropiate'=>"Contenido inapropiado",
+        'other'=>"Otro"
     ]);

@@ -10,17 +10,36 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+Route::controller('notifications', 'NotificationsController');
+Route::post('notifications/notify', [
+    'as' => 'pusher.notify',
+    'uses' => 'NotificactionsController@postNotify'
+]);
 Route::get('/', 'WelcomeController@index');
 Route::get('loginN', 'WelcomeController@loginN');
 Route::get('home', 'WelcomeController@indexGuest');
 
 Route::get('homes', 'HomeController@index');
-
+Route::get('blockedByAdmin', 'WelcomeController@blockedByAdmin');
 Route::get('homeProblemSetter', 'HomeController@indexProblem');
 Route::get('homeSolver', 'HomeController@indexSolver');
 Route::get('homeAdmin', 'HomeController@indexAdmin');
 
+get('/broadcast', function() {
+    event(new \SolutionBook\Entities\TestEvent('Broadcasting in Laravel using Pusher!'));
+
+    return view('welcome');
+});
+
+get('/bridge', function() {
+    $pusher = \Illuminate\Support\Facades\App::make('pusher');
+
+    $pusher->trigger( 'test-channel',
+        'test-event',
+        array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
+
+    return view('welcome');
+});
 Route::get('/register', [
     'as' => 'welcome.register',
     'uses' => 'WelcomeController@getRegister'
@@ -33,6 +52,7 @@ Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
 ]);
+
 Route::get('/test',function(){
 //    $path = public_path("testing/cosas.out");
     $nombre = "Marco Perez";
@@ -58,6 +78,7 @@ Route::get('/test',function(){
     }
 
 });
+
 
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
@@ -154,6 +175,10 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'JudgesController@updateJudge'
         ]);
 
+        Route::get('/suspendAccount', [
+            'as' => 'user.suspendAccount',
+            'uses' => 'UsersController@suspendAccount'
+        ]);
 
 
 
@@ -196,6 +221,11 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/similarTags/{cadena}', [
             'as' => 'problem.similarTags',
             'uses' => 'ProblemsController@similarTags'
+        ]);
+
+        Route::get('/viewPromotion', [
+            'as' => 'users.viewPromotion',
+            'uses' => 'UsersController@viewPromotion'
         ]);
         Route::post('/promotion', [ //+ y -
             'as' => 'users.promotion',
@@ -248,7 +278,12 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'solution.deleteSolution',
             'uses' => 'SolutionsController@deleteSolution'
         ]);
-        Route::post('/updateSolution/{id}', [
+
+        Route::get('/getUpdateSolution/{id}', [
+            'as' => 'solution.getUpdateSolution',
+            'uses' => 'SolutionsController@getUpdateSolution'
+        ]);
+        Route::post('/updateSolution', [
             'as' => 'solution.updateSolution',
             'uses' => 'SolutionsController@updateSolution'
         ]);
@@ -301,10 +336,23 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.showProblem',
             'uses' => 'ProblemsController@showProblem'
         ]);
-
+        Route::get('/solutionsOrdered', [ //para guest
+            'as' => 'solutions.orderSolutions',
+            'uses' => 'SolutionsController@orderSolutions'
+        ]);
         Route::get('/getZipSolutionMultimedia/{idProblem}/{idSolution}', [
             'as' => 'solution.multimediaZip',
             'uses' => 'SolutionsController@getZipMultimediaSolution'
+        ]);
+
+        Route::post('/ignoreWarning', [
+            'as' => 'warning.ignoreWarning',
+            'uses' => 'WarningsController@ignoreWarning'
+        ]);
+
+        Route::get('/deleteWarning/{id}', [
+            'as' => 'warning.deleteWarning',
+            'uses' => 'WarningsController@deleteWarning'
         ]);
 
     });

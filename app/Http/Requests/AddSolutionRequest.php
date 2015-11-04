@@ -28,7 +28,7 @@ class AddSolutionRequest extends Request
         $rules = [
             'optionsLanguages'=> 'required | in:c,c++,java,python',
             'explanation'=> 'required',
-            'fileCode'=> 'required | extension:c,cpp,py,java | languajeWithFileExtension:'.$request->optionsLanguages,
+            'fileCode'=> 'required | extension:c,cpp,py,java| languajeWithFileExtension:'.$request->optionsLanguages,
             'images'=> 'array',
             'audioFile'=> 'extension:mp3',
             'youtube' => array('url','regex:/youtube/'),

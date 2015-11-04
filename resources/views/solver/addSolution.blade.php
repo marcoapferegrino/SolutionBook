@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('styles')
+    <link href="{{ asset('/css/jquery.keypad.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 
 
@@ -9,7 +11,7 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3>Agregar Solución para el problema: #{{$idProblem}}</h3>
+                        <h3>Agregar solución para el problema: #{{$idProblem}}</h3>
                     </div>
 
                     <div class="panel-body">
@@ -24,25 +26,25 @@
                         {!! Form::hidden('idProblem',$idProblem,array('id' => 'idProblem')) !!}
 
                         <div class="form-group col-md-10 col-lg-offset-1">
-                            <h3><label for="language"><strong>Lenguaje*</strong></label></h3>
-                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguajes'),null,['class'=>'form-control'])!!}
+                            <h4><label for="language"><strong>Lenguaje*</strong></label></h4>
+                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguages'),null,['class'=>'form-control'])!!}
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
-                            <h3><label for="explanation"><strong>Explicación*</strong></label></h3>
-                            {!! Form::textarea('explanation',null,array('id' => 'explanation','class'=>'form-control','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
+                            <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
+                            {!! Form::textarea('explanation',null,array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
-                            <h3><label class="control-label" for="youtube"><strong>Youtube</strong></label></h3>
+                            <h4><label class="control-label" for="youtube"><strong>Youtube</strong></label></h4>
                             <input type="url"  class="form-control"  name ="youtube" id="youtube" placeholder="¿Tienes un video con explicación?" >
                         </div>
                         <div class="form-group col-md-10 col-lg-offset-1">
-                            <h3> <label class="control-label" for="repositorio"><strong>Repositorio</strong></label></h3>
+                            <h4> <label class="control-label" for="repositorio"><strong>Repositorio</strong></label></h4>
                             <input type="url"  class="form-control"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
                         </div>
                         <div class="form-group col-md-10 col-lg-offset-1">
-                            <h3> <label class="control-label" for="web"><strong>Página web</strong></label></h3>
+                            <h4> <label class="control-label" for="web"><strong>Página web</strong></label></h4>
                             <input type="url"  class="form-control"  name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
                         </div>
 
@@ -69,5 +71,10 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
+    <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
 @endsection
 

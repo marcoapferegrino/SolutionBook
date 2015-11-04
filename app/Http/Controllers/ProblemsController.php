@@ -207,7 +207,7 @@ class ProblemsController extends Controller
     {
         //->groupBy('problems.id')
         $result= \DB::table('problems')
-            ->select('problems.id as pid ','limitTime','title','problems.description as description','numWarnings','user_id')
+            ->select('problems.id as pid ','limitTime','limitMemory','title','problems.description as description','numWarnings','user_id')
             ->paginate(9);
         $avatar=array();
         foreach($result as $r){
@@ -316,9 +316,15 @@ class ProblemsController extends Controller
                 array_push($docs,$f);
             }
         }
-        //dd($files);
-        //dd($solutions);
-        return view('problem/showProblem',compact('tags','judge','dataProblem','files','entrada','salida','inputs','outputs','docs','links','solutions'));
+
+        $cSolutions = count($dataProblem->SolutionsPerLanguage('c'));
+        $cplusSolutions = count($dataProblem->SolutionsPerLanguage('c++'));
+        $pythonSolutions = count($dataProblem->SolutionsPerLanguage('python'));
+        $javaSolutions = count($dataProblem->SolutionsPerLanguage('java'));
+
+        return view('problem/showProblem',compact('tags','judge','dataProblem','files',
+            'entrada','salida','inputs','outputs','docs','links','solutions','cSolutions',
+            'cplusSolutions','pythonSolutions','javaSolutions'));
     }
 
     /**

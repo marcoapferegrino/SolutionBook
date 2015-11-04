@@ -30,10 +30,10 @@
 
                 @endif
             </div>
-            <div class="col-md-3">
-                <i class="fa fa-gavel"></i> <small>{{$solution->ranking}} ranking</small>
-            </div>
-            <div class="col-md-3">
+            {{--<div class="col-md-3">--}}
+                {{--<i class="fa fa-gavel"></i> <small>{{$solution->ranking}} ranking</small>--}}
+            {{--</div>--}}
+            <div class="col-md-2">
                 <a href="{{route('warning.getAddWarning',['id'=>$solution->id,'type'=>0])}}"><strong><small class="text-danger">Reportar</small></strong></a>
             </div>
 

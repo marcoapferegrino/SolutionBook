@@ -90,7 +90,7 @@
 
 						@elseif(Auth::getRol()=="problem")
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-smile-o"></i> Mine<span class="caret"></span></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-smile-o"></i> Portafolio<span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{url('/myProblems')}}"><i class="fa fa-list-ol"></i> Mis problemas </a></li>
 									<li><a href="{{url('/mySolutions')}}"><i class="fa fa-wrench"></i> Mis soluciones </a></li>
@@ -120,7 +120,7 @@
 					@if (!Auth::guest())
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bell-o "></i> <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
+							<ul class="dropdown-menu"  id="notifications" role="menu">
 								<li><a href="">1</a></li>
 								<li><a href="">2</a></li>
 								<li><a href="">3</a></li>

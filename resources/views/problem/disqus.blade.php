@@ -1,5 +1,6 @@
-<input type="text" value="{{$dataProblem->title}}"  id="title1" hidden>
-<input type="text" value="{{$dataProblem->id}}"  id="idProblem" hidden>
+<input type="text" value="{{$title}}"  id="title1" hidden>
+<input type="text" value="{{$id}}"  id="idProblem" hidden>
+<input type="text" value="{{$url}}"  id="url" hidden>
 
 <div id="disqus_thread"></div>
 

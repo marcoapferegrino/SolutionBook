@@ -325,14 +325,16 @@ class ProblemsController extends Controller
             }
         }
 
-        $cSolutions = count($dataProblem->SolutionsPerLanguage('c'));
-        $cplusSolutions = count($dataProblem->SolutionsPerLanguage('c++'));
-        $pythonSolutions = count($dataProblem->SolutionsPerLanguage('python'));
-        $javaSolutions = count($dataProblem->SolutionsPerLanguage('java'));
-
+        $cSolutions         = count($dataProblem->SolutionsPerLanguage('c'));
+        $cplusSolutions     = count($dataProblem->SolutionsPerLanguage('c++'));
+        $pythonSolutions    = count($dataProblem->SolutionsPerLanguage('python'));
+        $javaSolutions      = count($dataProblem->SolutionsPerLanguage('java'));
+        $title  = $dataProblem->problem_id;
+        $id     = $dataProblem->id;
+        $url    = "showProblem";
         return view('problem/showProblem',compact('tags','judge','dataProblem','files',
             'entrada','salida','inputs','outputs','docs','links','solutions','cSolutions',
-            'cplusSolutions','pythonSolutions','javaSolutions'));
+            'cplusSolutions','pythonSolutions','javaSolutions','title','id','url'));
     }
 
     /**

@@ -178,10 +178,12 @@
 
                         {{--End carousel--}}
                     </div>
+                @include('problem.disqus')
                 </div>
             </div>
         </div>
     </div>
+
     @include('solver.partials.deleteSolutionModal')
 @endsection
 @section('scripts')
@@ -193,5 +195,5 @@
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
     <script src="{{ asset('/js/likes.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
-
+    <script src="{{ asset('/js/disqus.js') }}"></script>
 @endsection

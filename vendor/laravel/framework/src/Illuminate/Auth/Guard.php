@@ -111,7 +111,18 @@ class Guard implements GuardContract
     {
         return ! is_null($this->user());
     }
-
+	 /**
+    +     * Return role in the system
+    +     *
+    +     * @return  rol
+    +     */
+    public function getRol(){
+       
+	 return $this->user->rol;
+    
+	}
+    /**
+    /**
     /**
      * Determine if the current user is a guest.
      *
@@ -122,16 +133,6 @@ class Guard implements GuardContract
         return ! $this->check();
     }
 
-
-    /**
-    +     * Return role in the system
-    +     *
-    +     * @return  rol
-    +     */
-    public function getRol(){
-        return $this->user->rol;
-    }
-    /**
     /**
      * Get the currently authenticated user.
      *

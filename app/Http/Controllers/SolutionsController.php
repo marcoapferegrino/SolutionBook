@@ -166,11 +166,14 @@ class SolutionsController extends Controller
                 $code=htmlspecialchars("\n".$code);
             }
 
-        } catch (ErrorException $e) {
+        } catch (\ErrorException $e) {
             Session::flash('error', 'Esta solución no tiene código que extraño, deberías reportarla');
         }
+        $title  = "Solución id ".$solution->id." del Problema ".$solutionComplete->problem_id;
+        $id     = $solution->id;
+        $url    = "showSolution";
         //dd($files->toArray());
-        return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution'));
+        return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution','title','id','url'));
     }
 
     public function deleteSolution($idSolution)

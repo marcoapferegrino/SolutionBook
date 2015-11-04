@@ -33,7 +33,7 @@ class WarningsController extends Controller
             $target = Solution::find($id);
             $linksol = Link::create([
                 'link'=>'showSolution/'.$id,
-                'type'=>'Amonestación',
+                'type'=>'Referencia',
                 $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
             dd($linksol);
@@ -42,7 +42,7 @@ class WarningsController extends Controller
             $target = Problem::find($id);
             $linksol = Link::create([
                 'link'=>'showProblem/'.$id,
-                'type'=>'Amonestación',
+                'type'=>'Referencia',
                 $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 

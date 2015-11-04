@@ -2,7 +2,7 @@
 var disqus_shortname = 'solutionbook24nya';
 var disqus_title= $("#title1").val();
 var disqus_identifier = $("#idProblem").val()+$("#title1").val();
-var disqus_url = "https://solution.book/showProblem/"+$("#idProblem").val();
+var disqus_url = "https://solution.book/"+$('#url').val()+"/"+$("#idProblem").val();
 
 /*
  var disqus_title= <? php echo $dataProblem->title; ?>;

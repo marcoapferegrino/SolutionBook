@@ -114,6 +114,11 @@ class Problem extends Entity {
         return $solutions;
 
     }
+    public static function similarTitle($cadena){
+        $sql="SELECT * FROM `problems` WHERE title like '%$cadena%' order by case when title LIKE '$cadena' then 0 when title LIKE '$cadena%' then 1 when title LIKE '%$cadena%' then 2 when title LIKE '%$cadena' then 3 else 4 end, title";
+        $result= \DB::select(DB::raw($sql));
+        return $result;
+    }
 
 
 }

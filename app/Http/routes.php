@@ -223,7 +223,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@similarTags'
         ]);
 
-        Route::get('/viewPromotion', [
+        Route::get('/viewPromotion', [ //+ y -
             'as' => 'users.viewPromotion',
             'uses' => 'UsersController@viewPromotion'
         ]);

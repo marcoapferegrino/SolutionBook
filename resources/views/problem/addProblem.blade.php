@@ -23,6 +23,7 @@
                             <div class="col-sm-6">
                                 {!!Form::text('title','',['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
+                                <div id="similarTitle"></div>
                             </div>
 
                         </div>
@@ -120,10 +121,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group" data-toggle="tooltip" data-placement="top" title="ej. arboles binarios, estructuras de datos, recursividad">
-                            <h4><label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label></h4>
+                        <div class="form-group" >
+                            <label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags'])!!}
+                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
+                                <div id="similarTags"></div>
                             </div>
 
                         </div>
@@ -176,6 +178,10 @@
 
 @endsection
 @section('scripts')
+
+    <script src="{{ asset('/js/similarTitle.js') }}"></script>
+    <script src="{{ asset('/js/similarTags.js') }}"></script>
+
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
@@ -187,53 +193,6 @@
         }
     </script>
     <script type="text/javascript">
-
-        $("#title").on('keyup',function(){
-
-            $(this).popover({
-                title: 'Ver Problemas similares:',
-                placement: 'bottom'
-            });
-            var x = $(this).val();
-            if (x=='') {x='a'};
-            var form = $('#form-titulo');
-            var url = form.attr('action').replace(':TEXT',x);
-            var data = form.serialize();
-//            alert(data);
-            $.post(url,data,function(result){
-                $(".popover-content").html(result);
-            });
-            $(this).popover('show');
-
-        });
-        $("#title").change(function(){
-
-            $(this).popover('hide');
-        });
-
-        $("#tags").on('keyup',function(){
-
-            var x = $(this).val();
-
-            if (x=='') {x='a#'};
-            var form = $('#form-tag');
-            var url = form.attr('action').replace(':TEXT',x);
-            var data = form.serialize();
-            $(this).popover({
-                title: 'Ver Problemas similares:',
-                placement: 'bottom'
-            });
-            $.post(url,data,function(result){
-                $(".popover-content").html(result);
-            });
-
-            $(this).popover('show');
-
-        });
-        $("#tags").change(function(){
-
-            $(this).popover('hide');
-        });
 
         $("#textarea")
                 .bind("dragover", false)

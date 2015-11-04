@@ -56,13 +56,18 @@ class ProblemsController extends Controller
         if($judge=='#'){
             $judge=null;
         }
+
+        $horas = floor($limitTime / 3600);
+        $minutos = floor(($limitTime - ($horas * 3600)) / 60);
+        $segundos = $limitTime - ($horas * 3600) - ($minutos * 60);
+
         $problem=Problem::create([
             'title'=>$title,
             'author'=>$nameUser,
             'institution'=> $institution,
             'description'=> $description,
             'numSolutions' =>0,
-            'limitTime'=> $limitTime,
+            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
             'limitMemory' => $limitMem,
             'numWarnings' => 0,
             'state' => 'active',
@@ -198,8 +203,8 @@ class ProblemsController extends Controller
 
         }
 
-        Session::flash('message', 'Se agregó exitosamente a la base de datos');
-        return redirect()->route('problem.addFormProblem');
+        Session::flash('message', 'Tu problema fue agregado con éxito');
+        return redirect()->route('problem.showProblem',$idProblem);
 
     }
 
@@ -239,9 +244,12 @@ class ProblemsController extends Controller
         $idUser= auth()->user()->getAuthIdentifier();
 
         if($problem->user_id==$idUser)
-            $problem->update(['user_id'=>1]);
+        {
+            $problem->update(['user_id'=>1,'author'=>'SolutionBook']);
+            Session::flash('message', 'Se ha eliminado correctamente');
+        }
         else
-            Session::flash('error', 'No puedes borrar este problema');
+            Session::flash('error', 'No tienes permitido realizar esta acción');
         $result= \DB::table('problems')->where('problems.user_id','=',$idUser)->paginate(9);
 
         return view('problem/myProblems',compact('result'));
@@ -481,10 +489,7 @@ class ProblemsController extends Controller
     public function similarProblems($cadena)
     {
         //
-        $condicion='CASE WHEN title like a% THEN 0  WHEN title like % %a% % THEN 1 WHEN title like %a THEN 2  ELSE 3 END';
-        $sql="SELECT * FROM `problems` WHERE title like '%$cadena%' order by case when title LIKE '$cadena' then 0 when title LIKE '$cadena%' then 1 when title LIKE '%$cadena%' then 2 when title LIKE '%$cadena' then 3 else 4 end, title";
-        $result= \DB::select(DB::raw($sql));
-        //$result= \DB::table('problems')->where('title','like',"%$cadena%")->orderByRaw('case when title LIKE "$cadena%" then 1 when title LIKE "%$cadena%" then 2 when title LIKE "%$cadena" then 3 else 4 end')->get();
+        $result= Problem::similarTitle($cadena);
         $similares='';
         if(!$result){
             $similares="No hay problemas similares";
@@ -515,9 +520,7 @@ class ProblemsController extends Controller
         $similares='<table class="table table-hover">';
         $palabras = explode(",",$cadena);
         foreach($palabras as $p){
-            $sql="SELECT * FROM `tags` WHERE name like '%$p%' order by case when name LIKE '$p' then 0 when name LIKE '$p%' then 1 when name LIKE '%$p%' then 2 when name LIKE '%$p' then 3 else 4 end, name";
-
-            $result= \DB::select(DB::raw($sql));
+            $result= Tag::similarTags($p);
 
             if(!$result){
                 $similares.=" ";
@@ -532,17 +535,8 @@ class ProblemsController extends Controller
             }
         }
         //dd($idBuscar);
-        $sql="SELECT problem_id, count(problem_id) from problem_tag where tag_id in (";
-        foreach ($idBuscar as $key => $id) {
-            # code...
-            if($key==0)
-                $sql.="".$id." ";
-            $sql.=",".$id."";
 
-        }
-        $sql.=") group by problem_id, problem_id order by count(problem_id) desc";
-//echo $sql;
-        $result= \DB::select(DB::raw($sql));
+        $result= ProblemasTags::similarProblemsfromTags($idBuscar);
         if(!$result){
             $similares="No hay problemas similares";
         }

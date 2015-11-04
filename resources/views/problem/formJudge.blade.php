@@ -6,7 +6,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Agregar Juez en Línea</h4>
             </div>
-                @include('partials.messages')
 
             {!! Form::open([
             'route' => 'judges.addJudge',
@@ -71,6 +70,7 @@
                         {!!Form::submit('Agregar',['class'=>'form-control btn-info'])!!}
                     </div>
 
+                    @include('partials.messages')
                 </div>
             </div>
             {!! Form::close() !!}

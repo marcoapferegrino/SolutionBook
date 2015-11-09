@@ -241,7 +241,7 @@ namespace SolutionBook\Entities;
              self::$RESULTS['compare']=true;
              self::$RESULTS['presentation']=true;
 //             dd("soy igual todo bien");
-             Session::flash('message', 'Solución correcta'.$RESULTS);
+             Session::flash('message', '¡Felicidades! La solución es correcta :D '.$RESULTS);
 
          }
 //         elseif($boolPresentation){
@@ -287,7 +287,7 @@ namespace SolutionBook\Entities;
          {
              self::$RESULTS['timeStatus'] = false;
              //unlink($fileCode->getRealPath().$fileCode->getClientOriginalName());
-             Session::flash('error', 'Excedio el límite de tiempo de ejecución: Tu tiempo '.self::$RESULTS['timeExecution'].' Debería ser menor a: '.$timeProblemP);
+             Session::flash('error', ' Tu solución excedió el tiempo límite del Problema: Tu tiempo '.self::$RESULTS['timeExecution'].' Debería ser menor a: '.$timeProblemP);
              //return redirect()->route('solution.getFormSolution');
          }
      }

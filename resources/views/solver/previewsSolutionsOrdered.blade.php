@@ -1,11 +1,11 @@
 
 @extends('app')
 @section('content')
-
+    @include('partials.messages')
     <div class="container">
         <div class="row">
             <div class="col-md-11">
-
+            
 
                 <div class="panel panel-info">
                     <div class="panel-heading">

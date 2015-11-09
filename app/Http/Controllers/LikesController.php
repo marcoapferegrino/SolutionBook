@@ -2,7 +2,10 @@
 
 namespace SolutionBook\Http\Controllers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Notify;
 use SolutionBook\Entities\Solution;
 use Illuminate\Http\Request;
 
@@ -32,6 +35,13 @@ class LikesController extends Controller
 
             $user = auth()->user();
             $success = $user->like($solution->id);
+            $idUserObjetivo=$solution->user_id;
+            Notification::addNotifyLike($idUserObjetivo);///////envia notificacion
+            $mensj=Notify::encodeMsj($idUserObjetivo,$id,null,'like');
+            $pusher = App::make('pusher');
+            $pusher->trigger( 'test-channel',
+                'test-event',
+                array($mensj));
 
 
             if($request->ajax()){

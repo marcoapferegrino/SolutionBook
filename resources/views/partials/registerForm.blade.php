@@ -26,7 +26,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('email', 'Email*') !!}
+                                {!! Form::label('email', 'Email*') !!}<br>
                                 {!! Form::email('email',null, array('class' => 'form-control','id'=>'email','placeholder'=>'Email','required'))!!}
                             </div>
                         </div>

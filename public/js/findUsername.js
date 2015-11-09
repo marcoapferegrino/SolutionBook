@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
 
     var consulta;
 
@@ -31,12 +32,7 @@ $(document).ready(function(){
             url: "findUsername",
             //data: consulta,
             data: {'username':$("#username").val()},
-            //data: consulta,
-           // dataType: "html",
-        /*    beforeSend: function(){
-                //imagen de carga
-                $("#result_table").html("<p align='center'><img src='ajax-loader.gif' alt='NOOOOO'/></p>");
-            },*/
+
             error: function(){
                 alert("error petición ajax");
             },
@@ -57,5 +53,6 @@ $(document).ready(function(){
 
 
     });
+
 
 });

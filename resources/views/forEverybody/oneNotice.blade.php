@@ -16,7 +16,7 @@
                                     <h3 class="text-primary" style="color:#000000;"> <span style="font-size: 120%" class="label label-primary"> <strong>{{$notice[0]->title}}</strong></span></h3>
 
                                     <br><a>
-                                    <img data-toggle="modal" data-target="#imgExpand" class = "img-thumbnail" style=" cursor: pointer;;border-radius: 15px"  height="40%" width="40%" src = "{{url($notice[0]->path)}}" >
+                                    <img data-toggle="modal" data-target="#imgExpand" class = "img-thumbnail" style=" cursor: pointer;border-radius: 15px; height:40%; width:40%" src = "{{url($notice[0]->path)}}" >
                                     </a>
                                 </div>
                                 <div class="row">

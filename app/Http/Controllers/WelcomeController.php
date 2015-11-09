@@ -5,6 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
+use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddUserRequest;
 
@@ -65,7 +66,7 @@ class WelcomeController extends Controller {
 
     public function findUsername()
     {
-
+        //print_r('ff');
         $data = Input::all();
         $cadena =strtoupper($data['username']);
         $nicks= User::searchUsername();

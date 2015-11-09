@@ -7,7 +7,7 @@
 <div class="container">
 
 
-    <div class="col-lg-9 col-md-push-1 " >
+    <div class="col-lg-10 col-md-push-1 " >
         {!! Form::open(['route' => 'welcome.addRegister','id'=>'register_user', 'files'=>true,'method' => 'POST','class'=>'form-inline']) !!}
 
         <br>
@@ -20,8 +20,6 @@
     </div>
 </div>
     <br><br> <br>
-
-</div>
 
 
 @endsection

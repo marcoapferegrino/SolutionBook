@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Components;
 
 use Collective\Html\HtmlBuilder as CollectiveHtmlBuilder;
+use SolutionBook\Entities\User;
 
 class HtmlBuilder extends CollectiveHtmlBuilder
 {
@@ -108,5 +109,13 @@ class HtmlBuilder extends CollectiveHtmlBuilder
         }
         print_r($safe);
         return $safe;
+    }
+
+    public static function myId(){
+
+        $user =  auth()->user();
+        return $user->user_id;
+
+
     }
 }

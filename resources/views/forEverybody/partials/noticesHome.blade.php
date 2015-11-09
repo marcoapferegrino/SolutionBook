@@ -1,5 +1,5 @@
-<div class="col-md-8 ">
 
+<div class="col-lg-8" >
     <div class="panel panel-primary">
         <div class="panel-heading">Noticias
 
@@ -21,9 +21,9 @@
                 </ol>
 
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox" style="height: 60%">
+                <div class="carousel-inner" role="listbox"">
                     <div class="item active">
-                        <img src="default.jpg" width="700"  height="600"   >
+                        <img src="default.jpg" width="100%"  height="100%"   >
                         <div class="carousel-caption">
                             <h3>Bienvenido a Solution Book</h3>
                             <p>*************************</p>
@@ -32,12 +32,12 @@
 
                     @foreach($notices as $i=>$notice)
 
-                    <div class="item text-center"  >
+                    <div class="item text-center" align="middle"  >
                         <dd style="font-size: 140%; font-family:Lucida Grande;overflow: hidden; text-overflow: ellipsis;" >
                             <b  >{{$notice->title}}</b>
                         </dd>
 
-                        <img width="700"  height="600" align="middle" src="{{$notice->path}}" >
+                        <img align="middle"  style="width:100%;  height:100%" src="{{$notice->path}}" >
                         <div class="carousel-caption">
 
                             <h3> <a style="color: #0000C2;background-color: lightgray" href="{{url('/notice/'.$notice->id)}}"> &nbsp;ver noticia&nbsp; <i class="fa fa-external-link-square"></i>
@@ -73,6 +73,6 @@
         </ul>
     </div>
 
-
+</div>
 </div>
 

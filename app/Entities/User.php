@@ -143,10 +143,23 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
     public static function searchUsername()
     {
         $usernames = DB::table('users')
-                    ->select('username')
-                    ->get();
+            ->select('username')
+            ->get();
 
         return $usernames;
+
+
+
+    }
+    public static function systemUsers()
+    {
+        $users = DB::table('users')
+            ->where('users.rol','!=','super')
+            ->paginate(15);
+//->get();
+
+       // dd($users);
+        return $users;
 
 
 

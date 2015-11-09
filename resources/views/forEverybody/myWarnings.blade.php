@@ -90,7 +90,7 @@
                                                     @endif
 
                                                 @else
-                                                    {!! Form::open(['route' => 'user.suspendAccount','method' => 'GET','class'=>'form-inline']) !!}
+                                                    {!! Form::open(['route' => 'user.suspendAccount','method' => 'POST','class'=>'form-inline']) !!}
                                                     <input type="hidden" name="user_id" id="user_id" value="{{$warning->user_id}}">
                                                     {!! Form::submit('Suspender cuenta infractor',array('class'=>'btn btn-info btn-block','onclick'=>'return confirm("Seguro que quieres suspender cuenta?")')) !!}
                                                     {!! Form::close() !!}

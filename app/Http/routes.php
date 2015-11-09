@@ -179,6 +179,14 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'user.suspendAccount',
             'uses' => 'UsersController@suspendAccount'
         ]);
+        Route::post('/reactiveAccount', [
+            'as' => 'user.reactiveAccount',
+            'uses' => 'UsersController@reactiveAccount'
+        ]);
+        Route::get('/getUsers', [
+            'as' => 'user.getUsers',
+            'uses' => 'UsersController@getUsers'
+        ]);
 
 
 
@@ -354,6 +362,12 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'warning.deleteWarning',
             'uses' => 'WarningsController@deleteWarning'
         ]);
+
+        Route::post('/findUserLikes', [
+            'as' => 'user.findUserLikes',
+            'uses' => 'UsersController@findUserLikes'
+        ]);
+
 
     });
 

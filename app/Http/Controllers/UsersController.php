@@ -4,6 +4,8 @@ namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Psy\Util\Json;
+use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\User;
 use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddUserRequest;
@@ -123,6 +125,7 @@ class UsersController extends Controller
 
     public function suspendAccount(Request $request)
     {
+     //   dd($request);
         $id=$request->user_id;
         $user= User::find($id);
         if($user==null){return redirect()->back();}
@@ -130,7 +133,44 @@ class UsersController extends Controller
         $user->state='blocked';
         $user->save();
 
-        return redirect()->route('warning.myWarnings');
+        return redirect()->back();
     }
+
+    public function reactiveAccount(Request $request){
+     //   dd(Input::all());
+        $id=$request->user_id;
+        $user= User::find($id);
+        if($user==null){return redirect()->back();}
+
+        $user->state='active';
+        $user->save();
+
+        return redirect()->back();
+
+
+    }
+
+
+    public function getUsers()
+    {
+        $users=User::systemUsers();
+
+        return view('forEverybody.usersList',compact('users'));
+    }
+    public function findUserLikes()
+    {
+        $res='{';
+        $user=auth()->user();
+        $id=$user->id;
+        $notif= Notification::all()->where('user_id','=',$id)
+                                   ->where('viewed','=',0) ;
+            $res.='"user_id":'.$id.',';
+            $res.='"likes":'.count($notif).' ';
+        $res.="}";
+        //return  response()->json(compact('res'));
+        return $res;//Json::encode($res);
+        //return $res;//view('forEverybody.usersList',compact('users'));
+    }
+
 
 }

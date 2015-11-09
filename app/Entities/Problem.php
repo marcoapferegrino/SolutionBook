@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class Problem
@@ -99,6 +99,12 @@ class Problem extends Entity {
             }
 
         }
+        $previewSolutionsEmpty = $previewSolutions->get();
+
+        if (empty($previewSolutionsEmpty)) {
+           Session::flash('error', 'No hay coincidencias con esta búsqueda.');
+        }
+
         return $previewSolutions->paginate(10);
     }
     public function SolutionsPerLanguage($language){

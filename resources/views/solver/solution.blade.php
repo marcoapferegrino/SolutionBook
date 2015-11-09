@@ -25,9 +25,13 @@
                                <div class="col-md-4">
                                    <img src="{{$solutionComplete->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
                                    <small>Solución por</small>
-                                   <strong class="text-capitalize">{{$solutionComplete->username}}</strong>
+                                   <small class="text-capitalize">{{$solutionComplete->username}}</small>
                                    <br> <small>Email</small>
                                    <a href="mailto:{{$solutionComplete->email}}">{{$solutionComplete->email}}</a>
+                                   @if(isset($solutionComplete->institution))
+                                   <br> <small>Institution</small>
+                                   <small class="text-capitalize">{{$solutionComplete->institution}}</small>
+                                   @endif
                                </div>
                                <div class="col-md-8 ">
                                    @include('partials.likesButtons')

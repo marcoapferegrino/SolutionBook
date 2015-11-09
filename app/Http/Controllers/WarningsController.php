@@ -36,7 +36,7 @@ class WarningsController extends Controller
                 'type'=>'Referencia',
                 $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
-            dd($linksol);
+//            dd($linksol);
 
         } elseif ($type==1) {//problem
             $target = Problem::find($id);

@@ -98,7 +98,9 @@ Route::post('/findUsername', [
     'as' => 'welcome.findUsername',
     'uses' => 'WelcomeController@findUsername'
 ]);
-
+Route::get('/phpinfo', function(){
+    return phpinfo();
+});
 
 
 

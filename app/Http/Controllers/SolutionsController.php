@@ -13,6 +13,7 @@ use SolutionBook\Entities\EvaluateCodeTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use SolutionBook\Entities\Tools;
+use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddSolutionRequest;
 use SolutionBook\Http\Requests\UpdateSolutionRequest;
 
@@ -126,7 +127,7 @@ class SolutionsController extends Controller
             Files::addOrReplaceLink($request->web,$solution->id,'Facebook');
 
 
-            Session::flash('message', 'Ea todo genial si funciono :D ');
+            Session::flash('message', '¡Felicidades! La solución es correcta :D');
             return redirect('/showSolution/'.$solution->id);
 
         }//end if de timeStatus and memStatus and compare
@@ -193,7 +194,7 @@ class SolutionsController extends Controller
                 $solution->delete();//mantenemos el modelo
                 CodeSolution::destroy($solution->codeSolution_id); //no mantenemos el modelo lo destruimos completamente
 
-                Session::flash('message', 'Listo :D se ha borrado la solución : #'.$solution->id." Y estas en Mis Soluciones");
+                Session::flash('message', 'Se ha eliminado correctamente: la solución : #'.$solution->id." Y estas en Mis Soluciones");
 
                 Tools::deleteDirectory($solutionDir); //borramos sus archivos del servidor
 
@@ -229,7 +230,7 @@ class SolutionsController extends Controller
         $problem = Problem::find($idProblem);
         $solutions = $problem->solutionsPreviewOrdered($language,$restriction);
 
-//        dd($language,$restriction,$idProblem,$solutions);
+//      dd($language,$restriction,$idProblem,$solutions);
         return view('solver.previewsSolutionsOrdered',compact('solutions','idProblem'));
 
     }
@@ -239,6 +240,12 @@ class SolutionsController extends Controller
         $user = auth()->user();
 
         $solution = Solution::find($id);
+        $warnings = Warning::where('solution_id',$solution->id)->get();
+//        dd($warnings->toArray());
+        if (count($warnings)>0) {
+            Session::flash('error',"Esta solución tiene amonestaciones corrigela por favor.");
+        }
+
 
         if ($solution->user_id == $user->id) {
             $images = Files::where('solution_id',$solution->id)->where('type','imagenApoyo')->get();
@@ -262,7 +269,7 @@ class SolutionsController extends Controller
             } catch (ErrorException $e) {
                 Session::flash('error', 'Esta solución no tiene código que extraño, deberías reportarla');
             }
-            return view('solver.updateSolution',compact('solutionComplete','images','code','audio','solution','linkYouTube','linkGitHub','linkWeb'));
+            return view('solver.updateSolution',compact('solutionComplete','images','code','audio','solution','linkYouTube','linkGitHub','linkWeb','warnings'));
         } else {
 
             Session::flash("error","Lo sentimos esta solución no es de tu propiedad.");
@@ -352,7 +359,7 @@ class SolutionsController extends Controller
             Files::saveAudio($audioFile,$solution->id,$pathAudioFile);
         }
 
-        Session::flash('message', 'Tu solución ha sido actualizada');
+        Session::flash('message', 'Cambios guardados');
         return redirect('/showSolution/'.$solution->id);
     }
 

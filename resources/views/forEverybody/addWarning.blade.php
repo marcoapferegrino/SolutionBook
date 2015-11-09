@@ -38,7 +38,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-warning btn-lg btn-block" id="submit-all">Guardar</button>
+                        <button type="submit" class="btn btn-warning btn-lg btn-block" id="submit-all">Enviar</button>
                         {!! Form::close() !!}
                     </div>
                 </div>

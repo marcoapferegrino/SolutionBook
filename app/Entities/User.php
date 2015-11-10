@@ -81,9 +81,14 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
      * Mis usuarios que promovi como ProbleSetter
      * @return Users
      */
-    public function usersPromoted()
+    public function usersPromoted($cadena=null)
     {
-        return $this->hasMany(User::getClass());
+        if($cadena!=null){
+            $sql="case when username LIKE '$cadena' then 0 when username LIKE '$cadena%' then 1 when username LIKE '%$cadena%' then 2 when username LIKE '%$cadena' then 3 else 4 end, username";
+            $result= DB::table('users')->where('userProblem_id',$this->id)->where('username','LIKE','%'.$cadena.'%')->orderBy(DB::raw($sql), 'ASC')->paginate(9);
+            return $result;
+        }
+        return User::where('userProblem_id','=',$this->id)->paginate(9);
     }
 
     /**
@@ -186,6 +191,19 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
         }
         return $languageArray;
 
+    }
+    /**
+     * Mis usuarios para promover como ProbleSetter
+     * @return Users
+     */
+    public static function usersSolver($cadena=null)
+    {
+        if($cadena!=null){
+            $sql="case when username LIKE '$cadena' then 0 when username LIKE '$cadena%' then 1 when username LIKE '%$cadena%' then 2 when username LIKE '%$cadena' then 3 else 4 end, username";
+            $result= DB::table('users')->where('rol','solver')->where('username','LIKE','%'.$cadena.'%')->orderBy(DB::raw($sql), 'ASC')->paginate(9);
+            return $result;
+        }
+        return User::where('rol','=','solver')->paginate(9);
     }
 
 

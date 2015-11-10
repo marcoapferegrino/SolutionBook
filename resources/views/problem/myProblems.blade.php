@@ -41,10 +41,10 @@
                                                 <div class="panel-body" >
                                                     <table class="table table-hover info">
                                                         <tr>
-                                                            <th>
+                                                            <th width=50%>
                                                                 Descripción
                                                             </th>
-                                                            <th>
+                                                            <th width=30%>
                                                                 Límites
                                                             </th>
                                                             <th>
@@ -53,21 +53,22 @@
                                                                 Warnings
                                                             </th>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                {{$r->description}}
-                                                            </td>
-                                                            <td>
-                                                                Tiempo: {{$r->limitTime}} segundos <br> Memoria: {{$r->limitMemory}} bytes
-                                                            </td>
-                                                            <td>
-                                                                {{$r->numSolutions}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->numWarnings}}
-                                                            </td>
-                                                        </tr>
                                                     </table>
+                                                        
+                                                                <div class="col-sm-6" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                {{$r->description}}
+                                                            </div>
+                                                            <div class="col-sm-4" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                Tiempo: {{$r->limitTime}} segundos <br> Memoria: {{$r->limitMemory}} bytes
+                                                                </div>
+                                                            <div class="col-sm-1" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                {{$r->numSolutions}}
+                                                                </div>
+                                                            <div class="col-sm-1 style="overflow: hidden; text-overflow: ellipsis;">
+                                                                {{$r->numWarnings}}
+                                                                </div>
+                                                            
+                                                        
                                                 </div>
                                             </div>
                                     </div>
@@ -84,35 +85,11 @@
         </div>
     </div>
 
+    @include('problem.partials.deleteProblemModal')
 
-    <div class="modal fade" id="eliminar">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-                    <p>Si usted elimina este problema perdera todo derecho sobre el.</p>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
     <center> {!!$result->render()!!}</center>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
-        $('#eliminar').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var idProblema = button.data('whatever') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('Eliminar problema ' + idProblema)
-            modal.find('.modal-footer').html('<a  class="btn btn-warning" href="/deleteProblem/'+idProblema+'" role="button" >Aceptar</a>   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>')
 
-        })
-    </script>
+    <script src="{{ asset('/js/modalDeleteProblem.js') }}"></script>
 @endsection

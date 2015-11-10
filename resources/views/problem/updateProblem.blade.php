@@ -1,11 +1,14 @@
 @extends('app')
+@section('styles')
+    <link href="{{ asset('/css/jquery.keypad.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 
     <div class="container">
         <div class="row">
             <div class="col-md-12 ">
                 <div class="panel panel-warning">
-                    <div class="panel-heading"><h4>Agregar Problema</h4></div>
+                    <div class="panel-heading"><h4>Editar Problema</h4></div>
 
                     <div class="panel-body">
                         @include('partials.messages')
@@ -38,7 +41,7 @@
                         <div class="form-group">
                             <label for="descripcion" class="col-sm-2 control-label"><strong>Descripción</strong></label>
                             <div class="col-sm-8">
-                                {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control','placeholder'=>'Descripción del problema'])!!}
+                                {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control keypad','id'=>'description','placeholder'=>'Descripción del problema'])!!}
                             </div>
 
                         </div>
@@ -46,7 +49,10 @@
                         <div class="form-group">
                             <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo *</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                <div class="input-group">
+                                    {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                    <div class="input-group-addon">segs</div>
+                                </div>
                             </div>
 
                         </div>
@@ -54,7 +60,10 @@
                         <div class="form-group">
                             <label for="limitMemory" class="col-sm-2 control-label"><strong>Limite de Memoria *</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('limitMemory',$dataProblem->limitMemory,['class'=>'form-control','placeholder'=>'bytes'])!!}
+                                <div class="input-group">
+                                    {!!Form::text('limitMemory',$dataProblem->limitMemory,['class'=>'form-control','placeholder'=>'bytes'])!!}
+                                    <div class="input-group-addon">kb</div>
+                                </div>
                             </div>
 
                         </div>
@@ -74,11 +83,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-1 ">
-                                <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addJudge">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                </button>
-                            </div>
+                            @if( $rol=='super')
+                                <div class="col-sm-1 ">
+                                    <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addJudge">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group" >
                             <label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label>
@@ -101,11 +112,11 @@
                             <div class="form-group" >
                                 <label for="input" class="col-sm-2 control-label"><strong>Entrada *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 id='textarea'  name="inputs[]" class="form-control" >{{$inputs}}</textarea>
+                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" >{{$inputs}}</textarea>
                                 </div>
                                 <label for="output" class="col-sm-1 control-label"><strong>Salida *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 name="outputs[]" class="form-control" >{{$outputs}}</textarea>
+                                    <textarea rows=8 name="outputs" class="form-control" >{{$outputs}}</textarea>
                                 </div>
                                 {{--<div class="col-sm-1 ">
                                     <button type="button" class="btn btn-primary btn-lg ">
@@ -120,7 +131,7 @@
                         <div class="form-group">
                             <label for="tags" class="col-sm-2 control-label"><strong>Palabras clave</strong></label>
                             <div class="col-sm-6">
-                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
+                                {!!Form::text('tags',$tags,['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
                                 <div id="similarTags"></div>
                             </div>
 
@@ -151,16 +162,19 @@
                         </div>
 
                         <div class="row">
-                            @foreach($files as $i=>$f)
-                                <div class="col-sm-4 col-md-2">
-                                    <div class="thumbnail">
-                                        <img src="{{$f->url}}" alt="{{$f->name}}">
-                                        <div class="caption">
-                                            <p><a href="#" onclick="borrar({{$f->id}});" class="btn btn-primary" role="button">Borrar</a> </p>
-                                        </div>
+                            <div class="col-xs-12">
+                                @foreach($files  as $img)
+                                    <div class="col-xs-3 col-md-3">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="imgsDelete[]" value="{{$img->id}}"> ¿Eliminar?
+                                        </label>
+                                        <a href="#" class="thumbnail">
+                                            <img src="{{asset($img->path)}}" alt="...">
+                                        </a>
+                                        {{$img->name}}
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
 
 
@@ -175,7 +189,7 @@
                         <div class="form-group">
                             <label for="submit" class="col-sm-5 control-label"><strong></strong></label>
                             <div class="col-sm-4">
-                                {!!Form::submit('Agregar',['class'=>'form-control btn-info'])!!}
+                                {!!Form::submit('Guardar',['class'=>'form-control btn-info'])!!}
                             </div>
 
                         </div>
@@ -199,32 +213,15 @@
 
     <script src="{{ asset('/js/similarTitle.js') }}"></script>
     <script src="{{ asset('/js/similarTags.js') }}"></script>
+    <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
+    <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
 
     <script type="text/javascript">
         function agregar() {
             campo = '<div class="form-group"><div class="col-sm-1"></div>                                <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo entrada</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8 name="inputs[]"  class="form-control" ></textarea>                         </div>   <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo salida</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8  name="outputs[]" class="form-control" ></textarea>        </div></div>';
             $("#emails").append(campo);
         }
-        function borrar(id){
-            idsBorrar='<input type="text" value="'+id+'" name="idBorrados"  hidden>';
-            $('#idBorrados').append(idsBorrar);
-
-        }
-    </script>
-    <script type="text/javascript">
-
-        $("#textarea")
-                .bind("dragover", false)
-                .bind("dragenter", false)
-                .bind("drop", function(e) {
-                    this.value = e.originalEvent.dataTransfer.getData("text") ||
-                    e.originalEvent.dataTransfer.getData("text/plain");
-
-                    $("#textarea").append("dropped!");
-
-                    return false;
-                });
-
     </script>
 
 @endsection

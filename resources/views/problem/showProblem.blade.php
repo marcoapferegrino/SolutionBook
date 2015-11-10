@@ -9,44 +9,65 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
 
-                        <h4><b class="">Problema: {{$dataProblem->id}} </b><b class=" col-md-offset-1"> {{$dataProblem->title}}</b><b class=" col-md-offset-1">Fecha de creación: {{$dataProblem->created_at}}</b>
-                        <div class="pull-right">
+                        <h4><b class="">{{$dataProblem->id}} |  {{$dataProblem->title}} </b>
+                            <b style="font-size: small" class="col-sm-offset-1"> Publicado el {{$dias[$publicado->dayOfWeek]}} {{$publicado->day}} de {{$meses[$publicado->month]}} del {{$publicado->year}}</b>
+
+                        <div class=" col-sm-1 pull-right">
                             <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
-                        </div>
+                        </div>@include('problem.partials.buttonsDeleteUpdateProblem')
                         </h4>
                     </div>
 
                     <div class="panel-body">
-                        <div class="well well-sm  pull-right ">
+                        <div class="well well-sm col-md-3 pull-right " style="overflow: hidden; text-overflow: ellipsis;">
                             <b>No Soluciones: </b>{{$dataProblem->numSolutions}}<br>
-                            <b>Límite de tiempo: </b>{{$dataProblem->limitTime}} segundos<br>
-                            <b>Límite de memoria: </b>{{$dataProblem->limitMemory}} bytes<br>
+                            <b>Límite de tiempo: </b>{{$dataProblem->limitTime}} s<br>
+                            <b>Límite de memoria: </b>{{$dataProblem->limitMemory}} Kb<br>
                             <table class="table table-hover">
 
+                                @if($judge!=null)
                                 <tr><th>Jueces:</th></tr>
-                                <tr>
-                                    <td>{{$judge->name}}</td>
+                                <tr >
+                                    <td>
+                                        <a href="{{$judge->addresWeb}}" >{{$judge->name}}</a>
+                                    </td>
                                 </tr>
+                                @endif
+                                    
                                 <tr><th>Palabras clave:</th></tr>
                                 <tr>
                                     <td>{{$tags}}</td>
                                 </tr>
+                                @if($links->count()!=null)
                                 <tr><th>Enlaces:</th></tr>
-                                @foreach($links as $l)<tr>
+                                @foreach($links as $l)
+                                <tr>
                                     <td>
-                                    <a href="{{$l->link}}" >{{$l->type}}</a><br>
+                                    <a href="{{$l->link}}" >{{$l->type}}</a>
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
+
 
                             </table>
+                              @foreach($docs as $i=>$pdf)
+                                <a href="{{$pdf->path}}">
+                                @if($pdf->type=='pdf')
+                                        <img width="20px" height="30px" src="{{ asset('/problem/pdf.jpg') }}" alt="{{$pdf->name}}">
+                                @else
+                                    <img width="20px" height="30px" src="{{ asset('/problem/word.jpg') }}" alt="{{$pdf->name}}">
+                                @endif
+                                </a>
+                            @endforeach  
+
                             <br>
 
                         </div>
 
                         <div class="row">
                             <div class=" col-sm-5 ">
-                                <b>Autor: </b>{{$dataProblem->author}} <br>
+                                <b>Publicado por: </b>{{$dataProblem->author}} <br>
                                 <b>Institución: </b>{{$dataProblem->institution}}<br>
                                 {{--<b>No Warnings: </b>{{count($warnings)}}<br><br>--}}
 
@@ -83,24 +104,14 @@
                                     </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="panel panel-success  col-sm-12  ">
-                                    <div class=" col-sm-6">
-                                        Entradas: <br>
-                                        <pre>{{$inputs}}</pre>
-                                    </div>
-                                    <div class=" col-sm-6">
-                                        Salidas:<br>
-                                        <pre>{{$outputs}}</pre>
-                                    </div>
-                            </div>
-                        </div>
+                        
                         <div class=" row col-sm-4">
                             <a class="btn btn-warning btn-lg pull-right navbar-fixed-top" href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
                                 <i class="fa fa-code"></i> Agregar Solución
                             </a>
                             <br>
                         </div>
+                            @if($files!=null)
                         <div class=" row">
                             <br>
                             <!-- Carousel de imagenes -->
@@ -148,11 +159,11 @@
                                 </a>
                             </div>
                             <!-- Fin Carousel -->
-
                         </div>
                         <br>
                         <br>
                         <br>
+                            @endif
                     </div>
                     <div class="col-sm-14">
                         {{--<b>Soluciones:</b>--}}
@@ -168,10 +179,12 @@
             </div>
         </div>
     </div>
+    @include('problem.partials.deleteProblemModal')
 @endsection
 @section('scripts')
 
     <script src="{{ asset('/js/likes.js') }}"></script>
+    <script src="{{ asset('/js/modalDeleteProblem.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
     <script src="{{ asset('/js/disqus.js') }}"></script>
     <script src="/jsCharts/highcharts.js"></script>

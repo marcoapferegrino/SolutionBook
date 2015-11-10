@@ -14,6 +14,7 @@ class ProblemasTags extends Entity {
             # code...
             if($key==0)
                 $sql.="".$id." ";
+            else
             $sql.=",".$id."";
 
         }
@@ -21,5 +22,9 @@ class ProblemasTags extends Entity {
 //echo $sql;
         $result= \DB::select(DB::raw($sql));
         return $result;
+    }
+
+    public static function relacionPT($problema,$tag){
+        return ProblemasTags::whereRaw('tag_id ='.$tag.' and problem_id = '.$problema);
     }
 }

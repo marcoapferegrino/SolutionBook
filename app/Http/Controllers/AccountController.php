@@ -4,6 +4,8 @@ use Socialize;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use SolutionBook\Entities\User;
+use Illuminate\Support\Facades\Session;
+use SolutionBook\Http\Requests\AddUserRequest;
 
 class AccountController extends Controller {
     // To redirect facebook
@@ -56,29 +58,65 @@ class AccountController extends Controller {
             ]);*/
             return view('auth/terminosCondiciones',compact('correo','avatar','nombre'));
         }
-        $userStore->username= $nombre;
-        $userStore->avatar= $avatar;
-        $userStore->save();
+        if($userStore->state=='blocked')
+        {
+            return redirect()->action('WelcomeController@blockedByAdmin');
+        }
         $this->auth->login($userStore, true);
         return redirect('/home');
 
     }
+
     public function termsConditions(Request $request){
         $nombre=$request->nombre;
         $correo=$request->correo;
         $avatar=$request->avatar;
-        $userStore = User::create([
-            'username'=>$nombre,
-            'email'=>$correo,
-            'password'=> '',
+        return view('auth/cambiarNombreUsuario',compact('correo','avatar','nombre'));
+    }
+    public function cambioNameUser(AddUserRequest $request){
+        //dd($request);
+        $avatar2=$request->avatarSocial;
+        $password = bcrypt($request->password);
+
+        // $file = Input::file('avatar');
+        $image=$request->file('avatar');
+
+        $user = User::create([
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'password'=> $password,
             'rol'=> 'solver',
             'ranking' => 0,
-            'avatar'=>$avatar,
             'state' => 'active',
             'numWarnings' => 0,
         ]);
-        $this->auth->login($userStore, true);
-        return redirect('/home');
+        if($image!=null){
+            $idUser = $user->id;
+            $path ='users/'.$idUser.'/';
+            $pathAvatar = $path.'avatar/';
+
+            mkdir($pathAvatar,null, true);
+
+            $nameImage = $image->getClientOriginalName();
+            // dd($image,$pathAvatar,$nameImage);
+
+            $image->move($pathAvatar,$nameImage);
+            $renameImg= 'avatar.'.$image->getClientOriginalExtension();
+
+            rename($pathAvatar.$nameImage,$pathAvatar.$renameImg );
+            $user->avatar= $pathAvatar.$renameImg;
+            $user->save();
+        }
+        else{
+            $user->avatar= $avatar2;
+            $user->save();
+        }
+
+        Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
+
+        return Redirect::to('/auth/login');
     }
+
+
 
 }

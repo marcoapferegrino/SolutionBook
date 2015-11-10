@@ -125,6 +125,20 @@ class Problem extends Entity {
         $result= \DB::select(DB::raw($sql));
         return $result;
     }
+    public static function problemasPorId($ids){
+        $sql="";
+        foreach ($ids as $key => $id) {
+            # code...
+            if($key==0)
+                $sql.="".$id." ";
+            else
+                $sql.=",".$id."";
+
+        }
+        $result=Problem::whereIn('id',$ids)->orderByRaw(DB::raw('FIELD(id,'.$sql.')'))->paginate(9);
+        //echo $sql;
+        return $result;
+    }
 
 
 }

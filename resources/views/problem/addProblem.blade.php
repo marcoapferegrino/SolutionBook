@@ -12,7 +12,7 @@
 
                     <div class="panel-body">
                         @include('partials.messages')
-                        {!! Form::open([
+                        {!! Form::model(Request::all(),[
                         'route' => 'problem.addProblem',
                         'method' => 'post',
                         'class'=>'form-horizontal',
@@ -49,7 +49,7 @@
                             <h4><label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo *</strong></label></h4>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    {!!Form::text('limitTime','',['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                    {!!Form::text('limitTime','0',['class'=>'form-control','placeholder'=>'segundos'])!!}
                                     <div class="input-group-addon">segs</div>
                                 </div>
                             </div>
@@ -78,11 +78,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-1 ">
-                                <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addJudge">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                </button>
-                            </div>
+                            @if( $rol=='super')
+                                <div class="col-sm-1 ">
+                                    <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addJudge">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group" >
                             <h4><label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label></h4>
@@ -158,7 +160,7 @@
                         <div class="form-group">
                             <h4><label for="submit" class="col-sm-5 control-label"><strong></strong></label></h4>
                             <div class="col-sm-12">
-                                {!!Form::submit('Agregar',['class'=>'form-control btn-lg btn-info'])!!}
+                                <button type="submit" class="btn btn-info btn-lg btn-block" id="submit-all">Guardar</button>
                             </div>
 
                         </div>

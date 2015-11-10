@@ -86,10 +86,11 @@ class UsersController extends Controller
 
     public function viewPromotion(){
         $idUser= auth()->user()->getAuthIdentifier();
-        $solver= User::where('rol','=','solver')->get();
-        $promovidos= User::where('userProblem_id','=',$idUser)->get();
-        //dd($promovidos->count());
-        return view('problem/promotion',compact('solver','promovidos'));
+        $solver= User::usersSolver();
+        $promovidos= User::find($idUser)->usersPromoted();
+        $cadena=null;
+        //dd($promovidos);
+        return view('problem/promotion',compact('solver','promovidos','cadena'));
 
     }
 
@@ -115,11 +116,7 @@ class UsersController extends Controller
                 Session::flash('error', 'No tienes permitido realizar esta acción');
         }
 
-        $solver= User::where('rol','=','solver')->get();
-        $promovidos= User::where('userProblem_id','=',$idUser)->get();
-       // return view('problem/viewPromotion',compact('solver','promovidos'));
         return redirect()->back();
-
 
     }
 
@@ -171,6 +168,16 @@ class UsersController extends Controller
         return $res;//Json::encode($res);
         //return $res;//view('forEverybody.usersList',compact('users'));
     }
+    public function buscarPromovidos(Request $request)
+    {
+        //
+        $cadena=$request->buscar;
+        $idUser= auth()->user()->getAuthIdentifier();
+        $solver= User::usersSolver($cadena);
+        $promovidos= User::find($idUser)->usersPromoted($cadena);
 
+        //dd($solver);
+        return view('problem/promotion',compact('solver','promovidos','cadena'));
+    }
 
 }

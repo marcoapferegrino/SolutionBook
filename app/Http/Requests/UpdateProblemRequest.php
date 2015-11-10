@@ -3,7 +3,7 @@
 namespace SolutionBook\Http\Requests;
 
 
-class AddProblemRequest extends Request
+class UpdateProblemRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,9 @@ class AddProblemRequest extends Request
     public function rules(\Illuminate\Http\Request $request)
     {
         $images = $request->all();
-       // dd($request);
-       $rules = [
+//        dd($images);
+        $rules = [
+            'imgsDelete' => 'array',
             'title'=> 'required',
             'institucion'=>'required',
             'descripcion'=> 'required',
@@ -43,7 +44,7 @@ class AddProblemRequest extends Request
 
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp,pdf';
+            $rules['images.'.$key] = 'in:jpg,png,bmp';
         }
 
         return $rules;

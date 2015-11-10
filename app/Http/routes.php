@@ -88,6 +88,11 @@ Route::post('/termsAndConditions', [
     'uses' => 'AccountController@termsConditions'
 ]);
 
+Route::post('/cambioNameUser', [
+    'as' => 'account.cambioNameUser',
+    'uses' => 'AccountController@cambioNameUser'
+]);
+
 //Route::get('/notice/{id}', 'NoticesController@oneNotice');
 
 Route::get('/notice/{id}', [
@@ -231,6 +236,16 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/similarTags/{cadena}', [
             'as' => 'problem.similarTags',
             'uses' => 'ProblemsController@similarTags'
+        ]);
+
+        Route::get('/buscarProblema', [
+            'as' => 'problem.buscarProblema',
+            'uses' => 'ProblemsController@buscarProblema'
+        ]);
+
+        Route::get('/buscarPromovidos', [
+            'as' => 'users.buscarPromovidos',
+            'uses' => 'UsersController@buscarPromovidos'
         ]);
 
         Route::get('/viewPromotion', [

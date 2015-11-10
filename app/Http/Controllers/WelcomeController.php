@@ -61,7 +61,10 @@ class WelcomeController extends Controller {
     public function getRegister()
     {
         User::searchUsername();
-        return view('register');
+        $correo=null;
+        $nombre=null;
+        $avatar=null;
+        return view('register',compact('correo','nombre','avatar'));
     }
 
     public function findUsername()

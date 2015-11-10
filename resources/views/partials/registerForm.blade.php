@@ -10,7 +10,11 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('username', 'Nombre de usuario*') !!}
-                                {!! Form::text('username',null, array('class' => 'form-control','id'=>'username','placeholder'=>'Username','required'))!!}
+                                @if($nombre==null)
+                                    {!! Form::text('username','', array('class' => 'form-control','id'=>'username','placeholder'=>'Username','required'))!!}
+                                @else
+                                    {!! Form::text('username',$nombre, array('class' => 'form-control','id'=>'username','placeholder'=>'Username','required'))!!}
+                                @endif
 
                             </div>
 
@@ -26,8 +30,14 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('email', 'Email*') !!}<br>
-                                {!! Form::email('email',null, array('class' => 'form-control','id'=>'email','placeholder'=>'Email','required'))!!}
+                                {!! Form::label('email', 'Email*') !!}
+                                @if($correo==null)
+                                    {!! Form::email('email',null, array('class' => 'form-control','id'=>'email','placeholder'=>'Email','required'))!!}
+                                @else
+                                    <input type="text" value="{{$correo}}"  name="email" hidden>
+                                    {!! Form::email('muestracorreo',$correo, array('class' => 'form-control','disabled'))!!}
+                                @endif
+
                             </div>
                         </div>
 
@@ -46,7 +56,7 @@
                         <div class="col-md-8 col-lg-push-8">
                             <div class="form-group">
                                 {!! Form::label('password', 'Contraseña*') !!} <br>
-                                {!! Form::password('password',null, array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
+                                {!! Form::password('password','', array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
                             </div>
                         </div>
 
@@ -56,6 +66,12 @@
                     <div class="form-group">
                         <label for="avatar" class="col-sm-2 control-label">Avatar</label>
                         <div class="col-sm-6">
+                            @if($avatar!=null)
+                                Actual:
+                                <img width="120px" src="{{$avatar}}" />
+                                <input type="text" value="{{$avatar}}"  name="avatarSocial" hidden>
+                                Cambiar
+                            @endif
                             {!! Form::file('avatar',array('id'=>'avatar', 'class'=>'btn btn-info','style'=>'')) !!}
                         </div>
 

@@ -1,6 +1,8 @@
 <?php namespace SolutionBook\Components;
 
 use Collective\Html\HtmlBuilder as CollectiveHtmlBuilder;
+use Illuminate\Support\Facades\DB;
+use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\User;
 
 class HtmlBuilder extends CollectiveHtmlBuilder
@@ -115,6 +117,26 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
         $user =  auth()->user();
         return $user->user_id;
+
+
+    }
+
+    public static function retrieveLikes(){
+
+        $user =  auth()->user();
+              $lik= DB::table('notifications')
+                  //->where('user_id','=',$user->id)
+                  ->where('user_id','=',11)
+                  ->where('description','=','Like')
+                  ->where('viewed','=',0)->orderBy('created_at')->get();
+
+
+       // dd($lik,$user->id);
+        //session(['MY_LIKES' => $lik]);
+        session(['MY_LIKES' => $lik]);
+       // dd(session('MY_LIKES'));
+        //$request->session()->put('MY_LIKES', array());
+        //return $likes;
 
 
     }

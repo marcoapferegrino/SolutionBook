@@ -30,6 +30,8 @@
 
 </head>
 <body style="overflow-x: hidden;">
+{{\SolutionBook\Components\HtmlBuilder::retrieveLikes()}}<!-- NOTIFICATIONS -->
+
 <div id="wrapper">
     <div id="header">
     <div class="page-header" style="margin-top: 0%;position: relative;
@@ -137,16 +139,24 @@
 
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right " >
 					@if (!Auth::guest())
-						<li class="dropdown">
+						<li class="dropdown sidebar-offcanvas" >
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span style="font-size: 125%" id="number" class="label label-success"><i id="notify" class="fa fa-star">99</i> </span>
-                                <span class="caret"></span></a>
-							<ul class="dropdown-menu"  id="notificationsj" role="menu">
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
+                                <span style="font-size: 125%" id="number" class="label label-success"><i  id="notify" class="fa fa-bell">&nbsp;<i class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span></a> </span>
+
+							<ul  class="dropdown-menu sidebar-offcanvas "  style="max-height: 250px;overflow-y:scroll;"  id="notificationsj" role="menu">
+
+                                @foreach(session('MY_LIKES') as $k=>$oneLike)
+                                    <li><a href="{{url('/')}}">{{$oneLike->title}}</a></li>
+                                @if($k>=11)
+
+                                        <?php break; ?>
+                                @endif
+                                @endforeach
+
+
+                                    <li class="label-primary text-center"><a href="{{url('/')}}">Ver todas</a></li>
 
 							</ul>
 						</li>
@@ -172,6 +182,7 @@
     </div>
     <div id="content">
     @yield('content')
+
     </div>
     <div id="footer">
         <p class="text-center">

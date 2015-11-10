@@ -15,7 +15,7 @@ $(document).ready(function() {
     var id; var likes;
     $.ajax({
         type: "post",
-        url: "findUserLikes",
+        url: "/findUserLikes",
         //data: consulta,
         // data: {'username':$("#username").val()},
 
@@ -32,7 +32,7 @@ $(document).ready(function() {
             id=respons.user_id; likes=respons.likes;
 
             window.idG=id;window.likesG=likes;
-            document.getElementById("notify").innerHTML =likesG;
+            document.getElementById("notify").innerHTML =' '+likesG;
 
         }
     });
@@ -81,7 +81,7 @@ $(notifyInit); // Existing functionality
 var callback=function showNotification(data) {
 
     var dats= JSON.parse(data);
-    //alert('hi');
+    //alert(dats.id);
     if(window.idG==dats.id){  // es mi like
 
         var numbers= $('#notify').text();
@@ -94,7 +94,8 @@ var callback=function showNotification(data) {
 
 }
 
-var pusher = new Pusher('{{env("PUSHER_KEY")}}');
+var pusher = new Pusher('57c6339fba339d32f2ca');
+//var pusher = new Pusher('{{env("PUSHER_KEY")}}');
 
 var channel = pusher.subscribe('test-channel');
 channel.bind('test-event', callback);

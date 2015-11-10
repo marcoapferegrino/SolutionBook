@@ -15,7 +15,6 @@
     <script src="//js.pusher.com/3.0/pusher.min.js"></script>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script src="/js/pusherEmbed.js"></script>
 
 
     <!-- <script>
@@ -109,7 +108,7 @@
 
          }
 
-         var pusher = new Pusher('{{env("PUSHER_KEY")}}');
+         var pusher = new Pusher('{ {env("PUSHER_KEY")}}');
 
          var channel = pusher.subscribe('test-channel');
          channel.bind('test-event', callback);
@@ -149,7 +148,7 @@
 <div align="middle">
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-        <span style="font-size: 125%" id="number" class="label label-success"><i id="notify" class="fa fa-star"></i> </span>
+        <span style="font-size: 125%" id="number" class="label label-success"><i id="notify" class="fa fa-star"><i class="fa fa-spinner fa-pulse"></i></i> </span>
         <span class="caret"></span></a>
     <ul class="dropdown-menu"  id="notificationsj" role="menu">
         <li><a href="">1</a></li>
@@ -160,6 +159,7 @@
 </li>
 </div>
 <div id="another" align="middle">0</div>
+<script src="/js/pusherEmbed.js"></script>
 
 </body>
 </html>

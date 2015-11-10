@@ -21,7 +21,7 @@ class Notify {
             $solu=Solution::find($idSolution);
             $message.='"id":"'.$idDest.'",'.PHP_EOL;
             $message.='"message":"'.'¡Acabas de obtener un like!'.'",'.PHP_EOL;
-            $message.='"solution":"'.$idSolution.''.PHP_EOL;
+            $message.='"solution":'.$idSolution.''.PHP_EOL;
 
                 break;
 

@@ -83,14 +83,14 @@ Route::get('/test',function(){
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
-Route::post('/termsAndConditions', [
+Route::get('/termsAndConditions', [
     'as' => 'account.termsConditions',
     'uses' => 'AccountController@termsConditions'
 ]);
 
-Route::post('/cambioNameUser', [
-    'as' => 'account.cambioNameUser',
-    'uses' => 'AccountController@cambioNameUser'
+Route::post('/changeNameUser', [
+    'as' => 'account.changeNameUser',
+    'uses' => 'AccountController@changeNameUser'
 ]);
 
 //Route::get('/notice/{id}', 'NoticesController@oneNotice');
@@ -168,10 +168,6 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'JudgesController@showJudges'
         ]);
 
-        Route::post('/addJudge', [
-            'as' => 'judges.addJudge',
-            'uses' => 'JudgesController@addJudge'
-        ]);
 
         Route::delete('/deleteJudge/{$id}', [
             'as' => 'judges.deleteJudge',
@@ -238,14 +234,14 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@similarTags'
         ]);
 
-        Route::get('/buscarProblema', [
-            'as' => 'problem.buscarProblema',
-            'uses' => 'ProblemsController@buscarProblema'
+        Route::get('/findProblema', [
+            'as' => 'problem.findProblema',
+            'uses' => 'ProblemsController@findProblema'
         ]);
 
-        Route::get('/buscarPromovidos', [
-            'as' => 'users.buscarPromovidos',
-            'uses' => 'UsersController@buscarPromovidos'
+        Route::get('/findPromovidos', [
+            'as' => 'users.findPromovidos',
+            'uses' => 'UsersController@findPromovidos'
         ]);
 
         Route::get('/viewPromotion', [
@@ -275,6 +271,15 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/resolution', [
             'as' => 'warning.resolution',
             'uses' => 'WarningsController@resolution'
+        ]);
+
+        Route::post('/addJudge', [
+            'as' => 'judges.addJudge',
+            'uses' => 'JudgesController@addJudge'
+        ]);
+        Route::get('/getZipProblemMultimedia/{idProblem}', [
+            'as' => 'problem.multimediaZip',
+            'uses' => 'ProblemsController@getZipMultimediaProblem'
         ]);
 
     });

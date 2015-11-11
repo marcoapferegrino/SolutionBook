@@ -8,7 +8,7 @@
 
 
         <div class="col-lg-9 col-md-push-1 " >
-            {!! Form::open(['route' => 'account.cambioNameUser','id'=>'register_user', 'files'=>true,'method' => 'POST','class'=>'form-inline']) !!}
+            {!! Form::open(['route' => 'account.changeNameUser','id'=>'register_user', 'files'=>true,'method' => 'POST','class'=>'form-inline']) !!}
 
             <br>
 

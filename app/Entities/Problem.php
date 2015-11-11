@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class Problem extends Entity {
 
 
-    protected $fillable = ['title', 'author', 'institution', 'description', 'numSolutions', 'limitTime', 'limitMemory', 'numWarnings', 'state', 'problemLink', 'user_id', 'judgeList_id'];
+    protected $fillable = ['title', 'author', 'institution', 'description', 'numSolutions', 'limitTime','share', 'limitMemory', 'numWarnings', 'state', 'problemLink', 'user_id', 'judgeList_id'];
 
 	protected $table = 'problems';
 

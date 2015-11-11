@@ -78,15 +78,16 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @if( $rol=='super')
                                 <div class="col-sm-1 ">
                                     <button type="button" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addJudge">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                                 </div>
-                            @endif
                         </div>
                         <div class="form-group" >
+                            <div class="row">
+                                <h3><label for="input" class="col-sm-10 col-sm-offset-1 label label-info"><strong><center>Ejemplos</center></strong></label></h3>
+                            </div>
                             <h4><label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label></h4>
                             <div class="col-sm-4">
                                 <textarea rows=8  name="ejemploen" class="form-control" ></textarea>
@@ -105,6 +106,9 @@
                         </div>
                         <div id="emails">
                             <div class="form-group" >
+                                <div class="row">
+                                    <h3><label for="input" class="col-sm-10 col-sm-offset-1 label label-info"><strong><center>Casos de prueba</center></strong></label></h3>
+                                </div>
                                 <h4><label for="input" class="col-sm-2 control-label"><strong>Entrada *</strong></label></h4>
                                 <div class="col-sm-4">
                                     <textarea rows=8 id='textarea'  name="inputs" class="form-control" ></textarea>
@@ -124,12 +128,21 @@
                         </div>
 
                         <div class="form-group" >
+                            <label for="tags" class="col-sm-7 control-label" ><strong>Permitir a usuarios descargar archivos de casos de prueba</strong></label>
+                            <div class="col-sm-4">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="share" value="yes"> Aceptar
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group" >
                             <label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label>
                             <div class="col-sm-6">
                                 {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
                                 <div id="similarTags"></div>
                             </div>
-
                         </div>
 
                         <div class="form-group">

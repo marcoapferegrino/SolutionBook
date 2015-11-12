@@ -16,6 +16,18 @@
                             <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
                         </div>@include('problem.partials.buttonsDeleteUpdateProblem')
                         </h4>
+                        @if($dataProblem->share=='yes')
+
+                            <div class="row">
+                                <div class="text-center">
+                                    {!! Form::open(['route' => ['problem.multimediaZip',$dataProblem->id],'method' => 'get']) !!}
+                                    <button type="submit" class="btn btn-warning">Descargar archivos de prueba</button>
+
+                                    {!! Form::close() !!}
+
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="panel-body">

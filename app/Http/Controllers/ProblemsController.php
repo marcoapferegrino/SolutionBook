@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Link;
 use SolutionBook\Entities\Tag;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\ProblemasTags;
 
 use Illuminate\Support\Facades\Session;
@@ -56,6 +57,7 @@ class ProblemsController extends Controller
         $images= $request->images;
         $youtube= $request->youtube;
         $github= $request->github;
+        $share=$request->share;
         if($judge=='#'){
             $judge=null;
         }
@@ -82,6 +84,7 @@ class ProblemsController extends Controller
             'limitMemory' => $limitMem,
             'numWarnings' => 0,
             'state' => 'active',
+            'share'=>($share!=null)?$share:'no',
             'judgeList_id'=>$judge,
             'user_id' => $idUser,
 
@@ -233,17 +236,17 @@ class ProblemsController extends Controller
             else
                 array_push($avatar,'default.png');
         }
+        $placeholder="Buscar por: Título o Tags";
 
-        return view('problem/allProblems',compact('result','avatar'));
+        return view('problem/allProblems',compact('result','avatar','placeholder'));
     }
     public function addFormProblem()
     {
         //
         //$result = \DB::table('judges_lists')->get();
         $judgeList= JudgesList::all('id','name');
-        $rol=User::find(auth()->user()->getAuthIdentifier())->rol;
 
-        return view('problem/addProblem',compact('rol','judgeList'));
+        return view('problem/addProblem',compact('judgeList'));
 
     }
 
@@ -381,6 +384,7 @@ class ProblemsController extends Controller
         $youtube= $request->youtube;
         $github= $request->github;
         $imgsDelete= $request->imgsDelete;
+        $share=$request->share;
         if($judge=='#'){
             $judge=null;
         }
@@ -405,6 +409,7 @@ class ProblemsController extends Controller
             'limitMemory' => $limitMem,
             'numWarnings' => 0,
             'state' => 'active',
+            'share'=>($share!=null)?$share:'no',
             'judgeList_id'=>$judge,
             'user_id' => $idUser,
 
@@ -531,7 +536,6 @@ class ProblemsController extends Controller
             Session::flash('error', 'No tienes permitido realizar esta acción');
             return redirect()->back();
         }
-        $rol=User::find(auth()->user()->getAuthIdentifier())->rol;
         $filesAll=Problem::find($idProblem)->files;
         $tagsAll=Problem::find($idProblem)->tags;
         //$files=Problem::find($idProblem)->tags;
@@ -604,7 +608,7 @@ class ProblemsController extends Controller
         $dataProblem->limitTime=$limitTime->second+$segh+$segm;
         //dd($files);
         //dd($solutions);
-        return view('problem/updateProblem',compact('rol','tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
+        return view('problem/updateProblem',compact('tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
 
     }
 
@@ -624,7 +628,7 @@ class ProblemsController extends Controller
         return view('problem/myProblems',compact('result'));
     }
 
-    public function buscarProblema(Request $request)
+    public function findProblema(Request $request)
     {
         //
         $cadena=$request->buscar;
@@ -693,7 +697,9 @@ class ProblemsController extends Controller
         else{
             return redirect()->back();
         }
-            return view('problem/allProblems',compact('cadena','result','avatar'));
+        $placeholder="Buscar por: Título o Tags";
+
+            return view('problem/allProblems',compact('cadena','result','avatar','placeholder'));
         //dd($request);
         
     }
@@ -771,7 +777,15 @@ class ProblemsController extends Controller
         echo $similares;
     }
 
+    public function getZipMultimediaProblem($idProblem)
+    {
+   //    dd($idProblem);
+        $zipRoot = public_path()."/uploads/".$idProblem."/";
+        $zipName = "Problem".$idProblem.".zip";
+        Tools::getZip($zipRoot,$zipName,1);
+        unlink(public_path().'/'.$zipName);//eliminamos el zip del server
 
+    }
 
 
 

@@ -89,8 +89,9 @@ class UsersController extends Controller
         $solver= User::usersSolver();
         $promovidos= User::find($idUser)->usersPromoted();
         $cadena=null;
+        $placeholder="Buscar por username";
         //dd($promovidos);
-        return view('problem/promotion',compact('solver','promovidos','cadena'));
+        return view('problem/promotion',compact('solver','promovidos','cadena','placeholder'));
 
     }
 
@@ -176,7 +177,7 @@ class UsersController extends Controller
         return $res;//Json::encode($res);
         //return $res;//view('forEverybody.usersList',compact('users'));
     }
-    public function buscarPromovidos(Request $request)
+    public function findPromovidos(Request $request)
     {
         //
         $cadena=$request->buscar;
@@ -184,8 +185,9 @@ class UsersController extends Controller
         $solver= User::usersSolver($cadena);
         $promovidos= User::find($idUser)->usersPromoted($cadena);
 
+        $placeholder="Buscar por username";
         //dd($solver);
-        return view('problem/promotion',compact('solver','promovidos','cadena'));
+        return view('problem/promotion',compact('solver','promovidos','cadena','placeholder'));
     }
 
 }

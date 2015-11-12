@@ -240,7 +240,7 @@ class SolutionsController extends Controller
         $user = auth()->user();
 
         $solution = Solution::find($id);
-        $warnings = Warning::where('solution_id',$solution->id)->get();
+        $warnings = Warning::where('solution_id',$solution->id)->where('state','process')->get();
 //        dd($warnings->toArray());
         if (count($warnings)>0) {
             Session::flash('error',"Esta solución tiene amonestaciones corrigela por favor.");
@@ -279,7 +279,7 @@ class SolutionsController extends Controller
 
     public function updateSolution(UpdateSolutionRequest $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $fileCode       = $request->file('fileCode');
         $audioFile      = $request->file('audioFile');
 
@@ -357,6 +357,15 @@ class SolutionsController extends Controller
         if($audioFile!=null)
         {
             Files::saveAudio($audioFile,$solution->id,$pathAudioFile);
+        }
+        $warnings = Warning::where('solution_id',$solution->id)->where('state','process')->get();
+//        dd($warnings->toArray());
+        if (count($warnings)>0) {
+            foreach ($warnings as $war) {
+                $war->state = 'expired';
+                $war->save();
+            }
+
         }
 
         Session::flash('message', 'Cambios guardados');

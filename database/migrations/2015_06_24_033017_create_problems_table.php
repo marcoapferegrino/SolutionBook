@@ -24,6 +24,7 @@ class CreateProblemsTable extends Migration {
             $table->double('limitMemory')->default(0);//kb
             $table->integer('numWarnings')->default(0);
             $table->enum('state',['active','suspended','blocked','deleted'])->default('active');
+            $table->enum('share',['yes','no'])->default('no');
             $table->string('problemLink', 120);
 
             $table->integer('judgeList_id')->unsigned()->nullable();

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 class Tools
 {
-    public static function getZip($path,$name)
+    public static function getZip($path,$name,$type=null)
     {
         $zipName=$name;
         $zipRoot=$path;
@@ -23,21 +23,55 @@ class Tools
         $zip = new \ZipArchive();
         $zip->open($zipName, \ZipArchive::CREATE);
 
-        $files = self::getFilesbyDirectory($zipRoot);
-
-        foreach ($files as $name => $file)
+        if($type==null)
         {
-            // Skip directories (they would be added automatically)
-            if (!$file->isDir())
+            $files = self::getFilesbyDirectory($zipRoot);
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
                 {
                     // Get real and relative path for current file
-                $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen($zipRoot));
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($zipRoot));
 
                     // Add current file to archive
-                $zip->addFile($filePath, $relativePath);
+                    $zip->addFile($filePath, $relativePath);
                 }
+            }
         }
+        else{
+            $files = self::getFilesbyDirectory($zipRoot."inputs/");
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($zipRoot));
+
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+            $files = self::getFilesbyDirectory($zipRoot."outputs/");
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($zipRoot));
+
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+        }
+
+
 
         // Zip archive will be created only after closing object
         $zip->close();

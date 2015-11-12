@@ -73,7 +73,7 @@ class AccountController extends Controller {
         $avatar=$request->avatar;
         return view('auth/cambiarNombreUsuario',compact('correo','avatar','nombre'));
     }
-    public function cambioNameUser(AddUserRequest $request){
+    public function changeNameUser(AddUserRequest $request){
         //dd($request);
         $avatar2=$request->avatarSocial;
         $password = bcrypt($request->password);

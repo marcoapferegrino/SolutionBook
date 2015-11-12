@@ -8,7 +8,7 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <!-- Código del form buscador-->
-                        {!! Form::model(Request::only(['buscar']),['route' => 'users.buscarPromovidos','method' => 'GET','class'=>'form-inline navbar-form navbar-left pull-right','role'=>'search']) !!}
+                        {!! Form::model(Request::only(['buscar']),['route' => 'users.findPromovidos','method' => 'GET','class'=>'form-inline navbar-form navbar-left pull-right','role'=>'search']) !!}
                         @include('problem.partials.findProblem')
                         <!--Fin buscador-->
                         <h3> Promocionar Solver</h3>

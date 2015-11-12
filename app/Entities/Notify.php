@@ -1,8 +1,9 @@
 <?php namespace SolutionBook\Entities;
 
 
-class Notify {
+use SolutionBook\Components\HtmlBuilder;
 
+class Notify {
 
     public $text;
 
@@ -12,16 +13,18 @@ class Notify {
     }
 
 
-    public static function encodeMsj($idDest,$idSolution,$idProblem,$type){
+    public static function encodeMsj($idDest,$idSolution,$idProblem,$type,$date){
 
         $message='{';
 
         switch($type){
             case 'like':
             $solu=Solution::find($idSolution);
-            $message.='"id":"'.$idDest.'",'.PHP_EOL;
-            $message.='"message":"'.'¡Acabas de obtener un like!'.'",'.PHP_EOL;
-            $message.='"solution":'.$idSolution.''.PHP_EOL;
+            $message.='"id":"'.$idDest.'",';
+            $message.='"message":"'.'¡Acabas de obtener un like!'.'",';
+            $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
+            $message.='"url":"'.'/showSolution/'.$idSolution.'",';
+            $message.='"solution":'.$idSolution.'';
 
                 break;
 

@@ -29,17 +29,55 @@ $(document).ready(function() {
             //id=response.user_id;
             // likes=parseInt(response.likes);
             // alert(lik);
+          //  alert(data);
             id=respons.user_id; likes=respons.likes;
 
             window.idG=id;window.likesG=likes;
             document.getElementById("notify").innerHTML =' '+likesG;
 
+            document.getElementById("wait").style.display = 'none';
+
         }
     });
 
+
+
 });
 
+function deView(id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            // 'X-CSRF-Token': $('meta[name="csrf-token"]').val()
+        }
+    });
+    var idLike=id;
+    $.ajax({
+        type: "post",
+        url: "/deView",
+        data: "id="+idLike,
+        // data: {'username':$("#username").val()},
 
+        error: function(){
+           // alert("error petición ajax VIEW");
+        },
+        success: function(data){
+            //alert(data);
+            /*alert(data);
+            var string= data
+            var respons = JSON.parse(string);
+            //id=response.user_id;
+            // likes=parseInt(response.likes);
+            // alert(lik);
+            //  alert(data);
+            id=respons.user_id; likes=respons.likes;
+
+            window.idG=id;window.likesG=likes;
+            document.getElementById("notify").innerHTML =' '+likesG;*/
+
+        }
+    });
+}
 
 
 
@@ -81,14 +119,22 @@ $(notifyInit); // Existing functionality
 var callback=function showNotification(data) {
 
     var dats= JSON.parse(data);
-    //alert(dats.id);
-    if(window.idG==dats.id){  // es mi like
 
+    if(window.idG==dats.id){  // es mi like
+       // alert('es mi like');
         var numbers= $('#notify').text();
         var numbbb= parseInt(numbers);
+        //alert(dats.solution);
+
+        toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
+        //document.getElementById("likeList").innerHTML =numbbb+1;
+        document.getElementById("lastLike").style.display = 'none';
+        $("#likeList").append('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
+                        "<small>Fecha:"+dats.date+'</small></a></li>').on('click','dropdown-menu sidebar-offcanvas ', deView(dats.solution));
+
+        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
         // TODO: use the text in the notification
-        toastr.success(data.message, null, {"positionClass": "toast-top-right"});
     }
 
 

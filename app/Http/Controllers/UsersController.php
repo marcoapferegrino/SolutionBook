@@ -159,10 +159,18 @@ class UsersController extends Controller
         $res='{';
         $user=auth()->user();
         $id=$user->id;
-        $notif= Notification::all()->where('user_id','=',$id)
-                                   ->where('viewed','=',0) ;
+       // $notif= Notification::all()->where('user_id','=',$id)
+           //                        ->where('viewed','=',0) ->all();
+        $notif=Notification::numberLikes($id);
+
+        $aux=0;
+        foreach($notif as $k=>$not){
+            $aux++;
+
+
+        }
             $res.='"user_id":'.$id.',';
-            $res.='"likes":'.count($notif).' ';
+            $res.='"likes":'.$aux.' ';
         $res.="}";
         //return  response()->json(compact('res'));
         return $res;//Json::encode($res);

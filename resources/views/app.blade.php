@@ -30,8 +30,10 @@
 
 </head>
 <body style="overflow-x: hidden;">
-{{\SolutionBook\Components\HtmlBuilder::retrieveLikes()}}<!-- NOTIFICATIONS -->
+@if(!Auth::guest())
+    {{\SolutionBook\Components\HtmlBuilder::retrieveLikes()}}<!-- NOTIFICATIONS -->
 
+@endif
 <div id="wrapper">
     <div id="header">
     <div class="page-header" style="margin-top: 0%;position: relative;
@@ -143,20 +145,28 @@
 					@if (!Auth::guest())
 						<li class="dropdown sidebar-offcanvas" >
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span style="font-size: 125%" id="number" class="label label-success"><i  id="notify" class="fa fa-bell">&nbsp;<i class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span></a> </span>
+                                <span style="font-size: 125%" id="number" class="label label-success"><i  id="notify3" class="fa fa-bell">&nbsp;<span id="notify"></span><i id="wait" class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span> </span></a>
 
-							<ul  class="dropdown-menu sidebar-offcanvas "  style="max-height: 250px;overflow-y:scroll;"  id="notificationsj" role="menu">
+							<ul id="likeList" class="dropdown-menu sidebar-offcanvas "  style="max-height: 250px;overflow-y:scroll;"  id="notificationsj" role="menu">
 
+
+                                <li id="firstLike" class="label-primary text-center "><a href="{{url('/')}}">Ver todas <i class="fa fa-plus-square"></i>
+                                    </a></li>
                                 @foreach(session('MY_LIKES') as $k=>$oneLike)
-                                    <li><a href="{{url('/')}}">{{$oneLike->title}}</a></li>
+                                    <li class="text text-center"><a onclick="deView({{$oneLike->id}})"
+                                                                    href=" {{url($oneLike->url)}}" >{{$oneLike->title}}<br>
+                                            <small>Fecha: {{\SolutionBook\Components\HtmlBuilder::dateDiff(($oneLike->created_at))}}</small>
+
+                                        </a>
+                                        </li>
                                 @if($k>=11)
 
                                         <?php break; ?>
                                 @endif
                                 @endforeach
+                                    <li id="lastLike" class="label-primary text-center "><a href="{{url('/')}}">Ver todas <i class="fa fa-plus-square"></i>
+                                        </a></li>
 
-
-                                    <li class="label-primary text-center"><a href="{{url('/')}}">Ver todas</a></li>
 
 							</ul>
 						</li>

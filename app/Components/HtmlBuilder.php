@@ -1,5 +1,6 @@
 <?php namespace SolutionBook\Components;
 
+use Carbon\Carbon;
 use Collective\Html\HtmlBuilder as CollectiveHtmlBuilder;
 use Illuminate\Support\Facades\DB;
 use SolutionBook\Entities\Notification;
@@ -62,30 +63,59 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
     public static function dateEspañol($date){
 
-        $date=str_replace('Jan','Enero',$date);
+       $date=str_replace('Jan','Enero',$date);
         $date=str_replace('Feb','Febrero',$date);
         $date=str_replace('Mar','Marzo',$date);
         $date=str_replace('Apr','Abril',$date);
         $date=str_replace('May','Mayo',$date);
-
         $date=str_replace('Jun','Junio',$date);
-
         $date=str_replace('Jul','Julio',$date);
-
         $date=str_replace('Aug','Agosto',$date);
-
         $date=str_replace('Sep','Septiembre',$date);
         $date=str_replace('Oct','Octubre',$date);
-
         $date=str_replace('Nov','Noviembre',$date);
-
         $date=str_replace('Dec','Diciembre',$date);
+
 
 
 
 
         return $date;
     }
+    public static function dateDiff($date){
+
+        $fechaWell=HtmlBuilder::dateEspañol($date);
+        $fecha1=Carbon::createFromFormat('Y-m-d H:i:s', $date);//->toDateTimeString();
+        $hoy=Carbon::now()->subHours(6)->diffInHours($fecha1,null);
+
+        if($hoy>-23){
+
+            if($hoy==0){
+
+                $hoy=Carbon::now()->subHours(6)->diffInMinutes($fecha1);
+                if($hoy==0){
+
+                    return 'Hace un momento' ;
+                }
+                if($hoy==1){
+
+                    return 'Hace un minuto' ;
+                }
+
+                return 'Hace '. ($hoy). ' minutos' ;
+
+            }
+          //  return $fechaWell;
+            return 'Hace '. -($hoy). ' horas' ;
+        }
+
+       // return $fechaWell;
+        return $hoy;
+
+    }
+
+
+
     public static function obfuscater($value)
     {
         $safe = '';
@@ -124,9 +154,10 @@ class HtmlBuilder extends CollectiveHtmlBuilder
     public static function retrieveLikes(){
 
         $user =  auth()->user();
+        //dd($user);
               $lik= DB::table('notifications')
-                  //->where('user_id','=',$user->id)
-                  ->where('user_id','=',11)
+                  ->where('user_id','=',$user->id)
+                  //->where('user_id','=',11)
                   ->where('description','=','Like')
                   ->where('viewed','=',0)->orderBy('created_at')->get();
 

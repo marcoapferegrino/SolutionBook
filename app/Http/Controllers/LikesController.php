@@ -36,12 +36,11 @@ class LikesController extends Controller
             $user = auth()->user();
             $success = $user->like($solution->id);
             $idUserObjetivo=$solution->user_id;
-            Notification::addNotifyLike($idUserObjetivo);///////envia notificacion
-            $mensj=Notify::encodeMsj($idUserObjetivo,$id,null,'like');
+            $notify=Notification::addNotifyLike($idUserObjetivo,$solution->id);///////envia notificacion
+            $mensj=Notify::encodeMsj($idUserObjetivo,$id,null,'like',$notify->created_at);
             $pusher = App::make('pusher');
             $pusher->trigger( 'test-channel',
-                'test-event',
-                array($mensj));
+                'test-event', array($mensj) );
 
 
             if($request->ajax()){

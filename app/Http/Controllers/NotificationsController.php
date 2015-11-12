@@ -4,6 +4,7 @@ namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Input;
 use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\Notify;
 use SolutionBook\Entities\Solution;
@@ -31,5 +32,15 @@ class NotificationsController extends Controller
 
 
 
+    }
+
+    public function deView()
+    {
+        //
+        $data = Input::all();
+        $id =($data['id']);
+        $notify = Notification::find($id);
+        $notify->viewed=1;
+        $notify->save();
     }
 }

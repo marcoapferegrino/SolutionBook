@@ -83,7 +83,7 @@ Route::get('/test',function(){
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');
-Route::post('/termsAndConditions', [
+Route::get('/termsAndConditions', [
     'as' => 'account.termsConditions',
     'uses' => 'AccountController@termsConditions'
 ]);

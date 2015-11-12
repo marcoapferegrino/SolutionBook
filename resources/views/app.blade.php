@@ -122,7 +122,7 @@
 							</li>
 
 
-							<li><a href=""><i class="fa fa-hand-o-up"></i> Promover </a></li>
+							<li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
 
                             <li><a href="{{url('/allProblems')}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
 							<li><a href="{{url('/addFormProblem')}}"><i class="fa fa-plus"></i> Problema </a></li>

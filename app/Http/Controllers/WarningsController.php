@@ -69,6 +69,7 @@ class WarningsController extends Controller
             'alerter_user'  => $alerterUser->id,
             $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
+
         $numWarnings=$user->numWarnings+=1;
         $user->update(['numWarnings'=>$numWarnings]);
         $user->save();

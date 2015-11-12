@@ -81,12 +81,15 @@ namespace SolutionBook\Entities;
                 if(empty($outputCompile))
                 {
                     if ($problem->limitTime == "00:00:00"){
-                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
                     else{
-                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+//                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
+                    dd($sentenceToExecute);
                     exec($sentenceToExecute,$output);
+//                    dd($output);
                     $outputToCompare = self::removeTwolastestPositions($output);
 //                    dd($outputToCompare);
                     $outputToCompare = implode("\n",$outputToCompare);
@@ -107,7 +110,7 @@ namespace SolutionBook\Entities;
                 $uniqueString=$faker->unique()->buildingNumber;
                 $nameOutputFile = $problem->id . auth()->user()->getRememberToken().$uniqueString.".out";
 //                dd($nameOutputFile);
-                $sentenceCompile = self::$GCCMASMAS . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile .self::$REDIRECT_OUTPUT;
+                $sentenceCompile = self::$GCCMASMAS . $fileCodeTemp->getRealPath() . " -o " . public_path() . "/temporal/" . $nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
 
                 exec($sentenceCompile,$outputCompile);
 //                dd($outputCompile);
@@ -118,9 +121,13 @@ namespace SolutionBook\Entities;
                         $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
                     }
                     else{
-                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+//                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+
                     }
+//                    dd($sentenceToExecute);
                     exec($sentenceToExecute,$output);
+//                    dd($output);
                     $outputToCompare = self::removeTwolastestPositions($output);
 //                    dd($outputToCompare);
                     $outputToCompare = implode("\n",$outputToCompare);
@@ -149,11 +156,11 @@ namespace SolutionBook\Entities;
                 if(empty($outputCompile))
                 {
                     if ($problem->limitTime == "00:00:00"){
-                        $sentenceToExecute = self::$BASE_SENTENCE.self::$JAVA.public_path()."/temporal/ ".$className." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$JAVA.public_path()."/temporal/ ".$className." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
 
                     }
                     else{
-                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$JAVA.public_path()."/temporal/ ".$className." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$JAVA.public_path()."/temporal/ ".$className." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
 
 //                    dd($sentenceToExecute);
@@ -188,14 +195,16 @@ namespace SolutionBook\Entities;
             case 'py':
 
                 if ($problem->limitTime == "00:00:00"){
-                    $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                 }
                 else{
-                    $sentence = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+                    $sentence = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$PYTHON.$fileCodeTemp->getRealPath()." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+//                    $sentence = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
+//                    $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." ".$inputProblemString.self::$REDIRECT_OUTPUT;
                 }
-
+//                dd($sentence);
                 exec($sentence,$output);
-
+//                dd($output);
                 if (str_contains($output[count($output)-3],"Command exited with non-zero status")) {
                     Session::flash('error','Tu solución excedió el tiempo límite del Problema: '.$problem->limitTime." segs");
                     redirect()->back();
@@ -241,7 +250,7 @@ namespace SolutionBook\Entities;
              self::$RESULTS['compare']=true;
              self::$RESULTS['presentation']=true;
 //             dd("soy igual todo bien");
-             Session::flash('message', '¡Felicidades! La solución es correcta :D '.$RESULTS);
+             Session::flash('message', '¡Felicidades! La solución es correcta :D ');
 
          }
 //         elseif($boolPresentation){
@@ -255,7 +264,7 @@ namespace SolutionBook\Entities;
              self::$RESULTS['compare']=false;
              self::$RESULTS['presentation']=false;
 //             dd("Esto se fue al carajo");
-             Session::flash('error', 'La salida no es igual debería ser:'.$RESULTS);
+             Session::flash('error', 'La salida no es igual');
 
          }
      }

@@ -81,14 +81,20 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
      * Mis usuarios que promovi como ProbleSetter
      * @return Users
      */
-    public function usersPromoted($cadena=null)
+    public function usersPromoted($rol,$cadena=null)
     {
         if($cadena!=null){
             $sql="case when username LIKE '$cadena' then 0 when username LIKE '$cadena%' then 1 when username LIKE '%$cadena%' then 2 when username LIKE '%$cadena' then 3 else 4 end, username";
-            $result= DB::table('users')->where('userProblem_id',$this->id)->where('username','LIKE','%'.$cadena.'%')->orderBy(DB::raw($sql), 'ASC')->paginate(9);
+            if($rol=='super')
+                $result= DB::table('users')->where('userProblem_id','!=','null')->where('username','LIKE','%'.$cadena.'%')->orderBy(DB::raw($sql), 'ASC')->paginate(9);
+            else
+                $result= DB::table('users')->where('userProblem_id',$this->id)->where('username','LIKE','%'.$cadena.'%')->orderBy(DB::raw($sql), 'ASC')->paginate(9);
             return $result;
         }
-        return User::where('userProblem_id','=',$this->id)->paginate(9);
+        if($rol!='super')
+            return User::where('userProblem_id','=',$this->id)->paginate(9);
+        else
+            return User::where('userProblem_id','!=','null')->paginate(9);
     }
 
     /**

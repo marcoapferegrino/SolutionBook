@@ -6,7 +6,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3><i class="fa fa-code"></i> Soluciones
-                            <a href="#problem"><small>del Problema</small> #{{isset($dataProblem->id)?$dataProblem->id:$idProblem}}</a>
+                            <a href="#problem"><small>del Problema</small> {{isset($dataProblem->id)?$dataProblem->id:$idProblem}}</a>
                         @include('solver.partials.orderSolutions')
                         </h3>
                     </div>

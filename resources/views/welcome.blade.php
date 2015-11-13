@@ -51,7 +51,7 @@
 	<body id="body">
 		<div class="container">
 			<div class="content" >
-				<div  class="title  blue-gradient-background" style="margin-left:20% ;border-color: #ffffff; border-radius: 15px 50px; border-width: 15px;border-style: solid";><b style="color: #f7f7f7">
+				<div  class="title  blue-gradient-background" style="margin-left:0% ;border-color: #ffffff; border-radius: 15px 50px; border-width: 15px;border-style: solid";><b style="color: #f7f7f7">
                         &nbsp; <img  src="{{url("icon.png")}}">
                         Solution Book &nbsp;</b><small style="font-size: 50%">.Beta<i class="fa fa-qq " style=" ; color: #f7f7f7"></i></small> </div>
 

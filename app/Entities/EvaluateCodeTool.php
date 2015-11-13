@@ -15,16 +15,20 @@ namespace SolutionBook\Entities;
 {
 
      public static $RESULTS = array();
-     public static $BASE_SENTENCE = "/usr/bin/time -f '%E->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
+     public static $BASE_SENTENCE = "/usr/bin/time -f '%U->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
      public static $PYTHON = "python ";
      public static $GCC = "clang ";
-     public static $GCCMASMAS = "clang++ ";
+     public static $GCCMASMAS = "clang++ -std=c++11 ";
      public static $JAVAC = "javac ";
      public static $JAVA = "java -cp ";
      public static $REDIRECT_OUTPUT = " 2>&1 ";
      public static $LIMIT_TIME = "timeout ";
 
-
+    /*
+     * %E Elapsed real time (in [hours:]minutes:seconds).
+     * %S Total number of CPU-seconds that the process spent in kernel mode.
+     * %U Total number of CPU-seconds that the process spent in user mode.
+     * */
      /**
       * @param $problem Problem
       * @param $fileCode
@@ -87,7 +91,7 @@ namespace SolutionBook\Entities;
 //                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." ".$inputProblemString.self::$REDIRECT_OUTPUT;
                         $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
-                    dd($sentenceToExecute);
+//                    dd($sentenceToExecute);
                     exec($sentenceToExecute,$output);
 //                    dd($output);
                     $outputToCompare = self::removeTwolastestPositions($output);
@@ -103,7 +107,7 @@ namespace SolutionBook\Entities;
                 }
                 else{
                     unset($outputCompile[0]);
-                    dd($outputCompile);
+//                    dd($outputCompile);
                 }
                 break;
             case 'cpp':
@@ -140,7 +144,7 @@ namespace SolutionBook\Entities;
                     break;
                 }
                 else{
-                    unset($outputCompile[0]);
+//                    unset($outputCompile[0]);
                     dd($outputCompile);
                 }
                 break;
@@ -188,7 +192,7 @@ namespace SolutionBook\Entities;
                     break;
                 }//end outputCompile
                 else{
-                    unset($outputCompile[0]);
+//                    unset($outputCompile[0]);
                     dd($outputCompile);
                 }
                 break;
@@ -275,7 +279,8 @@ namespace SolutionBook\Entities;
       */
      private static function saveTimeAndMemory($timeAndMem)
      {
-         self::$RESULTS['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]);
+//         self::$RESULTS['timeExecution'] = str_replace('.',':',$timeAndMem['time'][0]);
+         self::$RESULTS['timeExecution'] = ['time'][0];
          self::$RESULTS['memUsed']=$timeAndMem['mem'][0];
      }
 
@@ -378,10 +383,7 @@ namespace SolutionBook\Entities;
 
          return $output;
      }
-
-
-
-
+     
      /**
       * Return extension according with the language
       * @param $language
@@ -428,11 +430,15 @@ namespace SolutionBook\Entities;
      {
          if (self::$RESULTS['compare']) {
              /*Evaluating time & Memory*/
+
+
              $timeAndMem = self::explodeMemAndTime($output);
+//             dd($timeAndMem);
              self::saveTimeAndMemory($timeAndMem);
 
-             $timeCodeTimestamp = \DateTime::createFromFormat('H:i.s', $timeAndMem['time'][0])->getTimestamp();
-
+//             $timeCodeTimestamp = \DateTime::createFromFormat('s.u', $timeAndMem['time'][0])->getTimestamp();
+             $timeCodeTimestamp = $timeAndMem['time'][0];
+//             dd($timeCodeTimestamp);
              $memProblem = $problem->limitMemory;
 
              self::evaluateTime($timeCodeTimestamp, $problem->limitTime);

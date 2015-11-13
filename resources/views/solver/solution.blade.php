@@ -10,8 +10,8 @@
 @section('content')
     <h4>
         <ol class="breadcrumb">
-            <li><a href="{{url('/showProblem/'.$solutionComplete->problem_id)}}">Problema#{{$solutionComplete->problem_id}}</a></li>
-            <li class="active">Solución#{{$solutionComplete->id}}</li>
+            <li><a href="{{url('/showProblem/'.$solutionComplete->problem_id)}}">Problema | {{$solutionComplete->problem_id}}</a></li>
+            <li class="active">Solución | {{$solutionComplete->id}}</li>
         </ol>
     </h4>
     <div class="container">
@@ -67,6 +67,7 @@
                                         <p class="text-danger">Esta solución no tiene audio</p>
                                     @endif
                                 </div>
+
                                 <p class="lead"><strong>Explicación</strong></p>
                                 <pre>
                                     <p class="text-justify">{{$solutionComplete->explanation}}</p>

@@ -55,13 +55,13 @@ class SolutionsController extends Controller
 
         $problem        = Problem::find($idProblem);
         $numSolutions   = $problem->numSolutions;
-        $problem->numSolutions = $numSolutions+1;
-        $problem->save();
+        
 
         $nameFileCode   = $fileCode->getClientOriginalName();
         $extension      = EvaluateCodeTool::getExtentionByLanguage($language);
         $results        = EvaluateCodeTool::evaluateCodeSolution($problem, $fileCode, $extension);
-
+        $problem->numSolutions = $numSolutions+1;
+        $problem->save();
 
 //        dd($results);
         if ($results['compare'] && $results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo

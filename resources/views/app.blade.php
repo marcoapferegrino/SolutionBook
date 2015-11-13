@@ -93,24 +93,23 @@
 
                         @if (!Auth::guest())
                             @if(Auth::getRol()=="super")
-                                <li><a href="{{ url('/myWarnings') }}">Amonestaciones <i class="fa fa-exclamation-triangle "></i></a></li>
 
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-newspaper-o"></i> Registros y Listas <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{ url('/getAddProblemSetter') }}"><i class="fa fa-user"></i> Registrar Problem </a></li>
 
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Registros y Listas <i class="fa fa-newspaper-o"></i><span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ url('/getAddProblemSetter') }}">Registrar Problem <i class="fa fa-question-circle"></i></a></li>
+                                            <li><a href="{{url("/getUsers")}}"><i class="fa fa-group"></i> Lista usuarios </a></li>
+                                            <li><a href="{{ url('/getAddNotice') }}"><i class="fa fa-newspaper-o"></i> Crear noticia </a></li>
+                                            <li><a href="{{url('/getNotices')}}"><i class="fa fa-list"></i> Listas de noticias</a></li>
+                                            <li><a href="{{url("/showJudges")}}"><i class="fa fa-graduation-cap"></i> Jueces </a></li>
+                                        </ul>
+                                    </li>
 
-                                        <li><a href="">Lista usuarios <i class="fa fa-group"></i></a></li>
-                                        <li><a href="{{ url('/getAddNotice') }}">Crear noticia  <i class="fa fa-newspaper-o"></i></a></li>
-                                        <li><a href="{{url('/getNotices')}}">Listas de noticias</a></li>
-                                    </ul>
-                                </li>
+                                    <li><a href="{{ url('/myWarnings') }}"><i class="fa fa-exclamation-triangle "></i> Amonestaciones</a></li>
+                                    <li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
+                                    <li><a href="{{url("/allProblems")}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
 
-
-                                <li><a href="">Jueces <i class="fa fa-graduation-cap"></i></a></li>
-
-                                <li><a href="">Catálogo de problemas <i class="fa fa-list"></i></a></li>
 
 
                             @elseif(Auth::getRol()=="problem")
@@ -125,15 +124,18 @@
 
 
                                 <li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
-
                                 <li><a href="{{url('/allProblems')}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
                                 <li><a href="{{url('/addFormProblem')}}"><i class="fa fa-plus"></i> Problema </a></li>
                             @elseif(Auth::getRol()=="solver")
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-smile-o"></i> Portafolio<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{{url('/mySolutions')}}"><i class="fa fa-wrench"></i> Mis soluciones </a></li>
+                                            <li><a href="{{url('/myWarnings')}}"><i class="fa fa-exclamation-triangle"></i> Mis Amonestaciones</a></li>
+                                        </ul>
+                                    </li>
 
-                                <li><a href="{{url('/mySolutions')}}">Mis soluciones <i class="fa fa-wrench"></i></a></li>
-                                <li><a href="{{url('/allProblems')}}">Catálogo de problemas <i class="fa fa-sign-in"></i></a></li>
-                                <li><a href="{{url('/myWarnings')}}">Mis Amonestaciones <i class="fa fa-list-ol"></i></a></li>
-
+                                <li><a href="{{url('/allProblems')}}"><i class="fa fa-list"></i> Catálogo de problemas</a></li>
                             @endif
 
 

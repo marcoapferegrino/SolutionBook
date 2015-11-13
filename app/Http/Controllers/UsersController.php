@@ -87,7 +87,8 @@ class UsersController extends Controller
     public function viewPromotion(){
         $idUser= auth()->user()->getAuthIdentifier();
         $solver= User::usersSolver();
-        $promovidos= User::find($idUser)->usersPromoted();
+        $user=User::find($idUser);
+        $promovidos=$user->usersPromoted($user->rol);
         $cadena=null;
         $placeholder="Buscar por username";
         //dd($promovidos);
@@ -99,6 +100,7 @@ class UsersController extends Controller
 
         $idUser= auth()->user()->getAuthIdentifier();
         $idRequest=$request->id;
+        $responsible=User::find($idUser);
         $usuario=User::find($idRequest);
         $tipo=$request->tipo;
         if($tipo==0)
@@ -108,7 +110,7 @@ class UsersController extends Controller
         }
         else
         {
-            if($usuario->userProblem_id==$idUser)
+            if($usuario->userProblem_id==$idUser||$responsible->rol=='super')
             {
                 $usuario->update(['userProblem_id'=>null,'rol'=>'solver']);
                 Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de problem a solver');
@@ -183,7 +185,8 @@ class UsersController extends Controller
         $cadena=$request->buscar;
         $idUser= auth()->user()->getAuthIdentifier();
         $solver= User::usersSolver($cadena);
-        $promovidos= User::find($idUser)->usersPromoted($cadena);
+        $user=User::find($idUser);
+        $promovidos=$user->usersPromoted($user->rol,$cadena);
 
         $placeholder="Buscar por username";
         //dd($solver);

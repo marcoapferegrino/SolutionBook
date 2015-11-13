@@ -56,7 +56,7 @@ class AccountController extends Controller {
                 'state' => 'active',
                 'numWarnings' => 0,
             ]);*/
-            return view('auth/terminosCondiciones',compact('correo','avatar','nombre'));
+            return view('auth/termsAndConditions',compact('correo','avatar','nombre'));
         }
         if($userStore->state=='blocked')
         {
@@ -71,7 +71,7 @@ class AccountController extends Controller {
         $nombre=$request->nombre;
         $correo=$request->correo;
         $avatar=$request->avatar;
-        return view('auth/cambiarNombreUsuario',compact('correo','avatar','nombre'));
+        return view('auth/changeNameUser',compact('correo','avatar','nombre'));
     }
     public function changeNameUser(AddUserRequest $request){
         //dd($request);

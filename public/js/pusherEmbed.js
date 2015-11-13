@@ -23,13 +23,13 @@ $(document).ready(function() {
             alert("error petición ajax LIKES");
         },
         success: function(data){
-            //  alert(data);
+            // alert(data);
             var string= data
             var respons = JSON.parse(string);
             //id=response.user_id;
             // likes=parseInt(response.likes);
             // alert(lik);
-          //  alert(data);
+            //  alert(data);
             id=respons.user_id; likes=respons.likes;
 
             window.idG=id;window.likesG=likes;
@@ -59,21 +59,21 @@ function deView(id){
         // data: {'username':$("#username").val()},
 
         error: function(){
-           // alert("error petición ajax VIEW");
+            // alert("error petición ajax VIEW");
         },
         success: function(data){
             //alert(data);
             /*alert(data);
-            var string= data
-            var respons = JSON.parse(string);
-            //id=response.user_id;
-            // likes=parseInt(response.likes);
-            // alert(lik);
-            //  alert(data);
-            id=respons.user_id; likes=respons.likes;
+             var string= data
+             var respons = JSON.parse(string);
+             //id=response.user_id;
+             // likes=parseInt(response.likes);
+             // alert(lik);
+             //  alert(data);
+             id=respons.user_id; likes=respons.likes;
 
-            window.idG=id;window.likesG=likes;
-            document.getElementById("notify").innerHTML =' '+likesG;*/
+             window.idG=id;window.likesG=likes;
+             document.getElementById("notify").innerHTML =' '+likesG;*/
 
         }
     });
@@ -121,19 +121,22 @@ var callback=function showNotification(data) {
     var dats= JSON.parse(data);
 
     if(window.idG==dats.id){  // es mi like
-       // alert('es mi like');
+        // alert('es mi like');
         var numbers= $('#notify').text();
         var numbbb= parseInt(numbers);
         //alert(dats.solution);
 
-        toastr.success("liky", null, {"positionClass": "toast-top-right"});
+      //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
         //document.getElementById("likeList").innerHTML =numbbb+1;
-        document.getElementById("lastLike").style.display = 'none';
-        $("#likeList").append('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
-                        "<small>Fecha:"+dats.date+'</small></a></li>').on('click','dropdown-menu sidebar-offcanvas ', deView(dats.solution));
+       // document.getElementById("lastLike").style.display = 'none';
+       // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
+        $("#likeList").prepend('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
+        "<small>Fecha:"+dats.date+'</small></a></li>');
 
-        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
+
+
+//        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
         // TODO: use the text in the notification
     }
 

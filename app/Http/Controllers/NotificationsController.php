@@ -42,5 +42,6 @@ class NotificationsController extends Controller
         $notify = Notification::find($id);
         $notify->viewed=1;
         $notify->save();
+        return $data;
     }
 }

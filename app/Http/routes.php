@@ -385,6 +385,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'WarningsController@deleteWarning'
         ]);
 
+        Route::post('/deView', [
+            'as' => 'notification.deView',
+            'uses' => 'NotificationsController@deView'
+        ]);
+
         Route::post('/findUserLikes', [
             'as' => 'user.findUserLikes',
             'uses' => 'UsersController@findUserLikes'

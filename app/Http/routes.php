@@ -234,10 +234,6 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'ProblemsController@similarTags'
         ]);
 
-        Route::get('/findProblema', [
-            'as' => 'problem.findProblema',
-            'uses' => 'ProblemsController@findProblema'
-        ]);
 
         Route::get('/findPromovidos', [
             'as' => 'users.findPromovidos',
@@ -362,6 +358,12 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'problem.allProblems',
             'uses' => 'ProblemsController@allProblems'
         ]);
+
+        Route::get('/findProblema', [
+            'as' => 'problem.findProblema',
+            'uses' => 'ProblemsController@findProblema'
+        ]);
+
         Route::get('/showProblem/{id}', [ //para guest
             'as' => 'problem.showProblem',
             'uses' => 'ProblemsController@showProblem'

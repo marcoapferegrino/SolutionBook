@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="well well-sm col-md-3 pull-right " style="overflow: hidden; text-overflow: ellipsis;">
+                        <div class="well well-sm col-md-3 pull-right " style="overflow: hidden; text-overflow: ellipsis; max-width: 260px;">
                             <b>No Soluciones: </b>{{$dataProblem->numSolutions}}<br>
                             <b>Límite de tiempo: </b>{{$dataProblem->limitTime}} s<br>
                             <b>Límite de memoria: </b>{{$dataProblem->limitMemory}} Kb<br>
@@ -50,6 +50,14 @@
                                 <tr>
                                     <td>{{$tags}}</td>
                                 </tr>
+                                    @if($problemasSimilares!=null)
+                                        <tr><th>Problemas similares:</th></tr>
+                                    <tr>
+                                    @foreach($problemasSimilares as $similar)
+                                        <td><a href="{{route('problem.showProblem',$similar->id)}}">{{$similar->title}}</a></td>
+                                    @endforeach
+                                    </tr>
+                                    @endif
                                 @if($links->count()!=null)
                                 <tr><th>Enlaces:</th></tr>
                                 @foreach($links as $l)
@@ -86,10 +94,10 @@
                                 <br>
                                 <br>
                             </div>
-                            <div class=" col-xs-8">
+                            <div class=" col-xs-9" >
                                 <b>Descripción</b>
                                 <br>
-                                <pre>{{$dataProblem->description}}</pre>
+                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:400px;">{{$dataProblem->description}}</pre>
 
                                 <br>
                                 <br>
@@ -108,11 +116,11 @@
                             <div class="panel panel-info  col-sm-12  ">
                                     <div class=" col-sm-6">
                                         Ejemplo Entradas: <br>
-                                        <pre>{{$entrada}}</pre>
+                                        <pre  data-spy="scroll" style="overflow-y: scroll; max-height:300px;">{{$entrada}}</pre>
                                     </div>
                                     <div class=" col-sm-6">
                                         Ejemplo Salidas:<br>
-                                        <pre>{{$salida}}</pre>
+                                        <pre  data-spy="scroll" style="overflow-y: scroll; max-height:300px;">{{$salida}}</pre>
                                     </div>
                             </div>
                         </div>

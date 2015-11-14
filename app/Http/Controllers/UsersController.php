@@ -47,7 +47,11 @@ class UsersController extends Controller
 
     public function getAddProblemSetter()
     {
-        return view('super.registerProblemSetter');
+
+        $correo=null;
+        $nombre=null;
+        $avatar=null;
+        return view('super.registerProblemSetter',compact('correo','nombre','avatar'));
     }
 
     public function addProblemSetter(AddUserRequest $request)

@@ -43,4 +43,8 @@ class JudgesController extends Controller
         return redirect()->route("problem.addFormProblem");
 
     }
+    public function showJudges(){
+        $judges=JudgesList::paginate(10);
+        return view('super/showJudges',compact('judges'));
+    }
 }

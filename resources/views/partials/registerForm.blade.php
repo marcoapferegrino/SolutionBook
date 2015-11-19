@@ -57,6 +57,11 @@
                             <div class="form-group">
                                 {!! Form::label('password', 'Contraseña*') !!} <br>
                                 {!! Form::password('password','', array('class' => 'form-control','id'=>'password','placeholder'=>'Pon una contraseña','required'))!!}
+                                <br>
+                                {!! Form::label('password', 'Confirmar Contraseña*') !!} <br>
+                                {!! Form::password('password2','', array('class' => 'form-control','id'=>'password2','placeholder'=>'confirma tu contraseña','required'))!!}
+
+                                <br><div id="messagePassword"></div>
                             </div>
                         </div>
 
@@ -118,7 +123,7 @@
             </div>-->
 
             <div class="form-group navbar-default nav-justified  " >
-                {!! Form::submit('Registrar',array('class'=>'btn btn-success btn-block')) !!}
+                {!! Form::submit('Registrar',array('class'=>'btn btn-success btn-block', 'id'=>'submit')) !!}
                 {!! Form::close() !!}
             </div>
         </div>

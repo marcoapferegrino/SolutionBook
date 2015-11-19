@@ -26,7 +26,7 @@ class AddProblemRequest extends Request
        // dd($request);
        $rules = [
             'title'=> 'required',
-            'institucion'=>'required',
+            'institucion'=>'',
             'descripcion'=> 'required',
             'limitTime'=> 'numeric',
             'limitMemory'=> 'numeric|required',

@@ -125,7 +125,7 @@ class Problem extends Entity {
         $result= \DB::select(DB::raw($sql));
         return $result;
     }
-    public static function problemasPorId($ids){
+    public static function problemasPorId($ids,$judge=null){
         $sql="";
         foreach ($ids as $key => $id) {
             # code...

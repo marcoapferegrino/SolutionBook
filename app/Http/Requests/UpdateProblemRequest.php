@@ -27,7 +27,7 @@ class UpdateProblemRequest extends Request
         $rules = [
             'imgsDelete' => 'array',
             'title'=> 'required',
-            'institucion'=>'required',
+            'institucion'=>'',
             'descripcion'=> 'required',
             'limitTime'=> 'numeric',
             'limitMemory'=> 'numeric|required',
@@ -44,7 +44,7 @@ class UpdateProblemRequest extends Request
 
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp';
+            $rules['images.'.$key] = 'in:jpg,png,bmp,pdf';
         }
 
         return $rules;

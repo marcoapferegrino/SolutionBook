@@ -95,7 +95,7 @@ class ProblemsController extends Controller
         $pathEjem = $path.'ejemplos/';
         $pathInput= $path.'inputs/';
         $pathOutput= $path.'outputs/';
-        //dd($images);
+        dd($images);
         print_r($images);
         if($images[0]!=null){
             foreach ($images as $image)
@@ -605,7 +605,7 @@ class ProblemsController extends Controller
                 fclose($myfile);
                 $outputs=$text;
             }
-            elseif($type=='imagenApoyo'){
+            elseif($type=='imagenApoyo'||$type=='pdf'||$type=='word'){
                 array_push($files,$f);
             }
             else{

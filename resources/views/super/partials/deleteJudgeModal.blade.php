@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="eliminar">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,9 +6,7 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                <p><b>Si usted elimina este problema perdera todo derecho sobre el.</b>
-                    <br>
-                    ¿Está usted seguro de querer eliminar este problema?</p>
+                <p>¿Está usted seguro de que quiere eliminar este Juez?</p>
             </div>
             <div class="modal-footer">
             </div>

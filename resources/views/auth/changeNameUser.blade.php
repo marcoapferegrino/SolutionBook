@@ -27,4 +27,5 @@
 @endsection
 @section('scripts')
     <script src="{{asset('/js/findUsername.js')}}"></script>
+    <script src="{{asset('/js/confirmPassword.js')}}"></script>
 @endsection

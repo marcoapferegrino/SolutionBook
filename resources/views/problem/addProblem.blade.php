@@ -19,7 +19,7 @@
                         'id'=>'',
                         'files'=>true]) !!}
                         <div class="form-group">
-                            <h4><label for="titulo" class="col-sm-2 control-label"><strong>Título</strong></label></h4>
+                            <h4><label for="titulo" class="col-sm-2 control-label"><strong>Título *</strong></label></h4>
                             <div class="col-sm-6">
                                 {!!Form::text('title','',['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h4><label for="descripcion" class="col-sm-2 control-label"><strong>Descripción</strong></label></h4>
+                            <h4><label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label></h4>
                             <div class="col-sm-8">
                                 {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'description','placeholder'=>'Descripción del problema'])!!}
                             </div>
@@ -46,10 +46,10 @@
                         </div>
 
                         <div class="form-group">
-                            <h4><label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo *</strong></label></h4>
+                            <h4><label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo </strong></label></h4>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    {!!Form::text('limitTime','0',['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                    {!!Form::text('limitTime','0',['class'=>'form-control','placeholder'=>'segundos (Dejar este campo vacio significará: sin límite de tiempo)'])!!}
                                     <div class="input-group-addon">segs</div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                         <br>
 
                         <div class="form-group" >
-                            <label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label>
+                            <h4><label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label></h4>
                             <div class="col-sm-6">
                                 {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
                                 <div id="similarTags"></div>

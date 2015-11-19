@@ -52,11 +52,12 @@
                                 </tr>
                                     @if($problemasSimilares!=null)
                                         <tr><th>Problemas similares:</th></tr>
-                                    <tr>
+                                    
                                     @foreach($problemasSimilares as $similar)
+                                    <tr>
                                         <td><a href="{{route('problem.showProblem',$similar->id)}}">{{$similar->title}}</a></td>
-                                    @endforeach
                                     </tr>
+                                    @endforeach
                                     @endif
                                 @if($links->count()!=null)
                                 <tr><th>Enlaces:</th></tr>

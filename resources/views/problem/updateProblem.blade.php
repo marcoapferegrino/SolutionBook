@@ -20,7 +20,7 @@
                         'files'=>true]) !!}
                         <input type="text" value="{{$dataProblem->id}}" hidden name="idProblem">
                         <div class="form-group">
-                            <label for="titulo" class="col-sm-2 control-label"><strong>Título</strong></label>
+                            <label for="titulo" class="col-sm-2 control-label"><strong>Título *</strong></label>
                             <div class="col-sm-6">
                                 {!!Form::text('title',$dataProblem->title,['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="descripcion" class="col-sm-2 control-label"><strong>Descripción</strong></label>
+                            <label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label>
                             <div class="col-sm-8">
                                 {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control keypad','id'=>'description','placeholder'=>'Descripción del problema'])!!}
                             </div>
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo *</strong></label>
+                            <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo </strong></label>
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos'])!!}
@@ -137,7 +137,7 @@
                         <br>
 
                         <div class="form-group">
-                            <label for="tags" class="col-sm-2 control-label"><strong>Palabras clave</strong></label>
+                            <label for="tags" class="col-sm-2 control-label"><strong>Palabras clave *</strong></label>
                             <div class="col-sm-6">
                                 {!!Form::text('tags',$tags,['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
                                 <div id="similarTags"></div>
@@ -177,9 +177,15 @@
                                             <input type="checkbox" name="imgsDelete[]" value="{{$img->id}}"> ¿Eliminar?
                                         </label>
                                         <a href="#" class="thumbnail">
+                                            @if($img->type=='pdf')
+                                            <img src="{{asset('/problem/pdf.jpg')}}" alt="...">
+                                            @elseif($img->type=='word')
+                                            <img src="{{asset('/problem/word.jpg')}}" alt="...">
+                                            @else
                                             <img src="{{asset($img->path)}}" alt="...">
+                                            @endif
                                         </a>
-                                        {{$img->name}}
+                                        <label style="overflow: hidden; text-overflow: ellipsis; max-height: 50px;">{{$img->name}}</label>
                                     </div>
                                 @endforeach
                             </div>

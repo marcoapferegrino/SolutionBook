@@ -168,12 +168,11 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'JudgesController@showJudges'
         ]);
 
-
-        Route::delete('/deleteJudge/{$id}', [
+        Route::get('/deleteJudge/{id}', [
             'as' => 'judges.deleteJudge',
             'uses' => 'JudgesController@deleteJudge'
         ]);
-        Route::post('/updateJudge', [
+        Route::post('/updateJudge/{id}', [
             'as' => 'judges.updateJudge',
             'uses' => 'JudgesController@updateJudge'
         ]);
@@ -358,20 +357,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'likes.disLike',
             'uses' => 'LikesController@disLike'
         ]);
-        Route::get('/allProblems', [
-            'as' => 'problem.allProblems',
-            'uses' => 'ProblemsController@allProblems'
-        ]);
 
-        Route::get('/findProblema', [
-            'as' => 'problem.findProblema',
-            'uses' => 'ProblemsController@findProblema'
-        ]);
-
-        Route::get('/showProblem/{id}', [ //para guest
-            'as' => 'problem.showProblem',
-            'uses' => 'ProblemsController@showProblem'
-        ]);
         Route::get('/solutionsOrdered', [ //para guest
             'as' => 'solutions.orderSolutions',
             'uses' => 'SolutionsController@orderSolutions'
@@ -403,6 +389,20 @@ Route::group(['middleware' => 'auth'],function(){
 
 
     });
+    Route::get('/allProblems', [
+        'as' => 'problem.allProblems',
+        'uses' => 'ProblemsController@allProblems'
+    ]);
+
+    Route::get('/findProblem', [
+        'as' => 'problem.findProblem',
+        'uses' => 'ProblemsController@findProblem'
+    ]);
+
+    Route::get('/showProblem/{id}', [ //para guest
+        'as' => 'problem.showProblem',
+        'uses' => 'ProblemsController@showProblem'
+    ]);
 
 
 });

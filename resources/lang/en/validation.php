@@ -90,8 +90,48 @@ return [
 	'custom' => [
 		'attribute-name' => [
 			'rule-name' => 'custom-message',
+
 		],
-	],
+        'institucion' => [
+            'required' => 'El campo Institución es requerido',
+        ],
+        'title' => [
+            'required' => 'El campo Título es requerido',
+        ],
+        'descripcion' => [
+            'required' => 'El campo Descripción es requerido',
+        ],
+        'limitMemory' => [
+            'required' => 'El campo Límite de memoria es requerido',
+            'numeric' => 'El Límite de memoria debe ser un número',
+        ],
+        'limitTime' => [
+            'required' => 'El campo Límite de tiempo es requerido',
+            'numeric' => 'El Límite de tiempo debe ser un número',
+        ],
+        'ejemploen'=>[
+            'required'=> 'El campo Ejemplo de entrada es requerido',
+        ],
+        'ejemplosa'=>[
+            'required'=> 'El campo Ejemplo de salida es requerido',
+        ],
+        'tags'=> [
+            'required'=> 'El campo Tags es requerido',
+        ],
+        'inputs'=> [
+            'required'=> 'El campo Entrada es requerido',
+        ],
+        'outputs'=> [
+            'required'=> 'El campo Salida es requerido',
+        ],
+        'youtube' => [
+            'url'=>'El campo Youtube no coincide con el formato de un link de youtube',
+            'regex'=>'El campo Youtube no coincide con el formato de un link de youtube',],
+        'github' => [
+            'url'=>'El campo Github no coincide con el formato de un link de un repositorio',
+            'regex'=>'El campo Github no coincide con el formato de un link de un repositorio',],
+
+    ],
 
 	/*
 	|--------------------------------------------------------------------------

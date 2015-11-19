@@ -9,7 +9,8 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <!-- Código del form buscador-->
-                        {!! Form::model(Request::only(['buscar']),['route' => 'problem.findProblema','method' => 'GET','class'=>'form-inline navbar-form navbar-left pull-right','role'=>'search']) !!}
+                        {!! Form::model(Request::only(['buscar']),['route' => 'problem.findProblem','method' => 'GET','class'=>'form-inline navbar-form navbar-left pull-right','role'=>'search']) !!}
+
                         @include('problem.partials.findProblem')
                         <!--Fin buscador-->
                         <h3>Todos los Problemas  </h3>

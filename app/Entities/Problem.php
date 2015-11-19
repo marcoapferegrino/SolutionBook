@@ -57,7 +57,7 @@ class Problem extends Entity {
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
             ->select('users.id as userId','users.username','solutions.id','users.avatar',
                 'solutions.explanation','solutions.state', 'solutions.numLikes','solutions.dislikes',
-                'code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language');
+                'code_solutions.limitTime','code_solutions.limitTimeString','code_solutions.limitMemory','code_solutions.language');
         return $previewSolutions;
     }
     /**

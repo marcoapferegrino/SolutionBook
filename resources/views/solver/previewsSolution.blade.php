@@ -22,7 +22,10 @@
                                         <h4>
                                             <strong>{{$solution->id}} |
                                                 <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
-                                                <span class="text-capitalize">{{$solution->username}}</span></strong>
+                                                <a href="{{url('/userPerfil/'.$solution->userId)}}">
+                                                    <span class="text-capitalize">{{$solution->username}}</span>
+                                                </a>
+                                            </strong>
 
                                             @include('partials.likesButtons')
                                         </h4>
@@ -34,7 +37,7 @@
                                                 <div class="list-group">
                                                     <a href="" class="list-group-item active">
                                                         <h4 class="list-group-item-heading"><i class="fa fa-th-list"></i> Detalles</h4>
-                                                        <p class="list-group-item-text">Tiempo : <strong>{{$solution->limitTime}}</strong> seg</p>
+                                                        <p class="list-group-item-text">Tiempo : <strong>{{$solution->limitTimeString}}</strong> seg</p>
                                                         <p class="list-group-item-text">Memoria : <strong>{{$solution->limitMemory}}</strong> kb</p>
                                                         <p class="list-group-item-text">Languaje: <strong class="text-capitalize">{{$solution->language}}</strong></p>
 

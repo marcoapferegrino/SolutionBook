@@ -2,6 +2,7 @@
 
 namespace SolutionBook\Http\Controllers;
 
+use Carbon\Carbon;
 use Exception;
 use SolutionBook\Entities\CodeSolution;
 use SolutionBook\Entities\Files;
@@ -60,16 +61,24 @@ class SolutionsController extends Controller
         $nameFileCode   = $fileCode->getClientOriginalName();
         $extension      = EvaluateCodeTool::getExtentionByLanguage($language);
         $results        = EvaluateCodeTool::evaluateCodeSolution($problem, $fileCode, $extension);
-        $problem->numSolutions = $numSolutions+1;
-        $problem->save();
 
-//        dd($results);
+        if (!empty($results['badWords']) ==true) {
+            return redirect()->back();
+        }
+        if (!empty($results['compileErrors'])) {
+            $compileErrors=$results['compileErrors'];
+            return view('errors.errorsCode',compact('compileErrors','idProblem'));
+        }
+
+        $timeExplo = explode('.',$results['timeExecution']);
+
         if ($results['compare'] && $results['timeStatus'] && $results['memStatus']) { //si pasa la prueba de memoria y tiempo
             $codeSolution = CodeSolution::create([
-                'language'      => $language,
-                'path'          => '', //path donde esta el codigo fuente
-                'limitTime'     => $results['timeExecution'],//tiempo de ejecucion del codigo
-                'limitMemory'   => $results['memUsed'], //memoria usada por el codigo
+                'language'          => $language,
+                'path'              => '', //path donde esta el codigo fuente
+                'limitTime'         => $results['timeExecution'],//tiempo de ejecucion del codigo
+                'limitTimeString'   => Tools::getTimeFromSeconds($timeExplo[0]).".".$timeExplo[1],
+                'limitMemory'       => $results['memUsed'], //memoria usada por el codigo
 
             ]);
 
@@ -125,7 +134,8 @@ class SolutionsController extends Controller
             Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
             Files::addOrReplaceLink($request->repositorio,$solution->id,'Github');
             Files::addOrReplaceLink($request->web,$solution->id,'Facebook');
-
+            $problem->numSolutions = $numSolutions+1;
+            $problem->save();
 
             Session::flash('message', '¡Felicidades! La solución es correcta :D');
             return redirect('/showSolution/'.$solution->id);
@@ -149,18 +159,21 @@ class SolutionsController extends Controller
 
     public function showSolution($idSolution)
     {
-
         //dd($id);
-        $solution = Solution::findOrFail($idSolution);
-//        dd($solution->toArray());
-        $images = Files::where('solution_id',$solution->id)->where('type','imagenApoyo')->get();
-        $audio = Files::where('solution_id',$solution->id)->where('type','notaVoz')->get();
-        $solutionComplete = $solution->solutionComplete();
-//        dd($solutionComplete);
+        $solutionPart = Solution::findOrFail($idSolution);
+//        dd($solutionPart->toArray());
+        $images = Files::where('solution_id',$solutionPart->id)->where('type','imagenApoyo')->get();
+        $audio = Files::where('solution_id',$solutionPart->id)->where('type','notaVoz')->get();
+        $solution = $solutionPart->solutionComplete();
+//        dd($solution);
+
+
+//        dd($solution->limitTime);
         $links = Link::all()->where('solution_id',intval($idSolution));
+
 //   dd($idSolution,$links->toArray());
         try {
-            $code = @file_get_contents($solutionComplete->path);
+            $code = @file_get_contents($solution->path);
 //        dd($code);
             if(!$code===false)
             {
@@ -170,11 +183,11 @@ class SolutionsController extends Controller
         } catch (\ErrorException $e) {
             Session::flash('error', 'Esta solución no tiene código que extraño, deberías reportarla');
         }
-        $title  = "Solución id ".$solution->id." del Problema ".$solutionComplete->problem_id;
-        $id     = $solution->id;
+        $title  = "Solución id ".$solutionPart->id." del Problema ".$solution->problem_id;
+        $id     = $solutionPart->id;
         $url    = "showSolution";
         //dd($files->toArray());
-        return view('solver.solution',compact('solutionComplete','images','code','audio','links','solution','title','id','url'));
+        return view('solver.solution',compact('images','code','audio','links','solution','title','id','url'));
     }
 
     public function deleteSolution($idSolution)
@@ -254,9 +267,9 @@ class SolutionsController extends Controller
             $linkYouTube = Link::all()->where('solution_id',intval($solution->id))->where('type','YouTube')->first();
             $linkGitHub = Link::all()->where('solution_id',intval($solution->id))->where('type','Github')->first();
             $linkWeb = Link::all()->where('solution_id',intval($solution->id))->where('type','Facebook')->first();
+//            dd($solutionComplete);
 
-
-//            dd($solutionComplete,$links);
+//            dd($solution,$links);
 //            dd($links->toArray());
             try {
                 $code = @file_get_contents($solutionComplete->path);
@@ -269,7 +282,7 @@ class SolutionsController extends Controller
             } catch (ErrorException $e) {
                 Session::flash('error', 'Esta solución no tiene código que extraño, deberías reportarla');
             }
-            return view('solver.updateSolution',compact('solutionComplete','images','code','audio','solution','linkYouTube','linkGitHub','linkWeb','warnings'));
+            return view('solver.updateSolution',compact('solution','images','code','audio','solutionComplete','linkYouTube','linkGitHub','linkWeb','warnings'));
         } else {
 
             Session::flash("error","Lo sentimos esta solución no es de tu propiedad.");

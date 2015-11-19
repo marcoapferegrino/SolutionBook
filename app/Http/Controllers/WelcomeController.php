@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
 use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddUserRequest;
 
@@ -118,7 +119,7 @@ class WelcomeController extends Controller {
         }
 
         Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
-
+        Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver","addSolver");
         return Redirect::to('/auth/login');
 
     }

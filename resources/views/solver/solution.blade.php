@@ -81,7 +81,7 @@
                                         <p class="lead"><strong>Detalles</strong></p>
                                         <dl class="dl-horizontal">
                                             <dt>Tiempo hecho</dt>
-                                            <dd>{{$solutionComplete->limitTime}} segs</dd>
+                                            <dd>{{$solutionComplete->limitTimeString}} segs</dd>
                                             <dt>Memoria usada</dt>
                                             <dd>{{$solutionComplete->limitMemory}} kb</dd>
                                             <dt>Lenguaje</dt>

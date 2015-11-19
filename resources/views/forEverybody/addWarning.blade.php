@@ -24,7 +24,7 @@
                         {!! Form::hidden('type',$type) !!}
                         <div class="form-group">
                             <h4><label for="description"><strong>Razón*</strong></label></h4>
-                            {!!Form::select('optionsLanguages', config('optionsReasonWarning.reasonsWarnings'),null,['class'=>'form-control','required'])!!}
+                            {!!Form::select('reason', config('optionsReasonWarning.reasonsWarnings'),null,['class'=>'form-control','required'])!!}
                         </div>
 
                         <div class="form-group">

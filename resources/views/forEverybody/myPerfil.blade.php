@@ -28,7 +28,7 @@
                                         <th>Ranking:</th>
                                         <td>{{$user->ranking}} pts.</td>
                                     </tr>
-                                    @if(auth()->user()->getAuthIdentifier()==$user->id)
+                                    {{--@if(auth()->user()->getAuthIdentifier()==$user->id)--}}
                                     <tr>
                                         <th>Estado:</th>
                                         <td {!! Html::classes(['text-capitalize','success'=>$user->state=='active','warning'=>$user->state=='suspended','danger'=>$user->state=='blocked','danger'=>$user->state=='inactive'])!!}>
@@ -51,7 +51,7 @@
                                             </div>
                                             </td>
                                         </tr>
-                                    @endif
+                                    {{--@endif--}}
                                     @if($user->rol=='problem')
                                         <tr>
                                             <th># Problemas:</th>

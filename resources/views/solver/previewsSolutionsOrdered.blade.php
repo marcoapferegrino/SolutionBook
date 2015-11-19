@@ -41,7 +41,7 @@
                                                 <div class="list-group">
                                                     <a href="" class="list-group-item active">
                                                         <h4 class="list-group-item-heading"><i class="fa fa-th-list"></i> Detalles</h4>
-                                                        <p class="list-group-item-text">Tiempo : <strong>{{$solution->limitTime}}</strong> seg</p>
+                                                        <p class="list-group-item-text">Tiempo : <strong>{{$solution->limitTimeString}}</strong> seg</p>
                                                         <p class="list-group-item-text">Memoria : <strong>{{$solution->limitMemory}}</strong> kb</p>
                                                         <p class="list-group-item-text">Languaje: <strong class="text-capitalize">{{$solution->language}}</strong></p>
 

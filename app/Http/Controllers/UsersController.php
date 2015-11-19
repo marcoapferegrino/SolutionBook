@@ -3,26 +3,23 @@
 namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Psy\Util\Json;
+
 use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddUserRequest;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
-
-use Illuminate\Database\QueryException;
-
 use SolutionBook\Http\Requests;
-use SolutionBook\Http\Controllers\Controller;
+
 
 
 class UsersController extends Controller
 {
-    public function myPerfil()
+    public function myPerfil($idUser)
     {
-        $user = auth()->user();
+//        $user = auth()->user();
+        $user = User::find($idUser);
         $allNumLikes = 0;
         $numSolutions = count($user->solutions);
         $numProblems = count($user->problems);
@@ -45,9 +42,49 @@ class UsersController extends Controller
             'numWarnings','cSolutions','cPlusSolutions','python','java'));
     }
 
+    public function getEditPerfil()
+    {
+        $user = auth()->user();
+
+
+        return view('auth.editPerfil',compact('user'));
+    }
+
+
     public function getAddProblemSetter()
     {
-        return view('super.registerProblemSetter');
+        $correo=null;
+        $nombre=null;
+        $avatar=null;
+        return view('super.registerProblemSetter',compact('correo','nombre','avatar'));
+    }
+    public function editPerfil(Request $request)
+    {
+//        dd($request->all());
+        $user = auth()->user();
+        $avatar = $request->avatar;
+        $password = $request->password;
+
+        if ($password!="" || $password!=null) {
+            $user->password = bcrypt($password);
+            $user->save();
+
+        }
+
+        if($avatar!=null){
+            $idUser = $user->id;
+            $path ='users/'.$idUser.'/';
+            $pathAvatar = $path.'avatar/';
+            $nameImage = $avatar->getClientOriginalName();
+            $avatar->move($pathAvatar,$nameImage);
+            $renameImg= 'avatar.'.$avatar->getClientOriginalExtension();
+            rename($pathAvatar.$nameImage,$pathAvatar.$renameImg);
+            $user->avatar = "/".$pathAvatar.$renameImg;
+            $user->save();
+        }
+        Session::flash('message', 'Cambios guardados');
+        return redirect()->action('UsersController@myPerfil',$user->id);
+
     }
 
     public function addProblemSetter(AddUserRequest $request)
@@ -77,7 +114,7 @@ class UsersController extends Controller
         $user->save();
         }
 
-
+        Tools::sendEmail($user->email,$user->username,"Te has registrado como ProblemSetter","promotion");
         Session::flash('message', '¡Ya puede iniciar sesión el usuario: '.$user->username.'!');
 
         return redirect()->action('HomeController@indexAdmin');//return Redirect::to('/auth/login');
@@ -102,11 +139,13 @@ class UsersController extends Controller
         $idRequest=$request->id;
         $responsible=User::find($idUser);
         $usuario=User::find($idRequest);
+
         $tipo=$request->tipo;
         if($tipo==0)
         {
             $usuario->update(['userProblem_id'=>$idUser,'rol'=>'problem']);
             Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de solver a problem');
+            Tools::sendEmail($usuario->email,$usuario->username,"Promoción a Problem Setter","promotion");
         }
         else
         {
@@ -114,6 +153,7 @@ class UsersController extends Controller
             {
                 $usuario->update(['userProblem_id'=>null,'rol'=>'solver']);
                 Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de problem a solver');
+                Tools::sendEmail($usuario->email,$usuario->username,"De nuevo Solver","unpromotion");
             }
             else
                 Session::flash('error', 'No tienes permitido realizar esta acción');

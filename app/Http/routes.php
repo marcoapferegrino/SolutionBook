@@ -53,32 +53,6 @@ Route::post('/addRegister', [
     'uses' => 'WelcomeController@addRegister'
 ]);
 
-Route::get('/test',function(){
-//    $path = public_path("testing/cosas.out");
-    $nombre = "Marco Perez";
-    $key= "P erez";
-    dd(strpos($nombre,$key));
-
-    $contentFile = file_get_contents(public_path()."/testing/pruebaC.c");
-    $badWords = array('thread','while(1)','while(true)','for(;;)','exec','system','fork','pthread_t','pthread_create');
-
-    $wordsFinded=array();
-    foreach($badWords as $bw)
-    {
-        if(str_contains($contentFile,$bw))
-        {
-            array_push($wordsFinded,$bw);
-        }
-    }
-    if (empty($wordsFinded)) {
-        dd("No hay malas palabras");
-    }
-    else{
-        dd($wordsFinded);
-    }
-
-});
-
 
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
@@ -103,9 +77,6 @@ Route::post('/findUsername', [
     'as' => 'welcome.findUsername',
     'uses' => 'WelcomeController@findUsername'
 ]);
-Route::get('/phpinfo', function(){
-    return phpinfo();
-});
 
 
 
@@ -117,6 +88,11 @@ Route::controllers([
 
 Route::group(['middleware' => 'auth'],function(){
 
+    Route::get('password/email','Auth\PasswordController@getEmail');
+    Route::post('password/email','Auth\PasswordController@postEmail');
+
+    Route::get('password/reset/{token}','Auth\PasswordController@getReset');
+    Route::get('password/reset','Auth\PasswordController@postReset');
 
     Route::group(['middleware' => 'role:super'],function() {
         //susped account
@@ -287,7 +263,15 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::group(['middleware' => 'role:solver'],function() {
 
+        Route::get('/getEditPerfil', [
+            'as' => 'user.getEditPerfil',
+            'uses' => 'UsersController@getEditPerfil'
+        ]);
 
+        Route::post('/editPerfil', [
+            'as' => 'user.editPerfil',
+            'uses' => 'UsersController@editPerfil'
+        ]);
 
         Route::post('/addSolution', [ //peticion para agregar solucion
             'as' => 'solution.addSolution',
@@ -345,7 +329,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'warning.myWarnings',
             'uses' => 'WarningsController@myWarnings'
         ]);
-        Route::get('/miPerfil', [
+        Route::get('/userPerfil/{idUser}', [
             'as' => 'users.myPerfil',
             'uses' => 'UsersController@myPerfil'
         ]);

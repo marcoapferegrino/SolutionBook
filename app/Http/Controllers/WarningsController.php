@@ -29,50 +29,50 @@ class WarningsController extends Controller
         $alerterUser = auth()->user();
         $type   = $request->type;
         $id     = $request->id;
+        $reason = $request->reason;
+
         if ($type == 0) {//solution
             $target = Solution::find($id);
-            $linksol = Link::create([
-                'link'=>'showSolution/'.$id,
-                'type'=>'Referencia',
-                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-            ]);
-//            dd($linksol);
 
         } elseif ($type==1) {//problem
             $target = Problem::find($id);
-            $linksol = Link::create([
-                'link'=>'showProblem/'.$id,
-                'type'=>'Referencia',
-                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-            ]);
 
         }
         else{
             Session::flash('error','Parece que no es un formato aceptable');
             return redirect()->route('warning.getAddWarning');
         }
-
-        $user=User::find($target->user_id);
-        $link = Link::create([
-            'link'=>$request->link,
-            'type'=>'Amonestación',
-            $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-        ]);
-
-        $warning = Warning::create([
-            'description'   => $request->description,
-            'reason'        => $request->optionsLanguages,
-            'state'         => 'process',
-            'hoursToAttend' => 200, //¿?
-            'link_id'       => $link->id,
-            'user_id'       => $target->user_id,
-            'alerter_user'  => $alerterUser->id,
-            $type==0 ? 'solution_id' : 'problem_id'=>$target->id
+        /*Getting warnigns repeated by the same alerterUser */
+        $warningRepeated = Warning::where($type==0 ? 'solution_id' : 'problem_id',$target->id)
+            ->where('alerter_user',$alerterUser->id)
+            ->where('reason',$reason)
+            ->get();
+        /*If dont exist we create the new warning else we dont.*/
+        if (count($warningRepeated)==0) {
+             Link::create([
+                'link'=>$type==0 ? 'showSolution/' : 'showProblem/'.$target->id,
+                'type'=>'Referencia',
+                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 
-        $numWarnings=$user->numWarnings+=1;
-        $user->update(['numWarnings'=>$numWarnings]);
-        $user->save();
+            User::find($target->user_id);
+            $link = Link::create([
+                'link'=>$request->link,
+                'type'=>'Amonestación',
+                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
+            ]);
+
+            Warning::create([
+                'description'   => $request->description,
+                'reason'        => $reason,
+                'state'         => 'process',
+                'hoursToAttend' => 200, //¿?
+                'link_id'       => $link->id,
+                'user_id'       => $target->user_id,
+                'alerter_user'  => $alerterUser->id,
+                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
+            ]);
+        }
 
         Session::flash('message','Hemos enviado tu amonestación la resolveremos lo más pronto posible. Gracias :D');
         return redirect()->back();

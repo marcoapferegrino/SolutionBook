@@ -55,7 +55,7 @@ class Solution extends Entity {
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
             ->select('users.id as userId','users.username','users.email','users.rol','users.avatar','users.institution','solutions.id','problem_id',
                 'solutions.explanation', 'solutions.numLikes','solutions.dislikes',
-                'code_solutions.limitTime','code_solutions.limitMemory','code_solutions.language',
+                'code_solutions.limitTimeString','code_solutions.limitMemory','code_solutions.language',
                 'code_solutions.path')
             ->first();
 

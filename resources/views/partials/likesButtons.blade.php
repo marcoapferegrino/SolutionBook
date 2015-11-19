@@ -1,6 +1,8 @@
 @if(Auth::check())
     <div class="pull-right solution" data-id="{{$solution->id}}">
+        <div class="col-md-4">
             @include('solver.partials.editDeleteSolutionButtons')
+        </div>
             <div class="col-md-2">
                 {!! Form::open(['id'=>'form-like','route'=>['likes.addLike',':id'],'method'=>'POST']) !!}
                 <button type="submit" {!! Html::classes(['btn btn-primary btn-like','hidden'=>auth()->user()->hasLiked($solution->id)]) !!}>

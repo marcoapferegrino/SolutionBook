@@ -91,7 +91,30 @@ return [
 		'attribute-name' => [
 			'rule-name' => 'custom-message',
 		],
+		'optionsLanguages'=>[
+			'required' => 'El lenguaje es requerido.',
+
+		],
+		'explanation' => [
+			'required'=>'La explicación es requerida.',
+
+		],
+		'fileCode'=>[
+			'required'=>'El código fuente es requerido.',
+			'extension'=>'La extensión del código fuente no corresponde con el lenguaje .',
+		],
+		'youtube'=>[
+			'regex'=>'El link YouTube no coincide con youtube.',
+		],
+		'repositorio'=>[
+			'regex'=>'El link Repositorio no coincideo con un repositorio.',
+		],
+		'audioFile'=>[
+			'extension'=>'La extensión del audio no corresponde a .mp3 .',
+		],
+
 	],
+
 
 	/*
 	|--------------------------------------------------------------------------

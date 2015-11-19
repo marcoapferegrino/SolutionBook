@@ -3,6 +3,7 @@ use Redirect;
 use Socialize;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use Illuminate\Support\Facades\Session;
 use SolutionBook\Http\Requests\AddUserRequest;
@@ -90,6 +91,7 @@ class AccountController extends Controller {
             'state' => 'active',
             'numWarnings' => 0,
         ]);
+
         if($image!=null){
             $idUser = $user->id;
             $path ='users/'.$idUser.'/';
@@ -111,7 +113,7 @@ class AccountController extends Controller {
             $user->avatar= $avatar2;
             $user->save();
         }
-
+        Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver","addSolver");
         Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
 
         return Redirect::to('/auth/login');

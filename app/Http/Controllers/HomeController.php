@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Http\Controllers;
 
 use SolutionBook\Entities\Notice;
+use SolutionBook\Entities\User;
 
 class HomeController extends Controller {
 
@@ -48,30 +49,31 @@ class HomeController extends Controller {
 
         else
 
+        $topUsers = User::all('username','ranking','avatar')->orderBy('ranking', 'desc')->take(10)->get();
         $notices = Notice::getNoticesWithFiles();
-        return view('home',compact('notices'));
+
+        return view('home',compact('notices','topUsers'));
     }
 
     public function indexProblem()
     {
-
         $notices = Notice::getNoticesWithFiles();
-        return view('homeProblemSetter',compact('notices'));
+        $topUsers = User::where('state','active')->orderBy('ranking', 'desc')->take(10)->get();
+        return view('homeProblemSetter',compact('notices','topUsers'));
     }
 
     public function indexSolver()
     {
-
         $notices = Notice::getNoticesWithFiles();
-        return view('homeSolver',compact('notices'));
+        $topUsers = User::where('state','active')->orderBy('ranking', 'desc')->take(10)->get();
+        return view('homeSolver',compact('notices','topUsers'));
     }
 
     public function indexAdmin()
     {
-
         $notices = Notice::getNoticesWithFiles();
-
-        return view('homeAdmin' ,compact('notices'));
+        $topUsers = User::where('state','active')->orderBy('ranking', 'desc')->take(10)->get();
+        return view('homeAdmin' ,compact('notices','topUsers'));
     }
 
 

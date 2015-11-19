@@ -234,7 +234,7 @@ class ProblemsController extends Controller
             if($img!=null)
                 array_push($avatar,$img->path);
             else
-                array_push($avatar,'default.png');
+                array_push($avatar,'default.jpg');
         }
         $placeholder="Buscar por: Título o Tags";
 
@@ -688,7 +688,7 @@ class ProblemsController extends Controller
                     if($img!=null)
                         array_push($avatar,$img->path);
                     else
-                        array_push($avatar,'default.png');
+                        array_push($avatar,'default.jpg');
                 }
             }
 

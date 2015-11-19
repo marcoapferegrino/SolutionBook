@@ -1,13 +1,10 @@
 
-<div class="col-lg-8" >
     <div class="panel panel-primary">
         <div class="panel-heading">Noticias
 
         </div>
 
         <div class="panel-body">
-
-
             <div id="myCarousel" class="carousel slide col-md-8 col-lg-push-2" data-ride="carousel">
 
                 <!-- Indicators -->
@@ -21,7 +18,7 @@
                 </ol>
 
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox"">
+                <div class="carousel-inner" role="listbox">
                     <div class="item active">
                         <img src="default.jpg" width="100%"  height="100%"   >
                         <div class="carousel-caption">
@@ -64,15 +61,11 @@
 
         </div>
         <ul class="nav  list-group-item-info">
-
             @foreach($notices as $notice)
             <li ><a href="{{url('/notice/'.$notice->id)}}"> <span>{{$notice->title}} </span> <span class="pull-right">{{$notice->finishDate}} </span> </a></li>
-
             @endforeach
-
         </ul>
     </div>
 
-</div>
-</div>
+
 

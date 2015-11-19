@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="form-group col-md-10 col-lg-offset-1">
-                                    <h4> <label class="control-label" for="repositorio"><strong>{{isset($linkGitHub->type)?$linkYouTube->type:"Repositorio"}}</strong></label></h4>
+                                    <h4> <label class="control-label" for="repositorio"><strong>{{isset($linkGitHub->type)?$linkGitHub->type:"Repositorio"}}</strong></label></h4>
                                     <input type="url"  class="form-control" value="{{isset($linkGitHub->link)?$linkGitHub->link:null}}"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
                                 </div>
 

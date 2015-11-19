@@ -86,13 +86,13 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
         $fechaWell=HtmlBuilder::dateEspañol($date);
         $fecha1=Carbon::createFromFormat('Y-m-d H:i:s', $date);//->toDateTimeString();
-        $hoy=Carbon::now()->subHours(6)->diffInHours($fecha1,null);
-
-        if($hoy>-23){
+       // $hoy=Carbon::now()->subHours(6)->diffInHours($fecha1,null);
+        $hoy=$fecha1->diffInHours(Carbon::now(),null);
+        if($hoy<23){
 
             if($hoy==0){
 
-                $hoy=Carbon::now()->subHours(6)->diffInMinutes($fecha1);
+                $hoy=Carbon::now()->diffInMinutes($fecha1);
                 if($hoy==0){
 
                     return 'Hace un momento' ;
@@ -105,12 +105,16 @@ class HtmlBuilder extends CollectiveHtmlBuilder
                 return 'Hace '. ($hoy). ' minutos' ;
 
             }
-          //  return $fechaWell;
             return 'Hace '. -($hoy). ' horas' ;
         }
 
-       // return $fechaWell;
-        return $hoy;
+        $dias= floor($hoy / 24);
+        if($dias==1){
+            return  'Hace un'. ' día' ;
+
+        }else{
+            return  'Hace '. ($dias). ' días' ;
+        }
 
     }
 
@@ -158,7 +162,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
               $lik= DB::table('notifications')
                   ->where('user_id','=',$user->id)
                   //->where('user_id','=',11)
-                  ->where('description','=','Like')
+                 // ->where('description','=','Like')
                   ->where('viewed','=',0)->orderBy('created_at')->get();
 
 

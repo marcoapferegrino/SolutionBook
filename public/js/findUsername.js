@@ -18,6 +18,14 @@ $(document).ready(function() {
 
         //obtenemos el texto introducido en el campo de búsqueda
         consulta = $("#username").val();
+        var RegExPattern = /^[a-zA-Z0-9Nñ]+$/;
+        var letter= consulta.search(RegExPattern);
+        var blank = consulta.indexOf(" ");
+
+        if(consulta==''||consulta==null||blank!=-1||letter==-1){
+            $("#icon").html("<br><br><span style=' font-size: 10pt' class='label label-danger'> No válido<i style='font-size: 150%' class='fa fa-close '></i></span>");
+
+        }else{
         //hace la búsqueda
         $.ajaxSetup(
             {
@@ -50,7 +58,7 @@ $(document).ready(function() {
 
             }
         });
-
+        }
 
     });
 

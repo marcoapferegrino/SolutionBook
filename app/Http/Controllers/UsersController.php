@@ -3,9 +3,11 @@
 namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Psy\Util\Json;
 use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Notify;
 use SolutionBook\Entities\User;
 use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddUserRequest;
@@ -102,6 +104,7 @@ class UsersController extends Controller
 
     public function promotion(Request $request){
 
+        $message='';
         $idUser= auth()->user()->getAuthIdentifier();
         $idRequest=$request->id;
         $responsible=User::find($idUser);
@@ -110,6 +113,13 @@ class UsersController extends Controller
         if($tipo==0)
         {
             $usuario->update(['userProblem_id'=>$idUser,'rol'=>'problem']);
+
+
+            $notify=Notification::addNotifyPromote($usuario->id);
+            $message=Notify::encodeMsj($usuario->id,null,null,'promoted',$notify->created_at);
+            $pusher = App::make('pusher');
+            $pusher->trigger( 'promotes-channel',
+                'promotes-event', array($message) );
             Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de solver a problem');
         }
         else
@@ -117,6 +127,14 @@ class UsersController extends Controller
             if($usuario->userProblem_id==$idUser||$responsible->rol=='super')
             {
                 $usuario->update(['userProblem_id'=>null,'rol'=>'solver']);
+
+
+                $notify=Notification::addNotifyDePromote($usuario->id);
+                $message=Notify::encodeMsj($usuario->id,null,null,'dePromoted',$notify->created_at);
+                $pusher = App::make('pusher');
+                $pusher->trigger( 'promotes-channel',
+                    'promotes-event', array($message) );
+
                 Session::flash('message', 'El rol del Usuario: '.$usuario->username.' ha cambiado de problem a solver');
             }
             else

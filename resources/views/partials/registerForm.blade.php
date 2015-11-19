@@ -2,7 +2,7 @@
 
             <div class="panel panel-success ">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Cuenta</h3>
+                    <h3 class="panel-title">Tu cuenta</h3>
                 </div>
                 <div class="panel-body">
 
@@ -24,13 +24,13 @@
                         </div>
                         <div class="col-md-4">
                             <br>
-                            <button type='button' name='getdata' id='getdata' class="btn btn-info pull-right"> <i class="fa fa-search">Buscar username</i> </button>
+                            <button type='button' name='getdata' id='getdata' class="btn btn-info pull-right"> <i class="fa fa-search">Buscar nombre de usuario</i> </button>
 
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('email', 'Email*') !!}
+                                {!! Form::label('email', 'Email*') !!}<br>
                                 @if($correo==null)
                                     {!! Form::email('email',null, array('class' => 'form-control','id'=>'email','placeholder'=>'Email','required'))!!}
                                 @else
@@ -64,7 +64,7 @@
                     @if(Auth::user()==null)
 
                     <div class="form-group">
-                        <label for="avatar" class="col-sm-2 control-label">Avatar</label>
+                        <label for="avatar" class="col-sm-2 control-label">Avatar</label><br>
                         <div class="col-sm-6">
                             @if($avatar!=null)
                                 Actual:

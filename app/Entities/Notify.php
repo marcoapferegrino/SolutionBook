@@ -15,6 +15,18 @@ class Notify {
 
     public static function encodeMsj($idDest,$idSolution,$idProblem,$type,$date){
 
+        $idPublic=null;
+        $url='/myWarnings';
+        if($idSolution==null){
+            $idPublic=$idProblem;
+//            $url='/showProblem/';
+
+        }elseif($idProblem==null){
+            $idPublic=$idSolution;
+           // $url='/showSolution/';
+
+        }
+
         $message='{';
 
         switch($type){
@@ -31,11 +43,38 @@ class Notify {
 
             case 'warning':
 
+                $message.='"id":"'.$idDest.'",';
+                $message.='"message":"'.'¡Acabas de ser amonestado en tu publicación!'.'",';
+                $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
+                //$message.='"url":"'.$url.$idPublic.'",';
+                $message.='"url":"'.$url.'",';
+                $message.='"public":'.$idPublic.'';
+                
+
+
                 break;
 
 
 
             case 'promoted':
+
+
+                $message.='"id":"'.$idDest.'",';
+                $message.='"message":"'.'¡Acabas de ser promovido a Problem Setter!'.'",';
+                $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
+                //$message.='"url":"'.$url.$idPublic.'",';
+                $message.='"url":"'.'/miPerfil'.'"';
+
+                break;
+
+            case 'dePromoted':
+
+
+                $message.='"id":"'.$idDest.'",';
+                $message.='"message":"'.'Tu cuenta fue cambiada a ser Solver'.'",';
+                $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
+                //$message.='"url":"'.$url.$idPublic.'",';
+                $message.='"url":"'.'/miPerfil'.'"';
 
                 break;
 

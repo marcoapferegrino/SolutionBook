@@ -154,7 +154,7 @@
                                     @foreach(session('MY_LIKES') as $k=>$oneLike)
                                         <li class="text text-center"><a onclick="deView({{$oneLike->id}})"          href=" {{url($oneLike->url)}}"
                                                                          >{{$oneLike->title}}<br>
-                                                <small>Fecha: {{\SolutionBook\Components\HtmlBuilder::dateDiff(($oneLike->created_at))}}</small>
+                                                <small> {{\SolutionBook\Components\HtmlBuilder::dateDiff(($oneLike->created_at))}}</small>
 
                                             </a>
                                         </li>

@@ -190,6 +190,10 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'user.getUsers',
             'uses' => 'UsersController@getUsers'
         ]);
+        Route::post('/plusWarning', [
+            'as' => 'user.plusWarning',
+            'uses' => 'WarningsController@validateWarning'
+        ]);
 
 
 

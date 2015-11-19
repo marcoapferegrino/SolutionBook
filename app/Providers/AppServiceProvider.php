@@ -61,7 +61,8 @@ class AppServiceProvider extends ServiceProvider {
 
         Validator::extend('oneword', function($field, $value)
         {
-            $resolution =  preg_match('/^[\pL\s]+$/u', $value);
+           // $resolution =  preg_match('/^[\pL\s]+$/u', $value);
+            $resolution =  preg_match('/^[ 0-9a-zA-ZÑñ]+$/u', $value);
             if($resolution!=true){
 
                 return $resolution;

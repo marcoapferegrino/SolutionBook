@@ -5,7 +5,11 @@
         <div class="row">
             @include('partials.messages')
             <div class="col-md-10 col-md-offset-1" >
-
+                <h2>Mis problemas
+                            <a class="btn btn-default btn-success pull-right" href="{{route('problem.addFormProblem')}}" role="button">
+                                Nuevo
+                            </a>
+                            </h2>
                 @if($result->total()==0)
                     <h3>No tienes Problemas</h3>
                 @else
@@ -55,7 +59,7 @@
                                                         </tr>
                                                     </table>
                                                         
-                                                                <div class="col-sm-6" style="overflow: hidden; text-overflow: ellipsis;">
+                                                                <div class="col-sm-6" style="overflow: hidden; text-overflow: ellipsis; max-height: 100px;">
                                                                 {{$r->description}}
                                                             </div>
                                                             <div class="col-sm-4" style="overflow: hidden; text-overflow: ellipsis;">
@@ -76,9 +80,6 @@
                                     @endforeach
                             </div>
                             @endif
-                            <a class="btn btn-default btn-success pull-right" href="{{route('problem.addFormProblem')}}" role="button">
-                                Nuevo
-                            </a>
 
                     </div>
             </div>

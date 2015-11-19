@@ -9,6 +9,9 @@ class JudgesList extends Entity {
 	 public function user(){
         return $this->belongsTo(Problem::getClass());
     }
+    public function problem(){
+    	return Problem::where('judgeList_id',$this->id)->get();
+    }
 
 
 }

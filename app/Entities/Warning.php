@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use SolutionBook\Entities;
 
 class Warning extends Entity
@@ -30,5 +31,17 @@ class Warning extends Entity
     public function links()
     {
         return $this->hasMany(Link::getClass(),'id','link_id');
+    }
+
+
+
+    public static function getAlerters(){
+
+        $alerters = DB::table('users')
+            ->select('id','username')
+            ->get();
+
+
+        return $alerters;
     }
 }

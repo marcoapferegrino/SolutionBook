@@ -116,7 +116,7 @@ $(notifyInit); // Existing functionality
 
 // var numbers;
 // Use toastr to show the notification
-var callback=function showNotification(data) {
+var callbackLike=function showNotification1(data) {
 
     var dats= JSON.parse(data);
 
@@ -126,11 +126,63 @@ var callback=function showNotification(data) {
         var numbbb= parseInt(numbers);
         //alert(dats.solution);
 
-      //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
+        //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
         //document.getElementById("likeList").innerHTML =numbbb+1;
-       // document.getElementById("lastLike").style.display = 'none';
-       // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
+        // document.getElementById("lastLike").style.display = 'none';
+        // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
+        $("#likeList").prepend('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
+        "<small>Fecha:"+dats.date+'</small></a></li>');
+
+
+
+//        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
+        // TODO: use the text in the notification
+    }
+
+
+}
+var callbackWarning=function showNotification2(data) {
+
+    var dats= JSON.parse(data);
+    //alert('warnings');
+
+    if(window.idG==dats.id){  // es mi like
+        // alert('es mi like');
+        var numbers= $('#notify').text();
+        var numbbb= parseInt(numbers);
+        //alert(dats.solution);
+
+        //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
+        document.getElementById("notify").innerHTML =numbbb+1;
+        //document.getElementById("likeList").innerHTML =numbbb+1;
+        // document.getElementById("lastLike").style.display = 'none';
+         $("#likeList").prepend('<li class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
+
+       // alert('warnings');
+
+//        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
+        // TODO: use the text in the notification
+    }
+
+
+}
+
+var callbackPromote=function showNotification3(data) {
+
+    var dats= JSON.parse(data);
+
+    if(window.idG==dats.id){  // es mi like
+        // alert('es mi like');
+        var numbers= $('#notify').text();
+        var numbbb= parseInt(numbers);
+        //alert(dats.solution);
+
+        //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
+        document.getElementById("notify").innerHTML =numbbb+1;
+        //document.getElementById("likeList").innerHTML =numbbb+1;
+        // document.getElementById("lastLike").style.display = 'none';
+        // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
         $("#likeList").prepend('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
         "<small>Fecha:"+dats.date+'</small></a></li>');
 
@@ -146,8 +198,12 @@ var callback=function showNotification(data) {
 var pusher = new Pusher('57c6339fba339d32f2ca');
 //var pusher = new Pusher('{{env("PUSHER_KEY")}}');
 
-var channel = pusher.subscribe('test-channel');
-channel.bind('test-event', callback);
+var channelLike = pusher.subscribe('likes-channel');
+channelLike.bind('likes-event', callbackLike);
+var channelWarning = pusher.subscribe('warnings-channel');
+channelWarning.bind('warnings-event', callbackWarning);
+var channelPromote = pusher.subscribe('promotes-channel');
+channelPromote.bind('promotes-event', callbackPromote);
 // Added Pusher logging
 Pusher.log = function(msg) {
     console.log(msg);

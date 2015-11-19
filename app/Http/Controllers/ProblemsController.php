@@ -226,19 +226,24 @@ class ProblemsController extends Controller
     {
         //->groupBy('problems.id')
         $result= \DB::table('problems')
-            ->select('problems.id as id ','limitTime','limitMemory','title','problems.description as description','numWarnings','user_id')
+            ->select('id','limitTime','limitMemory','title','numSolutions','numWarnings','user_id','created_at')
             ->paginate(9);
         $avatar=array();
+        $publicado=array();
         foreach($result as $r){
             $img=Files::whereRaw('problem_id = '.$r->id.' and type = "imagenApoyo"')->first();
             if($img!=null)
                 array_push($avatar,$img->path);
             else
                 array_push($avatar,'default.jpg');
+            array_push($publicado,Carbon::parse($r->created_at));
+                array_push($avatar,'default.jpg');
         }
         $placeholder="Buscar por: Título o Tags";
+        $dias=array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
+        $meses=array('0','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
-        return view('problem/allProblems',compact('result','avatar','placeholder'));
+        return view('problem/allProblems',compact('result','avatar','placeholder','dias','meses','publicado'));
     }
     public function addFormProblem()
     {
@@ -340,9 +345,23 @@ class ProblemsController extends Controller
         $title  = $dataProblem->title;
         $id     = $dataProblem->id;
         $url    = "showProblem";
+        $idsProblemas=ProblemasTags::tablaProblemasSimilares($tags,1);
+        $idsProblemas=array_unique($idsProblemas);
+        if($idsProblemas!=null){
+            $clave=array_search($idProblem, $idsProblemas);
+            unset($idsProblemas[$clave]);
+            $idsProblemas=array_values($idsProblemas);
+            if($idsProblemas!=null)
+                $problemasSimilares=Problem::problemasPorId($idsProblemas);
+            else
+                $problemasSimilares=null;
+        }
+        else
+            $problemasSimilares=null;
+        //dd($problemasSimilares);
         return view('problem/showProblem',compact('dias','meses','publicado','tags','judge','dataProblem','files',
             'entrada','salida','docs','links','solutions','cSolutions',
-            'cplusSolutions','pythonSolutions','javaSolutions','title','id','url'));
+            'cplusSolutions','pythonSolutions','javaSolutions','title','id','url','problemasSimilares'));
     }
 
     /**
@@ -587,7 +606,7 @@ class ProblemsController extends Controller
                 fclose($myfile);
                 $outputs=$text;
             }
-            elseif($type=='imagenApoyo'){
+            elseif($type=='imagenApoyo'||$type=='pdf'||$type=='word'){
                 array_push($files,$f);
             }
             else{
@@ -648,31 +667,10 @@ class ProblemsController extends Controller
                     array_push($idsProblemas,$r->id);
                 }
             }
-            $palabras = explode(",",$cadena);
-            foreach($palabras as $p){
-                $result= Tag::similarTags($p);
-
-                if(!$result){
-                    $similares="No hay problemas similares ";
-                }
-                else{
-                    foreach ($result as $key => $r) {
-                        if($key>=3)
-                            break;
-                        array_push($idBuscar, $r->id);
-                    }
-                }
-            }
-
-            if($idBuscar!=[]) {
-                $result = ProblemasTags::similarProblemsfromTags($idBuscar);
-                if (!$result) {
-                    $similares = "No hay problemas similares";
-                } else {
-                    foreach ($result as $key => $r) {
-                        array_push($idsProblemas,$r->problem_id);
-                    }
-                }
+            $problemasPorTags=ProblemasTags::tablaProblemasSimilares($cadena,1);
+            foreach($problemasPorTags as $addId)
+            {
+                array_push($idsProblemas,$addId);
             }
 
             $idsProblemas=array_unique($idsProblemas);
@@ -734,47 +732,7 @@ class ProblemsController extends Controller
         if($cadena=='a#')
             return " ";
         $similares='';
-        $idBuscar=array();
-        $similares='<table class="table table-hover">';
-        $palabras = explode(",",$cadena);
-        foreach($palabras as $p){
-            $result= Tag::similarTags($p);
-
-            if(!$result){
-                $similares="No hay problemas similares ";
-            }
-            else{
-                foreach ($result as $key => $r) {
-                    # code...
-                    //$similares .='<tr><td><a href='.route('problem.showProblem',$r->id).' > '.$r->name.'</a></td></tr>';
-                    if($key>=3)
-                    break;
-                    array_push($idBuscar, $r->id);
-                }
-            }
-        }
-        //dd($idBuscar);
-        if($idBuscar==[]){
-            $similares="No hay problemas similares ";
-        }else{
-            $result= ProblemasTags::similarProblemsfromTags($idBuscar);
-        if(!$result){
-            $similares="No hay problemas similares";
-        }
-        else{
-            foreach ($result as $key => $r) {
-                # code...
-                $problema=Problem::find($r->problem_id);
-                $similares .='<tr><td><a href='.route('problem.showProblem',$problema->id).' > '.$problema->title.'</a></td></tr>';
-
-            }
-        }
-        $similares .='</table>';
-        }
-
-        
-        //dd($result);
-        echo $similares;
+        echo ProblemasTags::tablaProblemasSimilares($cadena);
     }
 
     public function getZipMultimediaProblem($idProblem)

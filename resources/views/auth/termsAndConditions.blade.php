@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-4">
-                                {!!Form::submit('Aceptar',['class'=>'form-control btn-warning'])!!}
+                                {!!Form::submit('He leído y acepto los términos y condiciones',['class'=>'form-control btn-warning'])!!}
                             </div>
                             <div class="col-sm-1"></div>
                         </div>

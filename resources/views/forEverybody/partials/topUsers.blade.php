@@ -8,7 +8,7 @@
 
         <ul class="list-group">
             @foreach($topUsers as $user)
-                <a href="{{url('/userPerfil/'.$user->id)}}">
+                <a href="{{(Auth::guest())?'#':url('/userPerfil/'.$user->id)}}">
                     <li class="list-group-item">
                         <span class="badge">{{$user->ranking}} pts</span>
                         <img class="media-object" width="22" height="22" src="{{$user->avatar}}" alt=":("/>

@@ -154,6 +154,9 @@ class SolutionsController extends Controller
         $user = auth()->user();
         $solutions = $user->mySolutions();
 //        dd($solutions->toArray());
+        if (count($solutions)==0) {
+            Session::flash('error', 'Lista vacía');
+        }
         return view('solver.mySolutions',compact('solutions'));
     }
 

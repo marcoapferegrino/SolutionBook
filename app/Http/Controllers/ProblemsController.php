@@ -236,7 +236,7 @@ class ProblemsController extends Controller
                 array_push($avatar,$img->path);
             else
                 array_push($avatar,'default.jpg');
-            array_push($publicado,Carbon::parse($r->created_at));
+                array_push($publicado,Carbon::parse($r->created_at));
                 array_push($avatar,'default.jpg');
         }
         $placeholder="Buscar por: Título o Tags";
@@ -647,60 +647,7 @@ class ProblemsController extends Controller
         return view('problem/myProblems',compact('result'));
     }
 
-    public function findProblema(Request $request)
-    {
-        //
-        $cadena=$request->buscar;
-        $avatar = array();
-        $idBuscar=array();
-        $idsProblemas=array();
 
-        if($cadena!="")
-        {
-            $result= Problem::similarTitle($cadena);
-            $similares='';
-            if(!$result){
-                $similares="No hay problemas similares";
-            }
-            else{
-                foreach($result as $r){
-                    array_push($idsProblemas,$r->id);
-                }
-            }
-            $problemasPorTags=ProblemasTags::tablaProblemasSimilares($cadena,1);
-            foreach($problemasPorTags as $addId)
-            {
-                array_push($idsProblemas,$addId);
-            }
-
-            $idsProblemas=array_unique($idsProblemas);
-            if($idsProblemas==null){
-
-                Session::flash('error', 'No se encontraron coincidencias');
-                return redirect()->back();
-            }
-            else{
-                $result=Problem::problemasPorId($idsProblemas);
-                foreach($idsProblemas as $id){
-                    $img=Files::whereRaw('problem_id = '.$id.' and type = "imagenApoyo"')->first();
-                    if($img!=null)
-                        array_push($avatar,$img->path);
-                    else
-                        array_push($avatar,'default.jpg');
-                }
-            }
-
-            //dd($result);
-        }
-        else{
-            return redirect()->back();
-        }
-        $placeholder="Buscar por: Título o Tags";
-
-            return view('problem/allProblems',compact('cadena','result','avatar','placeholder'));
-        //dd($request);
-        
-    }
 
     public function similarProblems($cadena)
     {
@@ -744,7 +691,60 @@ class ProblemsController extends Controller
         unlink(public_path().'/'.$zipName);//eliminamos el zip del server
 
     }
+    public function findProblem(Request $request)
+    {
+        //
+        $cadena=$request->buscar;
+        $avatar = array();
+        $idBuscar=array();
+        $publicado=array();
+        $idsProblemas=array();
+        if($cadena!="")
+        {
+            $result= Problem::similarTitle($cadena);
+            $similares='';
+            if(!$result){
+                $similares="No hay problemas similares";
+            }
+            else{
+                foreach($result as $r){
+                    array_push($idsProblemas,$r->id);
+                }
+            }
+            $problemasPorTags=ProblemasTags::tablaProblemasSimilares($cadena,1);
+            foreach($problemasPorTags as $addId)
+            {
+                array_push($idsProblemas,$addId);
+            }
+            $idsProblemas=array_unique($idsProblemas);
+            if($idsProblemas==null){
+                Session::flash('error', 'No se encontraron coincidencias');
+                return redirect()->back();
+            }
+            else{
+                $result=Problem::problemasPorId($idsProblemas);
+                foreach($idsProblemas as $id){
+                    $img=Files::whereRaw('problem_id = '.$id.' and type = "imagenApoyo"')->first();
+                    if($img!=null)
+                        array_push($avatar,$img->path);
+                    else
+                        array_push($avatar,'default.jpg');
+                    array_push($publicado,Carbon::parse(Problem::find($id)->created_at));
+                }
+            }
+            //dd($result);
+        }
+        else{
+            return redirect()->back();
+        }
+        $placeholder="Buscar por: Título o Tags";
+        $dias=array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
+        $meses=array('0','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
+        return view('problem/allProblems',compact('cadena','result','avatar','placeholder','dias','meses','publicado'));
+        //dd($request);
+
+    }
 
 
 

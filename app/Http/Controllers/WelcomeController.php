@@ -54,9 +54,9 @@ class WelcomeController extends Controller {
 
         return redirect()->action('HomeController@index');
         }
-
+        $topUsers = User::where('state','active')->orderBy('ranking', 'desc')->take(10)->get();
         $notices = Notice::getNoticesWithFiles();
-        return view('home',compact('notices'));
+        return view('home',compact('notices','topUsers'));
     }
 
     public function getRegister()

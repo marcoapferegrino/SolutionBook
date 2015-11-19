@@ -5,7 +5,7 @@
         </div>
 
         <div class="panel-body">
-            <div id="myCarousel" class="carousel slide col-md-8 col-lg-push-2" data-ride="carousel">
+            <div id="myCarousel" class="carousel slide " data-ride="carousel">
 
                 <!-- Indicators -->
                 <ol class="carousel-indicators">

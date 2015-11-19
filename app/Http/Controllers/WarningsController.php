@@ -53,18 +53,21 @@ class WarningsController extends Controller
             ->get();
         /*If dont exist we create the new warning else we dont.*/
         if (count($warningRepeated)==0) {
-             Link::create([
-                'link'=>$type==0 ? 'showSolution/' : 'showProblem/'.$target->id,
+            $linkAux=$type==0 ? 'showSolution/' : 'showProblem/';
+             $link=Link::create([
+                'link'=>$linkAux.$target->id,
                 'type'=>'Referencia',
                 $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 
             User::find($target->user_id);
-            $link = Link::create([
-                'link'=>$request->link,
-                'type'=>'Amonestación',
-                $type==0 ? 'solution_id' : 'problem_id'=>$target->id,
+            if ($request->link!="" || $request->link!=null) {
+                $link = Link::create([
+                    'link'=>$request->link,
+                    'type'=>'Amonestación',
+                    $type==0 ? 'solution_id' : 'problem_id'=>$target->id,
                 ]);
+            }
         $user=User::find($target->user_id);
 
         if($type==0){//solucion  pusher
@@ -86,15 +89,9 @@ class WarningsController extends Controller
 
         }
 
-        $link = Link::create([
-            'link'=>$request->link,
-            'type'=>'Amonestación',
-            $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-        ]);
-
         $warning = Warning::create([
             'description'   => $request->description,
-            'reason'        => $request->optionsLanguages,
+            'reason'        => $reason,
             'state'         => 'process',
             'hoursToAttend' => 200, //¿?
             'link_id'       => $link->id,
@@ -103,22 +100,9 @@ class WarningsController extends Controller
             $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 
-            Warning::create([
-                'description'   => $request->description,
-                'reason'        => $reason,
-                'state'         => 'process',
-                'hoursToAttend' => 200, //¿?
-                'link_id'       => $link->id,
-                'user_id'       => $target->user_id,
-                'alerter_user'  => $alerterUser->id,
-                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-            ]);
-        }
-        $warning->created_at=Carbon::now();
-        $warning->save();
-        /*$numWarnings=$user->numWarnings+=1;  //incrementa en uno
-        $user->update(['numWarnings'=>$numWarnings]);
-        $user->save();*/
+            $warning->created_at=Carbon::now();
+            $warning->save();
+        }//end if is not repeated
 
 
         Session::flash('message','Hemos enviado tu amonestación la resolveremos lo más pronto posible. Gracias :D');
@@ -129,39 +113,28 @@ class WarningsController extends Controller
 
     public function myWarnings()
     {
-
-
-
         $limit= Carbon::now()->subDays(14)->toDateString();
         $warnings=Warning::where('warnings.created_at','<',$limit)->where('warnings.state','=','process')->get();
-       // dd($warnings);
-        //$warnings=Warning::all()
-        //       ->where('warnings.created_at','>',$limit);
 
         foreach($warnings as $warning){
             $warning->state='forAdmin';
             $warning->save();
 
         }
-
-        ///
-
-
         $referencia=Link::all();
         $user = auth()->user();
         $alerter=Warning::getAlerters();
         if($user->rol=='super'){
-
             $warnings = Warning::all()->where('state','forAdmin');
-
-
         }else {
             $warnings = Warning::where('user_id' ,$user->id)
                                    // ->where('state','');
                                     ->where('state','!=','forAdmin')->get();
 
         }
-
+        if (count($warnings)==0) {
+            Session::flash('message','!Genial¡ no tienes amonestaciones :D');
+        }
         return view('forEverybody.myWarnings',compact('warnings','referencia','alerter'));
     }
 

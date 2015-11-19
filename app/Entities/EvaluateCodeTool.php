@@ -60,7 +60,7 @@ namespace SolutionBook\Entities;
 
         if (!empty($badWords)) {
             self::$RESULTS['badWords'] = true;
-            Session::flash('error','Tu solución tiene palabras prohibidas:'.implode('-',$badWords));
+            Session::flash('error','Tu solución tiene funciones prohibidas:'.implode('-',$badWords));
             return self::$RESULTS;
         }
 

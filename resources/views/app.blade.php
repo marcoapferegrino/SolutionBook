@@ -171,6 +171,7 @@
                             </li>
                         @endif
                         @if (Auth::guest())
+                            <li><a href="{{url("/allProblems")}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
                             <li><a href="{{ url('/auth/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Registrarse <i class="fa fa-pencil"></i>
                                 </a></li>

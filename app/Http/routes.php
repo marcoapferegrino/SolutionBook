@@ -78,6 +78,41 @@ Route::post('/findUsername', [
     'uses' => 'WelcomeController@findUsername'
 ]);
 
+Route::get('/allProblems', [
+    'as' => 'problem.allProblems',
+    'uses' => 'ProblemsController@allProblems'
+]);
+
+Route::get('/findProblem', [
+    'as' => 'problem.findProblem',
+    'uses' => 'ProblemsController@findProblem'
+]);
+
+Route::get('/showProblem/{id}', [ //para guest
+    'as' => 'problem.showProblem',
+    'uses' => 'ProblemsController@showProblem'
+]);
+Route::get('/partialSolutions', [ //muestra formulario para agregar solucion
+    'as' => 'solution.partialsSolutions',
+    'uses' => 'SolutionsController@partialSolutions'
+]);
+Route::get('/showSolution/{id}', [ //para guest
+    'as' => 'solution.showSolution',
+    'uses' => 'SolutionsController@showSolution'
+]);
+Route::get('/solutionsOrdered', [ //para guest
+    'as' => 'solutions.orderSolutions',
+    'uses' => 'SolutionsController@orderSolutions'
+]);
+Route::get('/getZipProblemMultimedia/{idProblem}', [
+    'as' => 'problem.multimediaZip',
+    'uses' => 'ProblemsController@getZipMultimediaProblem'
+]);
+
+Route::get('/getZipSolutionMultimedia/{idProblem}/{idSolution}', [
+    'as' => 'solution.multimediaZip',
+    'uses' => 'SolutionsController@getZipMultimediaSolution'
+]);
 
 
 Route::controllers([
@@ -252,10 +287,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'judges.addJudge',
             'uses' => 'JudgesController@addJudge'
         ]);
-        Route::get('/getZipProblemMultimedia/{idProblem}', [
-            'as' => 'problem.multimediaZip',
-            'uses' => 'ProblemsController@getZipMultimediaProblem'
-        ]);
+
 
     });
 
@@ -282,10 +314,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'SolutionsController@getFormSolution'
         ]);
 
-        Route::get('/partialSolutions', [ //muestra formulario para agregar solucion
-            'as' => 'solution.partialsSolutions',
-            'uses' => 'SolutionsController@partialSolutions'
-        ]);
+
 
         Route::get('/deleteSolution/{id}', [
             'as' => 'solution.deleteSolution',
@@ -305,10 +334,7 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'solution.mySolutions',
             'uses' => 'SolutionsController@mySolutions'
         ]);
-        Route::get('/showSolution/{id}', [ //para guest
-            'as' => 'solution.showSolution',
-            'uses' => 'SolutionsController@showSolution'
-        ]);
+
 
         Route::post('/suspendAccount', [
             'as' => 'users.suspendAccount',
@@ -342,15 +368,6 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'LikesController@disLike'
         ]);
 
-        Route::get('/solutionsOrdered', [ //para guest
-            'as' => 'solutions.orderSolutions',
-            'uses' => 'SolutionsController@orderSolutions'
-        ]);
-        Route::get('/getZipSolutionMultimedia/{idProblem}/{idSolution}', [
-            'as' => 'solution.multimediaZip',
-            'uses' => 'SolutionsController@getZipMultimediaSolution'
-        ]);
-
         Route::post('/ignoreWarning', [
             'as' => 'warning.ignoreWarning',
             'uses' => 'WarningsController@ignoreWarning'
@@ -373,20 +390,7 @@ Route::group(['middleware' => 'auth'],function(){
 
 
     });
-    Route::get('/allProblems', [
-        'as' => 'problem.allProblems',
-        'uses' => 'ProblemsController@allProblems'
-    ]);
 
-    Route::get('/findProblem', [
-        'as' => 'problem.findProblem',
-        'uses' => 'ProblemsController@findProblem'
-    ]);
-
-    Route::get('/showProblem/{id}', [ //para guest
-        'as' => 'problem.showProblem',
-        'uses' => 'ProblemsController@showProblem'
-    ]);
 
 
 });

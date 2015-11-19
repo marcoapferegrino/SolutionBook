@@ -12,9 +12,8 @@
                         <h4><b class="">{{$dataProblem->id}} |  {{$dataProblem->title}} </b>
                             <b style="font-size: small" class="col-sm-offset-1"> Publicado el {{$dias[$publicado->dayOfWeek]}} {{$publicado->day}} de {{$meses[$publicado->month]}} del {{$publicado->year}}</b>
 
-                        <div class=" col-sm-1 pull-right">
-                            <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
-                        </div>@include('problem.partials.buttonsDeleteUpdateProblem')
+
+                            @include('problem.partials.buttonsDeleteUpdateProblem')
                         </h4>
                         @if($dataProblem->share=='yes')
 

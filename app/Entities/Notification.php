@@ -69,7 +69,7 @@ class Notification extends Entity {
         $url='/miPerfil';
 
         $notify = Notification::create(
-            array('title'=>'Haz sido promovido a Problem Setter. ¡Felicidades!.',
+            array('title'=>'Ahora eres Problem Setter. ¡Felicidades!',
                 'description'=>'Promote',
                 //  'url'=> $url.$id,
                 'url'=> $url,

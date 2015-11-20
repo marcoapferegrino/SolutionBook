@@ -131,7 +131,7 @@ var callbackLike=function showNotification1(data) {
         //document.getElementById("likeList").innerHTML =numbbb+1;
         // document.getElementById("lastLike").style.display = 'none';
         // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
-        $("#likeList").prepend('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
+        $("#likeList").prepend('<li style="background-color:  palegreen"  class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
         "<small>Fecha:"+dats.date+'</small></a></li>');
 
 
@@ -157,12 +157,8 @@ var callbackWarning=function showNotification2(data) {
         document.getElementById("notify").innerHTML =numbbb+1;
         //document.getElementById("likeList").innerHTML =numbbb+1;
         // document.getElementById("lastLike").style.display = 'none';
-         $("#likeList").prepend('<li class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
-
-       // alert('warnings');
-
-//        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
-        // TODO: use the text in the notification
+         $("#likeList").prepend('<li style="background-color:  palegoldenrod" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
+         "<small>Fecha:"+dats.date+'</small></a></li>');
     }
 
 
@@ -183,7 +179,7 @@ var callbackPromote=function showNotification3(data) {
         //document.getElementById("likeList").innerHTML =numbbb+1;
         // document.getElementById("lastLike").style.display = 'none';
         // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
-        $("#likeList").prepend('<li class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
+        $("#likeList").prepend('<li style="background-color:  #a6e1ec" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
         "<small>Fecha:"+dats.date+'</small></a></li>');
 
 

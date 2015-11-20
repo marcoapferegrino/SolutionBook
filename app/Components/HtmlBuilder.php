@@ -163,7 +163,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
                   ->where('user_id','=',$user->id)
                   //->where('user_id','=',11)
                  // ->where('description','=','Like')
-                  ->where('viewed','=',0)->orderBy('created_at')->get();
+                  ->where('viewed','=',0)->orderBy('created_at','desc')->get();
 
 
        // dd($lik,$user->id);

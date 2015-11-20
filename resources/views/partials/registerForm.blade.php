@@ -5,7 +5,54 @@
                     <h3 class="panel-title">Tu cuenta</h3>
                 </div>
                 <div class="panel-body">
+                    <div class="form-group">
+                        <h4><label class="control-label"><strong>Username</strong></label></h4>
+                        @if($nombre==null)
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+                        @else
+                            <input type="text" name="username" id="username"  class="form-control" value="{{ $nombre }}">
+                        @endif
+                        <button type='button' name='getdata' id='getdata' class="btn btn-info pull-right"> <i class="fa fa-search">Buscar nombre de usuario</i> </button>
 
+                    </div>
+                    <div class="form-group">
+                    <div class="col-md-3" id="icon" >
+
+                    </div>
+                    </div>
+<br>
+                    <div class="form-group">
+                        <h4><label class=" control-label"><strong>E-Mail</strong></label></h4>
+                        @if($correo==null)
+                            <input type="email"  name="email" class="form-control" value="{{ $correo}}" placeholder="Email">
+
+                        @else
+                            <input type="text" value="{{$correo}}"  name="email" hidden>
+                            <input type="email" class="form-control" disabled value="{{ $correo }}">
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <h4><label class=" control-label"><strong>Avatar</strong></label></h4>
+                        @if($avatar!=null)
+                            <img width="120px" height="120" src="{{$avatar}}" />
+                            <input type="text" value="{{$avatar}}"  name="avatarSocial" hidden><br><br>
+                            <h4><strong>Cambiar</strong></h4>
+                        @endif
+                        {!! Form::file('avatar',array('id'=>'avatar', 'class'=>'btn btn-info','style'=>'')) !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h4><label class=" control-label"><strong>Password *</strong></label></h4>
+                        <input type="password" id="password" class="form-control" id="password" name="password" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <h4><label class=" control-label"  id="labelPasswordConfirm"><strong>Otra vez la Password *</strong></label></h4>
+                        <input type="password" id="passwordConfirm" class="form-control" name="password_confirmation">
+                    </div>
+
+
+                    <!--     Formulario Luis
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -84,7 +131,7 @@
                     @endif
                 </div>
             </div>
-
+-->
             <!--
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -123,7 +170,10 @@
             </div>-->
 
             <div class="form-group navbar-default nav-justified  " >
-                {!! Form::submit('Registrar',array('class'=>'btn btn-success btn-block', 'id'=>'submit')) !!}
+                {!! Form::submit('Registrar',array('class'=>'btn btn-success btn-block', 'id'=>'guardar')) !!}
                 {!! Form::close() !!}
             </div>
-        </div>
+
+                </div>
+            </div>
+       </div>

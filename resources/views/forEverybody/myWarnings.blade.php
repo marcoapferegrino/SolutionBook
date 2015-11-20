@@ -40,7 +40,7 @@
                                                         @endif
                                                     @endforeach
                                                 </span>
-                                                @else
+                                                @elseif($warning->state=="expired")
                                                     <strong> Ya ha sido resuelta. Se eliminará automaticamente en 7 días</strong>
 
                                                 @endif
@@ -168,5 +168,5 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div> </div>
 @endsection

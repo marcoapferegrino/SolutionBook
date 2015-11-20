@@ -8,13 +8,13 @@ function checkPasswords()
     if(password === passwordConfirm)
     {
         $('#formGroup').removeClass('has-error').addClass('has-success');
-        $('#labelPasswordConfirm').text('Verifica Contraseña*       Válido');
+        $('#labelPasswordConfirm').html('<strong>Verifica Contraseña*       Válido</strong>');
         $('#guardar').removeClass('hidden');
     }
     else
     {
         $('#formGroup').addClass('has-error');
-        $('#labelPasswordConfirm').text('Verifica Contraseña*    No coincide');
+        $('#labelPasswordConfirm').html('<strong>Verifica Contraseña*    No coincide</strong>');
         $('#guardar').addClass('hidden');
     }
 }

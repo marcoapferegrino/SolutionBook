@@ -11,8 +11,12 @@
         {!! Form::open(['route' => 'welcome.addRegister','id'=>'register_user', 'files'=>true,'method' => 'POST']) !!}
 
         <br>
+        <div class="page-header text-center bg-success">
+            <h1>Solution Book!
+                <small>Bienvenido ya casi podrás disfrutar de SolutionBook</small>
+            </h1>
+        </div>
 
-        <span>Ya casi podras disfrutar de Solution Book!!</span>
 
         @include('partials.registerForm')
 

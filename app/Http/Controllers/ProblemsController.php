@@ -13,13 +13,12 @@ use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\ProblemasTags;
 
 use Illuminate\Support\Facades\Session;
-use SolutionBook\Entities\User;
+
 use SolutionBook\Http\Requests\AddProblemRequest;
 use SolutionBook\Http\Requests\UpdateProblemRequest;
 use SolutionBook\Entities\Files;
 use SolutionBook\Http\Requests;
-use SolutionBook\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+
 
 class ProblemsController extends Controller
 {
@@ -391,13 +390,13 @@ class ProblemsController extends Controller
         $nameUser= auth()->user()->username;
         $institution= $request->institucion;
         $description= $request->descripcion;
-        $limitTime= $request->limitTime;
-        $limitMem= $request->limitMemory;
+//        $limitTime= $request->limitTime;
+//        $limitMem= $request->limitMemory;
         $judge= $request->judgeList;
         $ejemploen=$request->ejemploen;
         $ejemplosa=$request->ejemplosa;
-        $input= $request->inputs;
-        $output= $request->outputs;
+//        $input= $request->inputs;
+//        $output= $request->outputs;
         $tags= $request->tags;
         $images= $request->images;
         $youtube= $request->youtube;
@@ -407,16 +406,16 @@ class ProblemsController extends Controller
         if($judge=='#'){
             $judge=null;
         }
-        if(is_numeric($limitTime)&&$limitTime!=0){
-            $horas = floor($limitTime / 3600);
-            $minutos = floor(($limitTime - ($horas * 3600)) / 60);
-            $segundos = $limitTime - ($horas * 3600) - ($minutos * 60);
-        }
-        else{
-            $horas=0;
-            $minutos = 0;
-            $segundos =0;
-        }
+//        if(is_numeric($limitTime)&&$limitTime!=0){
+//            $horas = floor($limitTime / 3600);
+//            $minutos = floor(($limitTime - ($horas * 3600)) / 60);
+//            $segundos = $limitTime - ($horas * 3600) - ($minutos * 60);
+//        }
+//        else{
+//            $horas=0;
+//            $minutos = 0;
+//            $segundos =0;
+//        }
         $problem=Problem::find($idProblem);
         $problem->update([
             'title'=>$title,
@@ -424,8 +423,8 @@ class ProblemsController extends Controller
             'institution'=> $institution,
             'description'=> $description,
             'numSolutions' =>0,
-            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
-            'limitMemory' => $limitMem,
+//            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
+//            'limitMemory' => $limitMem,
             'numWarnings' => 0,
             'state' => 'active',
             'share'=>($share!=null)?$share:'no',
@@ -494,20 +493,20 @@ class ProblemsController extends Controller
 
 
 
-        $in=$input;//foreach($input as $i=>$in){
-        $nameIn="input0.txt";
-        $namePathIn=$pathInput.$nameIn;
-        $fp = fopen($namePathIn, "w");
-        fputs($fp, $in);
-        fclose($fp);
-        // }
-
-        $out=$output;//foreach($output as $i=>$out){
-        $nameOut="output0.txt";
-        $namePathOut=$pathOutput.$nameOut;
-        $fp = fopen($namePathOut, "w");
-        fputs($fp, $out);
-        fclose($fp);
+//        $in=$input;//foreach($input as $i=>$in){
+//        $nameIn="input0.txt";
+//        $namePathIn=$pathInput.$nameIn;
+//        $fp = fopen($namePathIn, "w");
+//        fputs($fp, $in);
+//        fclose($fp);
+//        // }
+//
+//        $out=$output;//foreach($output as $i=>$out){
+//        $nameOut="output0.txt";
+//        $namePathOut=$pathOutput.$nameOut;
+//        $fp = fopen($namePathOut, "w");
+//        fputs($fp, $out);
+//        fclose($fp);
 
         // }
         $tagsActuales=Problem::find($idProblem)->tags;

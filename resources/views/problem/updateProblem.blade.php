@@ -50,7 +50,7 @@
                             <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo </strong></label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos'])!!}
+                                    {!!Form::text('limitTime',$dataProblem->limitTime,['class'=>'form-control','placeholder'=>'segundos','disabled'])!!}
                                     <div class="input-group-addon">segs</div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                             <label for="limitMemory" class="col-sm-2 control-label"><strong>Limite de Memoria *</strong></label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    {!!Form::text('limitMemory',$dataProblem->limitMemory,['class'=>'form-control','placeholder'=>'bytes'])!!}
+                                    {!!Form::text('limitMemory',$dataProblem->limitMemory,['class'=>'form-control','placeholder'=>'bytes','disabled'])!!}
                                     <div class="input-group-addon">kb</div>
                                 </div>
                             </div>
@@ -110,11 +110,11 @@
                             <div class="form-group" >
                                 <label for="input" class="col-sm-2 control-label"><strong>Entrada *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" >{{$inputs}}</textarea>
+                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" disabled >{{$inputs}}</textarea>
                                 </div>
                                 <label for="output" class="col-sm-1 control-label"><strong>Salida *</strong></label>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 name="outputs" class="form-control" >{{$outputs}}</textarea>
+                                    <textarea rows=8 name="outputs" class="form-control" disabled>{{$outputs}}</textarea>
                                 </div>
                                 {{--<div class="col-sm-1 ">
                                     <button type="button" class="btn btn-primary btn-lg ">
@@ -202,8 +202,8 @@
 
                         <div class="form-group">
                             <label for="submit" class="col-sm-5 control-label"><strong></strong></label>
-                            <div class="col-sm-4">
-                                {!!Form::submit('Guardar',['class'=>'form-control btn-info'])!!}
+                            <div class="col-sm-12">
+                                {!!Form::submit('Guardar',['class'=>'btn btn-info btn-lg btn-block'])!!}
                             </div>
 
                         </div>

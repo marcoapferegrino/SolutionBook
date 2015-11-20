@@ -152,6 +152,22 @@ return [
 		'audioFile'=>[
 			'extension'=>'La extensión del audio no corresponde a .mp3 .',
 		],
+        'facebook' => [
+            'url'=>'El campo Facebook no coincide con el formato de una página de Facebook',
+            'regex'=>'El campo Facebook no coincide con el formato de una página de Facebook',
+        ],
+        'twitter' => [
+            'url'=>'El campo Twitter no coincide con el formato de una página de Twitter',
+            'regex'=>'El campo Twitter no coincide con el formato de una página de Twitter',
+        ],
+        'addressWeb' => [
+            'url'=>'El campo Url no coincide con el formato de una Url',
+            'regex'=>'El campo Url no coincide con el formato de una Url',
+            'required' => 'El campo Url es requerido',
+        ],
+        'name' => [
+            'required' => 'El campo Nombre es requerido',
+        ],
 		
     ],
 

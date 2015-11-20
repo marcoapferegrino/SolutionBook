@@ -14,37 +14,41 @@
                             </button>
                         </h3>    
                     </div>
-                </div>
-                    <div class="panel panel-info">
+                        @if($judges->total()==0)
+                        <center><h4>No hay jueces registrados</h4></center>
+                        @else
                 <table class="table table-hover">
                     <tr>
-                        <th colspan=2>
-                            Juez
+                        <th></th>
+                        <th>
+                            <h4>Juez</h4>
                         </th>
+                        <th colspan=2><center><h4>Redes sociales</h4></center></th>
+                        <th></th>
                     </tr>
                     @foreach($judges as $j)
                         <tr>
                             <td>
-                                <img width=50px height=50px src="{{ asset($j->image) }}">
+                                <img width=70px height=70px src="{{ asset($j->image) }}">
                             </td>
                             <td>
                                 <a href="{{$j->addressWeb}}">{{$j->name}}</a>
                             </td>
                             <td>
                                 @if($j->facebook!=null)
-                                    <a href="{{$j->facebook}}">Facebook</a>
+                                    <center><a href="{{$j->facebook}}"><img src="auth/facebook.jpg" width="50px"></a></center>
                                     @endif
                             </td>
                             <td>
                                 @if($j->twitter!=null)
-                                    <a href="{{$j->twitter}}">Twitter</a>
+                                    <center><a href="{{$j->twitter}}"><img src="auth/twitter.png" width="50px"></a></center>
                                 @endif
                             </td>
                             <td>
-                                <a data-toggle="modal" data-target="#updateJudge" data-id="{{$j->id}}" data-name="{{$j->name}}"  data-web="{{$j->addressWeb}}"  data-facebook="{{$j->facebook}}" data-twitter="{{$j->twitter}}" data-img="{{$j->image}}" role="button" class="btn btn-info btn-sm">
+                                <a data-toggle="modal" data-target="#updateJudge" data-id="{{$j->id}}" data-name="{{$j->name}}"  data-web="{{$j->addressWeb}}"  data-facebook="{{$j->facebook}}" data-twitter="{{$j->twitter}}" data-img="{{$j->image}}" role="button" class="btn btn-warning btn-sm">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </a>
-                                <a data-toggle="modal" data-target="#eliminar" data-whatever="{{$j->id}}" role="button" class="btn btn-danger btn-sm">
+                                <a data-toggle="modal" data-target="#eliminar" data-whatever="{{$j->id}}" data-name="{{$j->name}}" role="button" class="btn btn-danger btn-sm">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </a>
                             </td>
@@ -52,7 +56,7 @@
                         </tr>
                         @endforeach
                 </table>
-
+                @endif
 
                     </div>
             </div>
@@ -68,6 +72,7 @@
     @include('problem.formJudge')
     @include('super.partials.updateJudge')
     @include('super.partials.deleteJudgeModal')
+    <center> {!!$judges->render()!!}</center>
 @endsection
 
 @section('scripts')

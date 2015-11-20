@@ -23,7 +23,7 @@ $(document).ready(function() {
         var blank = consulta.indexOf(" ");
 
         if(consulta==''||consulta==null||blank!=-1||letter==-1){
-            $("#icon").html("<br><br><span style=' font-size: 10pt' class='label label-danger'> No válido<i style='font-size: 150%' class='fa fa-close '></i></span>");
+            $("#icon").html("<span style=' font-size: 10pt' class='label label-danger'> No válido<i style='font-size: 150%' class='fa fa-close '></i></span>");
 
         }else{
         //hace la búsqueda
@@ -48,11 +48,11 @@ $(document).ready(function() {
                 $("#icon").empty();
                // $("#result_table").append(data);
                 if(data=="yes"){
-                $("#icon").html("<br><br><span style=' font-size: 10pt' class='label label-success'> Disponible <i style='font-size: 150%' class='fa fa-check '></i></span>");
+                $("#icon").html("<span style=' font-size: 10pt' class='label label-success'> Disponible <i style='font-size: 150%' class='fa fa-check '></i></span>");
                 }
                 else{
 
-                $("#icon").html("<br><br><span style=' font-size: 10pt' class='label label-danger'> No disponible <i style='font-size: 150%' class='fa fa-close '></i></span>");
+                $("#icon").html("<span style=' font-size: 10pt' class='label label-danger'> No disponible <i style='font-size: 150%' class='fa fa-close '></i></span>");
 
                 }
 

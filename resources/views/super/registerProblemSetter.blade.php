@@ -6,7 +6,7 @@
 
 
         <div class="col-lg-9 col-md-push-2 " >
-            {!! Form::open(['route' => 'users.addProblemSetter','method' => 'POST','class'=>'form-inline','files'=>true]) !!}
+            {!! Form::open(['route' => 'users.addProblemSetter','method' => 'POST','files'=>true]) !!}
 
             <br>
 
@@ -21,4 +21,9 @@
 
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{asset('/js/findUsername.js')}}"></script>
+    <script src="{{asset('/js/comparePasswords.js')}}"></script>
 @endsection

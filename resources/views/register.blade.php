@@ -8,7 +8,7 @@
 
 
     <div class="col-lg-10 col-md-push-1 " >
-        {!! Form::open(['route' => 'welcome.addRegister','id'=>'register_user', 'files'=>true,'method' => 'POST','class'=>'form-inline']) !!}
+        {!! Form::open(['route' => 'welcome.addRegister','id'=>'register_user', 'files'=>true,'method' => 'POST']) !!}
 
         <br>
 
@@ -25,5 +25,5 @@
 @endsection
 @section('scripts')
     <script src="{{asset('/js/findUsername.js')}}"></script>
-    <script src="{{asset('/js/confirmPassword.js')}}"></script>
+    <script src="{{asset('/js/comparePasswords.js')}}"></script>
 @endsection

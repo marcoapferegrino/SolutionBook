@@ -106,8 +106,8 @@
 
                         </div>
                         @if(!($cSolutions==0 && $javaSolutions==0 && $pythonSolutions==0 && $cplusSolutions==0))
-                            <div class="row col-sm-10 ">
-                                <div class="well well-sm  pull-right " id="container" data-cnorm="{{$cSolutions}}" data-java="{{$javaSolutions}}" data-python="{{$pythonSolutions}}" data-cplus="{{$cplusSolutions}}" >
+                            <div class="row col-sm-12 ">
+                                <div class="well well-sm" id="containerGraph" data-cnorm="{{$cSolutions}}" data-java="{{$javaSolutions}}" data-python="{{$pythonSolutions}}" data-cplus="{{$cplusSolutions}}" >
 
                                 </div>
                             </div>
@@ -207,17 +207,22 @@
     <script src="{{ asset('/js/modalDeleteProblem.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
     <script src="{{ asset('/js/disqus.js') }}"></script>
-    <script src="/jsCharts/highcharts.js"></script>
-    <script src="/jsCharts/modules/exporting.js"></script>
+    <script src="{{ asset('/jsCharts/highcharts.js') }}"></script>
+    <script src="{{ asset('/jsCharts/modules/exporting.js') }}"></script>
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
     <script>
         $(function () {
 
-            var cData =$('#container').data('cnorm');
-            var javaData =$('#container').data('java');
-            var pythonData =$('#container').data('python');
-            var cPlusData =$('#container').data('cplus');
-            $('#container').highcharts({
+            var cData =$('#containerGraph').data('cnorm');
+            var javaData =$('#containerGraph').data('java');
+            var pythonData =$('#containerGraph').data('python');
+            var cPlusData =$('#containerGraph').data('cplus');
+
+            console.log(cData);
+            console.log(javaData);
+            console.log(pythonData);
+            console.log(cPlusData);
+            $('#containerGraph').highcharts({
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -231,6 +236,7 @@
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                 },
                 plotOptions: {
+
                     pie: {
                         allowPointSelect: true,
                         cursor: 'pointer',
@@ -264,5 +270,6 @@
                 }]
             });
         });
+
     </script>
 @endsection

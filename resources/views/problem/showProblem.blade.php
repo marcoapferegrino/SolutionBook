@@ -74,9 +74,14 @@
                               @foreach($docs as $i=>$pdf)
                                 <a href="{{$pdf->path}}">
                                 @if($pdf->type=='pdf')
-                                        <img width="20px" height="30px" src="{{ asset('/problem/pdf.jpg') }}" alt="{{$pdf->name}}">
+                                    <a style="color:mediumblue;" href="{{url($pdf->path)}}">
+                                        <img width="40px" height="45px" src="{{ asset('/problem/pdf.jpg') }}" alt="{{$pdf->name}}">
+                                    </a>
+
                                 @else
-                                    <img width="20px" height="30px" src="{{ asset('/problem/word.jpg') }}" alt="{{$pdf->name}}">
+                                    <a style="color:mediumblue;" href="{{url($pdf->path)}}">
+                                        <img width="40px" height="45px" src="{{ asset('/problem/word.jpg') }}" alt="{{$pdf->name}}">
+                                    </a>
                                 @endif
                                 </a>
                             @endforeach  
@@ -127,7 +132,7 @@
                         
                         <div class=" row col-sm-4">
                             <a class="btn btn-warning btn-lg pull-right navbar-fixed-top" href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
-                                <i class="fa fa-code"></i> Agregar Solución
+                                <i class="fa fa-code"></i> {{(Auth::guest())?"¿Qué esperas?, ¡inicia sesión y agrega tu solución!":"Agregar Solución"}}
                             </a>
                             <br>
                         </div>

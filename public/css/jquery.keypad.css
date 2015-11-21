@@ -1,7 +1,12 @@
 /* Main style sheet for jQuery Keypad v2.0.0. */
 button.keypad-trigger {
-	width: 25px;
-	padding: 0px;
+	width: 200px;
+	padding: 10px;
+	padding-top: 10px;
+	background: #80DEEA;
+	border: none;
+	font-family: Roboto,Verdana;
+
 }
 img.keypad-trigger {
 	margin: 2px;

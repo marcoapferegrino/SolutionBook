@@ -145,7 +145,7 @@
 			@property [isRTL=false] {boolean} True if right-to-left language, false if left-to-right. */
 		regionalOptions: { // Available regional settings, indexed by language/country code
 			'': { // Default regional settings - English/US
-				buttonText: '...',
+				buttonText: 'Caracteres especiales',
 				buttonStatus: 'Open the keypad',
 				closeText: 'Close',
 				closeStatus: 'Close the keypad',

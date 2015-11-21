@@ -11,7 +11,7 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3>Editar solución para el problema: #{{$solution->problem_id}}</h3>
+                        <h3>Editar solución #{{$solution->id}} para el problema: #{{$solution->problem_id}}</h3>
                     </div>
 
                     <div class="panel-body">
@@ -21,6 +21,9 @@
                         'route' => 'solution.updateSolution',
                         'method' => 'post',
                         'files'=>true]) !!}
+
+
+
 
 
                         {!! Form::hidden('idProblem',$solution->problem_id,array('id' => 'idProblem')) !!}

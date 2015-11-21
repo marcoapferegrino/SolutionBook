@@ -33,6 +33,7 @@
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
                             {!! Form::textarea('explanation',null,array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
+
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">

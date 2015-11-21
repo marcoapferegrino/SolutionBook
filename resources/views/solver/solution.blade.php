@@ -10,8 +10,8 @@
 @section('content')
     <h4>
         <ol class="breadcrumb">
-            <li><a href="{{url('/showProblem/'.$solutionComplete->problem_id)}}">Problema | {{$solutionComplete->problem_id}}</a></li>
-            <li class="active">Solución | {{$solutionComplete->id}}</li>
+            <li><a href="{{url('/showProblem/'.$solution->problem_id)}}">Problema | {{$solution->problem_id}}</a></li>
+            <li class="active">Solución | {{$solution->id}}</li>
         </ol>
     </h4>
     <div class="container">
@@ -23,14 +23,14 @@
                         <div class="row">
                             <h3>
                                 <div class="col-md-4">
-                                    <img src="{{$solutionComplete->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
+                                    <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
                                     <small>Solución por</small>
-                                    <small class="text-capitalize">{{$solutionComplete->username}}</small>
+                                    <small class="text-capitalize">{{$solution->username}}</small>
                                     <br> <small>Email</small>
-                                    <a href="mailto:{{$solutionComplete->email}}">{{$solutionComplete->email}}</a>
-                                    @if(isset($solutionComplete->institution))
+                                    <a href="mailto:{{$solution->email}}">{{$solution->email}}</a>
+                                    @if(isset($solution->institution))
                                         <br> <small>Institución</small>
-                                        <small class="text-capitalize">{{$solutionComplete->institution}}</small>
+                                        <small class="text-capitalize">{{$solution->institution}}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8 ">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="row">
                             <div class="text-center">
-                                {!! Form::open(['route' => ['solution.multimediaZip',$solutionComplete->problem_id,$solutionComplete->id],'method' => 'get']) !!}
+                                {!! Form::open(['route' => ['solution.multimediaZip',$solution->problem_id,$solution->id],'method' => 'get']) !!}
                                 <button type="submit" class="btn btn-warning">Descargar ZIP multimedia</button>
 
                                 {!! Form::close() !!}
@@ -69,9 +69,8 @@
                                 </div>
 
                                 <p class="lead"><strong>Explicación</strong></p>
-                                <pre>
-                                    <p class="text-justify">{{$solutionComplete->explanation}}</p>
-                                </pre>
+                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:400px;">
+                                    {{$solution->explanation}}</pre>
                             </div>
                         </div>
                         <div class="row">
@@ -81,11 +80,11 @@
                                         <p class="lead"><strong>Detalles</strong></p>
                                         <dl class="dl-horizontal">
                                             <dt>Tiempo hecho</dt>
-                                            <dd>{{$solutionComplete->limitTimeString}} segs</dd>
+                                            <dd>{{$solution->limitTimeString}} segs</dd>
                                             <dt>Memoria usada</dt>
-                                            <dd>{{$solutionComplete->limitMemory}} kb</dd>
+                                            <dd>{{$solution->limitMemory}} kb</dd>
                                             <dt>Lenguaje</dt>
-                                            <dd class="text-capitalize">{{$solutionComplete->language}}</dd>
+                                            <dd class="text-capitalize">{{$solution->language}}</dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -121,7 +120,7 @@
 
                         @if(!$code===false)
                             <pre>
-                                        <code class="{{$solutionComplete->language}}">{{$code}}</code>
+                                        <code class="{{$solution->language}}">{{$code}}</code>
                                     </pre>
                         @else
                             <p class="text-danger">Esta solución no tiene tiene código deberías reportarla</p>

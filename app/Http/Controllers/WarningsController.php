@@ -51,6 +51,7 @@ class WarningsController extends Controller
             ->get();
         /*If dont exist we create the new warning else we dont.*/
         if (count($warningRepeated)==0) {
+
             $linkAux=$type==0 ? 'showSolution/' : 'showProblem/';
              $link=Link::create([
                 'link'=>$linkAux.$target->id,

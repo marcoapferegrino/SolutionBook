@@ -118,7 +118,7 @@ class WelcomeController extends Controller {
         $user->save();
         }
 
-        Session::flash('message', '¡Ya puedes iniciar sesión '.$user->username.'!');
+        Session::flash('message', 'Tu registro fue exitoso '.$user->username.'');//MSG01
         Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver","addSolver");
         return Redirect::to('/auth/login');
 

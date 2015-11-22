@@ -41,7 +41,7 @@
                                                     @endforeach
                                                 </span>
                                                 @elseif($warning->state=="expired")
-                                                    <strong> Ya ha sido resuelta. Se eliminará automaticamente en 7 días</strong>
+                                                    <strong> Amonestación resuelta. Se eliminará automaticamente en 7 días</strong>
 
                                                 @endif
 
@@ -73,6 +73,8 @@
                                     </div>
                                     <div id="collapse{{$warning->id}}" align="middle" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$warning->id}}">
                                         <div class="panel-body">
+                                            <p class="text-justify"> <span style="font-size: 105%" class="label label-success">Reportado: {{\SolutionBook\Components\HtmlBuilder::dateDiff($warning->created_at)}}, procura resolverlo antes de 14 días </span></p>
+
                                             <p class="text-justify">{{$warning->description}}</p>
                                         </div>
                                         <div class="well"><strong>Links anexos:</strong> <br>
@@ -91,7 +93,12 @@
                                             @endforeach
 
                                             @foreach($warning->links as $link)
+                                                @if($link->type=='Referencia')
+
+
+                                                @else
                                                 <a href="{{$link->link}}" target="_blank">{{$link->link}}</a><br>
+                                                @endif
                                             @endforeach
                                         </div>
                                         <div class="row">

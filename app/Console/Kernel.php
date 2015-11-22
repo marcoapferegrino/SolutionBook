@@ -4,6 +4,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use SolutionBook\Entities\Link;
 use SolutionBook\Entities\Warning;
 
 class Kernel extends ConsoleKernel {
@@ -37,6 +38,8 @@ class Kernel extends ConsoleKernel {
             //       ->where('warnings.created_at','>',$limit);
 
             foreach($warnings as $warning){
+                $link=Link::find($warning->link_id);
+                $link->delete();
                 $warning->delete();
 
             }

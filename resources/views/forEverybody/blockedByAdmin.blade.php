@@ -11,7 +11,7 @@
                         <h3>Cuenta bloqueda</h3>
                     </div>
                     <div class="panel-body" align="middle">
-                        <strong> Comunicate con el administrador para mas información</strong> <br>
+                        <strong> Esta cuenta ha sido bloqueada. Contacte al administrador para más información</strong> <br>
                         <img src="blocked.jpg" align="middle">
                     </div>
                 </div>

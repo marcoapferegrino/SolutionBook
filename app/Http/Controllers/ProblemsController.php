@@ -305,7 +305,13 @@ class ProblemsController extends Controller
         }
 //        $warnings=Problem::find($idProblem)->warnings;
 
-        $links=Problem::find($idProblem)->links->where('type','!=','Amonestación');
+        $problemLIS = Problem::find($idProblem);
+        $links=Link::where('problem_id','=',$problemLIS->id)->where('type','!=','Amonestación')->get();
+        //////////////// LUIS
+
+      //  dd($links);
+        //////////////////
+
 
 //      $solutions=Problem::find(10)->solutions;
 

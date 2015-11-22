@@ -132,8 +132,8 @@ class SolutionsController extends Controller
             }
 
             Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
-            Files::addOrReplaceLink($request->repositorio,$solution->id,'Github');
-            Files::addOrReplaceLink($request->web,$solution->id,'Facebook');
+            Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
+            Files::addOrReplaceLink($request->web,$solution->id,'Web');
             $problem->numSolutions = $numSolutions+1;
             $problem->save();
 
@@ -168,13 +168,12 @@ class SolutionsController extends Controller
         $images = Files::where('solution_id',$solutionPart->id)->where('type','imagenApoyo')->get();
         $audio = Files::where('solution_id',$solutionPart->id)->where('type','notaVoz')->get();
         $solution = $solutionPart->solutionComplete();
-//        dd($solution);
 
+//        dd($idSolution);
+        $links = Link::where('solution_id',intval($idSolution))
+            ->where('type','<>','Referencia')
+            ->where('type','<>','Amonestación')->get();
 
-//        dd($solution->limitTime);
-        $links = Link::all()->where('solution_id',intval($idSolution));
-
-//   dd($idSolution,$links->toArray());
         try {
             $code = @file_get_contents($solution->path);
 //        dd($code);
@@ -268,8 +267,8 @@ class SolutionsController extends Controller
             $audio = Files::where('solution_id',$solution->id)->where('type','notaVoz')->get();
             $solutionComplete = $solution->solutionComplete();
             $linkYouTube = Link::all()->where('solution_id',intval($solution->id))->where('type','YouTube')->first();
-            $linkGitHub = Link::all()->where('solution_id',intval($solution->id))->where('type','Github')->first();
-            $linkWeb = Link::all()->where('solution_id',intval($solution->id))->where('type','Facebook')->first();
+            $linkGitHub = Link::all()->where('solution_id',intval($solution->id))->where('type','Repositorio')->first();
+            $linkWeb = Link::all()->where('solution_id',intval($solution->id))->where('type','Web')->first();
 //            dd($solutionComplete);
 
 //            dd($solution,$links);

@@ -71,7 +71,7 @@ class Files extends Entity {
     public static function addOrReplaceLink($linkRequest, $idSolution,$type,$owner=null)
     {
         //$owner=1 ->  problems : solutions
-        if ($linkRequest != null || $linkRequest != " ") {
+        if ($linkRequest != null && $linkRequest != " "&& $linkRequest != "") {
 
             $linkYouTube = Link::all()->where('solution_id', $idSolution)->where('type', $type)->first();
 

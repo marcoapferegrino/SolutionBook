@@ -67,6 +67,8 @@ class Problem extends Entity {
     {
         $previewSolutions = self::solutionsPreviewBase();
         $previewSolutions= $previewSolutions->where('solutions.problem_id',$this->id)
+            ->where('solutions.state','<>','blocked')
+            ->where('solutions.state','<>','deleted')
             ->paginate(10);
 
         return $previewSolutions;
@@ -99,7 +101,9 @@ class Problem extends Entity {
             }
 
         }
-        $previewSolutionsEmpty = $previewSolutions->get();
+        $previewSolutionsEmpty = $previewSolutions
+            ->where('solutions.state','<>','blocked')
+            ->where('solutions.state','<>','deleted')->get();
 
         if (empty($previewSolutionsEmpty)) {
            Session::flash('error', 'No hay coincidencias con esta búsqueda.');
@@ -114,7 +118,10 @@ class Problem extends Entity {
             ->join('code_solutions','code_solutions.id','=','solutions.codeSolution_id')
             ->select('code_solutions.language','code_solutions.created_at')
             ->where('solutions.problem_id',$this->id)
-            ->where('code_solutions.language',$language)->get();
+            ->where('code_solutions.language',$language)
+            ->where('solutions.state','<>','blocked')
+            ->where('solutions.state','<>','deleted')
+            ->get();
 
 
         return $solutions;

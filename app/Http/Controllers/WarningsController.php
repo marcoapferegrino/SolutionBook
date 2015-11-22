@@ -4,9 +4,7 @@ namespace SolutionBook\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use League\Flysystem\Exception;
 use SolutionBook\Entities\Link;
@@ -14,10 +12,10 @@ use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\Notify;
 use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Solution;
+use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests;
-use SolutionBook\Http\Controllers\Controller;
 
 class WarningsController extends Controller
 {
@@ -29,7 +27,6 @@ class WarningsController extends Controller
     public function addWarning(Request $request)
     {
 
-        $message='';  //mensaje para enviar por pusher
         $alerterUser = auth()->user();
         $type   = $request->type;
         $id     = $request->id;
@@ -46,6 +43,7 @@ class WarningsController extends Controller
             Session::flash('error','Parece que no es un formato aceptable');
             return redirect()->route('warning.getAddWarning');
         }
+        $user=User::find($target->user_id);
         /*Getting warnigns repeated by the same alerterUser */
         $warningRepeated = Warning::where($type==0 ? 'solution_id' : 'problem_id',$target->id)
             ->where('alerter_user',$alerterUser->id)
@@ -68,7 +66,7 @@ class WarningsController extends Controller
                     $type==0 ? 'solution_id' : 'problem_id'=>$target->id,
                 ]);
             }
-        $user=User::find($target->user_id);
+
 
         if($type==0){//solucion  pusher
 
@@ -88,7 +86,8 @@ class WarningsController extends Controller
 
 
         }
-
+        $target->state='suspended';
+        $target->save();
         $warning = Warning::create([
             'description'   => $request->description,
             'reason'        => $reason,
@@ -97,14 +96,15 @@ class WarningsController extends Controller
             'link_id'       => $link->id,
             'user_id'       => $target->user_id,
             'alerter_user'  => $alerterUser->id,
+            'created_at'    => Carbon::now(),
             $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 
-            $warning->created_at=Carbon::now();
-            $warning->save();
+//            $warning->created_at=Carbon::now();
+//            $warning->save();
         }//end if is not repeated
 
-
+//        Tools::sendEmail($user->email,$user->username,"Te han amonestado","addWarning");
         Session::flash('message','Hemos enviado tu amonestación la resolveremos lo más pronto posible. Gracias :D');
         return redirect()->back();
 

@@ -21,14 +21,22 @@
                 <span class="label label-info numLikes">{{$solution->numLikes}} likes</span>
                 @if(isset($solution->state))
                     <?php
-                    if($solution->state=='active')
+                    if($solution->state=='active'){
                         $class='success';
-                    elseif($solution->state=='suspended' || $solution->state=='blocked')
+                        $title='Solución correcta';
+                    }
+                    elseif($solution->state=='suspended'){
+                        $class='warning';
+                        $title='En revisión';
+                    }
+
+                    else{
                         $class='danger';
-                    else
-                        $class='info';
+                        $title='Esto no debió pasar';
+                    }
+
                     ?>
-                    <span class="label label-{{$class}}">{{$solution->state}}</span>
+                    <span data-toggle="tooltip" data-placement="right" title="{{$title}}" class="label label-{{$class}}">{{($solution->state=='active')?'Activa':'Suspendida' }}</span>
 
                 @endif
             </div>

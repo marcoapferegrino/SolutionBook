@@ -179,6 +179,11 @@ class Tools
                 $data['subtitle'] = "Ahora eres un Solver empieza a solucionar problemas";
                 $data['content'] = "Recuerda que al hacer soluciones ayudaras a la comunidad por favor explica tus soluciones";
                 break;
+            case "addWarning":
+                $data['title'] = "Tienes una amonestación";
+                $data['subtitle'] = "Por favor revisa tus amonestaciones";
+                $data['content'] = "Tienes que editar el contenido o si crees que es falsa ignorala el administrador se encargará de deliberar. Recuerda que es para mejorar el contenido de la web.";
+                break;
         }
 
         return $data;

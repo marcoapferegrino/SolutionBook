@@ -81,12 +81,12 @@
 
                                                     <a href="{{$ref->link}}" target="_blank"><strong>Publicación de la solución <i class="fa fa-external-link-square"></i>
                                                         </strong></a><br>
-                                                    <?php break; ?>
+
                                                 @elseif($ref->problem_id!=null && $ref->problem_id==$warning->problem_id && $ref->type=='Referencia')
 
                                                     <a href="{{$ref->link}}" target="_blank">Publicación del problema <i class="fa fa-external-link-square"></i>
                                                     </a><br>
-                                                    <?php break; ?>
+
                                                 @endif
                                             @endforeach
 
@@ -118,10 +118,10 @@
 
                                                 @if(Auth::getRol()!="super")
                                                     @if($warning->solution_id!=null)
-                                                        <a href="{{url('/updateSolution/'.$warning->solution_id)}}"><button type="button" class="btn btn-block btn-info" >Modificar solución</button></a>
+                                                        <a href="{{url('/getUpdateSolution/'.$warning->solution_id)}}"><button type="button" class="btn btn-block btn-info" >Modificar solución</button></a>
 
                                                     @elseif($warning->problem_id!=null)
-                                                        <a href="{{url('/updateProblem/'.$warning->problem_id)}}"><button type="button" class="btn btn-block btn-info" >Modificar problema</button></a>
+                                                        <a href="{{url('/updateGetProblem/'.$warning->problem_id)}}"><button type="button" class="btn btn-block btn-info" >Modificar problema</button></a>
 
                                                     @endif
 

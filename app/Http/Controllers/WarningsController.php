@@ -105,7 +105,7 @@ class WarningsController extends Controller
 //            $warning->save();
         }//end if is not repeated
 
-//        Tools::sendEmail($user->email,$user->username,"Te han amonestado","addWarning");
+        Tools::sendEmail($user->email,$user->username,"Te han amonestado","addWarning");
         Session::flash('message','Hemos enviado tu amonestación la resolveremos lo más pronto posible. Gracias :D');
         return redirect()->back();
 
@@ -228,4 +228,6 @@ class WarningsController extends Controller
 
         return redirect()->route('warning.myWarnings');
     }
+
+
 }

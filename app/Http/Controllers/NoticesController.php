@@ -124,7 +124,7 @@ class NoticesController extends Controller
             }
         }
         }
-        Session::flash('message', 'Noticia almacenada correctamente');
+        Session::flash('message', 'Noticia  agregada y publicada con éxito');//msg11
         //return redirect()->action('HomeController@indexAdmin');
         return redirect()->action('NoticesController@oneNotice',$notice->id);
     }
@@ -167,11 +167,11 @@ class NoticesController extends Controller
         }
         catch(ErrorException $e){
         }
-            Session::flash('message', 'Se ha eliminado la noticia');
+            Session::flash('message', 'Se ha eliminado correctamente la noticia');//msg09
         }
         catch(QueryException $e)
         {
-            Session::flash('message', 'NO se elimino la noticia');
+            Session::flash('message', 'No se elimino la noticia');
         }
         return redirect()->action('NoticesController@getNotices');
     }
@@ -270,7 +270,7 @@ class NoticesController extends Controller
             }
             //////////////
         }
-        Session::flash('message','Noticia ha sido actualizada');
+        Session::flash('message','Cambios guardados'); //Msg08
         return redirect()->action('NoticesController@getNotices');
     }
 }

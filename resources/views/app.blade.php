@@ -97,12 +97,12 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-newspaper-o"></i> Registros y Listas <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{{ url('/getAddProblemSetter') }}"><i class="fa fa-user"></i> Registrar Problem </a></li>
+                                            <li><a href="{{ url('/getAddProblemSetter') }}"><i class="fa fa-user"></i> Registrar Problem Setter</a></li>
 
-                                            <li><a href="{{url("/getUsers")}}"><i class="fa fa-group"></i> Lista usuarios </a></li>
+                                            <li><a href="{{url("/getUsers")}}"><i class="fa fa-group"></i> Lista de usuarios </a></li>
                                             <li><a href="{{ url('/getAddNotice') }}"><i class="fa fa-newspaper-o"></i> Crear noticia </a></li>
                                             <li><a href="{{url('/getNotices')}}"><i class="fa fa-list"></i> Listas de noticias</a></li>
-                                            <li><a href="{{url("/showJudges")}}"><i class="fa fa-graduation-cap"></i> Jueces </a></li>
+                                            <li><a href="{{url("/showJudges")}}"><i class="fa fa-graduation-cap"></i>Lista de Jueces </a></li>
                                         </ul>
                                     </li>
 

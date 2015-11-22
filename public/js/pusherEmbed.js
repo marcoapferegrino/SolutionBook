@@ -20,7 +20,7 @@ $(document).ready(function() {
         // data: {'username':$("#username").val()},
 
         error: function(){
-            alert("error petición ajax LIKES");
+           // alert("error petición ajax LIKES");
         },
         success: function(data){
             // alert(data);

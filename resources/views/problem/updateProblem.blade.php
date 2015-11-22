@@ -170,7 +170,7 @@
                         <div class="form-group">
                             <label for="github" class="col-sm-2 control-label"><strong>Github</strong></label>
                             <div class="col-sm-6">
-                                @if($youtube!=null)
+                                @if($github!=null)
                                     {!!Form::text('github',$github->link,['class'=>'form-control'])!!}
                                 @else
                                     {!!Form::text('github','',['class'=>'form-control'])!!}

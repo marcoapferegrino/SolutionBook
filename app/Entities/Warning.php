@@ -44,4 +44,20 @@ class Warning extends Entity
 
         return $alerters;
     }
+    /**
+     * @param $field
+     * @param $targetId
+     */
+    public static function expireWarnings($field,$targetId){
+        $warnings = Warning::where($field,$targetId)->where('state','process')->get();
+//        dd($warnings->toArray());
+        if (count($warnings)>0) {
+            foreach ($warnings as $war) {
+                $war->state = 'expired';
+                $war->save();
+            }
+
+        }
+
+    }
 }

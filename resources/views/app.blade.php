@@ -26,7 +26,7 @@
 
     <![endif]-->
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('/fontaweasome/css/font-awesome.min.css')}}">
 
 </head>
 <body style="overflow-x: hidden;">

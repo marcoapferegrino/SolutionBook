@@ -14,6 +14,7 @@ use SolutionBook\Entities\ProblemasTags;
 
 use Illuminate\Support\Facades\Session;
 
+use SolutionBook\Entities\Warning;
 use SolutionBook\Http\Requests\AddProblemRequest;
 use SolutionBook\Http\Requests\UpdateProblemRequest;
 use SolutionBook\Entities\Files;
@@ -529,6 +530,7 @@ class ProblemsController extends Controller
             }
 
         }
+        Warning::expireWarnings('problem_id',$problem->id);
 
         Session::flash('message', 'Cambios guardados');
         return redirect()->route('problem.showProblem',$idProblem);
@@ -617,6 +619,7 @@ class ProblemsController extends Controller
         $dataProblem->limitTime=$limitTime->second+$segh+$segm;
         //dd($files);
         //dd($solutions);
+
         return view('problem/updateProblem',compact('url','tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
 
     }

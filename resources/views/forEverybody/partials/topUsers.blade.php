@@ -11,8 +11,8 @@
                 <a href="{{(Auth::guest())?'#':url('/userPerfil/'.$user->id)}}">
                     <li class="list-group-item">
                         <span class="badge">{{$user->ranking}} pts</span>
-                        <img class="media-object" width="22" height="22" src="{{$user->avatar}}" alt=":("/>
-                        <strong>{{$user->username}}</strong>
+
+
                         @if($k==0)
                             <span class="fa-stack fa-lg">
                                     <i style="font-size: 170%;color: cadetblue" class="fa fa-circle fa-stack-1x"></i>
@@ -31,7 +31,8 @@
                                     <i style="color:#a94442;" class="fa fa-trophy fa-stack-1x fa-inverse"></i>
                             </span>
                         @endif
-
+                        <img class="media-object" width="22" height="22" src="{{$user->avatar}}" alt=":("/>
+                        <strong>{{$user->username}}</strong>
 
                     </li>
                 </a>

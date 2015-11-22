@@ -34,7 +34,7 @@ class AddNoticeRequest extends Request
             'description'=> 'required',
             'apoyo'=> 'array',
             'finishDate'=> 'required|date|after:'.$minFecha.'|before:'.$maxFecha,
-            'file'    => 'extension:jpg,png,bmp'
+            'file'    => 'extension:jpg,png,bmp,jpeg'
         ];
         foreach($apoyo['apoyo'] as $key => $val)
         {

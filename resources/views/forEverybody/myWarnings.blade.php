@@ -73,7 +73,11 @@
                                     </div>
                                     <div id="collapse{{$warning->id}}" align="middle" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$warning->id}}">
                                         <div class="panel-body">
-                                            <p class="text-justify"> <span style="font-size: 105%" class="label label-success">Reportado: {{\SolutionBook\Components\HtmlBuilder::dateDiff($warning->created_at)}}, procura resolverlo antes de 14 días </span></p>
+
+                                            <p class="text-justify"> <span style="font-size: 105%" class="label label-success">Reportado: {{\SolutionBook\Components\HtmlBuilder::dateDiff($warning->created_at)}}
+                                            @if($warning->state!='expired')
+                                            , procura resolverlo antes de 14 días </span></p>
+                                            @endif
 
                                             <p class="text-justify">{{$warning->description}}</p>
                                         </div>

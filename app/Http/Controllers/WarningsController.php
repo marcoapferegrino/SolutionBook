@@ -197,9 +197,23 @@ class WarningsController extends Controller
     public function deleteWarning(Request $request)
     {
         $id=$request->warning_id;
+        $warning=Warning::find($id);
         try{
             $warning= Warning::findOrFail($id);
             $link=Link::find($warning->link_id);
+
+            if($warning->solution_id==null){
+
+                $linkSec=Link::all()->where('links.problem_id','=',$warning->problem_id);
+                $linkSec->delete();
+
+            }
+            else{
+                $linkSec=Link::all()->where('links.solution_id','=',$warning->solution_id);
+                $linkSec->delete();
+
+
+            }
             $link->delete();
             $warning->delete();
 

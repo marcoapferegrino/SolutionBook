@@ -156,7 +156,17 @@
                             </div>
 
                         </div>
+                        <div class="form-group">
+                            <label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label>
+                            <div class="col-sm-6">
+                                @if($url!=null)
+                                    {!!Form::text('web',$url->link,['class'=>'form-control'])!!}
+                                @else
+                                    {!!Form::text('web','',['class'=>'form-control'])!!}
+                                @endif
+                            </div>
 
+                        </div>
                         <div class="form-group">
                             <label for="github" class="col-sm-2 control-label"><strong>Github</strong></label>
                             <div class="col-sm-6">

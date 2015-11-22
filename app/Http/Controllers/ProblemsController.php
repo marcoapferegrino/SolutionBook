@@ -95,13 +95,12 @@ class ProblemsController extends Controller
         $pathInput= $path.'inputs/';
         $pathOutput= $path.'outputs/';
         //dd($images);
-        print_r($images);
         if($images[0]!=null){
             foreach ($images as $image)
             {
                 $find='image';
                 $pos=strpos($image->getClientMimeType(),$find);
-                echo $pos."\n";
+
                 if($pos === false){
                     $find='pdf';
                     $pos=strpos($image->getClientMimeType(),$find);
@@ -183,21 +182,10 @@ class ProblemsController extends Controller
         fclose($fp);
 
         // }
-        if($youtube!=null){
-            Link::create([
-                'link' => $youtube,
-                'type' => 'youTube',
-                'problem_id'=>$idProblem,
-            ]);
-        }
 
-        if($github!=null){
-            Link::create([
-                'link' => $github,
-                'type' => 'Github',
-                'problem_id'=>$idProblem,
-            ]);
-        }
+        Files::addOrReplaceLink($youtube,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
 
         if($tags!="")
         {
@@ -235,8 +223,8 @@ class ProblemsController extends Controller
                 array_push($avatar,$img->path);
             else
                 array_push($avatar,'default.jpg');
-                array_push($publicado,Carbon::parse($r->created_at));
-                array_push($avatar,'default.jpg');
+            array_push($publicado,Carbon::parse($r->created_at));
+            array_push($avatar,'default.jpg');
         }
         $placeholder="Buscar por: Título o Tags";
         $dias=array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
@@ -304,9 +292,12 @@ class ProblemsController extends Controller
 
         }
 //        $warnings=Problem::find($idProblem)->warnings;
-
-        $links=Problem::find($idProblem)->links->where('type','!=','Amonestación');
-
+        $links=array();
+        $links2=Problem::find($idProblem)->links;
+        foreach($links2 as $l){
+            if($l->type!='Amonestación'&&$l->type!='Referencia')
+                array_push($links,$l);
+        }
 //      $solutions=Problem::find(10)->solutions;
 
         $problem = Problem::find($idProblem);
@@ -439,8 +430,9 @@ class ProblemsController extends Controller
         $pathOutput= $path.'outputs/';
         //dd($images);
 
-        Files::addOrReplaceLink($youtube,$idProblem,'YouTube',1);
-        Files::addOrReplaceLink($github,$idProblem,'Github',1);
+        Files::addOrReplaceLink($youtube,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
         if($imgsDelete!=null){
             foreach ($request->imgsDelete as $img ) {
                 $file = Files::find($img);
@@ -570,8 +562,9 @@ class ProblemsController extends Controller
 //        $warnings=Problem::find($idProblem)->warnings;
 
         $youtube=Link::whereRaw("type='YouTube' and problem_id =".$idProblem)->first();
-        $github=Link::whereRaw("type='Github' and problem_id =".$idProblem)->first();
-        //dd($youtube);
+        $github=Link::whereRaw("type='Repositorio' and problem_id =".$idProblem)->first();
+        $url=Link::whereRaw("type='Web' and problem_id =".$idProblem)->first();
+        dd($youtube);
         $judgeList= JudgesList::all('id','name');
 //      $solutions=Problem::find(10)->solutions;
 
@@ -626,7 +619,7 @@ class ProblemsController extends Controller
         $dataProblem->limitTime=$limitTime->second+$segh+$segm;
         //dd($files);
         //dd($solutions);
-        return view('problem/updateProblem',compact('tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
+        return view('problem/updateProblem',compact('url','tags','dataProblem','judgeList','files','entrada','salida','inputs','outputs','docs','github','youtube','solutions'));
 
     }
 
@@ -683,7 +676,7 @@ class ProblemsController extends Controller
 
     public function getZipMultimediaProblem($idProblem)
     {
-   //    dd($idProblem);
+        //    dd($idProblem);
         $zipRoot = public_path()."/uploads/".$idProblem."/";
         $zipName = "Problem".$idProblem.".zip";
         Tools::getZip($zipRoot,$zipName,1);

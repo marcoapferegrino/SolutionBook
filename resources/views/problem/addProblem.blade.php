@@ -154,6 +154,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label>
+                            <div class="col-sm-6">
+                                    {!!Form::text('web','',['class'=>'form-control'])!!}
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
                             <h4><label for="github" class="col-sm-2 control-label"><strong>Github</strong></label></h4>
                             <div class="col-sm-6">
                                 {!!Form::text('github','',['class'=>'form-control'])!!}

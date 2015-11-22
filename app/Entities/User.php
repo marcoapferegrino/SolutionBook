@@ -178,6 +178,13 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
     }
 
     /**
+     * @return topUsers
+     */
+    public static function topUsers(){
+        return User::where('state','active')->orderBy('ranking', 'desc')->where('rol','<>','super')->take(10)->get();
+    }
+
+    /**
      * @param $language
      * @return array
      */

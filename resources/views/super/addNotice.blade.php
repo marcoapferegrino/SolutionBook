@@ -37,7 +37,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                {!! Form::label('description', 'Descripcion*') !!} <br>
+                                {!! Form::label('description', 'Descripción*') !!} <br>
                                 {!! Form::textarea('description',null, array('class' => 'field', 'size' => '90x8','id'=>'description','placeholder'=>'Texto','required'))!!}
                             </div>
                         </div>

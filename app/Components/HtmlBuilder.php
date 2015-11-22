@@ -88,7 +88,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
         $fecha1=Carbon::createFromFormat('Y-m-d H:i:s', $date);//->toDateTimeString();
        // $hoy=Carbon::now()->subHours(6)->diffInHours($fecha1,null);
         $hoy=$fecha1->diffInHours(Carbon::now(),null);
-        if($hoy<23){
+        if($hoy<24){
 
             if($hoy==0){
 
@@ -105,16 +105,24 @@ class HtmlBuilder extends CollectiveHtmlBuilder
                 return 'Hace '. ($hoy). ' minutos' ;
 
             }
-            return 'Hace '. -($hoy). ' horas' ;
+            elseif($hoy==1){
+
+                return 'Hace una hora'.$hoy ;
+            }
+
+            return 'Hace '.$hoy .'  horas';
+        }
+        else{
+            $dias= floor($hoy / 24);
+            if($dias==1){
+                return  'Hace un'. ' día' ;
+
+            }else{
+                return  'Hace '. ($dias). ' días' ;
+            }
+
         }
 
-        $dias= floor($hoy / 24);
-        if($dias==1){
-            return  'Hace un'. ' día' ;
-
-        }else{
-            return  'Hace '. ($dias). ' días' ;
-        }
 
     }
 

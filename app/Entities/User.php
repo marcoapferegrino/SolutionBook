@@ -166,6 +166,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
     {
         $users = DB::table('users')
             ->where('users.rol','!=','super')
+            ->orderBy('users.username')
             ->paginate(15);
 //->get();
 

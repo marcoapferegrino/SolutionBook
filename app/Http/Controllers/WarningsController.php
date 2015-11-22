@@ -133,7 +133,7 @@ class WarningsController extends Controller
 
         }
         if (count($warnings)==0) {
-            Session::flash('message','!Genial¡ no tienes amonestaciones :D');
+            Session::flash('message','¡Genial no tienes amonestaciones! :D');
         }
         return view('forEverybody.myWarnings',compact('warnings','referencia','alerter'));
     }
@@ -145,6 +145,21 @@ class WarningsController extends Controller
         $warning->state="forAdmin";
         $warning->save();
 
+        if($warning->solution_id==null){//es un problema
+        $problem=Problem::find($warning->problem_id);
+        $problem->state="active";
+        $problem->save();
+
+        }
+        else{//es una solucion
+
+        $solution=Solution::find($warning->solution_id);
+        $solution->state="active";
+        $solution->save();
+
+
+        }
+        Session::flash('message','Amonestación ignorada');//msg24
         return redirect()->route('warning.myWarnings');
     }
 
@@ -157,6 +172,22 @@ class WarningsController extends Controller
         $numWarnings=$user->numWarnings+=1;  //incrementa en uno
         $user->update(['numWarnings'=>$numWarnings]);
         $warning->update(['state'=>'expired']);
+
+        if($warning->solution_id==null){//es un problema
+            $problem=Problem::find($warning->problem_id);
+            $problem->state="blocked";
+            $problem->save();
+
+
+        }
+        else{//es una solucion
+
+            $solution=Solution::find($warning->solution_id);
+            $solution->state="blocked";
+            $solution->save();
+
+
+        }
         $user->save();
 
         Session::flash('message','Acción concluida exisamente :D');
@@ -167,6 +198,8 @@ class WarningsController extends Controller
         $id=$request->warning_id;
         try{
             $warning= Warning::findOrFail($id);
+            $link=Link::find($warning->link_id);
+            $link->delete();
             $warning->delete();
 
             Session::flash('message','Se borró la amonestación');

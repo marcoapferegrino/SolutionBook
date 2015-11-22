@@ -11,7 +11,7 @@
                         <h3>Lista de usuarios</h3>
                     </div>
                     <div class="panel-body" align="middle">
-                        <strong> Lista</strong> <br>
+                         <br>
                         <table  class="table table-hover">
 
                         <thead>
@@ -45,7 +45,7 @@
                                             @if($user->state=='blocked')
 
                                                 {!! Form::open(['route' => 'user.reactiveAccount','method' => 'POST']) !!}
-                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-danger">
+                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-warning">
                                                     <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
 
                                                 <i class="fa fa-trash-o">Desbloquear</i>
@@ -55,10 +55,10 @@
                                             @elseif($user->state=='active')
 
                                               {!! Form::open(['route' => 'user.suspendAccount','method' => 'GET']) !!}
-                                        <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-danger">
+                                        <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-warning">
 
                                             <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
-                                                        <i class="fa fa-trash-o">Bloquear</i>
+                                                        <i class="fa fa-times-circle">Bloquear</i>
                                         </button>
                                                 {!! Form::close() !!}
 

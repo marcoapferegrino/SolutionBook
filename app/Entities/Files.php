@@ -68,25 +68,25 @@ class Files extends Entity {
      * @param UpdateSolutionRequest $request
      * @param $solution
      */
-    public static function addOrReplaceLink($linkRequest, $idSolution,$type,$owner=null)
+    public static function addOrReplaceLink($linkRequest, $idTarget,$type,$owner=null)
     {
         //$owner=1 ->  problems : solutions
         if ($linkRequest != null && $linkRequest != " "&& $linkRequest != "") {
 
-            $linkYouTube = Link::all()->where('solution_id', $idSolution)->where('type', $type)->first();
-
-            if ($linkYouTube == null) {
+            $linkAux = Link::where(($owner==1)?'problem_id':'solution_id', $idTarget)->where('type', $type)->first();
+//            dd($linkAux);
+            if ($linkAux == null) {
 //                dd($linkRequest);
                 Link::create([
                     'link' => $linkRequest,
                     'type' => $type,
-                    ($owner==1)?'problem_id':'solution_id' => $idSolution
+                    ($owner==1)?'problem_id':'solution_id' => $idTarget
                 ]);
 
             } else {
 //                dd($request->YouTube);
-                $linkYouTube->link = $linkRequest;
-                $linkYouTube->save();
+                $linkAux->link = $linkRequest;
+                $linkAux->save();
 
             }
 

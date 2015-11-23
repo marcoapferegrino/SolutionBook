@@ -184,7 +184,7 @@ class ProblemsController extends Controller
 
         // }
 
-        Files::addOrReplaceLink($youtube,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($youtube,$idProblem,'YouTube',1);
         Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
         Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
 
@@ -429,9 +429,10 @@ class ProblemsController extends Controller
         $pathOutput= $path.'outputs/';
         //dd($images);
 
-        Files::addOrReplaceLink($youtube,$idProblem,'Repositorio',1);
+        Files::addOrReplaceLink($youtube,$idProblem,'YouTube',1);
         Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
         Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
+
         if($imgsDelete!=null){
             foreach ($request->imgsDelete as $img ) {
                 $file = Files::find($img);
@@ -561,10 +562,11 @@ class ProblemsController extends Controller
         }
 //        $warnings=Problem::find($idProblem)->warnings;
 
-        $youtube=Link::where('type','=','YouTube')->where('problem_id','=',$idProblem)->get();
+        $youtube=Link::where('type','=','YouTube')->where('problem_id','=',$idProblem)->first();
         $github=Link::where('type','Repositorio')->where('problem_id',$idProblem)->first();
         $url=Link::where('type','Web')->where('problem_id',$idProblem)->first();
-        //dd($youtube);
+//        dd($youtube,$github,$url);
+
         $judgeList= JudgesList::all('id','name');
 //      $solutions=Problem::find(10)->solutions;
 

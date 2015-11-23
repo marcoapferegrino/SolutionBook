@@ -60,7 +60,7 @@ class WarningsController extends Controller
             ]);
 
             User::find($target->user_id);
-            if ($request->link!="" || $request->link!=null) {
+            if ($request->link!="" && $request->link!=null) {
                 $link = Link::create([
                     'link'=>$request->link,
                     'type'=>'Amonestación',

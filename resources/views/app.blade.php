@@ -163,7 +163,7 @@
                                             <?php break; ?>
                                         @endif
                                     @endforeach
-                                    <li id="lastLike" class="label-primary text-center "><a href="{{url('/')}}">Ver todas <i class="fa fa-plus-square"></i>
+                                    <li id="lastLike" class="label-primary text-center "><a href="{{url('/allNotifications')}}">Ver todas <i class="fa fa-plus-square"></i>
                                         </a></li>
 
 

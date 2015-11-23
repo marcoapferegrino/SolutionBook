@@ -387,6 +387,10 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'user.findUserLikes',
             'uses' => 'UsersController@findUserLikes'
         ]);
+        Route::get('/allNotifications', [
+            'as' => 'user.allNotifications',
+            'uses' => 'NotificationsController@allNotifications'
+        ]);
 
 
     });

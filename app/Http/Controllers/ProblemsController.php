@@ -381,7 +381,6 @@ class ProblemsController extends Controller
         //dd($request->all());
         $idProblem=$request->idProblem;
         $title=$request->title;
-        $idUser= auth()->user()->getAuthIdentifier();
         $nameUser= auth()->user()->username;
         $institution= $request->institucion;
         $description= $request->descripcion;
@@ -417,14 +416,10 @@ class ProblemsController extends Controller
             'author'=>$nameUser,
             'institution'=> $institution,
             'description'=> $description,
-            'numSolutions' =>0,
 //            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
 //            'limitMemory' => $limitMem,
-            'numWarnings' => 0,
-            'state' => 'active',
             'share'=>($share!=null)?$share:'no',
             'judgeList_id'=>$judge,
-            'user_id' => $idUser,
 
         ]);
         $problem->save();
@@ -566,10 +561,10 @@ class ProblemsController extends Controller
         }
 //        $warnings=Problem::find($idProblem)->warnings;
 
-        $youtube=Link::whereRaw("type='YouTube' and problem_id =".$idProblem)->first();
-        $github=Link::whereRaw("type='Repositorio' and problem_id =".$idProblem)->first();
-        $url=Link::whereRaw("type='Web' and problem_id =".$idProblem)->first();
-//        dd($youtube);
+        $youtube=Link::where('type','=','YouTube')->where('problem_id','=',$idProblem)->get();
+        $github=Link::where('type','Repositorio')->where('problem_id',$idProblem)->first();
+        $url=Link::where('type','Web')->where('problem_id',$idProblem)->first();
+        //dd($youtube);
         $judgeList= JudgesList::all('id','name');
 //      $solutions=Problem::find(10)->solutions;
 

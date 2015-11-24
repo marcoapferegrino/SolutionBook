@@ -27,26 +27,26 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <h4><label for="language"><strong>Lenguaje*</strong></label></h4>
-                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguages'),null,['class'=>'form-control'])!!}
+                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguages'),old('optionsLanguages'),['class'=>'form-control'])!!}
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
-                            {!! Form::textarea('explanation',null,array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
+                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
 
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label class="control-label" for="youtube"><strong>Youtube</strong></label></h4>
-                            <input type="url"  class="form-control"  name ="youtube" id="youtube" placeholder="¿Tienes un video con explicación?" >
+                            <input type="url"  class="form-control" value="{{old('youtube')}}" name ="youtube" id="youtube" placeholder="¿Tienes un video con explicación?" >
                         </div>
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <h4> <label class="control-label" for="repositorio"><strong>Repositorio</strong></label></h4>
-                            <input type="url"  class="form-control"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
+                            <input type="url"  class="form-control" value="{{old('repositorio')}}" name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
                         </div>
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <h4> <label class="control-label" for="web"><strong>Página web</strong></label></h4>
-                            <input type="url"  class="form-control"  name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
+                            <input type="url"  class="form-control" value="{{old('web')}}" name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1">

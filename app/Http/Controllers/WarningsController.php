@@ -51,22 +51,8 @@ class WarningsController extends Controller
             ->get();
         /*If dont exist we create the new warning else we dont.*/
         if (count($warningRepeated)==0) {
-
-            $linkAux=$type==0 ? 'showSolution/' : 'showProblem/';
-             $link=Link::create([
-                'link'=>$linkAux.$target->id,
-                'type'=>'Referencia',
-                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
-            ]);
-
             User::find($target->user_id);
-            if ($request->link!="" && $request->link!=null) {
-                $link = Link::create([
-                    'link'=>$request->link,
-                    'type'=>'Amonestación',
-                    $type==0 ? 'solution_id' : 'problem_id'=>$target->id,
-                ]);
-            }
+
 
 
         if($type==0){//solucion  pusher
@@ -94,15 +80,29 @@ class WarningsController extends Controller
             'reason'        => $reason,
             'state'         => 'process',
             'hoursToAttend' => 200, //¿?
-            'link_id'       => $link->id,
             'user_id'       => $target->user_id,
             'alerter_user'  => $alerterUser->id,
             'created_at'    => Carbon::now(),
             $type==0 ? 'solution_id' : 'problem_id'=>$target->id
             ]);
 
-//            $warning->created_at=Carbon::now();
-//            $warning->save();
+            $linkAux=$type==0 ? 'showSolution/' : 'showProblem/';
+            $link=Link::create([
+                'link'=>$linkAux.$target->id,
+                'type'=>'Referencia',
+                'warning_id' => $warning->id,
+                $type==0 ? 'solution_id' : 'problem_id'=>$target->id
+            ]);
+
+
+            if ($request->link!="" && $request->link!=null) {
+                $link = Link::create([
+                    'link'=>$request->link,
+                    'type'=>'Amonestación',
+                    'warning_id' =>$warning->id ,
+                    $type==0 ? 'solution_id' : 'problem_id'=>$target->id,
+                ]);
+            }
         }//end if is not repeated
 
         Tools::sendEmail($user->email,$user->username,"Te han amonestado","addWarning");
@@ -122,21 +122,22 @@ class WarningsController extends Controller
             $warning->save();
 
         }
-        $referencia=Link::all();
+
         $user = auth()->user();
         $alerter=Warning::getAlerters();
+
         if($user->rol=='super'){
             $warnings = Warning::all()->where('state','forAdmin');
         }else {
             $warnings = Warning::where('user_id' ,$user->id)
-                                   // ->where('state','');
-                                    ->where('state','!=','forAdmin')->get();
+                        ->where('state','!=','forAdmin')->get();
 
         }
+
         if (count($warnings)==0) {
             Session::flash('message','¡Genial no tienes amonestaciones! :D');
         }
-        return view('forEverybody.myWarnings',compact('warnings','referencia','alerter'));
+        return view('forEverybody.myWarnings',compact('warnings','alerter'));
     }
 
     public function ignoreWarning(Request $request)

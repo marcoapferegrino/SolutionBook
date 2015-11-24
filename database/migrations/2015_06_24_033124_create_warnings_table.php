@@ -31,8 +31,6 @@ class CreateWarningsTable extends Migration {
             $table->integer('problem_id')->unsigned()->nullable();
             $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
 
-            $table->integer('link_id')->unsigned()->nullable();
-            $table->foreign('link_id')->references('id')->on('links')->onDelete('cascade');
 
             $table->timestamps();
 

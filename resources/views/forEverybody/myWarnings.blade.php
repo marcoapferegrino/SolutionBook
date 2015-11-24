@@ -82,28 +82,20 @@
                                             <p class="text-justify">{{$warning->description}}</p>
                                         </div>
                                         <div class="well"><strong>Links anexos:</strong> <br>
-                                            @foreach($referencia as $ref)
-                                                @if($ref->solution_id!=null && $ref->solution_id==$warning->solution_id && $ref->type=='Referencia')
-
-                                                    <a href="{{$ref->link}}" target="_blank"><strong>Publicación de la solución <i class="fa fa-external-link-square"></i>
-                                                        </strong></a><br>
-
-                                                @elseif($ref->problem_id!=null && $ref->problem_id==$warning->problem_id && $ref->type=='Referencia')
-
-                                                    <a href="{{$ref->link}}" target="_blank">Publicación del problema <i class="fa fa-external-link-square"></i>
-                                                    </a><br>
-
-                                                @endif
-                                            @endforeach
 
                                             @foreach($warning->links as $link)
-                                                @if($link->type=='Referencia')
-
-
-                                                @else
-                                                <a href="{{$link->link}}" target="_blank">{{$link->link}}</a><br>
-                                                @endif
+                                                <a href="{{$link->link}}" target="_blank">
+                                                    <strong>
+                                                        {{($link->type=='Referencia'?'Publicación':'Link de ayuda')}}
+                                                        @if($warning->solution_id!=null)
+                                                            Solución # {{$warning->solution_id}}
+                                                        @elseif($warning->problem_id!=null)
+                                                            Problema # {{$warning->problem_id}}
+                                                        @endif
+                                                        <i class="fa fa-external-link-square"></i>
+                                                    </strong></a> <br>
                                             @endforeach
+                                            <br>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">

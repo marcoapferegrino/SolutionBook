@@ -24,6 +24,9 @@ class CreateLinksTable extends Migration {
             $table->integer('problem_id')->unsigned()->nullable();
             $table->foreign('problem_id')->references('id')->on('problems')->onDelete('cascade');
 
+			$table->integer('warning_id')->unsigned()->nullable();
+			$table->foreign('warning_id')->references('id')->on('warnings')->onDelete('cascade');
+
             $table->timestamps();
 		});
 	}

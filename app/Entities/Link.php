@@ -3,10 +3,10 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Link extends Entity {
-    protected $fillable = ['link','type','solution_id','problem_id'];
+    protected $fillable = ['link','type','solution_id','problem_id','warning_id'];
 	//
 	public function warning(){
-    	return $this->belongsTo(Warning::getClass(),'link_id');
+    	return $this->belongsTo(Warning::getClass());
     }
     public function solution(){
     	return $this->belongsTo(Solution::getClass());

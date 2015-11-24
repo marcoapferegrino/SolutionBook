@@ -35,16 +35,16 @@ class DatabaseSeeder extends Seeder {
 
         $this->call('UsersSeeder');
 
-        $this->call('JudgesListSeeder');
-        $this->call('CodeSolutionSeeder');
-        $this->call('ProblemsSeeder');
+//        $this->call('JudgesListSeeder');
+//        $this->call('CodeSolutionSeeder');
+//        $this->call('ProblemsSeeder');
 
-        $this->call('TagsSeeder');
-        $this->call('SolutionsSeeder');
-        $this->call('LikesSeeder');
-        $this->call('FilesSeeder');
-        $this->call('LinksSeeder');
-        $this->call('NoticesSeeder');
+//        $this->call('TagsSeeder');
+//        $this->call('SolutionsSeeder');
+//        $this->call('LikesSeeder');
+//        $this->call('FilesSeeder');
+//        $this->call('LinksSeeder');
+//        $this->call('NoticesSeeder');
 
 
 

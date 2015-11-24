@@ -7,7 +7,7 @@
 <div class="container">
 
 
-    <div class="col-lg-10 col-md-push-1 " >
+    <div class="col-lg-10  " >
         {!! Form::open(['route' => 'welcome.addRegister','id'=>'register_user', 'files'=>true,'method' => 'POST']) !!}
 
         <br>
@@ -18,10 +18,14 @@
         </div>
 
 
-        @include('partials.registerForm')
+@include('partials.registerForm')
 
 
-    </div>
+
+
+
+    </div><br><br> <br>
+    @include('auth.loginSocial')
 </div>
     <br><br> <br>
 

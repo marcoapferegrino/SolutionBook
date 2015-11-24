@@ -39,7 +39,7 @@
         <div class="page-header" style="margin-top: 0%;position: relative;
 	clear:both;" >
             <h3 class="title text-center" style="font-family: Roboto; font-size:260%"> <b > &nbsp;&nbsp;
-                    <a href="{{'/'}}"><img style="cursor: pointer;height:3%; width:3%"  src="{{url("oie_transparent.png")}}"></a>&nbsp;Solution Book </b><small>.Beta</small>  <i class="fa fa-qq "></i></h3>
+                    <a href="{{'/'}}"><img style="cursor: pointer;height:3%; width:3%"  src="{{url("oie_transparent.png")}}"></a>&nbsp;Solution Book </b></h3>
 
             <small class="pull-right" > <i style="font-family: Roboto;font-size: 100%;color: #5e5e5e"> Easy for you; Easy for us &nbsp;&nbsp; </i></small><br>
 
@@ -147,7 +147,7 @@
                         @if (!Auth::guest())
                             <li class="dropdown sidebar-offcanvas" >
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <span style="font-size: 125%" id="number" class="label label-success"><i  id="notify3" class="fa fa-bell">&nbsp;<span id="notify"></span><i id="wait" class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span> </span></a>
+                                    <span style="font-size: 125%" id="number" class="label label-success"><i  id="bell" class="fa fa-bell">&nbsp;<span id="notify"></span><i id="wait" class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span> </span></a>
 
                                 <ul id="likeList" class="dropdown-menu sidebar-offcanvas "  style="max-height: 250px;overflow-y:scroll;"  id="notificationsj" role="menu">
 

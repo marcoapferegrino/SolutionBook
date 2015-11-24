@@ -133,6 +133,7 @@ var callbackLike=function showNotification1(data) {
         // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
         $("#likeList").prepend('<li style="background-color:  palegreen"  class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
         "<small>Fecha:"+dats.date+'</small></a></li>');
+        $('#bell').css('color','yellow');
 
 
 
@@ -159,6 +160,8 @@ var callbackWarning=function showNotification2(data) {
         // document.getElementById("lastLike").style.display = 'none';
          $("#likeList").prepend('<li style="background-color:  palegoldenrod" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
          "<small>Fecha:"+dats.date+'</small></a></li>');
+        $('#bell').css('color','yellow');
+
     }
 
 
@@ -181,6 +184,8 @@ var callbackPromote=function showNotification3(data) {
         // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
         $("#likeList").prepend('<li style="background-color:  #a6e1ec" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
         "<small>Fecha:"+dats.date+'</small></a></li>');
+        $('#bell').css('color','yellow');
+
 
 
 
@@ -202,5 +207,5 @@ var channelPromote = pusher.subscribe('promotes-channel');
 channelPromote.bind('promotes-event', callbackPromote);
 // Added Pusher logging
 Pusher.log = function(msg) {
-    console.log(msg);
+   // console.log(msg);
 };

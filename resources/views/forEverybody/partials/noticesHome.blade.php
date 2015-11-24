@@ -1,6 +1,6 @@
 
     <div class="panel panel-primary">
-        <div class="panel-heading">Noticias
+        <div class="panel-heading"><strong>Noticias</strong>
 
         </div>
 
@@ -62,7 +62,7 @@
         </div>
         <ul class="nav  list-group-item-info">
             @foreach($notices as $notice)
-            <li ><a href="{{url('/notice/'.$notice->id)}}"> <span>{{$notice->title}} </span> <span class="pull-right">{{$notice->finishDate}} </span> </a></li>
+            <li ><a href="{{url('/notice/'.$notice->id)}}"> <span>{{$notice->title}} </span> <span class="pull-right">{{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice->finishDate)))}} </span> </a></li>
             @endforeach
         </ul>
     </div>

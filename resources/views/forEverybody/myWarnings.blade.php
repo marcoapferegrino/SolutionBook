@@ -147,7 +147,7 @@
                                                     {!! Form::open(['route' => 'user.plusWarning','method' => 'POST','class'=>'form-inline']) !!}
                                                     <input type="hidden" name="user_id" id="user_id" value="{{$warning->user_id}}">
                                                     <input type="hidden" name="warning_id" id="warning_id" value="{{$warning->id}}">
-                                                    {!! Form::submit('Validar amonestación',array('class'=>'btn btn-warning btn-block','onclick'=>'return confirm("Si continua se sumará una amonestación al usuario infractor.")')) !!}
+                                                    {!! Form::submit('Validar amonestación',array('class'=>'btn btn-warning btn-block','onclick'=>'return confirm("La publicación se ocultará. Si continua se sumará una amonestación al usuario infractor.")')) !!}
                                                     {!! Form::close() !!}
                                                 @else
 

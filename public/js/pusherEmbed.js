@@ -16,8 +16,6 @@ $(document).ready(function() {
     $.ajax({
         type: "post",
         url: "/findUserLikes",
-        //data: consulta,
-        // data: {'username':$("#username").val()},
 
         error: function(){
            // alert("error petición ajax LIKES");
@@ -26,10 +24,6 @@ $(document).ready(function() {
             // alert(data);
             var string= data
             var respons = JSON.parse(string);
-            //id=response.user_id;
-            // likes=parseInt(response.likes);
-            // alert(lik);
-            //  alert(data);
             id=respons.user_id; likes=respons.likes;
 
             window.idG=id;window.likesG=likes;
@@ -62,30 +56,11 @@ function deView(id){
             // alert("error petición ajax VIEW");
         },
         success: function(data){
-            //alert(data);
-            /*alert(data);
-             var string= data
-             var respons = JSON.parse(string);
-             //id=response.user_id;
-             // likes=parseInt(response.likes);
-             // alert(lik);
-             //  alert(data);
-             id=respons.user_id; likes=respons.likes;
-
-             window.idG=id;window.likesG=likes;
-             document.getElementById("notify").innerHTML =' '+likesG;*/
 
         }
     });
 }
 
-
-
-
-/*var pusher = new Pusher('{{env("PUSHER_KEY")}}');
-
- var channel = pusher.subscribe('test-channel');
- channel.bind('test-event', callback);*/
 
 function notifyInit() {
     // set up form submission handling
@@ -107,12 +82,11 @@ function notifySubmit() {
     return false;
 }
 
-// Handle the success callback
 function notifySuccess() {
-    console.log('notification submitted');
+    //console.log('notification submitted');
 }
 
-$(notifyInit); // Existing functionality
+$(notifyInit);
 
 // var numbers;
 // Use toastr to show the notification
@@ -120,19 +94,13 @@ var callbackLike=function showNotification1(data) {
 
     var dats= JSON.parse(data);
 
-    if(window.idG==dats.id){  // es mi like
-        // alert('es mi like');
+    if(window.idG==dats.id){
         var numbers= $('#notify').text();
         var numbbb= parseInt(numbers);
-        //alert(dats.solution);
-
         //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
-        //document.getElementById("likeList").innerHTML =numbbb+1;
-        // document.getElementById("lastLike").style.display = 'none';
-        // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
         $("#likeList").prepend('<li style="background-color:  palegreen"  class="text text-center"> <a href="'+dats.url+'" >'+dats.message+'<br>'+
-        "<small>Fecha:"+dats.date+'</small></a></li>');
+        "<small>"+dats.date+'</small></a></li>');
         $('#bell').css('color','yellow');
 
 
@@ -146,20 +114,13 @@ var callbackLike=function showNotification1(data) {
 var callbackWarning=function showNotification2(data) {
 
     var dats= JSON.parse(data);
-    //alert('warnings');
-
-    if(window.idG==dats.id){  // es mi like
-        // alert('es mi like');
+    if(window.idG==dats.id){
         var numbers= $('#notify').text();
         var numbbb= parseInt(numbers);
-        //alert(dats.solution);
-
         //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
-        //document.getElementById("likeList").innerHTML =numbbb+1;
-        // document.getElementById("lastLike").style.display = 'none';
          $("#likeList").prepend('<li style="background-color:  palegoldenrod" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
-         "<small>Fecha:"+dats.date+'</small></a></li>');
+         "<small>"+dats.date+'</small></a></li>');
         $('#bell').css('color','yellow');
 
     }
@@ -171,26 +132,15 @@ var callbackPromote=function showNotification3(data) {
 
     var dats= JSON.parse(data);
 
-    if(window.idG==dats.id){  // es mi like
-        // alert('es mi like');
+    if(window.idG==dats.id){
         var numbers= $('#notify').text();
         var numbbb= parseInt(numbers);
-        //alert(dats.solution);
-
         //  toastr.success("liky", null, {"positionClass": "toast-top-right"});
         document.getElementById("notify").innerHTML =numbbb+1;
-        //document.getElementById("likeList").innerHTML =numbbb+1;
-        // document.getElementById("lastLike").style.display = 'none';
-        // $("#likeList").prepend('<li id="'+dats.solution +'" class="text text-center" href="'+dats.url+'"> <a  >'+dats.message+'<br><small>Fecha:'+dats.date+'</small></a></li>');
         $("#likeList").prepend('<li style="background-color:  #a6e1ec" class="text text-center"> <a href="'+dats.url+' " >'+dats.message+'<br>'+
-        "<small>Fecha:"+dats.date+'</small></a></li>');
+        "<small>"+dats.date+'</small></a></li>');
         $('#bell').css('color','yellow');
 
-
-
-
-//        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
-        // TODO: use the text in the notification
     }
 
 

@@ -34,7 +34,8 @@
                                 @if(count($notice)>1)
 
                                 <div class="panel panel-success">
-                                    <div class="panel-heading"><i class="fa fa-calendar"></i> <strong>Archivos</strong></div>
+                                    <div class="panel-heading"><i class="fa fa-files-o"></i>
+                                        <strong>Archivos</strong></div>
 
                                     <div class="panel-body col-md-12 "  style="background-color: lightgray" align="middle">
                                 @foreach($notice as $k=>$noticeFile)

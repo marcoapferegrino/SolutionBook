@@ -30,11 +30,11 @@
                             @foreach($users as $user)
                             <tr>
 
-                                    <td>{{$user->username}}</td>
+                                    <td><a href="/userPerfil/{{$user->id}}" >{{$user->username}} </a></td>
 
                                     <td>{{$user->rol}}</td>
 
-                                    <td>{{$user->state}}</td>
+                                    <td>{{ \SolutionBook\Components\HtmlBuilder::stateEspañol($user->state) }}</td>
 
                                     <td>{{$user->created_at}}</td>
 
@@ -45,10 +45,10 @@
                                             @if($user->state=='blocked')
 
                                                 {!! Form::open(['route' => 'user.reactiveAccount','method' => 'POST']) !!}
-                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-warning">
+                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-info">
                                                     <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
 
-                                                <i class="fa fa-trash-o">Desbloquear</i>
+                                                    <i class="fa fa-check-circle"> Desbloquear</i>
 
                                                     {!! Form::close() !!}
                                                 </button>
@@ -58,7 +58,7 @@
                                         <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-warning">
 
                                             <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
-                                                        <i class="fa fa-times-circle">Bloquear</i>
+                                                        <i class="fa fa-times-circle"> Bloquear</i>
                                         </button>
                                                 {!! Form::close() !!}
 

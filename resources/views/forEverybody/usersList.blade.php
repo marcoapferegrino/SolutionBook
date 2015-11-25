@@ -45,7 +45,7 @@
                                             @if($user->state=='blocked')
 
                                                 {!! Form::open(['route' => 'user.reactiveAccount','method' => 'POST']) !!}
-                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-info">
+                                                <button type="submit" onclick="return confirm('¿Seguro que quieres continuar?')" class="btn btn-info">
                                                     <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
 
                                                     <i class="fa fa-check-circle"> Desbloquear</i>
@@ -55,7 +55,7 @@
                                             @elseif($user->state=='active')
 
                                               {!! Form::open(['route' => 'user.suspendAccount','method' => 'GET']) !!}
-                                        <button type="submit" onclick="return confirm('¿Seguro que quieres continuar')" class="btn btn-warning">
+                                        <button type="submit" onclick="return confirm('¿Seguro que quieres continuar?')" class="btn btn-warning">
 
                                             <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
                                                         <i class="fa fa-times-circle"> Bloquear</i>

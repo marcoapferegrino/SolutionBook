@@ -373,7 +373,7 @@ Route::group(['middleware' => 'auth'],function(){
             'uses' => 'WarningsController@ignoreWarning'
         ]);
 
-        Route::get('/deleteWarning/{id}', [
+        Route::post('/deleteWarning', [
             'as' => 'warning.deleteWarning',
             'uses' => 'WarningsController@deleteWarning'
         ]);

@@ -108,9 +108,9 @@
                                                     {!! Form::close() !!}
                                                     @endif
                                                 @else
-                                                {!! Form::open(['route' => 'warning.deleteWarning','method' => 'GET','class'=>'form-inline']) !!}
+                                                {!! Form::open(['route' => 'warning.deleteWarning','method' => 'POST','class'=>'form-inline']) !!}
                                                 <input type="hidden" name="warning_id" id="warning_id" value="{{$warning->id}}">
-                                                {!! Form::submit('Eliminar amonestación',array('class'=>'btn btn-danger btn-block','onclick'=>'return confirm("Seguro que quieres eliminar la amonestación?")')) !!}
+                                                {!! Form::submit('Eliminar amonestación',array('class'=>'btn btn-danger btn-block','onclick'=>'return confirm("¿Seguro que quieres eliminar la amonestación?")')) !!}
                                                 {!! Form::close() !!}
 
                                                 @endif

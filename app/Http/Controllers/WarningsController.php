@@ -201,21 +201,28 @@ class WarningsController extends Controller
         $warning=Warning::find($id);
         try{
             $warning= Warning::findOrFail($id);
-            $link=Link::find($warning->link_id);
+            //$link=Link::find($warning->link_id);
+            //dd($link);
 
             if($warning->solution_id==null){
 
                 $linkSec=Link::all()->where('links.problem_id','=',$warning->problem_id);
-                $linkSec->delete();
+                foreach($linkSec as $link){
+
+                    $link->delete();
+                }
 
             }
             else{
                 $linkSec=Link::all()->where('links.solution_id','=',$warning->solution_id);
-                $linkSec->delete();
+                foreach($linkSec as $link){
+
+                    $link->delete();
+                }
 
 
             }
-            $link->delete();
+           // $link->delete();
             $warning->delete();
 
             Session::flash('message','Se borró la amonestación');

@@ -119,7 +119,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
             }
             elseif($hoy==1){
 
-                return 'Hace una hora'.$hoy ;
+                return 'Hace una hora';
             }
 
             return 'Hace '.$hoy .'  horas';

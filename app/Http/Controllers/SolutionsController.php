@@ -355,7 +355,7 @@ class SolutionsController extends Controller
         Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
         Files::addOrReplaceLink($request->web,$solution->id,'Web');
         $solution->state = 'active';
-        $solution->save();pWa
+        $solution->save();
 
         if($imgsDelete!=null){
             foreach ($request->imgsDelete as $img ) {

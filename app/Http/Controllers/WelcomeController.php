@@ -80,14 +80,13 @@ class WelcomeController extends Controller {
             if(strtoupper($nick->username)==$cadena){
 
 
-                return 'no';
+                return '{ "res" :"no" }';
             }
 
         }
-        return 'yes';
+        return '{ "res" :"yes" }';
+
     }
-
-
 
     public function addRegister(AddUserRequest $request)
     {

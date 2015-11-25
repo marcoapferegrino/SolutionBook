@@ -45,7 +45,7 @@
                                                     <div class="col-sm-2">
 
                                                         {!! Form::open(['route' => ['notices.deleteNotice',$notice->id],'method' => 'DELETE']) !!}
-                                                        <button type="submit" onclick="return confirm('Seguro que quieres eliminar la noticia?')" class="btn btn-danger">
+                                                        <button type="submit" onclick="return confirm('¿Seguro que quieres eliminar la noticia?')" class="btn btn-danger">
                                                             <i class="fa fa-trash-o"></i>
                                                         </button>
                                                         {!! Form::close() !!}

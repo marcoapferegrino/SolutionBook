@@ -37,20 +37,22 @@ $(document).ready(function() {
 
         $.ajax({
             type: "post",
-            url: "findUsername",
+            url: "/findUsername",
             //data: consulta,
             data: {'username':$("#username").val()},
 
             error: function(){
-                alert("error petición ajax");
+                //alert("error petición ajax");
             },
             success: function(data){
+              //  alert('-'+data+'-');
+                var dats= JSON.parse(data);
                 $("#icon").empty();
                // $("#result_table").append(data);
-                if(data=="yes"){
+                if(dats.res=="yes"){
                 $("#icon").html("<span style=' font-size: 10pt' class='label label-success'> Disponible <i style='font-size: 150%' class='fa fa-check '></i></span>");
                 }
-                else{
+                if(dats.res=="no"){
 
                 $("#icon").html("<span style=' font-size: 10pt' class='label label-danger'> No disponible <i style='font-size: 150%' class='fa fa-close '></i></span>");
 

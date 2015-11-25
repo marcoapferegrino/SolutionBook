@@ -63,7 +63,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
     public static function dateEspañol($date){
 
-       $date=str_replace('Jan','Enero',$date);
+        $date=str_replace('Jan','Enero',$date);
         $date=str_replace('Feb','Febrero',$date);
         $date=str_replace('Mar','Marzo',$date);
         $date=str_replace('Apr','Abril',$date);
@@ -81,6 +81,18 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
 
         return $date;
+    }
+    public static function stateEspañol($state){
+
+        $state=str_replace('active','Activo',$state);
+        $state=str_replace('blocked','Bloqueado',$state);
+        $state=str_replace('suspended','Suspendido',$state);
+
+
+
+
+
+        return $state;
     }
     public static function dateDiff($date){
 
@@ -107,7 +119,7 @@ class HtmlBuilder extends CollectiveHtmlBuilder
             }
             elseif($hoy==1){
 
-                return 'Hace una hora'.$hoy ;
+                return 'Hace una hora';
             }
 
             return 'Hace '.$hoy .'  horas';

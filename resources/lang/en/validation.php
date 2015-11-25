@@ -15,7 +15,7 @@ return [
 
 	"accepted"             => "The :attribute must be accepted.",
 	"active_url"           => "The :attribute is not a valid URL.",
-	"after"                => ":attribute debe ser una fecha posterior a :date.",
+	"after"                => "La fecha debe ser una fecha posterior a :date.",
 	"alpha"                => "The :attribute may only contain letters.",
 	"alpha_dash"           => "The :attribute may only contain letters, numbers, and dashes.",
 	"alpha_num"            => "The :attribute may only contain letters and numbers.",
@@ -29,7 +29,7 @@ return [
 	],
 	"boolean"              => "The :attribute field must be true or false.",
 	"confirmed"            => "The :attribute confirmation does not match.",
-	"date"                 => ":attribute no es una fecha valida.",
+	"date"                 => "Fecha no es una fecha válida.",
 	"date_format"          => ":attribute no concuerda con el formato :format.",
 	"different"            => "The :attribute and :other must be different.",
 	"digits"               => "The :attribute must be :digits digits.",
@@ -70,11 +70,11 @@ return [
 		"string"  => "The :attribute must be :size characters.",
 		"array"   => "The :attribute must contain :size items.",
 	],
-	"unique"               => "The :attribute has already been taken.",
+	"unique"               => ":attribute ya ha sido registrado en sistema",
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
 	"languaje_with_file_extension" => "El lenguaje no coincide con la extensión del código",
-	"extension"=>"La extensión de :attribute no coincide con los archivos permitidos",
+	"extension"=>"La extensión del archivo no coincide con los archivos permitidos",
     "oneword"     => ":attribute no debe contener espacios en blanco o caracteres especiales.",
 	/*
 	|--------------------------------------------------------------------------

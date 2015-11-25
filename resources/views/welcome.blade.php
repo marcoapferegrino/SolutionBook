@@ -53,12 +53,14 @@
 			<div class="content" >
 				<div  class="title  blue-gradient-background" style="margin-left:0% ;border-color: #ffffff; border-radius: 15px 50px; border-width: 15px;border-style: solid";><b style="color: #f7f7f7">
                         &nbsp; <img  src="{{url("icon.png")}}">
-                        Solution Book &nbsp;</b><small style="font-size: 50%">.Beta<i class="fa fa-qq " style=" ; color: #f7f7f7"></i></small> </div>
+                        Solution Book &nbsp;</b></div>
 
 				<div class="quote"><b style="color: ffffff"> "{{ Inspiring::quote() }} </b></div>
 			</div>
             <br><br><br>
-            <a class="btn btn-primary " style="border-radius: 16px" href="{{url('auth/login')}}" role="button" ><i class="fa fa-gamepad fa-5x on fa-circle"></i>
+            <a class="btn btn-primary " style="border-radius: 16px" href="{{url('auth/login')}}" role="button" ><i class="fa fa-chevron-circle-right fa-5x on fa-circle"></i>
+
+
             </a>
 		</div>
 

@@ -410,17 +410,22 @@ class ProblemsController extends Controller
 //            $minutos = 0;
 //            $segundos =0;
 //        }
+         $warnings = Warning::where('problem_id',$idProblem)->where('state','process')->get();
+//        dd($warnings->toArray());
+        if (count($warnings)>0) {
+            Session::flash('error',"Este problema tiene amonestaciones corrigelo por favor.");
+        }
         $problem=Problem::find($idProblem);
         $problem->update([
-            'title'=>$title,
-            'author'=>$nameUser,
-            'institution'=> $institution,
-            'description'=> $description,
+            'title'         =>$title,
+            'author'        =>$nameUser,
+            'institution'   => $institution,
+            'description'   => $description,
 //            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
 //            'limitMemory' => $limitMem,
-            'share'=>($share!=null)?$share:'no',
-            'judgeList_id'=>$judge,
-
+            'share'         =>($share!=null)?$share:'no',
+            'judgeList_id'  =>$judge,
+            'state'         => 'active'
         ]);
         $problem->save();
         $path ='uploads/'.$idProblem.'/';

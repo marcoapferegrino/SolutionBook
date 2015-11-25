@@ -354,8 +354,8 @@ class SolutionsController extends Controller
         Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
         Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
         Files::addOrReplaceLink($request->web,$solution->id,'Web');
-
-        $solution->save();
+        $solution->state = 'active';
+        $solution->save();pWa
 
         if($imgsDelete!=null){
             foreach ($request->imgsDelete as $img ) {

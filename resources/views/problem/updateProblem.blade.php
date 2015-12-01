@@ -32,6 +32,7 @@
                         <div class="form-group">
                             <label for="titulo" class="col-sm-2 control-label"><strong>Institución</strong></label>
                             <div class="col-sm-6">
+
                                 {!!Form::text('institucion',$dataProblem->institution,['class'=>'form-control'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                             </div>
@@ -41,10 +42,19 @@
                         <div class="form-group">
                             <label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label>
                             <div class="col-sm-8">
-                                {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control keypad','id'=>'description','placeholder'=>'Descripción del problema'])!!}
+                                @include('forEverybody.partials.tagToEdit')
+                                {!!Form::textArea('descripcion',$dataProblem->description,['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema'])!!}
                             </div>
 
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-lg-offset-2">
+                                <div class="alert alert-info" role="alert"><h4><strong>Así se verá tu explicación :D </strong></h4></div>
+                                <div id="contenido"></div>
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo </strong></label>
@@ -240,7 +250,7 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
-
+    <script src="{{ asset('/js/previewExplanation.js') }}"></script>
     <script type="text/javascript">
         function agregar() {
             campo = '<div class="form-group"><div class="col-sm-1"></div>                                <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo entrada</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8 name="inputs[]"  class="form-control" ></textarea>                         </div>   <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo salida</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8  name="outputs[]" class="form-control" ></textarea>        </div></div>';

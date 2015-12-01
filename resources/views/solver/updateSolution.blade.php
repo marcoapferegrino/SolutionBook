@@ -34,25 +34,34 @@
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
+                            @include('forEverybody.partials.tagToEdit')
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
                             {!! Form::textarea('explanation',$solutionComplete->explanation,array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
                         </div>
+                        <div class="form-group col-md-10 col-lg-offset-1 ">
+                            <div class="alert alert-warning" role="alert"><h3><strong>Así se verá tu explicación :D </strong></h3></div>
+
+                            <div id="contenido">
+
+                            </div>
+
+                        </div>
 
 
-                                <div class="form-group col-md-10 col-lg-offset-1 ">
-                                    <h4><label class="control-label" for="youtube"><strong>{{isset($linkYouTube->type)?$linkYouTube->type:"youTube"}}</strong></label></h4>
-                                    <input type="url"  class="form-control" value="{{isset($linkYouTube->link)?$linkYouTube->link:null}}"  name ="youtube" id="youtube" placeholder="¿Tienes un video con explicación?" >
-                                </div>
+                        <div class="form-group col-md-10 col-lg-offset-1 ">
+                            <h4><label class="control-label" for="youtube"><strong>{{isset($linkYouTube->type)?$linkYouTube->type:"youTube"}}</strong></label></h4>
+                            <input type="url"  class="form-control" value="{{isset($linkYouTube->link)?$linkYouTube->link:null}}"  name ="youtube" id="youtube" placeholder="¿Tienes un video con explicación?" >
+                        </div>
 
-                                <div class="form-group col-md-10 col-lg-offset-1">
-                                    <h4> <label class="control-label" for="repositorio"><strong>{{isset($linkGitHub->type)?$linkGitHub->type:"Repositorio"}}</strong></label></h4>
-                                    <input type="url"  class="form-control" value="{{isset($linkGitHub->link)?$linkGitHub->link:null}}"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
-                                </div>
+                        <div class="form-group col-md-10 col-lg-offset-1">
+                            <h4> <label class="control-label" for="repositorio"><strong>{{isset($linkGitHub->type)?$linkGitHub->type:"Repositorio"}}</strong></label></h4>
+                            <input type="url"  class="form-control" value="{{isset($linkGitHub->link)?$linkGitHub->link:null}}"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
+                        </div>
 
-                                <div class="form-group col-md-10 col-lg-offset-1">
-                                    <h4> <label class="control-label" for="web"><strong>Editar web</strong></label></h4>
-                                    <input type="url"  class="form-control" value="{{isset($linkWeb->link)?$linkWeb->link:null}}"  name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
-                                </div>
+                        <div class="form-group col-md-10 col-lg-offset-1">
+                            <h4> <label class="control-label" for="web"><strong>Editar web</strong></label></h4>
+                            <input type="url"  class="form-control" value="{{isset($linkWeb->link)?$linkWeb->link:null}}"  name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
+                        </div>
 
 
 
@@ -101,5 +110,6 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
+    <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 @endsection
 

@@ -23,6 +23,7 @@ use SolutionBook\Http\Requests;
 
 class ProblemsController extends Controller
 {
+    public static $TAGS_ALLOWED = "<strong><p><b><code><h3><h2><h4><kbd>";
     /**
      * Display a listing of the resource.
      *
@@ -78,7 +79,7 @@ class ProblemsController extends Controller
             'title'=>$title,
             'author'=>$nameUser,
             'institution'=> $institution,
-            'description'=> $description,
+            'description'=> strip_tags($description,self::$TAGS_ALLOWED),
             'numSolutions' =>0,
             'limitTime'=> $horas.':'.$minutos.':'.$segundos,
             'limitMemory' => $limitMem,
@@ -283,6 +284,7 @@ class ProblemsController extends Controller
         //$files=Problem::find($idProblem)->tags;
         $tags='';
         $judge=JudgesList::find($dataProblem->judgeList_id);
+
         foreach ($tagsAll as $key => $t) {
             # code...
             $tag=Tag::find($t->tag_id);

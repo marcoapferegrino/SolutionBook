@@ -32,7 +32,17 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
+                            @include('forEverybody.partials.tagToEdit')
                             {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
+
+                        </div>
+
+                        <div class="form-group col-md-10 col-lg-offset-1 ">
+                            <div class="alert alert-warning" role="alert"><h3><strong>Así se verá tu explicación :D </strong></h3></div>
+
+                            <div id="contenido">
+
+                            </div>
 
                         </div>
 
@@ -77,5 +87,10 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
+    {{--<script src="{{ asset('/js/highlight.pack.js') }}"></script>--}}
+    {{--<script>--}}
+        {{--hljs.initHighlightingOnLoad();--}}
+    {{--</script>--}}
+    <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 @endsection
 

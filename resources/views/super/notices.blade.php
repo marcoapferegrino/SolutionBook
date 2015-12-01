@@ -1,4 +1,4 @@
-@extends('app')
+w@extends('app')
 
 @section('content')
     @include('partials.messages')

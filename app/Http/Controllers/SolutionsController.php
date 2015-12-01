@@ -24,7 +24,7 @@ use SolutionBook\Http\Requests;
 class SolutionsController extends Controller
 {
 
-
+    public static $TAGS_ALLOWED = "<strong><p><b><code><h3><h2><h4><kbd>";
     /**
      * Display a listing of the resource.
      *
@@ -83,7 +83,7 @@ class SolutionsController extends Controller
             ]);
 
             $solution = Solution::create([
-                'explanation'       =>  $request->explanation,
+                'explanation'       =>  strip_tags($request->explanation,self::$TAGS_ALLOWED),
                 'state'             =>  'active',
                 'solutionLink'      => '',//link para ver solucion cre oque no sirve
                 'numWarnings'       => 0,

@@ -20,7 +20,7 @@
                         'files'=>true]) !!}
                         <div class="form-group">
                             <h4><label for="titulo" class="col-sm-2 control-label"><strong>Título *</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 {!!Form::text('title','',['class'=>'form-control','id'=>'title'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                                 <div id="similarTitle"></div>
@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <h4><label for="titulo" class="col-sm-2 control-label"><strong>Institución</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 {!!Form::text('institucion','',['class'=>'form-control'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                             </div>
@@ -40,14 +40,24 @@
                         <div class="form-group">
                             <h4><label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label></h4>
                             <div class="col-sm-8">
-                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'description','placeholder'=>'Descripción del problema'])!!}
+                                @include('forEverybody.partials.tagToEdit')
+                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema'])!!}
                             </div>
 
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-lg-offset-2">
+                                <div class="alert alert-info" role="alert"><h4><strong>Así se verá tu explicación :D </strong></h4></div>
+                                <div id="contenido"></div>
+                            </div>
+                        </div>
+
+
+
 
                         <div class="form-group">
                             <h4><label for="limitTime" class="col-sm-2 control-label"><strong>Limite de tiempo </strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="input-group">
                                     {!!Form::text('limitTime','0',['class'=>'form-control','placeholder'=>'segundos (Dejar este campo vacio significará: sin límite de tiempo)'])!!}
                                     <div class="input-group-addon">segs</div>
@@ -58,7 +68,7 @@
 
                         <div class="form-group">
                             <h4><label for="limitMemory" class="col-sm-2 control-label"><strong>Limite de Memoria *</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="input-group">
                                     {!!Form::text('limitMemory','',['class'=>'form-control','placeholder'=>'kilo bytes'])!!}
                                     <div class="input-group-addon">kb</div>
@@ -70,7 +80,7 @@
 
                         <div class="form-group">
                             <h4><label for="judgeList" class="col-sm-2 control-label"><strong>Juez en Línea</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <select class="form-control" name="judgeList" id="judges">
                                     <option value='#'></option>
                                     @foreach($judgeList as $j)
@@ -96,13 +106,13 @@
                             <div class="col-sm-4">
                                 <textarea rows=8 name="ejemplosa" class="form-control" ></textarea>
                             </div>
-                            {{--<div class="col-sm-1 ">
-                                <button type="button" class="btn btn-primary btn-lg ">
-                                    <a href="#" onclick="agregar();">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </a>
-                                </button>
-                            </div>--}}
+                            {{--<div class="col-sm-1 ">--}}
+                                {{--<button type="button" class="btn btn-primary btn-lg ">--}}
+                                    {{--<a href="#" onclick="agregar();">--}}
+                                        {{--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>--}}
+                                    {{--</a>--}}
+                                {{--</button>--}}
+                            {{--</div>--}}
                         </div>
                         <div id="emails">
                             <div class="form-group" >
@@ -139,7 +149,7 @@
 
                         <div class="form-group" >
                             <h4><label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
                                 <div id="similarTags"></div>
                             </div>
@@ -147,7 +157,7 @@
 
                         <div class="form-group">
                             <h4><label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 {!!Form::text('youtube','',['class'=>'form-control'])!!}
                             </div>
 
@@ -155,7 +165,7 @@
 
                         <div class="form-group">
                             <label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                     {!!Form::text('web','',['class'=>'form-control'])!!}
                             </div>
 
@@ -163,7 +173,7 @@
 
                         <div class="form-group">
                             <h4><label for="github" class="col-sm-2 control-label"><strong>Github</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 {!!Form::text('github','',['class'=>'form-control'])!!}
                             </div>
 
@@ -172,7 +182,7 @@
 
                         <div class="form-group">
                             <h4><label for="images" class="col-sm-2 control-label"><strong>Archivos de apoyo</strong></label></h4>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input type="file"  name="images[]" class="btn btn-info" id="images" multiple>
                             </div>
 
@@ -208,6 +218,7 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
+    <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 
     <script type="text/javascript">
         function agregar() {

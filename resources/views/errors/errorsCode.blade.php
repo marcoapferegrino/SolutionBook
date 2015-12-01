@@ -7,6 +7,7 @@
                 <h4>
                     <ol class="breadcrumb">
                         <li><a href="{{url('/showProblem/'.$idProblem)}}">Problema | {{$idProblem}}</a></li>
+                        <li><a onclick="window.history.back()">Edición solución |</a></li>
                         <li class="active">Errors</li>
                     </ol>
                 </h4>

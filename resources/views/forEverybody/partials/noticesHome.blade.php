@@ -30,7 +30,7 @@
                     @foreach($notices as $i=>$notice)
 
                     <div class="item text-center" align="middle"  >
-                        <dd style="font-size: 140%; font-family:Lucida Grande;overflow: hidden; text-overflow: ellipsis;" >
+                        <dd style="font-size: 200%; font-family:Lucida Grande;overflow: hidden; text-overflow: ellipsis;" >
                             <b  >{{$notice->title}}</b>
                         </dd>
 

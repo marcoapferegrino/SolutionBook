@@ -42,7 +42,7 @@ class NoticesController extends Controller
             else{
                 $tam='ancho';
             }
-           // dd($tam);
+            // dd($tam);
         }
         catch(\Exception $e){
             dd('no hay noticia');
@@ -58,10 +58,10 @@ class NoticesController extends Controller
     public function addNotice(AddNoticeRequest $request)
     {
         $notice = Notice::create(
-                        array('title'=>$request->title,
-                              'description'=>$request->description,
-                              'finishDate'=>$request->finishDate,
-                              'user_id'=>auth()->user()->id));
+            array('title'=>$request->title,
+                'description'=>$request->description,
+                'finishDate'=>$request->finishDate,
+                'user_id'=>auth()->user()->id));
         $fileImg      = $request->file('file');
         if($fileImg==null){
             $fileImg      = 'default.jpg';
@@ -71,58 +71,58 @@ class NoticesController extends Controller
         $pathFile = $path.'notices/'.$notice->id.'/';
         mkdir($pathFile,null, true);///////imagenes
         if($fileImg!='default.jpg'){
-        $nameFile = $fileImg->getClientOriginalName();
+            $nameFile = $fileImg->getClientOriginalName();
         }
         else{
-        $nameFile =$fileImg;
+            $nameFile =$fileImg;
         }
         $file = Files::create([
-        'name' => $nameFile,
-        'path' => $pathFile.$nameFile,
-        'type' =>'imagenApoyo',
-        'notice_id'=>$notice->id,
-         ]);
+            'name' => $nameFile,
+            'path' => $pathFile.$nameFile,
+            'type' =>'imagenApoyo',
+            'notice_id'=>$notice->id,
+        ]);
         $file->save();
         if($nameFile=='default.jpg'){
             copy($nameFile,$pathFile.$nameFile);
         }
         else{
-        $fileImg->move($pathFile,$nameFile);
+            $fileImg->move($pathFile,$nameFile);
         }
         ///////////////////////////////////////archivos
         $apoyo       = $request->file('apoyo');
         if($apoyo[0]!=null){
-        $pathApoyo=$pathFile.'docs/';
-        foreach($apoyo as $fileA){
-            try {
-                $nameApoyo = $fileA->getClientOriginalName();
-                $ext=$fileA->guessExtension() ;  //getOriginalExtension()
-                $type='';
-                if($ext=='jpg'||$ext=='bmp'||$ext=='png'||$ext=='jpeg'){
-                    $type='imagenApoyo';
-                }elseif(($ext=='mp3'||$ext=='wav'||$ext=='mpga')){
-                    $type='notaVoz';
-                }elseif(($ext=='pdf')){
-                    $type='pdf';
-                }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip'||$ext=='txt')){
-                    $type='word';
+            $pathApoyo=$pathFile.'docs/';
+            foreach($apoyo as $fileA){
+                try {
+                    $nameApoyo = $fileA->getClientOriginalName();
+                    $ext=$fileA->guessExtension() ;  //getOriginalExtension()
+                    $type='';
+                    if($ext=='jpg'||$ext=='bmp'||$ext=='png'||$ext=='jpeg'){
+                        $type='imagenApoyo';
+                    }elseif(($ext=='mp3'||$ext=='wav'||$ext=='mpga')){
+                        $type='notaVoz';
+                    }elseif(($ext=='pdf')){
+                        $type='pdf';
+                    }elseif(($ext=='doc'||$ext=='docx'||$ext=='zip'||$ext=='txt')){
+                        $type='word';
+                    }
+                    $fileApoyo= Files::create([
+                        'name' => $nameApoyo,
+                        'path' => $pathApoyo.$nameApoyo,
+                        'type' => $type,
+                        'notice_id'=>$notice->id,
+                    ]);
+                    $fileApoyo->save();
+                } catch (Exception $e) {
+                    Session::flash('error', 'no se pudo gruardar ');
                 }
-                $fileApoyo= Files::create([
-                    'name' => $nameApoyo,
-                    'path' => $pathApoyo.$nameApoyo,
-                    'type' => $type,
-                    'notice_id'=>$notice->id,
-                ]);
-                $fileApoyo->save();
-            } catch (Exception $e) {
-                Session::flash('error', 'no se pudo gruardar ');
+                try {
+                    $fileA->move($pathApoyo,$nameApoyo);
+                } catch (Exception $e) {
+                    Session::flash('error', 'No se pudo mover ');
+                }
             }
-            try {
-                $fileA->move($pathApoyo,$nameApoyo);
-            } catch (Exception $e) {
-                Session::flash('error', 'No se pudo mover ');
-            }
-        }
         }
         Session::flash('message', 'Noticia  agregada y publicada con éxito');//msg11
         //return redirect()->action('HomeController@indexAdmin');
@@ -139,26 +139,26 @@ class NoticesController extends Controller
             $aux='';
             $explode= str_split($pathEraser);
             $flag=0;
-                foreach($explode as $ind=>$letter) {
-                    if ($letter == '/' || $letter == '\\'||$flag==1) {
-                        $flag=1;
-                        $aux = $aux.$letter;
-                    }
+            foreach($explode as $ind=>$letter) {
+                if ($letter == '/' || $letter == '\\'||$flag==1) {
+                    $flag=1;
+                    $aux = $aux.$letter;
                 }
+            }
             foreach($files as $i=>$file){
-                    $realFile=Files::find($file['id']);
-                    if($realFile->path!=null){
-                        unlink($realFile->path);
-                    }
-                    $file->delete();
+                $realFile=Files::find($file['id']);
+                if($realFile->path!=null){
+                    unlink($realFile->path);
+                }
+                $file->delete();
             }
             try{
                 if(is_dir(strrev ($aux ).'docs')){
-                rmdir(strrev ($aux ).'docs');
+                    rmdir(strrev ($aux ).'docs');
                 }
             }
             catch(ErrorException $e){
-        } try{
+            } try{
             $notice->delete();
         }
         catch(ErrorException $e){
@@ -187,7 +187,7 @@ class NoticesController extends Controller
         if($fileImg!=null)
         {
             $file=Files::where('notice_id',$notice->id)->get()->all();
-         //   dd($file);
+            //   dd($file);
             if($file!=null){
                 $realFile=Files::find($file[0]['id']);
                 if($realFile->path!=null){
@@ -222,11 +222,11 @@ class NoticesController extends Controller
             $files=Files::where('notice_id',$notice->id)->get()->all();
             foreach($files as $i=>$file){
                 if($i!=0){
-                $realFile=Files::find($file['id']);
-                if($realFile->path!=null){
-                    unlink($realFile->path);
-                }
-                $file->delete();
+                    $realFile=Files::find($file['id']);
+                    if($realFile->path!=null){
+                        unlink($realFile->path);
+                    }
+                    $file->delete();
                 }
             }
             /////////////

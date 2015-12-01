@@ -53,7 +53,6 @@ Route::get('/register', [
     'uses' => 'WelcomeController@addRegister'
 ]);
 
-
 Route::get('redirect/{provider}', 'AccountController@github_redirect');
 // Get back to redirect url
 Route::get('login/{provider}', 'AccountController@github');

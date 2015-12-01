@@ -40,7 +40,7 @@
                                 <tr><th>Jueces:</th></tr>
                                 <tr >
                                     <td>
-                                        <a href="{{$judge->addresWeb}}" >{{$judge->name}}</a>
+                                        <a href="{{$judge->addressWeb}}" >{{$judge->name}}</a>
                                     </td>
                                 </tr>
                                 @endif
@@ -102,7 +102,7 @@
                             <div class=" col-xs-9" >
                                 <b>Descripción</b>
                                 <br>
-                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:400px;">{{$dataProblem->description}}</pre>
+                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:800px;">{!! $dataProblem->description !!}</pre>
 
                                 <br>
                                 <br>
@@ -207,7 +207,10 @@
     @include('problem.partials.deleteProblemModal')
 @endsection
 @section('scripts')
-
+    <script src="{{ asset('/js/highlight.pack.js') }}"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
     <script src="{{ asset('/js/likes.js') }}"></script>
     <script src="{{ asset('/js/modalDeleteProblem.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
@@ -215,66 +218,6 @@
     <script src="{{ asset('/jsCharts/highcharts.js') }}"></script>
     <script src="{{ asset('/jsCharts/modules/exporting.js') }}"></script>
     <script src="{{ asset('/js/modalDeleteSolution.js') }}"></script>
-    <script>
-        $(function () {
+    <script src="{{ asset('/js/graphProblemLanguages.js') }}"></script>
 
-            var cData =$('#containerGraph').data('cnorm');
-            var javaData =$('#containerGraph').data('java');
-            var pythonData =$('#containerGraph').data('python');
-            var cPlusData =$('#containerGraph').data('cplus');
-
-            console.log(cData);
-            console.log(javaData);
-            console.log(pythonData);
-            console.log(cPlusData);
-            $('#containerGraph').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Lenguajes de soluciones'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: "Lenguajes",
-                    colorByPoint: true,
-                    data: [{
-                        name: "C",
-                        y: cData,
-                        sliced: true,
-                        selected: true
-                    }, {
-                        name: "C++",
-                        y: cPlusData
-                    }, {
-                        name: "Python",
-                        y: pythonData
-                    }, {
-                        name: "Java",
-                        y: javaData
-                    }]
-                }]
-            });
-        });
-
-    </script>
 @endsection

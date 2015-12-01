@@ -23,6 +23,7 @@ use SolutionBook\Http\Requests;
 
 class ProblemsController extends Controller
 {
+    public static $TAGS_ALLOWED = "<strong><p><b><code><h3><h2><h4><kbd>";
     /**
      * Display a listing of the resource.
      *
@@ -78,7 +79,7 @@ class ProblemsController extends Controller
             'title'=>$title,
             'author'=>$nameUser,
             'institution'=> $institution,
-            'description'=> $description,
+            'description'=> strip_tags($description,self::$TAGS_ALLOWED),
             'numSolutions' =>0,
             'limitTime'=> $horas.':'.$minutos.':'.$segundos,
             'limitMemory' => $limitMem,
@@ -283,6 +284,7 @@ class ProblemsController extends Controller
         //$files=Problem::find($idProblem)->tags;
         $tags='';
         $judge=JudgesList::find($dataProblem->judgeList_id);
+
         foreach ($tagsAll as $key => $t) {
             # code...
             $tag=Tag::find($t->tag_id);
@@ -410,17 +412,22 @@ class ProblemsController extends Controller
 //            $minutos = 0;
 //            $segundos =0;
 //        }
+         $warnings = Warning::where('problem_id',$idProblem)->where('state','process')->get();
+//        dd($warnings->toArray());
+        if (count($warnings)>0) {
+            Session::flash('error',"Este problema tiene amonestaciones corrigelo por favor.");
+        }
         $problem=Problem::find($idProblem);
         $problem->update([
-            'title'=>$title,
-            'author'=>$nameUser,
-            'institution'=> $institution,
-            'description'=> $description,
+            'title'         =>$title,
+            'author'        =>$nameUser,
+            'institution'   => $institution,
+            'description'   => $description,
 //            'limitTime'=> $horas.':'.$minutos.':'.$segundos,
 //            'limitMemory' => $limitMem,
-            'share'=>($share!=null)?$share:'no',
-            'judgeList_id'=>$judge,
-
+            'share'         =>($share!=null)?$share:'no',
+            'judgeList_id'  =>$judge,
+            'state'         => 'active'
         ]);
         $problem->save();
         $path ='uploads/'.$idProblem.'/';

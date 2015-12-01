@@ -69,8 +69,9 @@
                                 </div>
 
                                 <p class="lead"><strong>Explicación</strong></p>
-                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:400px;">
-                                    {{$solution->explanation}}</pre>
+
+                                <pre data-spy="scroll" style="overflow-y: scroll; max-height:800px;">
+                                    {!! $solution->explanation !!}</pre>
                             </div>
                         </div>
                         <div class="row">
@@ -120,8 +121,8 @@
 
                         @if(!$code===false)
                             <pre>
-                                        <code class="{{$solution->language}}">{{$code}}</code>
-                                    </pre>
+                                <code class="{{$solution->language}}">{{$code}}</code>
+                            </pre>
                         @else
                             <p class="text-danger">Esta solución no tiene tiene código deberías reportarla</p>
                         @endif
@@ -200,4 +201,5 @@
     <script src="{{ asset('/js/likes.js') }}"></script>
     <script src="{{ asset('/js/alerts.js') }}"></script>
     <script src="{{ asset('/js/disqus.js') }}"></script>
+    <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 @endsection

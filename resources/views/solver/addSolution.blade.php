@@ -1,6 +1,7 @@
 @extends('app')
 @section('styles')
     <link href="{{ asset('/css/jquery.keypad.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/styles/monokai.css') }}">
 @endsection
 @section('content')
 
@@ -33,7 +34,7 @@
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
                             @include('forEverybody.partials.tagToEdit')
-                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ')) !!}
+                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ','contenteditable'=>true)) !!}
 
                         </div>
 
@@ -77,7 +78,16 @@
                         <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-all">Guardar</button>
                         {!! Form::close() !!}
                     </div>
-
+                    <pre><code >/**
+                            * The event listener mappings for the application.
+                            *
+                            * @var array
+                            */
+                            protected $listen = [
+                            'App\Events\PodcastWasPurchased' => [
+                            'App\Listeners\EmailPurchaseConfirmation',
+                            ],
+                            ]; </code></pre>
                 </div>
             </div>
         </div>
@@ -87,10 +97,12 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
-    {{--<script src="{{ asset('/js/highlight.pack.js') }}"></script>--}}
-    {{--<script>--}}
-        {{--hljs.initHighlightingOnLoad();--}}
-    {{--</script>--}}
+    <script src="{{ asset('/js/highlight.pack.js') }}"></script>
+    <script src="{{ asset('/js/jquery.caret.js') }}"></script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 @endsection
 

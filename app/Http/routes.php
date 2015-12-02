@@ -48,7 +48,7 @@ Route::get('/register', [
 
 
 
-Route::post('/addRegister', [
+    Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
 ]);

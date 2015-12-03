@@ -33,12 +33,17 @@ class AddNoticeRequest extends Request
             'title'=> 'required ',
             'description'=> 'required',
             'apoyo'=> 'array',
+            'gallery'=>'array',
             'finishDate'=> 'required|date|after:'.$minFecha.'|before:'.$maxFecha,
             'file'    => 'extension:jpg,png,bmp,jpeg'
         ];
         foreach($apoyo['apoyo'] as $key => $val)
         {
             $rules['apoyo.'.$key] = 'extension:pdf,doc,txt,docx,bmp,jpg,png,mp3,wav';
+        }
+        foreach($apoyo['gallery'] as $key => $val)
+        {
+            $rules['gallery.'.$key] = 'extension:bmp,jpg,png,jpeg';
         }
 
         return $rules;

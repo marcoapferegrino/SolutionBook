@@ -203,6 +203,14 @@ Route::group(['middleware' => 'auth'],function(){
             'as' => 'user.plusWarning',
             'uses' => 'WarningsController@validateWarning'
         ]);
+        Route::get('/configuration', [
+            'as' => 'user.configurationSolutionBook',
+            'uses' => 'WelcomeController@configurationSolutionBook'
+        ]);
+        Route::post('/activateCss', [
+            'as' => 'user.activateCss',
+            'uses' => 'WelcomeController@activateCss'
+        ]);
 
 
 

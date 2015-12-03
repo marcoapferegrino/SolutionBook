@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Exception;
 
@@ -91,6 +92,20 @@ class Files extends Entity {
             }
 
         }
+    }
+
+    public static function getGallery($id)
+    {
+        $usernames = DB::table('files')
+            ->select('path')
+            ->where('notice_id',$id)
+            ->where('type','imagenGallery')
+            ->get();
+
+        return $usernames;
+
+
+
     }
 
 

@@ -227,7 +227,6 @@ class ProblemsController extends Controller
             else
                 array_push($avatar,'default.jpg');
             array_push($publicado,Carbon::parse($r->created_at));
-            array_push($avatar,'default.jpg');
         }
         $placeholder="Buscar por: Título o Tags";
         $dias=array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');

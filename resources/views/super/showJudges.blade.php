@@ -36,12 +36,12 @@
                             </td>
                             <td>
                                 @if($j->facebook!=null)
-                                    <center><a href="{{$j->facebook}}"><img src="auth/facebook.jpg" width="50px"></a></center>
+                                    <center><a href="{{$j->facebook}}"><img src="{{ asset('auth/facebook.jpg')}}" width="50px"></a></center>
                                     @endif
                             </td>
                             <td>
                                 @if($j->twitter!=null)
-                                    <center><a href="{{$j->twitter}}"><img src="auth/twitter.png" width="50px"></a></center>
+                                    <center><a href="{{$j->twitter}}"><img src="{{ asset('auth/twitter.png')}}" width="50px"></a></center>
                                 @endif
                             </td>
                             <td>

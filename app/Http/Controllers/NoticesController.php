@@ -21,16 +21,6 @@ class NoticesController extends Controller
     }
     public function oneNotice($id)
     {
-        /*
-        $warnings=DB::table('warnings')
-            ->select('*')
-            // ->where('warnings.created_at','<',$today)
-            ->get();
-        foreach($warnings as $warning){
-            $warning->state='forAdmin';
-            $warning->save();
-
-        }*/
 
 
         try{
@@ -47,7 +37,8 @@ class NoticesController extends Controller
         catch(\Exception $e){
             dd('no hay noticia');
         }
-        return view('forEverybody.oneNotice',compact('notice','tam'));
+        $gallery=Files::getGallery($id);
+        return view('forEverybody.oneNotice',compact('notice','tam','gallery'));
     }
     public function getNotices()
     {
@@ -63,13 +54,14 @@ class NoticesController extends Controller
                 'finishDate'=>$request->finishDate,
                 'user_id'=>auth()->user()->id));
         $fileImg      = $request->file('file');
+        $gallery      = $request->file('gallery');
         if($fileImg==null){
             $fileImg      = 'default.jpg';
         }
         $idUser = auth()->user()->id;
         $path ='users/'.$idUser.'/';
         $pathFile = $path.'notices/'.$notice->id.'/';
-        mkdir($pathFile,null, true);///////imagenes
+        mkdir($pathFile,0775, true);///////imagenes
         if($fileImg!='default.jpg'){
             $nameFile = $fileImg->getClientOriginalName();
         }
@@ -114,15 +106,49 @@ class NoticesController extends Controller
                         'notice_id'=>$notice->id,
                     ]);
                     $fileApoyo->save();
-                } catch (Exception $e) {
-                    Session::flash('error', 'no se pudo gruardar ');
+                } catch (ErrorException $e) {
+                    Session::flash('error', 'No se pudo guardar ');
                 }
                 try {
+                    //dd($pathApoyo,$nameApoyo);
                     $fileA->move($pathApoyo,$nameApoyo);
-                } catch (Exception $e) {
+                } catch (ErrorException $e) {
                     Session::flash('error', 'No se pudo mover ');
                 }
             }
+        }
+
+        if($gallery[0]!=null){
+
+            $pathApoyo=$pathFile.'docs/';
+            foreach($gallery as $fileGallery){
+                $imgGallery=null;
+                $nameGallery = null;
+                try {
+                    $nameGallery = $fileGallery->getClientOriginalName();
+                    $type='imagenGallery';
+                    $imgGallery= Files::create([
+                        'name' => $nameGallery,
+                        'path' => $pathApoyo.$nameGallery,
+                        'type' => $type,
+                        'notice_id'=>$notice->id,
+                    ]);
+
+                   // dd($imgGallery);
+                    $imgGallery->save();
+                } catch (ErrorException $ee) {
+                    Session::flash('error', 'No se pudo guardar ');
+                }
+                try {
+                  //  dd($pathApoyo,$nameApoyo);
+
+                    $fileGallery->move($pathApoyo,$nameGallery);
+
+                } catch (ErrorException $ee) {
+                    Session::flash('error', 'No se pudo mover ');
+                }
+            }
+
         }
         Session::flash('message', 'Noticia  agregada y publicada con éxito');//msg11
         //return redirect()->action('HomeController@indexAdmin');
@@ -179,6 +205,8 @@ class NoticesController extends Controller
     {
         $fileImg      = $request->file('file');
         $apoyo        =  $request->file('apoyo');
+        $idUser = auth()->user()->id;
+        $gallery      = $request->file('gallery');
         $notice = Notice::find($request->id);
         $notice->title      = $request->title;
         $notice->description= $request->description;
@@ -270,6 +298,58 @@ class NoticesController extends Controller
             }
             //////////////
         }
+        $path ='users/'.$idUser.'/';
+        $pathFile = $path.'notices/'.$notice->id.'/';
+        ///////////////////gallery
+        if($gallery[0]!=null){
+
+            $files=Files::where('notice_id',$notice->id)->where('type','imagenGallery')->get()->all();
+
+            foreach($files as $i=>$file){
+
+                    $realFile=Files::find($file['id']);
+                    if($realFile->path!=null){
+                        unlink($realFile->path);
+                    }
+                    $file->delete();
+
+            }
+
+
+
+            $pathApoyo=$pathFile.'docs/';
+            foreach($gallery as $fileGallery){
+                $imgGallery=null;
+                $nameGallery = null;
+                try {
+                    $nameGallery = $fileGallery->getClientOriginalName();
+                    $type='imagenGallery';
+                    $imgGallery= Files::create([
+                        'name' => $nameGallery,
+                        'path' => $pathApoyo.$nameGallery,
+                        'type' => $type,
+                        'notice_id'=>$notice->id,
+                    ]);
+
+                    // dd($imgGallery);
+                    $imgGallery->save();
+                } catch (ErrorException $ee) {
+                    Session::flash('error', 'No se pudo guardar ');
+                }
+                try {
+                    //  dd($pathApoyo,$nameApoyo);
+
+                    $fileGallery->move($pathApoyo,$nameGallery);
+
+                } catch (ErrorException $ee) {
+                    Session::flash('error', 'No se pudo mover ');
+                }
+            }
+
+        }
+
+
+
         Session::flash('message','Cambios guardados'); //Msg08
         return redirect()->action('NoticesController@getNotices');
     }

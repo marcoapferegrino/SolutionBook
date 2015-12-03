@@ -42,6 +42,8 @@ class LikesController extends Controller
             $pusher->trigger( 'likes-channel',
                 'likes-event', array($mensj) );
 
+            $user->ranking+=1;
+            $user->save();
 
             if($request->ajax()){
                 return  response()->json(compact('success'));
@@ -72,6 +74,9 @@ class LikesController extends Controller
 
             $user = auth()->user();
             $success= $user->disLike($solution->id);
+
+            $user->ranking-=1;
+            $user->save();
 
             if($request->ajax()){
                 return  response()->json(compact('success'));

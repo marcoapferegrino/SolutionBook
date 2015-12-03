@@ -41,7 +41,7 @@
                             <h4><label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label></h4>
                             <div class="col-sm-8">
                                 @include('forEverybody.partials.tagToEdit')
-                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema'])!!}
+                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema','rows'=>15])!!}
                             </div>
 
                         </div>
@@ -164,7 +164,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label>
+                            <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
                             <div class="col-sm-8">
                                     {!!Form::text('web','',['class'=>'form-control'])!!}
                             </div>
@@ -218,6 +218,7 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
+    <script src="{{ asset('/js/jquery.caret.js') }}"></script>
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 
     <script type="text/javascript">

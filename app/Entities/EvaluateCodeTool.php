@@ -13,7 +13,7 @@ namespace SolutionBook\Entities;
 
  class EvaluateCodeTool
 {
-
+     public static $LIMIT_EXCECUTION_SERVER_SEGS=60;
      public static $RESULTS = array();
      public static $BASE_SENTENCE = "/usr/bin/time -f '%U->Tiempo de ejecución \n %M->Memory execution(kb) ' ";
      public static $PYTHON = "python ";
@@ -74,7 +74,7 @@ namespace SolutionBook\Entities;
                 if(empty($outputCompile))
                 {
                     if ($problem->limitTime == "00:00:00"){
-                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_EXCECUTION_SERVER_SEGS." ./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
                     else{
                         $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
@@ -110,7 +110,7 @@ namespace SolutionBook\Entities;
                 {
 
                     if ($problem->limitTime == "00:00:00"){
-                        $sentenceToExecute = self::$BASE_SENTENCE."./temporal/".$nameOutputFile." "." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_EXCECUTION_SERVER_SEGS." ./temporal/".$nameOutputFile." "." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                     }
                     else{
                         $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." "."./temporal/".$nameOutputFile." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
@@ -147,7 +147,7 @@ namespace SolutionBook\Entities;
                 if(empty($outputCompile))
                 {
                     if ($problem->limitTime == "00:00:00"){
-                        $sentenceToExecute = self::$BASE_SENTENCE.self::$JAVA.public_path()."/temporal/ ".$className." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+                        $sentenceToExecute = self::$BASE_SENTENCE.self::$LIMIT_EXCECUTION_SERVER_SEGS." ".self::$JAVA.public_path()."/temporal/ ".$className." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
 
                     }
                     else{
@@ -179,7 +179,7 @@ namespace SolutionBook\Entities;
             case 'py':
 
                 if ($problem->limitTime == "00:00:00"){
-                    $sentence = self::$BASE_SENTENCE.self::$PYTHON.$fileCodeTemp->getRealPath()." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
+                    $sentence = self::$BASE_SENTENCE.self::$LIMIT_EXCECUTION_SERVER_SEGS." ".self::$PYTHON.$fileCodeTemp->getRealPath()." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
                 }
                 else{
                     $sentence = self::$BASE_SENTENCE.self::$LIMIT_TIME.$limitTime[2]." ".self::$PYTHON.$fileCodeTemp->getRealPath()." < ".public_path($inputFile->path).self::$REDIRECT_OUTPUT;
@@ -196,9 +196,8 @@ namespace SolutionBook\Entities;
         }
     }
 
+
      /**
-      * @internal Comparing original outputProblem with outputSolution for presententation and result
-      * @param $outputProblemString
       * @param $outputProblem
       * @param $output
       */
@@ -403,8 +402,10 @@ namespace SolutionBook\Entities;
 
      }
 
+
      /**
       * @param $nameOutputFile
+      * @return string error
       */
      private static function removeExecutable($nameOutputFile)
      {

@@ -1,6 +1,6 @@
 
     <div class="panel panel-primary">
-        <div class="panel-heading"><strong>Noticias</strong>
+        <div class="panel-heading"><strong><h3>Noticias</h3></strong>
 
         </div>
 

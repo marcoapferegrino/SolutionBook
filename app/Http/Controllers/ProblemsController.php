@@ -115,6 +115,7 @@ class ProblemsController extends Controller
                 else{
                     $tipo="imagenApoyo";
                     $pathImages = $path.'images/';
+                    mkdir($pathImages,0755, true);
                 }
                 $nameImage = $image->getClientOriginalName();
 

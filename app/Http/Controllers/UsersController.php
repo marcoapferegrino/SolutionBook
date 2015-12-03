@@ -4,9 +4,6 @@ namespace SolutionBook\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Input;
-use Psy\Util\Json;
-
 use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\Notify;
 use SolutionBook\Entities\Tools;
@@ -32,7 +29,7 @@ class UsersController extends Controller
             $allNumLikes += $solution->numLikes;
         }
 
-        $ranking = ($numSolutions*10)+$allNumLikes;
+        $ranking = ($numSolutions*env('POINTS_PER_SOLUTION'))+$allNumLikes;
         $user->ranking = $ranking;
         $user->save();
 
@@ -41,7 +38,6 @@ class UsersController extends Controller
         $python = json_encode($user->mySolutionsPerLanguageAnually('python'));
         $java = json_encode($user->mySolutionsPerLanguageAnually('java'));
 
-//        dd($java,$cSolutions,$cPlusSolutions,$python);
         return view('forEverybody.myPerfil',compact('user','numSolutions','numProblems',
             'numWarnings','cSolutions','cPlusSolutions','python','java'));
     }

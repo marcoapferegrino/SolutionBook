@@ -34,7 +34,7 @@
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
                             @include('forEverybody.partials.tagToEdit')
-                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ','contenteditable'=>true)) !!}
+                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ','contenteditable'=>true,'rows'=>15)) !!}
 
                         </div>
 
@@ -78,16 +78,6 @@
                         <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-all">Guardar</button>
                         {!! Form::close() !!}
                     </div>
-                    <pre><code >/**
-                            * The event listener mappings for the application.
-                            *
-                            * @var array
-                            */
-                            protected $listen = [
-                            'App\Events\PodcastWasPurchased' => [
-                            'App\Listeners\EmailPurchaseConfirmation',
-                            ],
-                            ]; </code></pre>
                 </div>
             </div>
         </div>

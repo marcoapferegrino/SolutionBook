@@ -110,6 +110,7 @@
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
+    <script src="{{ asset('/js/jquery.caret.js') }}"></script>
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 @endsection
 

@@ -46,8 +46,9 @@ class SolutionsController extends Controller
     public function addSolution(AddSolutionRequest $request)
     {
 //        dd($request->all());
+        $user = auth()->user();
         $idProblem      = $request->idProblem;
-        $idUser         = auth()->user()->getAuthIdentifier();
+        $idUser         = $user->id;;
 
         $images         = $request->file('images');
         $fileCode       = $request->file('fileCode');
@@ -134,8 +135,12 @@ class SolutionsController extends Controller
             Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
             Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
             Files::addOrReplaceLink($request->web,$solution->id,'Web');
+
             $problem->numSolutions = $numSolutions+1;
             $problem->save();
+
+            $user->ranking+=env('POINTS_PER_SOLUTION');
+            $user->save();
 
             Session::flash('message', '¡Felicidades! La solución es correcta :D');
             return redirect('/showSolution/'.$solution->id);
@@ -213,8 +218,11 @@ class SolutionsController extends Controller
 
                 Tools::deleteDirectory($solutionDir); //borramos sus archivos del servidor
 
-                $problem->numSolutions -=1;
+                $problem->numSolutions-=1;
                 $problem->save();
+
+                $ownerSolution->ranking-=env('POINTS_PER_SOLUTION');
+                $ownerSolution->save();
 
             } catch (Exception $e) {
                 Session::flash('error', 'Paso algo extraño:'.$e->getMessage());

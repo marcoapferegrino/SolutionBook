@@ -2,7 +2,7 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title"> <i style="color: gold" class="fa fa-star"></i>Top Solvers <i style="color: gold" class="fa fa-star"></i></h3>
+        <h3> <i style="color: gold" class="fa fa-star"></i>Top Solvers <i style="color: gold" class="fa fa-star"></i></h3>
     </div>
     <div class="panel-body">
 

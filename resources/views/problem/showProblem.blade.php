@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('/css/styles/monokai.css') }}">
+@endsection
 @section('content')
     <div class="container">
         <a name="problem"></a>

@@ -10,7 +10,9 @@
     <title>Solution Book</title>
 
     <link rel="icon" href="{{url("oie_transparent.png")}}">
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <!--<link href="{ { asset('/css/app.css') }}" rel="stylesheet"> -->
+
+    <link href="{{ asset(\SolutionBook\Entities\Style::css()) }}" rel="stylesheet">
     <link href="{{ asset('/css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/notifications.css') }}" rel="stylesheet">
     @yield('styles')
@@ -109,6 +111,7 @@
                                     <li><a href="{{ url('/myWarnings') }}"><i class="fa fa-exclamation-triangle "></i> Amonestaciones</a></li>
                                     <li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
                                     <li><a href="{{url("/allProblems")}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
+                                    <li><a href="{{url("/configuration")}}"><i class="fa fa-cogs"></i> Configuración de Solution Book </a></li>
 
 
 

@@ -9,7 +9,7 @@
     </div>
 <div class="container">
 
-    <div class="col-lg-9 col-md-push-2 " >
+    <div class="col-lg-10 col-md-push-1 " >
 
         {!! Form::open(['route' => 'notices.addNotice','method' => 'POST','class'=>'form-inline','files'=>true]) !!}
 
@@ -36,9 +36,9 @@
                     <br> <br><br> <br>
 
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group" >
                                 {!! Form::label('description', 'Descripción*') !!} <br>
-                                {!! Form::textarea('description',null, array('class' => 'field', 'size' => '90x8','id'=>'description','placeholder'=>'Texto','required'))!!}
+                                {!! Form::textarea('description',null, array('class' => 'field','style'=>'resize: none', 'size' => '100x15','id'=>'description','placeholder'=>'Texto','required'))!!}
                             </div>
                         </div>
                     <br> <br><br> <br>
@@ -50,9 +50,9 @@
                         <input type="date" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(1)}} >
                     </div>
                     </div>
-                    <br> <br><br> <br>
+                    <br> <br><br> <br><br><br>
                     <div class="form-group">
-                        <label for="file" class="col-sm-4 control-label">Imagen representativa:</label> <br><br>
+                        <label for="file" class="col-sm-12 control-label">Imagen representativa (Se mostrará en la vista principal):</label> <br><br>
                         <div class="col-sm-6">
                             {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
                         </div>
@@ -60,10 +60,20 @@
                     </div>
                     <br><br>
                     <div class="form-group">
-                        <label for="file" class="col-sm-4 control-label">Archivos de apoyo:</label> <br><br><br>
+                        <label for="apoyo" class="col-sm-8 control-label">Archivos de apoyo(Se aceptan archivos jpg,bmp,png,txt,pdf,mp3,docx,doc,wav):</label> <br><br>
                         <div class="col-sm-6">
 
                             <input type="file"  name="apoyo[]" class="btn btn-info" id="apoyo" multiple>
+                        </div>
+
+                    </div>
+
+                    <br><br>
+                    <div class="form-group">
+                        <label for="file" class="col-sm-8 control-label">Galería de imágenes:</label> <br><br>
+                        <div class="col-sm-6">
+
+                            <input type="file"  name="gallery[]" class="btn btn-info" id="gallery" multiple>
                         </div>
 
                     </div>

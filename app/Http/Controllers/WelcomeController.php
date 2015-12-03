@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
 use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Style;
 use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddUserRequest;
@@ -86,6 +87,35 @@ class WelcomeController extends Controller {
         }
         return '{ "res" :"yes" }';
 
+    }
+    public function configurationSolutionBook()
+    {
+        $styles=Style::all();
+
+        return view('super.configuration',compact('styles'));
+    }
+    public function activateCss(Request $request)
+    {
+        //dd($request->all());
+        $styles=Style::all();
+
+        $id=$request->style_id;
+        foreach($styles as $style){
+            if($style->id==$id){
+                $style->state='Activo';
+                $style->save();
+            }else{
+
+                $style->state='No activo';
+                $style->save();
+
+            }
+
+
+
+        }
+
+        return redirect()->action('WelcomeController@configurationSolutionBook');
     }
 
     public function addRegister(AddUserRequest $request)

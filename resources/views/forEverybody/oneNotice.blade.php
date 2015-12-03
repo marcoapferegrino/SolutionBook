@@ -30,12 +30,68 @@
                                         <pre>{{$notice[0]->description}}</pre>
                                     </div>
                                 </samp>
+                                @if(count($gallery)>=1)
+                                <div class="col-lg-10 col-lg-push-1">
+                                    <div id="myCarousel" class="carousel slide " data-ride="carousel">
 
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+
+                                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                            @foreach($gallery as $i=>$imgGallery)
+                                                <li data-target="#myCarousel" data-slide-to="{{$i}}" ></li>
+                                            @endforeach
+
+                                        </ol>
+
+                                        <div class="carousel-inner " role="listbox">
+
+                                            @foreach($gallery as $i=>$imgGallery)
+                                                @if($i==0)
+                                                    <div class="item active">
+                                                        <img align="middle"  style="width:100%;  height:100%" src="{{url($imgGallery->path)}}" >
+                                                        <div class="carousel-caption">
+                                                        </div>
+                                                    </div>
+                                                 @else
+                                                    <div class="item text-center" align="middle"  >
+
+                                                        <img align="middle"  style="width:100%;  height:100%" src="{{url($imgGallery->path)}}" >
+                                                        <div class="carousel-caption">
+
+
+                                                        </div>
+
+                                                    </div>
+                                                @endif
+
+
+
+                                            @endforeach
+
+                                        </div>
+
+
+                                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                            <span class="sr-only">Anterior</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                            <span class="sr-only">Siguiente</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+                                @endif
                                 @if(count($notice)>1)
-
+                            <div class="col-lg-12">
                                 <div class="panel panel-success">
                                     <div class="panel-heading"><i class="fa fa-files-o"></i>
-                                        <strong>Archivos</strong></div>
+                                        <strong>Archivos</strong>
+                                    </div>
 
                                     <div class="panel-body col-md-12 "  style="background-color: lightgray" align="middle">
                                 @foreach($notice as $k=>$noticeFile)
@@ -49,6 +105,7 @@
                                     </div>
                                 </div>
                                 @endif
+                            </div>
 
                             </div>
 

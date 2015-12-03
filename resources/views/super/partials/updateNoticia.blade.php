@@ -36,6 +36,7 @@
                                     <input type="date" value="{{$notice->finishDate}}" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(18)}} >
                                 </div>
 
+                            <span style="font-size: 140%" class="label label-warning">Si no se agregan archivos se conservarn los guardados previamente</span><br><br>
                             <div class="form-group">
                                 <label for="file" class="col-sm-4 control-label">Imagen representativa:</label> <br><br>
                                 <div class="col-sm-6">
@@ -50,6 +51,14 @@
                                 <div class="col-sm-6">
 
                                     <input type="file"  name="apoyo[]" class="btn btn-info" id="apoyo" multiple>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="file" class="col-sm-8 control-label">Galería de imágenes:</label> <br><br>
+                                <div class="col-sm-6">
+
+                                    <input type="file"  name="gallery[]" class="btn btn-info" id="gallery" multiple>
                                 </div>
 
                             </div>

@@ -215,6 +215,11 @@
     <script src="{{ asset('/js/similarTitle.js') }}"></script>
     <script src="{{ asset('/js/similarTags.js') }}"></script>
 
+    <script src="{{ asset('/js/highlight.pack.js') }}"></script>
+    <script>
+    hljs.initHighlightingOnLoad();
+    </script>
+
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>
     <script src="{{ asset('/js/jquery.keypad.js') }}"></script>
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>

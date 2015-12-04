@@ -20,7 +20,6 @@
         /*Cleaning explanation from html tags*/
         explanation = strip_tags(explanation,allowed);
         divContenido.html(explanation);
-
     });
 
 
@@ -44,7 +43,6 @@
         insertTag("</br>",this.id);
     });
     $('#code').click(function () {
-
         insertTag("<code> </code>",this.id);
     });
     $('#h2').click(function () {

@@ -41,6 +41,16 @@ class StylesSeeder  extends Seeder {
             'path'=> 'css/systemStyles/app4.css',
             'state' => 'No activo'
         ]);
+        \SolutionBook\Entities\Style::create([
+            'name'=>'Mark',
+            'path'=> 'css/systemStyles/appMark.css',
+            'state' => 'No activo'
+        ]);
+        \SolutionBook\Entities\Style::create([
+            'name'=>'Vale',
+            'path'=> 'css/systemStyles/Vale.css',
+            'state' => 'No activo'
+        ]);
 
 
 

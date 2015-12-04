@@ -1,6 +1,7 @@
 @extends('app')
 @section('styles')
     <link href="{{ asset('/css/jquery.keypad.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/styles/monokai.css') }}">
 @endsection
 @section('content')
 
@@ -48,7 +49,7 @@
                         <div class="form-group">
                             <div class="col-sm-8 col-lg-offset-2">
                                 <div class="alert alert-info" role="alert"><h4><strong>Así se verá tu explicación :D </strong></h4></div>
-                                <div id="contenido"></div>
+                                <pre id="contenido"></pre>
                             </div>
                         </div>
 
@@ -217,7 +218,7 @@
 
     <script src="{{ asset('/js/highlight.pack.js') }}"></script>
     <script>
-    hljs.initHighlightingOnLoad();
+        hljs.initHighlightingOnLoad();
     </script>
 
     <script src="{{ asset('/js/jquery.plugin.js') }}"></script>

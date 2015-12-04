@@ -21,7 +21,7 @@
 
                                         <h4>
                                             <strong>{{$solution->id}} |
-                                                <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
+                                                <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" onerror="imgError(this,'user');" width="42">
                                                 <a href="{{url('/userPerfil/'.$solution->userId)}}">
                                                     <span class="text-capitalize">{{$solution->username}}</span>
                                                 </a>

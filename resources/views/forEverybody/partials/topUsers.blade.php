@@ -31,7 +31,7 @@
                                     <i style="color:#a94442;" class="fa fa-trophy fa-stack-1x fa-inverse"></i>
                             </span>
                         @endif
-                        <img class="media-object" width="22" height="22" src="{{$user->avatar}}" alt=":("/>
+                        <img class="media-object" width="22" height="22" src="{{$user->avatar}}" onerror="imgError(this,'user');" alt=":("/>
                         <strong>{{$user->username}}</strong>
 
                     </li>

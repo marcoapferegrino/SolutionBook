@@ -111,7 +111,7 @@
                                     <li><a href="{{ url('/myWarnings') }}"><i class="fa fa-exclamation-triangle "></i> Amonestaciones</a></li>
                                     <li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
                                     <li><a href="{{url("/allProblems")}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
-                                    <li><a href="{{url("/configuration")}}"><i class="fa fa-cogs"></i> Configuración de Solution Book </a></li>
+                                    <li><a href="{{url("/configuration")}}"><i class="fa fa-cogs"></i> Configuración </a></li>
 
 
 
@@ -180,7 +180,7 @@
                                 </a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{Auth::user()->avatar}}" alt="no imagen" class="img-rounded" height="22" width="22"> &nbsp;&nbsp;{{ Auth::user()->username }}<span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{Auth::user()->avatar}}" onerror="imgError(this,'user');" alt="no imagen" class="img-rounded" height="22" width="22"> &nbsp;&nbsp;{{ Auth::user()->username }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url('/userPerfil/'.auth()->user()->getAuthIdentifier()) }}"><i class="fa fa-user"></i> Mi perfil</a></li>
                                     <li><a href="{{url('/getEditPerfil')}}"><i class="fa fa-cogs"></i> Editar Perfil</a></li>
@@ -217,7 +217,18 @@
     @endif
     @yield('scripts')
     <!-- Scripts -->
-
+    <script>
+        function imgError(image,type) {
+            var imgDefault = "";
+            switch (type) {
+                case "user":
+                    imgDefault="/defaultUser.png";
+            }
+            image.onerror = "";
+            image.src = imgDefault;
+            return true;
+        }
+    </script>
 </div>
 </body>
 </html>

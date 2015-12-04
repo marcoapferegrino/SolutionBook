@@ -41,7 +41,7 @@
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <div class="alert alert-warning" role="alert"><h3><strong>Así se verá tu explicación :D </strong></h3></div>
 
-                            <div id="contenido">
+                            <pre id="contenido"></pre>
 
                             </div>
 

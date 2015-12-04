@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder {
             'judges_lists',
             'tags',
             'notifications',
+            'styles',
 
 
         ));

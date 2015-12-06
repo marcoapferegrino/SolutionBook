@@ -35,7 +35,7 @@ class NoticesController extends Controller
             // dd($tam);
         }
         catch(\Exception $e){
-            dd('no hay noticia');
+           // dd('no hay noticia');
         }
         $gallery=Files::getGallery($id);
         return view('forEverybody.oneNotice',compact('notice','tam','gallery'));
@@ -44,7 +44,9 @@ class NoticesController extends Controller
     {
         $notices = Notice::getNoticesWithFiles();
         //$files=Notice::getFiles();
-        return view('super.notices',compact('notices'));
+        $images=Notice::getGallery();
+
+        return view('super.notices',compact('notices','images'));
     }
     public function addNotice(AddNoticeRequest $request)
     {
@@ -205,6 +207,8 @@ class NoticesController extends Controller
     {
         $fileImg      = $request->file('file');
         $apoyo        =  $request->file('apoyo');
+
+        $imgsDelete= $request->imgsDelete;
         $idUser = auth()->user()->id;
         $gallery      = $request->file('gallery');
         $notice = Notice::find($request->id);
@@ -212,14 +216,24 @@ class NoticesController extends Controller
         $notice->description= $request->description;
         $notice->finishDate = $request->finishDate;
         $notice->save();
+        if($imgsDelete!=null){
+            foreach ($request->imgsDelete as $img ) {
+                $file = Files::find($img);
+                unlink($file->path);
+                $file->delete();
+            }
+        }
+
         if($fileImg!=null)
         {
             $file=Files::where('notice_id',$notice->id)->get()->all();
             //   dd($file);
             if($file!=null){
                 $realFile=Files::find($file[0]['id']);
-                if($realFile->path!=null){
+
+                if($realFile->path!=null&& $realFile->type!='imagenGallery'){
                     unlink($realFile->path);
+
                 }
                 $nameFile = $fileImg->getClientOriginalName();
                 $idUser = auth()->user()->id;
@@ -249,7 +263,7 @@ class NoticesController extends Controller
         {
             $files=Files::where('notice_id',$notice->id)->get()->all();
             foreach($files as $i=>$file){
-                if($i!=0){
+                if($i!=0&& $file->type!='imagenGallery'){
                     $realFile=Files::find($file['id']);
                     if($realFile->path!=null){
                         unlink($realFile->path);
@@ -303,8 +317,8 @@ class NoticesController extends Controller
         ///////////////////gallery
         if($gallery[0]!=null){
 
-            $files=Files::where('notice_id',$notice->id)->where('type','imagenGallery')->get()->all();
-
+            //$files=Files::where('notice_id',$notice->id)->where('type','imagenGallery')->get()->all();
+            /*
             foreach($files as $i=>$file){
 
                     $realFile=Files::find($file['id']);
@@ -313,7 +327,7 @@ class NoticesController extends Controller
                     }
                     $file->delete();
 
-            }
+            }*/
 
 
 

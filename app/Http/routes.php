@@ -10,11 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::controller('notifications', 'NotificationsController');
-Route::post('notifications/notify', [
-    'as' => 'pusher.notify',
-    'uses' => 'NotificactionsController@postNotify'
-]);
+
 Route::get('/', 'WelcomeController@index');
 Route::get('loginN', 'WelcomeController@loginN');
 Route::get('home', 'WelcomeController@indexGuest');
@@ -25,30 +21,14 @@ Route::get('homeProblemSetter', 'HomeController@indexProblem');
 Route::get('homeSolver', 'HomeController@indexSolver');
 Route::get('homeAdmin', 'HomeController@indexAdmin');
 
-get('/broadcast', function() {
-    event(new \SolutionBook\Entities\TestEvent('Broadcasting in Laravel using Pusher!'));
 
-    return view('welcome');
-});
-
-get('/bridge', function() {
-    $pusher = \Illuminate\Support\Facades\App::make('pusher');
-
-    $pusher->trigger( 'test-channel',
-        'test-event',
-        array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
-
-    return view('welcome');
-});
 Route::get('/register', [
     'as' => 'welcome.register',
     'uses' => 'WelcomeController@getRegister'
 ]);
 
 
-
-
-    Route::post('/addRegister', [
+Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
 ]);
@@ -210,6 +190,14 @@ Route::group(['middleware' => 'auth'],function(){
         Route::post('/activateCss', [
             'as' => 'user.activateCss',
             'uses' => 'WelcomeController@activateCss'
+        ]);
+        Route::get('/getAllNotification', [
+            'as' => 'notifications.getAllNotification',
+            'uses' => 'NotificationsController@getAllNotification'
+        ]);
+        Route::post('/allNotification', [
+            'as' => 'notifications.allNotification',
+            'uses' => 'NotificationsController@allNotification'
         ]);
 
 

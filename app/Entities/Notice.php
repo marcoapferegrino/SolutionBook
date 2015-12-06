@@ -65,6 +65,18 @@ class Notice extends Entity {
         return $notice;
     }
 
+    public static function getGallery(){
+
+        $notice = DB::table('files')
+            ->join('notices','notices.id','=','files.notice_id')
+            ->select('files.id','files.path','files.name','files.type','notices.id as notice_id')
+            ->where('files.type','imagenGallery')
+            ->get();
+
+       // dd($notice);
+        return $notice;
+    }
+
 
 
 }

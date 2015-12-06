@@ -95,7 +95,6 @@
 
                         @if (!Auth::guest())
                             @if(Auth::getRol()=="super")
-
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-newspaper-o"></i> Registros y Listas <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
@@ -108,12 +107,22 @@
                                         </ul>
                                     </li>
 
-                                    <li><a href="{{ url('/myWarnings') }}"><i class="fa fa-exclamation-triangle "></i> Amonestaciones</a></li>
+                                    <li><a href="{{ url('/myWarnings') }}"><i class="fa fa-exclamation-triangle "></i> Amonestaciones
+                                            @if(\SolutionBook\Components\HtmlBuilder::retrieveWarnings()!=0)
+                                            <span style="border-radius: 45%;font-size: 106% ;" class="label label-success">{{\SolutionBook\Components\HtmlBuilder::retrieveWarnings()}}</span>
+                                            @endif
+                                        </a></li>
                                     <li><a href="{{url('/viewPromotion')}}"><i class="fa fa-hand-o-up"></i> Promover </a></li>
                                     <li><a href="{{url("/allProblems")}}"><i class="fa fa-list"></i> Catálogo de problemas </a></li>
-                                    <li><a href="{{url("/configuration")}}"><i class="fa fa-cogs"></i> Configuración </a></li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-sliders"></i> Sistema<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
 
 
+                                            <li><a href="{{url("/configuration")}}"><i class="fa fa-cogs"></i> Configuración </a></li>
+                                        </ul>
+                                    </li>
 
                             @elseif(Auth::getRol()=="problem")
                                 <li class="dropdown">
@@ -147,7 +156,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right " >
-                        @if (!Auth::guest())
+                        @if (!Auth::guest()&&Auth::getRol()!="super")
                             <li class="dropdown sidebar-offcanvas" >
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <span style="font-size: 125%" id="number" class="label label-success"><i  id="bell" class="fa fa-bell">&nbsp;<span id="notify"></span><i id="wait" class="fa fa-spinner fa-pulse"></i></i> <span class="caret"></span> </span></a>

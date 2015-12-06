@@ -104,7 +104,6 @@ var callbackLike=function showNotification1(data) {
         $('#bell').css('color','yellow');
 
 
-
 //        $("#likeList").append('<li class="label-primary text-center "><a href="/">Ver todas <i class="fa fa-plus-square"></i></a></li>');
         // TODO: use the text in the notification
     }

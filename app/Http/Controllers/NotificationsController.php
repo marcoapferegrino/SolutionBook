@@ -67,4 +67,25 @@ class NotificationsController extends Controller
 
         return view('forEverybody.notificationsList',compact('notifications'));
     }
+
+
+    public static function getAllNotification(){
+
+
+        //return view('super.messagesPusher');
+        return redirect()->back();
+
+
+    }
+
+    public static function allNotification(Request $request){
+
+        //$message=$request->message;
+
+        // app.blade  //<li><a href="{{url("/getAllNotification")}}"><i class="fa fa-paper-plane"></i> Enviar mensajes </a></li>
+        //return view('super.messagesPusher');
+        return redirect()->back();
+
+
+    }
 }

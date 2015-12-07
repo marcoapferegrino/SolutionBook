@@ -155,7 +155,7 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div id="youtubemas" class="form-group">
                             <label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label>
                             <div class="col-sm-6">
                                 @if($youtube!=null)
@@ -165,8 +165,16 @@
                                 @endif
                             </div>
 
+                            <div class="col-sm-1 ">
+                                <button type="button" class="btn btn-primary btn-lg ">
+                                    <a href="#" onclick="agregar('youtube');">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </a>
+                                </button>
+                            </div>
+
                         </div>
-                        <div class="form-group">
+                        <div id="urlmas" class="form-group">
                             <label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label>
                             <div class="col-sm-6">
                                 @if($url!=null)
@@ -176,8 +184,16 @@
                                 @endif
                             </div>
 
+                            <div class="col-sm-1 ">
+                                <button type="button" class="btn btn-primary btn-lg ">
+                                    <a href="#" onclick="agregar('url');">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </a>
+                                </button>
+                            </div>
+
                         </div>
-                        <div class="form-group">
+                        <div id="githubmas" class="form-group">
                             <label for="github" class="col-sm-2 control-label"><strong>Github</strong></label>
                             <div class="col-sm-6">
                                 @if($github!=null)
@@ -185,6 +201,14 @@
                                 @else
                                     {!!Form::text('github','',['class'=>'form-control'])!!}
                                 @endif
+                            </div>
+
+                            <div class="col-sm-1 ">
+                                <button type="button" class="btn btn-primary btn-lg ">
+                                    <a href="#" onclick="agregar('github');">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </a>
+                                </button>
                             </div>
 
                         </div>
@@ -253,9 +277,9 @@
     <script src="{{ asset('/js/jquery.caret.js') }}"></script>
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
     <script type="text/javascript">
-        function agregar() {
+        function agregar(tipo) {
             campo = '<div class="form-group"><div class="col-sm-1"></div>                                <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo entrada</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8 name="inputs[]"  class="form-control" ></textarea>                         </div>   <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo salida</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8  name="outputs[]" class="form-control" ></textarea>        </div></div>';
-            $("#emails").append(campo);
+            $("#"+tipo+"mas").append(campo);
         }
     </script>
 

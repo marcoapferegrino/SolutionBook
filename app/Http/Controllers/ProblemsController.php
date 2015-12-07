@@ -41,7 +41,7 @@ class ProblemsController extends Controller
      */
     public function addProblem(AddProblemRequest $request)
     {
-        //        dd($request);
+                dd($request);
         $title=$request->title;
         $idUser= auth()->user()->getAuthIdentifier();
         $nameUser= auth()->user()->username;

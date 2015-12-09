@@ -58,12 +58,11 @@ class Notify {
 
             case 'promoted':
 
-
                 $message.='"id":"'.$idDest.'",';
                 $message.='"message":"'.'¡Acabas de ser promovido a Problem Setter!'.'",';
                 $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
                 //$message.='"url":"'.$url.$idPublic.'",';
-                $message.='"url":"'.'/miPerfil'.'"';
+                $message.='"url":"'.'/userPerfil/'.$idDest.'"';
 
                 break;
 
@@ -71,10 +70,10 @@ class Notify {
 
 
                 $message.='"id":"'.$idDest.'",';
-                $message.='"message":"'.'Tu cuenta fue cambiada a ser Solver'.'",';
+                $message.='"message":"'.'Tu cuenta fue cambiada a Solver'.'",';
                 $message.='"date":"'.HtmlBuilder::dateDiff($date).'",';
                 //$message.='"url":"'.$url.$idPublic.'",';
-                $message.='"url":"'.'/miPerfil'.'"';
+                $message.='"url":"'.'/userPerfil/'.$idDest.'"';
 
                 break;
 

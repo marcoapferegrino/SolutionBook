@@ -156,26 +156,32 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div id="youtubemas" class="form-group">
                             <h4><label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label></h4>
-                            <div class="col-sm-8">
-                                {!!Form::text('youtube','',['class'=>'form-control'])!!}
+                            <div class="col-sm-6">
+                                <input type="text"  name="youtube" class="form-control" >
                             </div>
 
                         </div>
 
-                        <div class="form-group">
-                            <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
-                            <div class="col-sm-8">
-                                    {!!Form::text('web','',['class'=>'form-control'])!!}
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
+                        <div id="githubmas" class="form-group">
                             <h4><label for="github" class="col-sm-2 control-label"><strong>Github</strong></label></h4>
-                            <div class="col-sm-8">
-                                {!!Form::text('github','',['class'=>'form-control'])!!}
+                            <div class="col-sm-6">
+                                    {!!Form::text('github','',['class'=>'form-control'])!!}
+                            </div>
+
+                        </div>
+
+                        <div id="webmas" class="form-group">
+                            <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
+                            <div class="col-sm-6">
+                                <input type="text"  name="web[]" class="form-control" >
+                            </div>
+
+                            <div class="col-sm-1 ">
+                                <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
                             </div>
 
                         </div>
@@ -228,9 +234,10 @@
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
 
     <script type="text/javascript">
-        function agregar() {
-            campo = '<div class="form-group"><div class="col-sm-1"></div>                                <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo entrada</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8 name="inputs[]"  class="form-control" ></textarea>                         </div>   <label for="descripcion" class="col-sm-1 control-label"><strong>Ejemplo salida</strong></label>                                <div class="col-sm-4">                                     <textarea rows=8  name="outputs[]" class="form-control" ></textarea>        </div></div>';
-            $("#emails").append(campo);
+        function agregar(tipo) {
+            var campo = '<br><div class="col-sm-6 col-sm-offset-2"><input type="text"  name="'+tipo+'[]" class="form-control" ></div>';
+            $("#"+tipo+"mas").append(campo);
+
         }
     </script>
     <script type="text/javascript">
@@ -260,6 +267,8 @@
 
             });
         });
+
+
 
 
     </script>

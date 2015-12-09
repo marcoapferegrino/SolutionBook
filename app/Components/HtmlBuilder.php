@@ -179,19 +179,39 @@ class HtmlBuilder extends CollectiveHtmlBuilder
 
         $user =  auth()->user();
         //dd($user);
-              $lik= DB::table('notifications')
-                  ->where('user_id','=',$user->id)
-                  //->where('user_id','=',11)
-                 // ->where('description','=','Like')
-                  ->where('viewed','=',0)->orderBy('created_at','desc')->get();
+        $lik= DB::table('notifications')
+            ->where('user_id','=',$user->id)
+            //->where('user_id','=',11)
+            // ->where('description','=','Like')
+            ->where('viewed','=',0)->orderBy('created_at','desc')->get();
 
 
-       // dd($lik,$user->id);
+        // dd($lik,$user->id);
         //session(['MY_LIKES' => $lik]);
         session(['MY_LIKES' => $lik]);
-       // dd(session('MY_LIKES'));
+        // dd(session('MY_LIKES'));
         //$request->session()->put('MY_LIKES', array());
         //return $likes;
+
+
+    }
+    public static function retrieveWarnings(){
+
+       // $user =  auth()->user();
+        //dd($user);
+        $warnings= DB::table('warnings')
+           // ->where('user_id','=',$user->id)
+            //->where('user_id','=',11)
+            // ->where('description','=','Like')
+            ->where('state','=','forAdmin')->orderBy('created_at','desc')->get();
+
+
+        // dd($lik,$user->id);
+        //session(['MY_LIKES' => $lik]);
+       // session(['MY_LIKES' => $lik]);
+        // dd(session('MY_LIKES'));
+        //$request->session()->put('MY_LIKES', array());
+        return count($warnings);
 
 
     }

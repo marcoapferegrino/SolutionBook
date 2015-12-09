@@ -36,9 +36,9 @@
                                     <input type="date" value="{{$notice->finishDate}}" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(18)}} >
                                 </div>
 
-                            <span style="font-size: 140%" class="label label-warning">Si no se agregan archivos se conservarn los guardados previamente</span><br><br>
+                            <span style="font-size: 140%" class="label label-warning">Si no se agregan archivos se conservarán los guardados previamente</span><br><br>
                             <div class="form-group">
-                                <label for="file" class="col-sm-4 control-label">Imagen representativa:</label> <br><br>
+                                <label for="file" class="col-sm-4 control-label"><strong>Imágen representativa:</strong></label> <br><br>
                                 <div class="col-sm-6">
                                     {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
                                 </div>
@@ -47,20 +47,43 @@
 
                             <br><br>
                             <div class="form-group">
-                                <label for="file" class="col-sm-4 control-label">Archivos de apoyo:</label> <br><br><br>
+                                <label for="file" class="col-sm-4 control-label"><strong>Archivos de apoyo:</strong></label> <br><br><br>
                                 <div class="col-sm-6">
 
                                     <input type="file"  name="apoyo[]" class="btn btn-info" id="apoyo" multiple>
                                 </div>
 
                             </div>
+                            <br><br><br><br>
                             <div class="form-group">
-                                <label for="file" class="col-sm-8 control-label">Galería de imágenes:</label> <br><br>
+                                <label for="file" class="col-sm-8 control-label"><strong>Galería de imágenes (añadir más imágenes ):</strong></label> <br><br>
                                 <div class="col-sm-6">
 
                                     <input type="file"  name="gallery[]" class="btn btn-info" id="gallery" multiple>
                                 </div>
 
+                            </div><br><br> <br><br>
+                            <div class="row" align="middle">
+
+                                <strong>Selecciona imágenes para borrarlas </strong>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    @foreach($images as $img)
+                                        @if($img->notice_id==$notice->id)
+                                        <div class="col-xs-3 col-md-3">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="imgsDelete[]" value="{{$img->id}}"> ¿Eliminar?
+                                            </label>
+                                            <a href="#" class="thumbnail">
+                                                <img src="{{asset($img->path)}}" alt="...">
+                                            </a>
+                                            {{$img->name}}
+                                        </div>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
 
 

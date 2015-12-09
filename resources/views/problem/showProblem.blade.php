@@ -65,7 +65,7 @@
                                 @foreach($links as $l)
                                 <tr>
                                     <td>
-                                    <a href="{{$l->link}}" >{{$l->type}}</a>
+                                    <a href="{{$l->link}}" >{{$l->link}}</a>
                                     </td>
                                 </tr>
                                 @endforeach

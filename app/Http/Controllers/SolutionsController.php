@@ -134,7 +134,16 @@ class SolutionsController extends Controller
 
             Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
             Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
-            Files::addOrReplaceLink($request->web,$solution->id,'Web');
+            $web= $request->web;
+            foreach($web as $w){
+                if($w!=null){
+                    Link::create([
+                        'link' => $w,
+                        'type' => 'Web',
+                        'solution_id' => $solution->id
+                    ]);
+                }
+            }
 
             $problem->numSolutions = $numSolutions+1;
             $problem->save();
@@ -276,7 +285,7 @@ class SolutionsController extends Controller
             $solutionComplete = $solution->solutionComplete();
             $linkYouTube = Link::all()->where('solution_id',intval($solution->id))->where('type','YouTube')->first();
             $linkGitHub = Link::all()->where('solution_id',intval($solution->id))->where('type','Repositorio')->first();
-            $linkWeb = Link::all()->where('solution_id',intval($solution->id))->where('type','Web')->first();
+            $linkWeb = Link::all()->where('solution_id',intval($solution->id))->where('type','Web');
 //            dd($solutionComplete);
 
 //            dd($solution,$links);
@@ -358,10 +367,25 @@ class SolutionsController extends Controller
 
         }
 
-
+        $linksDelete= $request->linksDelete;
+        if($linksDelete!=null){
+            foreach ($linksDelete as $l ) {
+                $link = Link::find($l);
+                $link->delete();
+            }
+        }
         Files::addOrReplaceLink($request->youtube,$solution->id,'YouTube');
         Files::addOrReplaceLink($request->repositorio,$solution->id,'Repositorio');
-        Files::addOrReplaceLink($request->web,$solution->id,'Web');
+        $web= $request->web;
+        foreach($web as $w){
+            if($w!=null){
+                Link::create([
+                    'link' => $w,
+                    'type' => 'Web',
+                    'solution_id' => $solution->id
+                ]);
+            }
+        }
         $solution->state = 'active';
         $solution->save();
 

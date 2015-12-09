@@ -41,7 +41,7 @@ class ProblemsController extends Controller
      */
     public function addProblem(AddProblemRequest $request)
     {
-        //        dd($request);
+               // dd($request);
         $title=$request->title;
         $idUser= auth()->user()->getAuthIdentifier();
         $nameUser= auth()->user()->username;
@@ -58,7 +58,9 @@ class ProblemsController extends Controller
         $images= $request->images;
         $youtube= $request->youtube;
         $github= $request->github;
+        $web= $request->web;
         $share=$request->share;
+
         if($judge=='#'){
             $judge=null;
         }
@@ -188,7 +190,15 @@ class ProblemsController extends Controller
 
         Files::addOrReplaceLink($youtube,$idProblem,'YouTube',1);
         Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
-        Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
+        foreach($web as $w){
+            if($w!=null){
+                Link::create([
+                    'link' => $w,
+                    'type' => 'Web',
+                    'problem_id' => $idProblem
+                ]);
+            }
+        }
 
         if($tags!="")
         {
@@ -397,7 +407,9 @@ class ProblemsController extends Controller
         $images= $request->images;
         $youtube= $request->youtube;
         $github= $request->github;
+        $web=$request->web;
         $imgsDelete= $request->imgsDelete;
+        $linksDelete= $request->linksDelete;
         $share=$request->share;
         if($judge=='#'){
             $judge=null;
@@ -436,9 +448,23 @@ class ProblemsController extends Controller
         $pathOutput= $path.'outputs/';
         //dd($images);
 
+        if($linksDelete!=null){
+            foreach ($linksDelete as $l ) {
+                $link = Link::find($l);
+                $link->delete();
+            }
+        }
         Files::addOrReplaceLink($youtube,$idProblem,'YouTube',1);
         Files::addOrReplaceLink($github,$idProblem,'Repositorio',1);
-        Files::addOrReplaceLink($request->web,$idProblem,'Web',1);
+        foreach($web as $w){
+            if($w!=null){
+                Link::create([
+                    'link' => $w,
+                    'type' => 'Web',
+                    'problem_id' => $idProblem
+                ]);
+            }
+        }
 
         if($imgsDelete!=null){
             foreach ($request->imgsDelete as $img ) {
@@ -571,7 +597,7 @@ class ProblemsController extends Controller
 
         $youtube=Link::where('type','=','YouTube')->where('problem_id','=',$idProblem)->first();
         $github=Link::where('type','Repositorio')->where('problem_id',$idProblem)->first();
-        $url=Link::where('type','Web')->where('problem_id',$idProblem)->first();
+        $url=Link::where('type','Web')->where('problem_id',$idProblem)->get();
 //        dd($youtube,$github,$url);
 
         $judgeList= JudgesList::all('id','name');

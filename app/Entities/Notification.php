@@ -32,6 +32,22 @@ class Notification extends Entity {
         return $notify;
     }
 
+    public static function addNotifyAdmin($idReceptor){
+
+
+        $notify = Notification::create(
+            array('title'=>'Tienes una amonestación por deliverar',
+                'description'=>'Like',
+                'url'=> '/myWarnings',
+                'user_id'=>$idReceptor));
+
+        $notify->url='/myWarnings';
+        $notify->created_at=Carbon::now();
+        $notify->save();
+
+        return $notify;
+    }
+
     public static function addNotifyWarning($idReceptor,$idSolution,$idProblem){
 
         $id=null;
@@ -65,8 +81,10 @@ class Notification extends Entity {
     }
     public static function addNotifyPromote($idReceptor){
 
-        $id=null;
-        $url='/miPerfil';
+        $user= auth()->user();
+        $id=$user->id;
+
+        $url='/userPerfil/'.$id;
 
         $notify = Notification::create(
             array('title'=>'Ahora eres Problem Setter. ¡Felicidades!',
@@ -84,12 +102,33 @@ class Notification extends Entity {
     }
     public static function addNotifyDePromote($idReceptor){
 
-        $id=null;
-        $url='/miPerfil';
+        $user= auth()->user();
+        $id=$user->id;
+        $url='/userPerfil/'.$id;
 
         $notify = Notification::create(
             array('title'=>'Tu cuenta cambio a tipo Solver.',
                 'description'=>'DePromote',
+                //  'url'=> $url.$id,
+                'url'=> $url,
+                'user_id'=>$idReceptor));
+
+        $notify->url=$url;
+
+        $notify->created_at=Carbon::now();
+        $notify->save();
+
+        return $notify;
+    }
+    public static function addNotifyAll($idReceptor=null){
+
+        $user= auth()->user();
+        $url=null;
+        //$url='/userPerfil/'.$id;
+
+        $notify = Notification::create(
+            array('title'=>'Tu cuenta cambio a tipo Solver.',
+                'description'=>'Goblal',
                 //  'url'=> $url.$id,
                 'url'=> $url,
                 'user_id'=>$idReceptor));
@@ -112,4 +151,6 @@ class Notification extends Entity {
         return $notif;
 
     }
+
+
 }

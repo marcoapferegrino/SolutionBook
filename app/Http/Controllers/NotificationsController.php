@@ -48,6 +48,10 @@ class NotificationsController extends Controller
     {
         $user =  auth()->user();
         //dd($user);
+        if($user->rol=='super'){
+
+            abort(404);
+        }
         $notifications= DB::table('notifications')
              ->where('user_id','=',$user->id)
              ->orderBy('created_at','desc')->get();
@@ -66,5 +70,26 @@ class NotificationsController extends Controller
         }
 
         return view('forEverybody.notificationsList',compact('notifications'));
+    }
+
+
+    public static function getAllNotification(){
+
+
+        //return view('super.messagesPusher');
+//        return redirect()->back();
+        abort(404);
+
+    }
+
+    public static function allNotification(Request $request){
+
+        //$message=$request->message;
+
+        // app.blade  //<li><a href="{{url("/getAllNotification")}}"><i class="fa fa-paper-plane"></i> Enviar mensajes </a></li>
+        //return view('super.messagesPusher');
+        //return redirect()->back();
+        abort(404);
+
     }
 }

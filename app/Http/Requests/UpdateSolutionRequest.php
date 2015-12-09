@@ -24,6 +24,7 @@ class UpdateSolutionRequest extends Request
     public function rules(\Illuminate\Http\Request $request)
     {
         $images = $request->images;
+        $web = $request->web;
 //        dd($images);
         $rules = [
             'imgsDelete' => 'array',
@@ -32,14 +33,15 @@ class UpdateSolutionRequest extends Request
             'audioFile'=> 'extension:mp3',
             'youtube' => array('url','regex:/youtube/'),
             'repositorio' => array('url','regex:/github|bitbucket/'),
-            'web' => 'url|',
         ];
-
+        foreach($web as $key => $val)
+        {
+            $rules['web.'.$key] ='url';
+        }
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'extension:jpg,png,bmp';
+            $rules['images.'.$key] = 'extension:jpg,jpeg,png,bmp';
         }
-
         return $rules;
     }
 }

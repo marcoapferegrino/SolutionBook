@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
-                                    <img class="img-responsive" src="{{$user->avatar}}" alt="...">
+                                    <img class="img-responsive" src="{{$user->avatar}}" alt="..." onerror="imgError(this,'user');">
                                     <div class="caption">
                                         <h1 class="text-capitalize"> {{$user->rol=='problem' ? 'Problem Setter' : 'Solver' }}:  <small>{{$user->username}}</small></h1>
                                         @if(auth()->user()->getAuthIdentifier()==$user->id)

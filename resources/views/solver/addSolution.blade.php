@@ -95,9 +95,8 @@
 
     <script type="text/javascript">
         function agregar(tipo) {
-            var campo = '<br><input type="url"  class="form-control" value="{{old('web')}}"  name="'+tipo+'[]"  placeholder="¿Tienes una página web con la explicación?" >';
+            var campo = '<br><input type="url"  class="form-control" value="{{old('web')}}"  name="'+tipo+'[]" autofocus placeholder="¿Tienes una página web con la explicación?" >';
             $("#"+tipo+"mas").append(campo);
-
         }
     </script>
     <script>

@@ -101,7 +101,7 @@
                                                         <?php $youtubeLink=$link;?>
                                                     @endif
                                                     <a href="{{$link->link}}" class="list-group-item">
-                                                        <h5 class="list-group-item-heading">{{$link->type}}</h5>
+                                                        <h5 class="list-group-item-heading">{{$link->link}}</h5>
                                                     </a>
                                                 @endforeach
                                             </div>

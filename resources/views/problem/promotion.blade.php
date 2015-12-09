@@ -38,7 +38,7 @@
                                             <div class="thumbnail">
                                                 <div class="media-left media-middle  ">
                                                     <a href="#">
-                                                        <img width=100px height="100px" class="media-object" src="{{$s->avatar}}" alt="{{$s->username}}">
+                                                        <img width=100px height="100px" class="media-object" src="{{$s->avatar}}" alt="{{$s->username}}" onerror="imgError(this,'user');">
                                                     </a>
                                                 </div>
                                                 <div class="media-body media-left media-middle">
@@ -76,7 +76,7 @@
                                             <div class="thumbnail">
                                                 <div class="media-left media-middle">
                                                     <a href="#">
-                                                        <img  width=100px height="100px"  class="media-object" src="{{$p->avatar}}" alt="{{$p->username}}">
+                                                        <img  width=100px height="100px"  class="media-object" src="{{$p->avatar}}" alt="{{$p->username}}" onerror="imgError(this,'user');">
                                                     </a>
                                                 </div>
                                                 <div class="media-body">

@@ -45,7 +45,7 @@
 
                             </div>
 
-                        </div>
+
 
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
@@ -78,7 +78,8 @@
                         <h4> <label class="control-label" for="web"><strong>Página web</strong></label>
                             <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            </a></h4>
+                            </a>
+                        </h4>
                         <input type="url"  class="form-control" value="{{old('web')}}"  name="web[]"  placeholder="¿Tienes una página web con la explicación?" >
                     </div>
 
@@ -119,7 +120,6 @@
                         <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-all">Guardar</button>
                         {!! Form::close() !!}
                     </div>
-
                 </div>
             </div>
         </div>

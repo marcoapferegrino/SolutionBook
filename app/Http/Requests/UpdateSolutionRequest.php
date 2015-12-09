@@ -23,7 +23,7 @@ class UpdateSolutionRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
-        $images = $request->all();
+        $images = $request->images;
 //        dd($images);
         $rules = [
             'imgsDelete' => 'array',
@@ -37,7 +37,7 @@ class UpdateSolutionRequest extends Request
 
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp';
+            $rules['images.'.$key] = 'extension:jpg,png,bmp';
         }
 
         return $rules;

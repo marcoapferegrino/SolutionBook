@@ -23,8 +23,8 @@ class AddSolutionRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
-        $images = $request->all();
-//        dd($images);
+        $images = $request->images;
+
         $rules = [
             'optionsLanguages'=> 'required | in:c,c++,java,python',
             'explanation'=> 'required',
@@ -38,7 +38,7 @@ class AddSolutionRequest extends Request
 
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp';
+            $rules['images.'.$key] = 'extension:jpg,png,bmp';
         }
 
         return $rules;

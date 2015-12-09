@@ -2,7 +2,6 @@
 
 namespace SolutionBook\Http\Requests;
 
-use SolutionBook\Http\Requests\Request;
 
 class AddJudgeRequest extends Request
 {

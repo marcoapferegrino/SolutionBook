@@ -22,7 +22,7 @@ class AddProblemRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
-        $images = $request->all();
+        $images = $request->images;
        // dd($request);
        $rules = [
             'title'=> 'required',
@@ -43,7 +43,7 @@ class AddProblemRequest extends Request
 
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp,pdf';
+            $rules['images.'.$key] = 'extension:jpg,png,bmp,pdf';
         }
 
         return $rules;

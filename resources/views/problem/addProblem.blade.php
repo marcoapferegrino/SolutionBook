@@ -159,39 +159,29 @@
                         <div id="youtubemas" class="form-group">
                             <h4><label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label></h4>
                             <div class="col-sm-6">
-                                <input type="text"  name="youtube[]" class="form-control" >
-                            </div>
-
-                            <div class="col-sm-1 ">
-                                    <a href="#" onclick="agregar('youtube');" class="btn btn-primary btn-sm " role="button">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </a>
+                                <input type="text"  name="youtube" class="form-control" >
                             </div>
 
                         </div>
-                        <div id="webmas" class="form-group">
-                            <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
-                            <div class="col-sm-6">
-                                    {!!Form::text('web','',['class'=>'form-control'])!!}
-                            </div>
 
-                            <div class="col-sm-1 ">
-                                    <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </a>
-                            </div>
-
-                        </div>
                         <div id="githubmas" class="form-group">
                             <h4><label for="github" class="col-sm-2 control-label"><strong>Github</strong></label></h4>
                             <div class="col-sm-6">
                                     {!!Form::text('github','',['class'=>'form-control'])!!}
                             </div>
 
+                        </div>
+
+                        <div id="webmas" class="form-group">
+                            <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
+                            <div class="col-sm-6">
+                                <input type="text"  name="web[]" class="form-control" >
+                            </div>
+
                             <div class="col-sm-1 ">
-                                    <a href="#" onclick="agregar('github');" class="btn btn-primary btn-sm " role="button">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </a>
+                                <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
                             </div>
 
                         </div>

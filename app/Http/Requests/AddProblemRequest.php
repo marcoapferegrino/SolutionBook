@@ -22,9 +22,8 @@ class AddProblemRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
-        $images = $request->all();
-        $youtube = $request->all();
-        $github = $request->all();
+        $images = $request->images;
+        $web = $request->web;
         //dd($images);
         //dd($request);
        $rules = [
@@ -40,20 +39,16 @@ class AddProblemRequest extends Request
             'inputs'=> 'required',
             'outputs'=> 'required',
             'images'=> 'array',
-            'youtube' => 'array',
-            'github' =>'array',
+            'youtube' => array('url','regex:/youtube/'),
+            'github' =>array('url','regex:/github|bitbucket/'),
         ];
-        foreach($youtube as $key => $val)
+        foreach($web as $key => $val)
         {
-            $rules['youtube.'.$key] = array('url','regex:/youtube/','array');
-        }
-        foreach($github as $key => $val)
-        {
-            $rules['github.'.$key] = array('url','regex:/github|bitbucket/','array');
+            $rules['web.'.$key] ='url';
         }
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp,pdf';
+            $rules['images.'.$key] = 'extension:jpg,png,bmp,pdf';
         }
 
         return $rules;

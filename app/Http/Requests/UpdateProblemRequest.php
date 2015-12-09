@@ -22,7 +22,8 @@ class UpdateProblemRequest extends Request
      */
     public function rules(\Illuminate\Http\Request $request)
     {
-        $images = $request->all();
+        $images = $request->images;
+        $web = $request->web;
 //        dd($images);
         $rules = [
             'imgsDelete' => 'array',
@@ -42,9 +43,13 @@ class UpdateProblemRequest extends Request
             'github' => array('url','regex:/github|bitbucket/'),
         ];
 
+        foreach($web as $key => $val)
+        {
+            $rules['web.'.$key] ='url';
+        }
         foreach($images as $key => $val)
         {
-            $rules['images.'.$key] = 'in:jpg,png,bmp,pdf';
+            $rules['images.'.$key] = 'extension:jpg,png,bmp,pdf';
         }
 
         return $rules;

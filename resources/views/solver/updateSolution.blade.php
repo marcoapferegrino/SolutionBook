@@ -57,11 +57,30 @@
                             <h4> <label class="control-label" for="repositorio"><strong>{{isset($linkGitHub->type)?$linkGitHub->type:"Repositorio"}}</strong></label></h4>
                             <input type="url"  class="form-control" value="{{isset($linkGitHub->link)?$linkGitHub->link:null}}"  name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
                         </div>
+                    @if($linkWeb!=null)
+                        <div class="row">
+                            @foreach($linkWeb as $web)
+                                <div class=" col-md-8 col-sm-offset-2">
 
-                        <div class="form-group col-md-10 col-lg-offset-1">
-                            <h4> <label class="control-label" for="web"><strong>Editar web</strong></label></h4>
-                            <input type="url"  class="form-control" value="{{isset($linkWeb->link)?$linkWeb->link:null}}"  name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
+                                    <a href="{{$web->link}}" >
+                                        <label style="overflow: hidden; text-overflow: ellipsis; max-height: 50px;">{{$web->link}}</label>
+                                    </a>
+                                    <label class=" col-md-2">
+                                        <input type="checkbox" name="linksDelete[]" value="{{$web->id}}"> ¿Eliminar?
+                                    </label>
+                                    <br>
+
+                                </div>
+                            @endforeach
                         </div>
+                    @endif
+                    <div id="webmas" class="form-group col-md-10 col-lg-offset-1">
+                        <h4> <label class="control-label" for="web"><strong>Página web</strong></label>
+                            <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </a></h4>
+                        <input type="url"  class="form-control" value="{{old('web')}}"  name="web[]"  placeholder="¿Tienes una página web con la explicación?" >
+                    </div>
 
 
 
@@ -112,5 +131,12 @@
     <script src="{{ asset('/js/keyMapOurs.js') }}"></script>
     <script src="{{ asset('/js/jquery.caret.js') }}"></script>
     <script src="{{ asset('/js/previewExplanation.js') }}"></script>
+    <script type="text/javascript">
+        function agregar(tipo) {
+            var campo = '<br><input type="url"  class="form-control" value="{{old('web')}}"  name="'+tipo+'[]"  placeholder="¿Tienes una página web con la explicación?" >';
+            $("#"+tipo+"mas").append(campo);
+
+        }
+    </script>
 @endsection
 

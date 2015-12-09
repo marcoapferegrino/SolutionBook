@@ -54,9 +54,13 @@
                             <h4> <label class="control-label" for="repositorio"><strong>Repositorio</strong></label></h4>
                             <input type="url"  class="form-control" value="{{old('repositorio')}}" name ="repositorio" id="repositorio" placeholder="¿Tienes un repositorio con el código?" >
                         </div>
-                        <div class="form-group col-md-10 col-lg-offset-1">
-                            <h4> <label class="control-label" for="web"><strong>Página web</strong></label></h4>
-                            <input type="url"  class="form-control" value="{{old('web')}}" name ="web" id="web" placeholder="¿Tienes una página web con la explicación?" >
+
+                        <div id="webmas" class="form-group col-md-10 col-lg-offset-1">
+                            <h4> <label class="control-label" for="web"><strong>Página web</strong></label>
+                                <a href="#" onclick="agregar('web');" class="btn btn-primary btn-sm " role="button">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a></h4>
+                                <input type="url"  class="form-control" value="{{old('web')}}"  name="web[]"  placeholder="¿Tienes una página web con la explicación?" >
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1">
@@ -89,6 +93,13 @@
     <script src="{{ asset('/js/highlight.pack.js') }}"></script>
     <script src="{{ asset('/js/jquery.caret.js') }}"></script>
 
+    <script type="text/javascript">
+        function agregar(tipo) {
+            var campo = '<br><input type="url"  class="form-control" value="{{old('web')}}"  name="'+tipo+'[]"  placeholder="¿Tienes una página web con la explicación?" >';
+            $("#"+tipo+"mas").append(campo);
+
+        }
+    </script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>

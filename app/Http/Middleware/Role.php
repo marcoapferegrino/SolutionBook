@@ -26,7 +26,8 @@ class Role {
          * Si el usuario logueado tiene un rol menor al que necesita la ruta entonces ruta no encontrada
          * */
         if($this->hierarchy[$user->rol] < $this->hierarchy[$role]) {
-            abort(404);
+//            abort(404);
+            return view('errors.404');
         }
         return $next($request);
     }

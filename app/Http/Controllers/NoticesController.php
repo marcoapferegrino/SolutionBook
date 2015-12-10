@@ -22,7 +22,6 @@ class NoticesController extends Controller
     public function oneNotice($id)
     {
 
-
         try{
             $notice = Notice::getOneNoticeWithFiles($id);
             $tam= getimagesize($notice[0]->path);
@@ -36,6 +35,7 @@ class NoticesController extends Controller
         }
         catch(\Exception $e){
            // dd('no hay noticia');
+           return view('errors.404');
         }
         $gallery=Files::getGallery($id);
         return view('forEverybody.oneNotice',compact('notice','tam','gallery'));

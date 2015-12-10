@@ -146,6 +146,13 @@ class Problem extends Entity {
         //echo $sql;
         return $result;
     }
+    public static function lastProblem(){
+        $lastProblems = DB::table('problems')
+            ->select('problems.id','problems.title','problems.created_at')
+            ->orderBy('problems.created_at','desc')->take(3)->get();
+        //dd($lastProblems);
+        return $lastProblems;
+    }
 
 
 }

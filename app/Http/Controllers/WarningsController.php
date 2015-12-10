@@ -172,7 +172,15 @@ class WarningsController extends Controller
         $idWar=$request->warning_id;
         $warning=Warning::find($idWar);
         $numWarnings=$user->numWarnings+=1;  //incrementa en uno
+
+
         $user->update(['numWarnings'=>$numWarnings]);
+        if($numWarnings>=3&&$user->state!="blocked"){
+
+            $user->state="blocked";
+            $user->save();
+
+        }
         $warning->update(['state'=>'expired']);
 
         if($warning->solution_id==null){//es un problema
@@ -201,14 +209,10 @@ class WarningsController extends Controller
         $warning=Warning::find($id);
         try{
             $warning= Warning::findOrFail($id);
-            //$link=Link::find($warning->link_id);
-            //dd($link);
-
             if($warning->solution_id==null){
 
                 $linkSec=Link::all()->where('links.problem_id','=',$warning->problem_id);
                 foreach($linkSec as $link){
-
                     $link->delete();
                 }
 
@@ -216,7 +220,6 @@ class WarningsController extends Controller
             else{
                 $linkSec=Link::all()->where('links.solution_id','=',$warning->solution_id);
                 foreach($linkSec as $link){
-
                     $link->delete();
                 }
 
@@ -231,8 +234,6 @@ class WarningsController extends Controller
 
 
         }
-
-
 
         return redirect()->route('warning.myWarnings');
     }

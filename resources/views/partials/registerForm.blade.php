@@ -20,7 +20,7 @@
 
                     </div>
                     </div>
-<br>
+                    <br>
                     <div class="form-group">
                         <h4><label class=" control-label"><strong>E-Mail</strong></label></h4>
                         @if($correo==null)
@@ -40,6 +40,17 @@
                         @endif
                         {!! Form::file('avatar',array('id'=>'avatar', 'class'=>'btn btn-info','style'=>'')) !!}
                     </div>
+                    <div class="form-group">
+                        <h4><label for="type" class="col-sm-4 control-label"><strong>Tipo de cuenta*</strong></label></h4><br><br>
+                        <div class="col-sm-4 ">
+                            <select class="form-control" name="type" id="type" required="true">
+                                <option value="">- - - - - -</option>
+                                <option value="problem">Problem Setter</option>
+                                <option value="super">Administrator</option>
+
+                            </select>
+                        </div>
+                    </div><br><br><br>
 
                     <div class="form-group">
                         <h4><label class=" control-label"><strong>Password *</strong></label></h4>

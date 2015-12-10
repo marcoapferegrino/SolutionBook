@@ -10,7 +10,7 @@
             height: 100%;
             color: #B0BEC5;
             display: table;
-            font-weight: 100;
+            font-weight: bold;
             font-family: 'Lato';
         }
 
@@ -26,7 +26,7 @@
         }
 
         .title {
-            font-size: 72px;
+            font-size: 40px;
             margin-bottom: 40px;
         }
     </style>
@@ -34,7 +34,7 @@
 <body>
 <div class="container">
     <div class="content">
-        <div class="title">Ruta no encontrada.</div>
+        <div class="title"><strong>Ruta no encontrada. Comprueba la URL</strong></div>
     </div>
 </div>
 </body>

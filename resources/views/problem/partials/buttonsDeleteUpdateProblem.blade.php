@@ -1,8 +1,10 @@
 
 @if(!Auth::guest())
-    <div class=" col-sm-1 pull-right">
-        <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
-    </div>
+    @if($dataProblem->user_id != auth()->user()->getAuthIdentifier())
+        <div class=" col-sm-1 pull-right">
+            <a href="{{route('warning.getAddWarning',['id'=>$dataProblem->id,'type'=>1])}}"><strong><small class="text-danger">Reportar</small></strong></a>
+        </div>
+    @endif
     @if($dataProblem->user_id == auth()->user()->getAuthIdentifier())
         <div class=" pull-right">
             <a href="{{route('problem.updateGetProblem',$dataProblem->id)}}" role="button" class="btn btn-warning btn-sm">

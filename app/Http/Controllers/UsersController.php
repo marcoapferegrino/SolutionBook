@@ -91,9 +91,10 @@ class UsersController extends Controller
     {
         $password = bcrypt($request->password);
         $image=$request->file('avatar');
-       // dd($request->all());
+       // dd($request->type);
 
-        $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>'problem', 'password'=>$password));
+
+        $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>$request->type, 'password'=>$password));
 //        dd($user->id);
         if($image!=null){
 
@@ -101,7 +102,7 @@ class UsersController extends Controller
         $path ='users/'.$idUser.'/';
         $pathAvatar = $path.'avatar/';
 
-        mkdir($pathAvatar,null, true);
+        mkdir($pathAvatar,0775, true);
 
         $nameImage = $image->getClientOriginalName();
        // dd($image,$pathAvatar,$nameImage);
@@ -114,7 +115,7 @@ class UsersController extends Controller
         $user->save();
         }
 
-        Tools::sendEmail($user->email,$user->username,"Te has registrado como ProblemSetter","promotion");
+        Tools::sendEmail($user->email,$user->username,"Te han registrado como ProblemSetter","promotion");
         Session::flash('message', '¡Ya puede iniciar sesión el usuario: '.$user->username.'!');
 
         return redirect()->action('HomeController@indexAdmin');//return Redirect::to('/auth/login');

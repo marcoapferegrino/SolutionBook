@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="modalEditNotice{{$notice->id}}" tabindex="-1" role="dialog" aria-labelledby="modalEditNotice{{$notice->id}}">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" style="min-width: 86%" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -26,7 +26,7 @@
 
                                 <div class="form-group">
                                     {!! Form::label('description', 'Descripcion*') !!} <br>
-                                    {!! Form::textarea('description',$notice->description, array('class' => 'field', 'size' => '90x5','id'=>'description','placeholder'=>'Texto','required'))!!}
+                                    {!! Form::textarea('description',$notice->description, array('class' => 'field','style'=>'resize: none', 'size' => '127x15','id'=>'description','placeholder'=>'Texto','required'))!!}
                                 </div>
 
 
@@ -63,11 +63,12 @@
                                 </div>
 
                             </div><br><br> <br><br>
+                            @if($images!=null)
                             <div class="row" align="middle">
 
                                 <strong>Selecciona imágenes para borrarlas </strong>
                             </div>
-
+                            @endif
                             <div class="row">
                                 <div class="col-xs-12">
                                     @foreach($images as $img)

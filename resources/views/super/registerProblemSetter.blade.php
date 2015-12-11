@@ -10,7 +10,7 @@
 
             <br>
 
-            <span> Aqui puedes agregar problem setters!!</span>
+            <span> Aqui puedes agregar Problem setters y Administradores</span>
 
             @include('partials.registerForm')
 

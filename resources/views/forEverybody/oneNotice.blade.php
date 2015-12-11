@@ -22,12 +22,12 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                 <samp >
-                                    <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice[0]->finishDate)))}} </span><br> <br> </samp>
+                                    <span style="font-size: 140%" class="label label-success pull-right"><i class="fa fa-calendar"></i> {{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice[0]->created_at)))}} </span><br> <br> </samp>
                                 <br> <br>
                                     </div> </div>
-                                <samp style="display: block">
-                                    <div>
-                                        <pre>{{$notice[0]->description}}</pre>
+                                <samp style="display: block;">
+                                    <div class="col-md-13">
+                                        <pre style=";background-color: transparent;border-color: transparent;font-family:  Arial, Helvetica, sans-serif">{{$notice[0]->description}}</pre>
                                     </div>
                                 </samp>
                                 @if(count($gallery)>=1)

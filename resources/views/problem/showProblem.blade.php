@@ -132,8 +132,8 @@
                             </div>
                         </div>
                         
-                        <div class=" row col-sm-4">
-                            <a class="btn btn-warning btn-lg pull-right navbar-fixed-top" href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
+                        <div class="row col-sm-4">
+                            <a style="opacity: .7;" class="btn btn-warning btn-lg pull-right navbar-fixed-top" href="{{route('solution.getFormSolution',$dataProblem->id)}}" role="button">
                                 <i class="fa fa-code"></i> {{(Auth::guest())?"¿Qué esperas?, ¡inicia sesión y agrega tu solución!":"Agregar Solución"}}
                             </a>
                             <br>

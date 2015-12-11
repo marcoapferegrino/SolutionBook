@@ -1,6 +1,7 @@
 <?php namespace SolutionBook\Http\Controllers;
 
 use SolutionBook\Entities\Notice;
+use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\User;
 
 class HomeController extends Controller {
@@ -51,29 +52,33 @@ class HomeController extends Controller {
 
         $topUsers = User::topUsers();
         $notices = Notice::getNoticesWithFiles();
+        $lastProblems = Problem::lastProblem();
 
-        return view('home',compact('notices','topUsers'));
+        return view('home',compact('notices','topUsers','lastProblems'));
     }
 
     public function indexProblem()
     {
         $notices = Notice::getNoticesWithFiles();
         $topUsers = User::topUsers();
-        return view('homeProblemSetter',compact('notices','topUsers'));
+        $lastProblems = Problem::lastProblem();
+        return view('homeProblemSetter',compact('notices','topUsers','lastProblems'));
     }
 
     public function indexSolver()
     {
         $notices = Notice::getNoticesWithFiles();
         $topUsers = User::topUsers();
-        return view('homeSolver',compact('notices','topUsers'));
+        $lastProblems = Problem::lastProblem();
+        return view('homeSolver',compact('notices','topUsers','lastProblems'));
     }
 
     public function indexAdmin()
     {
         $notices = Notice::getNoticesWithFiles();
         $topUsers = User::topUsers();
-        return view('homeAdmin' ,compact('notices','topUsers'));
+        $lastProblems = Problem::lastProblem();
+        return view('homeAdmin' ,compact('notices','topUsers','lastProblems'));
     }
 
 

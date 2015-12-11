@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
 use SolutionBook\Entities\Notification;
+use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Style;
 use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
@@ -57,7 +58,8 @@ class WelcomeController extends Controller {
         }
         $topUsers = User::topUsers();
         $notices = Notice::getNoticesWithFiles();
-        return view('home',compact('notices','topUsers'));
+        $lastProblems = Problem::lastProblem();
+        return view('home',compact('notices','topUsers','lastProblems'));
     }
 
     public function getRegister()

@@ -9,7 +9,7 @@
     </div>
 <div class="container">
 
-    <div class="col-lg-10 col-md-push-1 " >
+    <div class="col-lg-12 col-md-push-0 " >
 
         {!! Form::open(['route' => 'notices.addNotice','method' => 'POST','class'=>'form-inline','files'=>true]) !!}
 
@@ -28,17 +28,17 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('title', 'Título*') !!} <br>
-                                {!! Form::text('title',null, array('class' => 'form-control ','size' => '86','id'=>'title','placeholder'=>'Título de la Noticia ','required'))!!}
+                                {!! Form::text('title',null, array('class' => 'form-control ','size' => '86','maxlength' => '50','id'=>'title','placeholder'=>'Título de la Noticia ','required'))!!}
                             </div>
 
 
                     </div>
                     <br> <br><br> <br>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-lg-pull-0">
                             <div class="form-group" >
                                 {!! Form::label('description', 'Descripción*') !!} <br>
-                                {!! Form::textarea('description',null, array('class' => 'field','style'=>'resize: none', 'size' => '100x15','id'=>'description','placeholder'=>'Texto','required'))!!}
+                                {!! Form::textarea('description',null, array('class' => 'form-control','style'=>'resize: none', 'size' => '127x15','id'=>'description','placeholder'=>'Texto noticia','required'))!!}
                             </div>
                         </div>
                     <br> <br><br> <br>
@@ -46,6 +46,7 @@
                     <br> <br><br> <br>
                     <div class="col-md-12">
                     <div class="form-group">
+                        <br> <br>
                         {!! Form::label('finishDate', 'Fecha de Expiración*') !!} <br>
                         <input type="date" class="form-control" size="86" id="finishDate"  name="finishDate" placeholder="Fecha de expiración de noticia" required min={{\Carbon\Carbon::now()->subYears(1)}} max={{\Carbon\Carbon::now()->addYears(1)}} >
                     </div>

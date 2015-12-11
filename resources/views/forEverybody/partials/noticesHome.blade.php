@@ -60,9 +60,9 @@
             </div>
 
         </div>
-        <ul class="nav  list-group-item-info">
+        <ul class="nav list-group-item-info">
             @foreach($notices as $notice)
-            <li ><a href="{{url('/notice/'.$notice->id)}}"> <span>{{$notice->title}} </span> <span class="pull-right">{{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice->finishDate)))}} </span> </a></li>
+            <li  ><a href="{{url('/notice/'.$notice->id)}}"> <span style="font-weight: bold"  >{{$notice->title}} </span> <span class="pull-right label label-primary">{{\SolutionBook\Components\HtmlBuilder::dateEspañol(date('d/M/Y',strtotime($notice->created_at)))}} </span> </a></li>
             @endforeach
         </ul>
     </div>

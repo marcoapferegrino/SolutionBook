@@ -20,10 +20,10 @@ class Notice extends Entity {
         $today= Carbon::now()->toDateString();
         $files = DB::table('files')
             ->join('notices','notices.id','=','files.notice_id')
-            ->select('files.path','notices.id as id','notices.title','notices.description','notices.finishDate')
+            ->select('files.path','notices.id as id','notices.title','notices.description','notices.created_at','notices.finishDate')
           // ->select([DB::raw('DISTINCT(notices.id)'),'files.path','notices.id','notices.title','notices.description','notices.finishDate'])
             ->where('notices.finishDate','>=',$today)
-            ->orderBy('notices.finishDate','desc')
+            ->orderBy('notices.created_at','desc')
             ->get();
 
         //dd($files);
@@ -57,7 +57,7 @@ class Notice extends Entity {
 
         $notice = DB::table('files')
             ->join('notices','notices.id','=','files.notice_id')
-            ->select('files.path','files.name','files.type','notices.id','notices.title','notices.description','notices.finishDate')
+            ->select('files.path','files.name','files.type','notices.id','notices.created_at','notices.title','notices.description','notices.finishDate')
             ->where('notices.id',$id)
             ->get();
 

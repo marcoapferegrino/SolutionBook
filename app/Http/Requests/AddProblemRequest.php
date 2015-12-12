@@ -25,7 +25,7 @@ class AddProblemRequest extends Request
         $images = $request->images;
         $web = $request->web;
         //dd($images);
-        //dd($request);
+//        dd($request->all());
        $rules = [
             'title'=> 'required',
             'institucion'=>'',

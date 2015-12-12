@@ -15,7 +15,7 @@ class CreateLinksTable extends Migration {
 		Schema::create('links', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('link', 120);
+			$table->string('link');
             $table->enum('type',['YouTube','Repositorio','Facebook','Twitter','JuezOnline','Amonestación','Referencia','Web']);
 
             $table->integer('solution_id')->unsigned()->nullable();

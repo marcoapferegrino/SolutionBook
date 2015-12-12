@@ -18,7 +18,7 @@ class CreateJudgesListsTable extends Migration {
 
 
             $table->string('name',45);
-            $table->string('addressWeb',30);
+            $table->string('addressWeb');
 //            $table->string('contact',45);
             $table->string('facebook');
             $table->string('twitter');

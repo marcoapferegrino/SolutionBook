@@ -15,7 +15,7 @@ class CreateFilesTable extends Migration {
 		Schema::create('files', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 45);
+			$table->string('name');
 			$table->string('path', 120);
 			$table->text('description')->nullable();
             $table->enum('type',['imagenEjemplo','imagenGallery','imagenApoyo','notaVoz','fileinput','fileOutput','pdf','word','ejEntrada','ejSalida']);

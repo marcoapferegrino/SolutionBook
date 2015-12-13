@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <h4><label class=" control-label"><strong>Avatar</strong></label></h4>
-                            <img class="img-responsive" width="50" height="50" src="{{$user->avatar}}"  alt="..." onerror="imgError(this,'user');">
+                            <img class="img-responsive" width="50" height="50" src="{{asset($user->avatar)}}"  alt="..." onerror="imgError(this,'user');">
                             {!! Form::file('avatar',array('id'=>'avatar', 'class'=>'btn btn-info','style'=>'')) !!}
 
                         </div>

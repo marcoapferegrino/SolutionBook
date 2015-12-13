@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="file" class="col-sm-4 control-label"><strong>Imágen representativa:</strong></label> <br><br>
                                 <div class="col-sm-6">
-                                    {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'')) !!}
+                                    {!! Form::file('file',array('id'=>'file', 'class'=>'btn btn-info','style'=>'','accept'=>"image/jpeg, image/png , image/png")) !!}
                                 </div>
 
                             </div>
@@ -50,7 +50,7 @@
                                 <label for="file" class="col-sm-4 control-label"><strong>Archivos de apoyo:</strong></label> <br><br><br>
                                 <div class="col-sm-6">
 
-                                    <input type="file"  name="apoyo[]" class="btn btn-info" id="apoyo" multiple>
+                                    <input type="file"  name="apoyo[]" accept="image/jpeg, image/png , image/png , image/bmp, application/msword, application/mp3, audio/x-wav, audio/wav, application/pdf, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="btn btn-info" id="apoyo" multiple>
                                 </div>
 
                             </div>
@@ -59,7 +59,7 @@
                                 <label for="file" class="col-sm-8 control-label"><strong>Galería de imágenes (añadir más imágenes ):</strong></label> <br><br>
                                 <div class="col-sm-6">
 
-                                    <input type="file"  name="gallery[]" class="btn btn-info" id="gallery" multiple>
+                                    <input type="file"  name="gallery[]" accept="image/jpeg, image/png , image/bmp , image/bmp" class="btn btn-info" id="gallery" multiple>
                                 </div>
 
                             </div><br><br> <br><br>

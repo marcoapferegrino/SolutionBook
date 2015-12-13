@@ -1,9 +1,9 @@
 @if(Auth::check())
     <div class="pull-right solution" data-id="{{$solution->id}}">
-        <div class="col-md-4">
+        <div class="col-xs-4 col-md-4">
             @include('solver.partials.editDeleteSolutionButtons')
         </div>
-            <div class="col-md-2">
+            <div class="col-xs-2 col-md-2">
                 {!! Form::open(['id'=>'form-like','route'=>['likes.addLike',':id'],'method'=>'POST']) !!}
                 <button type="submit" {!! Html::classes(['btn btn-primary btn-like','hidden'=>auth()->user()->hasLiked($solution->id)]) !!}>
                     <i class="fa fa-thumbs-up">
@@ -17,7 +17,7 @@
                 </button>
                 {!! Form::close() !!}
             </div>
-            <div class="col-md-3">
+            <div class="col-xs-3 col-md-3">
                 <span class="label label-info numLikes">{{$solution->numLikes}} likes</span>
                 @if(isset($solution->state))
                     <?php
@@ -44,7 +44,7 @@
                 {{--<i class="fa fa-gavel"></i> <small>{{$solution->ranking}} ranking</small>--}}
             {{--</div>--}}
         @if($solution->userId != auth()->user()->getAuthIdentifier()&&isset($solution->user_id)!=auth()->user()->getAuthIdentifier())
-            <div class="col-md-2">
+            <div class="col-xs-2 col-md-2">
                 <a href="{{route('warning.getAddWarning',['id'=>$solution->id,'type'=>0])}}"><strong><small class="text-danger">Reportar</small></strong></a>
             </div>
         @endif

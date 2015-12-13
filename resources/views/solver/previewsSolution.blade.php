@@ -1,14 +1,16 @@
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-xs-12 col-md-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
+                        @include('solver.partials.orderSolutions')
                         <h3><i class="fa fa-code"></i> Soluciones
                             <a href="#problem"><small>del Problema</small> {{isset($dataProblem->id)?$dataProblem->id:$idProblem}}</a>
-                        @include('solver.partials.orderSolutions')
+
                         </h3>
+
                     </div>
 
                     <div class="panel-body">
@@ -16,24 +18,22 @@
                        @if(count($solutions)>0)
                             @foreach($solutions as $solution)
                                 <div class="panel panel-default ">
-
+                                    <div class="clearfix visible-xs-block"></div>
                                     <div class="panel-heading">
-
+                                        @include('partials.likesButtons')
                                         <h4>
                                             <strong>{{$solution->id}} |
-                                                <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" onerror="imgError(this,'user');" width="42">
+                                                <img src="{{asset($solution->avatar)}}" alt="no imagen" class="img-rounded" height="42" onerror="imgError(this,'user');" width="42">
                                                 <a href="{{url('/userPerfil/'.$solution->userId)}}">
                                                     <span class="text-capitalize">{{$solution->username}}</span>
                                                 </a>
                                             </strong>
-
-                                            @include('partials.likesButtons')
                                         </h4>
 
                                     </div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-xs-6 col-md-6">
                                                 <div class="list-group">
                                                     <a href="" class="list-group-item active">
                                                         <h4 class="list-group-item-heading"><i class="fa fa-th-list"></i> Detalles</h4>
@@ -44,7 +44,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-xs-6 col-md-6">
 
 
                                                 <div class="panel panel-default">

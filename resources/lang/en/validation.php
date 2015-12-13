@@ -7,72 +7,72 @@ return [
 	| Validation Language Lines
 	|--------------------------------------------------------------------------
 	|
-	| The following language lines contain the default error messages used by
+	| El following language lines contain the default error messages used by
 	| the validator class. Some of these rules have multiple versions such
 	| as the size rules. Feel free to tweak each of these messages here.
 	|
 	*/
 
-	"accepted"             => "The :attribute must be accepted.",
-	"active_url"           => "The :attribute is not a valid URL.",
+	"accepted"             => "El :attribute debe ser accepted.",
+	"active_url"           => "El :attribute no es una URL válida.",
 	"after"                => "La fecha debe ser una fecha posterior a :date.",
-	"alpha"                => "The :attribute may only contain letters.",
-	"alpha_dash"           => "The :attribute may only contain letters, numbers, and dashes.",
-	"alpha_num"            => "The :attribute may only contain letters and numbers.",
-	"array"                => "The :attribute must be an array.",
+	"alpha"                => "El :attribute puede solo contener letters.",
+	"alpha_dash"           => "El :attribute puede contener letters, numbers, and dashes.",
+	"alpha_num"            => "El :attribute puede contener letters and numbers.",
+	"array"                => "El :attribute debe ser an array.",
 	"before"               => ":attribute debe ser una fecha anterior a :date.",
 	"between"              => [
-		"numeric" => "The :attribute must be between :min and :max.",
-		"file"    => "The :attribute must be between :min and :max kilobytes.",
-		"string"  => "The :attribute must be between :min and :max characters.",
-		"array"   => "The :attribute must have between :min and :max items.",
+		"numeric" => "El :attribute debe ser entre :min y :max.",
+		"file"    => "El :attribute debe ser entre :min y :max kilobytes.",
+		"string"  => "El :attribute debe ser entre :min y :max caracteres.",
+		"array"   => "El :attribute debe ser entre :min y :max elementos.",
 	],
-	"boolean"              => "The :attribute field must be true or false.",
-	"confirmed"            => "The :attribute confirmation does not match.",
+	"boolean"              => "El :attribute  debe ser true or false.",
+	"confirmed"            => "El :attribute confirmación no coincide.",
 	"date"                 => "Fecha no es una fecha válida.",
 	"date_format"          => ":attribute no concuerda con el formato :format.",
-	"different"            => "The :attribute and :other must be different.",
-	"digits"               => "The :attribute must be :digits digits.",
-	"digits_between"       => "The :attribute must be between :min and :max digits.",
+	"different"            => "El :attribute y :other debe ser diferente.",
+	"digits"               => "El :attribute debe ser :digits dígitos.",
+	"digits_between"       => "El :attribute debe ser between :min and :max digits.",
 	"email"                => ":attribute debe ser una dirección de email valida.",
-	"filled"               => "The :attribute field is required.",
-	"exists"               => "The selected :attribute is invalid.",
+	"filled"               => "El :attribute campo es requerido.",
+	"exists"               => "La selección :attribute es inválida.",
 	"image"                => ":attribute debe ser una imagen.",
-	"in"                   => "The selected :attribute is invalid.",
-	"integer"              => "The :attribute must be an integer.",
-	"ip"                   => "The :attribute must be a valid IP address.",
+	"in"                   => "La selección :attribute es inválida.",
+	"integer"              => "El :attribute debe ser un entero.",
+	"ip"                   => "El :attribute debe ser una dirección válida de IP.",
 	"max"                  => [
-		"numeric" => "The :attribute may not be greater than :max.",
-		"file"    => "The :attribute may not be greater than :max kilobytes.",
-		"string"  => "The :attribute may not be greater than :max characters.",
-		"array"   => "The :attribute may not have more than :max items.",
+		"numeric" => "El :attribute no debe ser más grande que :max.",
+		"file"    => "El :attribute no debe ser más grande que :max kilobytes.",
+		"string"  => "El :attribute no debe ser más grande que :max caracateres.",
+		"array"   => "El :attribute no debe contener más de :max elementos.",
 	],
 	"mimes"                => "El :attribute debe ser de tipo: :values.",
 	"min"                  => [
-		"numeric" => "The :attribute must be at least :min.",
-		"file"    => "The :attribute must be at least :min kilobytes.",
-		"string"  => "The :attribute must be at least :min characters.",
-		"array"   => "The :attribute must have at least :min items.",
+		"numeric" => "El :attribute debe al menos :min.",
+		"file"    => "El :attribute debe al menos :min kilobytes.",
+		"string"  => "El :attribute debe al menos :min caracteres.",
+		"array"   => "El :attribute debe tener al menos :min elementos.",
 	],
-	"not_in"               => "The selected :attribute is invalid.",
-	"numeric"              => "The :attribute must be a number.",
+	"not_in"               => "El selected :attribute is invalid.",
+	"numeric"              => "El :attribute debe ser a number.",
 	"regex"                => "El :attribute no coincide con la expresión que debe ser.",
 	"required"             => "El :attribute es requerido.",
-	"required_if"          => "The :attribute field is required when :other is :value.",
-	"required_with"        => "The :attribute field is required when :values is present.",
-	"required_with_all"    => "The :attribute field is required when :values is present.",
-	"required_without"     => "The :attribute field is required when :values is not present.",
-	"required_without_all" => "The :attribute field is required when none of :values are present.",
-	"same"                 => "The :attribute and :other must match.",
+	"required_if"          => "El :attribute field is required when :other is :value.",
+	"required_with"        => "El :attribute field is required when :values is present.",
+	"required_with_all"    => "El :attribute field is required when :values is present.",
+	"required_without"     => "El :attribute field is required when :values no es present.",
+	"required_without_all" => "El :attribute field is required when none of :values are present.",
+	"same"                 => "El :attribute and :other must match.",
 	"size"                 => [
-		"numeric" => "The :attribute must be :size.",
-		"file"    => "The :attribute must be :size kilobytes.",
-		"string"  => "The :attribute must be :size characters.",
-		"array"   => "The :attribute must contain :size items.",
+		"numeric" => "El :attribute debe ser :size.",
+		"file"    => "El :attribute debe ser :size kilobytes.",
+		"string"  => "El :attribute debe ser :size characters.",
+		"array"   => "El :attribute must contain :size items.",
 	],
 	"unique"               => ":attribute ya ha sido registrado en sistema",
-	"url"                  => "The :attribute format is invalid.",
-	"timezone"             => "The :attribute must be a valid zone.",
+	"url"                  => "El :attribute format is invalid.",
+	"timezone"             => "El :attribute debe ser a valid zone.",
 	"languaje_with_file_extension" => "El lenguaje no coincide con la extensión del código",
 	"extension"=>"La extensión del archivo no coincide con los archivos permitidos",
     "oneword"     => ":attribute no debe contener espacios en blanco o caracteres especiales.",
@@ -143,9 +143,6 @@ return [
 			'required'=>'El código fuente es requerido.',
 			'extension'=>'La extensión del código fuente no corresponde con el lenguaje .',
 		],
-		'youtube'=>[
-			'regex'=>'El link YouTube no coincide con youtube.',
-		],
 		'repositorio'=>[
 			'regex'=>'El link Repositorio no coincideo con un repositorio.',
 		],
@@ -176,7 +173,7 @@ return [
 	| Custom Validation Attributes
 	|--------------------------------------------------------------------------
 	|
-	| The following language lines are used to swap attribute place-holders
+	| El following language lines are used to swap attribute place-holders
 	| with something more reader friendly such as E-Mail Address instead
 	| of "email". This simply helps us make messages a little cleaner.
 	|

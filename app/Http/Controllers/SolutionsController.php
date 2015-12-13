@@ -152,8 +152,8 @@ class SolutionsController extends Controller
             $user->save();
 
             Session::flash('message', '¡Felicidades! La solución es correcta :D');
-            return redirect('/showSolution/'.$solution->id);
-
+//            return redirect('/showSolution/'.$solution->id);
+            return redirect()->route('solution.showSolution',$solution->id);
         }//end if de timeStatus and memStatus and compare
         else //time and memory fail
         {
@@ -408,7 +408,8 @@ class SolutionsController extends Controller
         Warning::expireWarnings('solution_id',$solution->id);
 
         Session::flash('message', 'Cambios guardados');
-        return redirect('/showSolution/'.$solution->id);
+//        return redirect('/showSolution/'.$solution->id);
+        return redirect()->route('solution.showSolution',$solution->id);
     }
 
 

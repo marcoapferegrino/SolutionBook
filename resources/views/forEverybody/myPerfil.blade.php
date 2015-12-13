@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
-                                    <img class="img-responsive" src="{{$user->avatar}}" alt="..." onerror="imgError(this,'user');">
+                                    <img class="img-responsive" src="{{asset($user->avatar)}}" alt="..." onerror="imgError(this,'user');">
                                     <div class="caption">
                                         <h1 class="text-capitalize"> {{$user->rol=='problem' ? 'Problem Setter' : 'Solver' }}:  <small>{{$user->username}}</small></h1>
                                         @if(auth()->user()->getAuthIdentifier()==$user->id)
@@ -31,8 +31,33 @@
                                     {{--@if(auth()->user()->getAuthIdentifier()==$user->id)--}}
                                     <tr>
                                         <th>Estado:</th>
+                                        @if(isset($user->state))
+                                            <?php
+                                            if($user->state=='active'){
+                                                $name='Activo';
+                                                $title='Usuario activo';
+                                            }
+                                            elseif($user->state=='suspended'){
+                                                $name='Suspendido';
+                                                $title='Cuenta suspendida';
+                                            }
+                                            elseif($user->state=='inactive'){
+                                                $name='Inactivo';
+                                                $title='Cuenta inactiva';
+                                            }
+                                            elseif($user->state=='blocked'){
+                                                $name='Bloqueado';
+                                                $title='Usuario bloqueado';
+                                            }
+
+
+                                            ?>
+
+
+                                        @endif
                                         <td {!! Html::classes(['text-capitalize','success'=>$user->state=='active','warning'=>$user->state=='suspended','danger'=>$user->state=='blocked','danger'=>$user->state=='inactive'])!!}>
-                                            {{$user->state}}
+
+                                            <span data-toggle="tooltip" data-placement="right" title="{{$title}}">{{$name}}</span>
                                         </td>
                                     </tr>
 

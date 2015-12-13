@@ -5,15 +5,13 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use SolutionBook\Entities\Notice;
-use SolutionBook\Entities\Notification;
 use SolutionBook\Entities\Problem;
 use SolutionBook\Entities\Style;
 use SolutionBook\Entities\Tools;
 use SolutionBook\Entities\User;
 use SolutionBook\Http\Requests\AddUserRequest;
-
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Database\QueryException;
 
 
 class WelcomeController extends Controller {
@@ -126,10 +124,18 @@ class WelcomeController extends Controller {
 
        // $file = Input::file('avatar');
         $image=$request->file('avatar');
+        $faker =  $faker=Faker::create();
+        $verificationCode = $faker->unique()->uuid();
+//        dd($verificationCode);
 
-
-        $user = User::create(array('username'=>$request->username,'email'=>$request->email,'rol'=>'solver', 'password'=>$password));
-//        dd($user->id);
+        $user = User::create(array(
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'confirmed'=>0,
+            'confirmation_code'=> $verificationCode,
+            'rol'=>'solver',
+            'password'=>$password));
+//        dd($user->toArray);
 
         if($image!=null){
         $idUser = $user->id;
@@ -150,9 +156,38 @@ class WelcomeController extends Controller {
         }
 
         Session::flash('message', 'Tu registro fue exitoso '.$user->username.'');//MSG01
-        Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver","addSolver");
+        Session::flash('message', 'Recuerda verificar tu cuenta con el email que te enviamos :D');
+//        Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver ","addSolver");
+        Tools::sendEmail($user->email,$user->username,"Verifica tu cuenta de Solution Book","verificationMail",$verificationCode);
         return Redirect::to('/auth/login');
 
+    }
+    public function confirm($confirmation_code)
+    {
+
+        if( ! $confirmation_code)
+        {
+            Session::flash('message', 'Lo sentimos no hay código de verificación');
+            return Redirect::to('/register');
+        }
+
+        $user = User::where('confirmation_code',$confirmation_code)->first();
+//        dd($user->toArray());
+        //Si no existe el usuario
+        if ( ! $user)
+        {
+            Session::flash('message', 'Lo sentimos no existe código de verificacion asociado a este usuario o la cuenta ya está activa');
+            return Redirect::to('/register');
+        }
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+
+        Session::flash('message','Has verificado tu cuenta con exito gracias');
+
+        return Redirect::to('/auth/login');
     }
 
     public function blockedByAdmin()
@@ -163,6 +198,33 @@ class WelcomeController extends Controller {
         }
 
         return view('forEverybody.blockedByAdmin');
+    }
+
+    public function accountUnconfirmed()
+    {
+        return view('forEverybody.unconfirmedAccount');
+    }
+
+    public function resendEmailConfirmation(Request $request)
+    {
+        $email = $request->email;
+
+        $user = User::where('email',$email)->first();
+        if ($user) {
+            $faker =  $faker=Faker::create();
+            $verificationCode = $faker->unique()->uuid();
+
+            $user->confirmation_code = $verificationCode;
+            $user->save();
+
+            Tools::sendEmail($user->email,$user->username,"Verifica tu cuenta de Solution Book","verificationMail",$verificationCode);
+            Session::flash('message', 'Recuerda verificar tu cuenta con el email que te enviamos :D');
+            return Redirect::to('/auth/login');
+        } else {
+            Session::flash('message', 'Por favor registrate de nuevo');
+            return Redirect::to('/register');
+        }
+
     }
 
 }

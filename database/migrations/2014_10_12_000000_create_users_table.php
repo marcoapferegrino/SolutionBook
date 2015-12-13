@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration {
 			$table->string('username')->unique();
 			$table->string('email')->unique();
 			$table->string('password', 60);
+			$table->boolean('confirmed')->default(0);
+			$table->string('confirmation_code')->nullable();
             $table->enum('rol',['problem','solver','super']);
             $table->integer('ranking');
             $table->string('avatar')->nullable();//path de la foto de perfil

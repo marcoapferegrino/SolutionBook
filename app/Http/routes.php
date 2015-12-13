@@ -17,6 +17,7 @@ Route::get('home', 'WelcomeController@indexGuest');
 
 Route::get('homes', 'HomeController@index');
 Route::get('blockedByAdmin', 'WelcomeController@blockedByAdmin');
+Route::get('accountUnconfirmed', 'WelcomeController@accountUnconfirmed');
 Route::get('homeProblemSetter', 'HomeController@indexProblem');
 Route::get('homeSolver', 'HomeController@indexSolver');
 Route::get('homeAdmin', 'HomeController@indexAdmin');
@@ -26,11 +27,19 @@ Route::get('/register', [
     'as' => 'welcome.register',
     'uses' => 'WelcomeController@getRegister'
 ]);
+Route::get('/verify/{confirmationCode}', [
+    'as' => 'confirmation_path',
+    'uses' => 'WelcomeController@confirm'
+]);
 
 
 Route::post('/addRegister', [
     'as' => 'welcome.addRegister',
     'uses' => 'WelcomeController@addRegister'
+]);
+Route::post('/resendEmailConfirmation', [
+    'as' => 'welcome.resendEmailConfirmation',
+    'uses' => 'WelcomeController@resendEmailConfirmation'
 ]);
 
 Route::get('redirect/{provider}', 'AccountController@github_redirect');

@@ -70,12 +70,12 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="images"><strong>Sube tus Imágenes</strong></label>
-                            <input type="file"  name="images[]" class="btn btn-info" id="images" multiple>
+                            <input type="file"  name="images[]" class="btn btn-info" id="images" accept="image/jpeg, image/png , image/png , image/bmp" multiple>
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="audioFile" ><strong>Sube un audio con la explicación</strong></label>
-                            <input type="file"  name="audioFile" id="audioFile" class="btn btn-info">
+                            <input type="file"  name="audioFile" accept="audio/mp3" id="audioFile" class="btn btn-info">
                         </div>
 
                         <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-all">Guardar</button>

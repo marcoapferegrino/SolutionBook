@@ -135,12 +135,19 @@ class Tools
         return $files;
     }
 
-    public static function sendEmail($email,$name,$subject,$reason)
+    public static function sendEmail($email,$name,$subject,$reason,$verificationCode=null)
     {
 
         $view = "emails.genericEmail";
-        $data = self::dataforEmailByReason($reason);
 
+
+
+        $data = self::dataforEmailByReason($reason);
+        if ($verificationCode!=null) {
+            $data['verifyCode']=$verificationCode;
+            $view = "emails.verificationEmail";
+        }
+//        dd($data);
         \Mail::send($view,$data, function($message) use ($email,$name,$subject)
         {
             $message->from(env('CONTACT_MAIL'), env('CONTACT_NAME'));
@@ -183,6 +190,11 @@ class Tools
                 $data['title'] = "Tienes una amonestación";
                 $data['subtitle'] = "Por favor revisa tus amonestaciones";
                 $data['content'] = "Tienes que editar el contenido o si crees que es falsa ignorala el administrador se encargará de deliberar. Recuerda que es para mejorar el contenido de la web.";
+                break;
+            case "verificationMail":
+                $data['title'] = "Verifica tu cuenta de SolutionBook";
+                $data['subtitle'] = "Por favor da click en el siguiente link";
+                $data['content'] = "Empieza a disfrutar de Solution Book dando click en el boton de abajo por favor.";
                 break;
         }
 

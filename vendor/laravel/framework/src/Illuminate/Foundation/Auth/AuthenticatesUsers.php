@@ -52,7 +52,12 @@ trait AuthenticatesUsers
 	        if($userAcc->state=='blocked')
        		 {
            		 return  redirect()->action('WelcomeController@blockedByAdmin');
-        	  }
+             }
+            if($userAcc->confirmed==0)
+            {
+                return  redirect()->action('WelcomeController@accountUnconfirmed');
+            }
+
        	 }
         if (Auth::attempt($credentials, $request->has('remember'))) {
             return $this->handleUserWasAuthenticated($request, $throttles);

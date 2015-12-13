@@ -25,9 +25,9 @@
                                 <div class="col-md-4">
                                     <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" onerror="imgError(this,'user');" height="42" width="42">
                                     <small>Solución por</small>
-                                    <small class="text-capitalize">{{$solution->username}}</small>
-                                    <br> <small>Email</small>
-                                    <a href="mailto:{{$solution->email}}">{{$solution->email}}</a>
+                                    <a href="{{(Auth::guest())?'#':url('/userPerfil/'.$solution->userId)}}">
+                                        <small class="text-capitalize text-primary">{{$solution->username}}</small>
+                                    </a>
                                     @if(isset($solution->institution))
                                         <br> <small>Institución</small>
                                         <small class="text-capitalize">{{$solution->institution}}</small>

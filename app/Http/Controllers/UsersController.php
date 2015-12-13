@@ -81,9 +81,13 @@ class UsersController extends Controller
             rename($pathAvatar.$nameImage,$pathAvatar.$renameImg);
             $user->avatar = "/".$pathAvatar.$renameImg;
             $user->save();
+
+
+
         }
         Session::flash('message', 'Cambios guardados');
-        return redirect()->action('UsersController@myPerfil',$user->id);
+//        return redirect()->action('UsersController@myPerfil',$user->id);
+        return view('auth.editPerfil',compact('user'));
 
     }
 

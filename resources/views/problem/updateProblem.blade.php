@@ -235,7 +235,7 @@
                         <div class="form-group">
                             <label for="images" class="col-sm-2 control-label"><strong>Archivos de apoyo</strong></label>
                             <div class="col-sm-6">
-                                <input type="file"  name="images[]" class="btn btn-info" id="images" multiple>
+                                <input type="file"  name="images[]" accept="image/jpg, image/jpeg, image/png, image/bmp, application/pdf" class="btn btn-info" id="images" multiple>
                             </div>
 
                         </div>

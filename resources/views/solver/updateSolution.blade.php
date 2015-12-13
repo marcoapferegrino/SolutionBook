@@ -22,10 +22,6 @@
                         'method' => 'post',
                         'files'=>true]) !!}
 
-
-
-
-
                         {!! Form::hidden('idProblem',$solution->problem_id,array('id' => 'idProblem')) !!}
                         {!! Form::hidden('idSolution',$solution->id,array('id' => 'idSolution')) !!}
                         <div class="form-group col-md-10 col-lg-offset-1">
@@ -92,12 +88,12 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="images"><strong>Agregar más imagenes</strong></label>
-                            <input type="file"  name="images[]" class="btn btn-info" id="images" multiple>
+                            <input type="file"  name="images[]" class="btn btn-info" id="images" accept="image/jpeg, image/png , image/png , image/bmp"  multiple>
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="audioFile" ><strong>Cambiar audio</strong></label>
-                            {!! Form::file('audioFile',array('id'=>'audioFile', 'class'=>'btn btn-info','style'=>'')) !!}
+                            <input type="file"  name="audioFile" accept="audio/mp3" id="audioFile" class="btn btn-info">
                         </div>
 
                         <div class="row">

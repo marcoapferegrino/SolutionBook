@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	"password" => "Passwords must be at least six characters and match the confirmation.",
+	"password" => "Tu contraseña debe ser de almenos 6 caracteres.",
 	"user" => "No encontramos este e-mail.",
 	"token" => "Este link es inválido.",
 	"sent" => "Hemos enviado el e-mail para que recuperes tu contraseña!",

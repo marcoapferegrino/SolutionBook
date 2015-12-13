@@ -28,7 +28,7 @@
 
                                         <h4>
                                             <strong>{{$solution->id}} |
-                                                <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" height="42" width="42">
+                                                <img src="{{asset($solution->avatar)}}" alt="no imagen" class="img-rounded" height="42" width="42">
                                                 <span class="text-capitalize">{{$solution->username}}</span></strong>
 
                                             @include('partials.likesButtons')

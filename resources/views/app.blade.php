@@ -189,7 +189,7 @@
                                 </a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="{{Auth::user()->avatar}}" onerror="imgError(this,'user');" alt="no imagen" class="img-rounded" height="22" width="22"> &nbsp;&nbsp;{{ Auth::user()->username }}<span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img  src="{{asset(Auth::user()->avatar)}}" onerror="imgError(this,'user');" alt="no imagen" class="img-rounded" height="22" width="22"> &nbsp;&nbsp;{{ Auth::user()->username }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url('/userPerfil/'.auth()->user()->getAuthIdentifier()) }}"><i class="fa fa-user"></i> Mi perfil</a></li>
                                     <li><a href="{{url('/getEditPerfil')}}"><i class="fa fa-cogs"></i> Editar Perfil</a></li>

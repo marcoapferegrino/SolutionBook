@@ -40,6 +40,8 @@
                         @endif
                         {!! Form::file('avatar',array('id'=>'avatar', 'class'=>'btn btn-info','style'=>'')) !!}
                     </div>
+                    @if (!Auth::guest())
+                    @if(Auth::getRol()=="super")
                     <div class="form-group">
                         <h4><label for="type" class="col-sm-4 control-label"><strong>Tipo de cuenta*</strong></label></h4><br><br>
                         <div class="col-sm-4 ">
@@ -51,6 +53,7 @@
                             </select>
                         </div>
                     </div><br><br><br>
+                        @endif @endif
 
                     <div class="form-group">
                         <h4><label class=" control-label"><strong>Password *</strong></label></h4>

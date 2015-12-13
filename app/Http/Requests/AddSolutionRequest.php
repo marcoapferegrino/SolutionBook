@@ -2,7 +2,6 @@
 
 namespace SolutionBook\Http\Requests;
 
-use SolutionBook\Http\Requests\Request;
 
 class AddSolutionRequest extends Request
 {
@@ -25,12 +24,14 @@ class AddSolutionRequest extends Request
     {
         $images = $request->images;
         $web = $request->web;
+
+//        dd($request->all(),$request->images,$request->audioFile);
         $rules = [
             'optionsLanguages'=> 'required | in:c,c++,java,python',
             'explanation'=> 'required',
             'fileCode'=> 'required | extension:c,cpp,py,java| languajeWithFileExtension:'.$request->optionsLanguages,
-            'images'=> 'array',
             'audioFile'=> 'extension:mp3',
+            'images'=> 'array',
             'youtube' => array('url','regex:/youtube/'),
             'repositorio' => array('url','regex:/github|bitbucket/'),
 

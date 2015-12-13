@@ -28,13 +28,13 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <h4><label for="language"><strong>Lenguaje*</strong></label></h4>
-                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguages'),old('optionsLanguages'),['class'=>'form-control'])!!}
+                            {!!Form::select('optionsLanguages', config('optionsLanguages.lenguages'),old('optionsLanguages'),['class'=>'form-control'],'required')!!}
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1 ">
                             <h4><label for="explanation"><strong>Explicación*</strong></label></h4>
                             @include('forEverybody.partials.tagToEdit')
-                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ','contenteditable'=>true,'rows'=>15)) !!}
+                            {!! Form::textarea('explanation',old('explanation'),array('id' => 'explanation','class'=>'form-control keypad','placeholder'=>'Tu explicación debe ser clara y detallada...:D ','contenteditable'=>true,'rows'=>15,'required')) !!}
 
                         </div>
 
@@ -65,7 +65,7 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="fileCode" ><strong>Sube tu Código*</strong></label>
-                            {!! Form::file('fileCode',array('id'=>'fileCode', 'class'=>'btn btn-info','style'=>'')) !!}
+                            <input type="file"  name="fileCode" id="fileCode" class="btn btn-info" required>
                         </div>
 
                         <div class="form-group col-md-10 col-lg-offset-1">
@@ -75,7 +75,7 @@
 
                         <div class="form-group col-md-10 col-lg-offset-1">
                             <label for="audioFile" ><strong>Sube un audio con la explicación</strong></label>
-                            {!! Form::file('audioFile',array('id'=>'audioFile', 'class'=>'btn btn-info','style'=>'')) !!}
+                            <input type="file"  name="audioFile" id="audioFile" class="btn btn-info">
                         </div>
 
                         <button type="submit" class="btn btn-success btn-lg btn-block" id="submit-all">Guardar</button>

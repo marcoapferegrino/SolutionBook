@@ -39,7 +39,7 @@
                             <table class="table table-hover">
 
                                 @if($judge!=null)
-                                <tr><th>Jueces:</th></tr>
+                                <tr><th>Juez:</th></tr>
                                 <tr >
                                     <td>
                                         <a href="{{$judge->addressWeb}}" >{{$judge->name}}</a>

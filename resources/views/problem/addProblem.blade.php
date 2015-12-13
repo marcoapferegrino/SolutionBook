@@ -165,7 +165,7 @@
                         </div>
 
                         <div id="githubmas" class="form-group">
-                            <h4><label for="github" class="col-sm-2 control-label"><strong>Github</strong></label></h4>
+                            <h4><label for="github" class="col-sm-2 control-label"><strong>Repositorio</strong></label></h4>
                             <div class="col-sm-6">
                                     {!!Form::text('github','',['class'=>'form-control'])!!}
                             </div>

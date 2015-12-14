@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <h4><label for="titulo" class="col-sm-2 control-label"><strong>Título *</strong></label></h4>
                             <div class="col-sm-8">
-                                {!!Form::text('title','',['class'=>'form-control','id'=>'title'])!!}
+                                {!!Form::text('title','',['class'=>'form-control','id'=>'title','maxlength' => '50'],'required')!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                                 <div id="similarTitle"></div>
                             </div>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <h4><label for="titulo" class="col-sm-2 control-label"><strong>Institución</strong></label></h4>
                             <div class="col-sm-8">
-                                {!!Form::text('institucion','',['class'=>'form-control'])!!}
+                                {!!Form::text('institucion','',['class'=>'form-control','maxlength' => '60'])!!}
                                 <!-- {!!Form::text('titulo', '',['class'=>'form-control titulo','id'=>'buscar'])!!} -->
                             </div>
 
@@ -42,7 +42,7 @@
                             <h4><label for="descripcion" class="col-sm-2 control-label"><strong>Descripción *</strong></label></h4>
                             <div class="col-sm-8">
                                 @include('forEverybody.partials.tagToEdit')
-                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema','rows'=>15])!!}
+                                {!!Form::textArea('descripcion', '',['class'=>'form-control keypad','id'=>'explanation','placeholder'=>'Descripción del problema','rows'=>15],'required')!!}
                             </div>
 
                         </div>
@@ -71,7 +71,7 @@
                             <h4><label for="limitMemory" class="col-sm-2 control-label"><strong>Limite de Memoria *</strong></label></h4>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                    {!!Form::text('limitMemory','',['class'=>'form-control','placeholder'=>'kilo bytes'])!!}
+                                    {!!Form::text('limitMemory','',['class'=>'form-control','placeholder'=>'kilo bytes'],'required')!!}
                                     <div class="input-group-addon">kb</div>
                                 </div>
                             </div>
@@ -101,11 +101,11 @@
                             </div>
                             <h4><label for="EjemploEntrada" class="col-sm-2 control-label"><strong>Ejemplo entrada *</strong></label></h4>
                             <div class="col-sm-4">
-                                <textarea rows=8  name="ejemploen" class="form-control" ></textarea>
+                                <textarea rows=8  name="ejemploen" class="form-control" required ></textarea>
                             </div>
                             <h4><label for="output" class="col-sm-1 control-label"><strong>Ejemplo salida *</strong></label></h4>
                             <div class="col-sm-4">
-                                <textarea rows=8 name="ejemplosa" class="form-control" ></textarea>
+                                <textarea rows=8 name="ejemplosa" class="form-control" required></textarea>
                             </div>
                             {{--<div class="col-sm-1 ">--}}
                                 {{--<button type="button" class="btn btn-primary btn-lg ">--}}
@@ -122,11 +122,11 @@
                                 </div>
                                 <h4><label for="input" class="col-sm-2 control-label"><strong>Entrada *</strong></label></h4>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" ></textarea>
+                                    <textarea rows=8 id='textarea'  name="inputs" class="form-control" required></textarea>
                                 </div>
                                 <h4><label for="output" class="col-sm-1 control-label"><strong>Salida *</strong></label></h4>
                                 <div class="col-sm-4">
-                                    <textarea rows=8 name="outputs" class="form-control" ></textarea>
+                                    <textarea rows=8 name="outputs" class="form-control" required></textarea>
                                 </div>
                                 {{--<div class="col-sm-1 ">
                                     <button type="button" class="btn btn-primary btn-lg ">
@@ -151,7 +151,7 @@
                         <div class="form-group" >
                             <h4><label for="tags" class="col-sm-2 control-label" ><strong>Palabras clave *</strong></label></h4>
                             <div class="col-sm-8">
-                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'])!!}
+                                {!!Form::text('tags','',['class'=>'form-control','id'=>'tags','placeholder'=>'Etiquetas (p. ej.: arboles binarios, estructuras de datos, recursividad)'],'required')!!}
                                 <div id="similarTags"></div>
                             </div>
                         </div>

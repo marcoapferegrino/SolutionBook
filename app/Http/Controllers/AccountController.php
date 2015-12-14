@@ -87,6 +87,7 @@ class AccountController extends Controller {
             'email'=>$request->email,
             'password'=> $password,
             'rol'=> 'solver',
+            'confirmed'=>1,
             'ranking' => 0,
             'state' => 'active',
             'numWarnings' => 0,

@@ -165,6 +165,9 @@ return [
         'name' => [
             'required' => 'El campo Nombre es requerido',
         ],
+		'termAndConditions' => [
+            'required' => 'Debes aceptar terminos y condiciones para poder registrarte',
+        ],
 		
     ],
 

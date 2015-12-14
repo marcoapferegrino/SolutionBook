@@ -24,7 +24,7 @@
                                             <a href="{{route('problem.showProblem',$result[$i]->id)}}" >
                                                 <img src="{{ asset($avatar[$i]) }}" alt="{{$avatar[$i]}}">
                                             </a>
-                                        <div class="caption">
+                                        <div class="caption" style="overflow: hidden; text-overflow: ellipsis; max-width: 260px;">
                                             <h3>{{$result[$i]->title}}</h3>
                                             <p><strong>Límite de tiempo:</strong> {{$result[$i]->limitTime}} segundos</p>
                                             <p><strong>Límite de Memoria:</strong> {{$result[$i]->limitMemory}} kb</p>

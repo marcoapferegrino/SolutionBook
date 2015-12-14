@@ -304,17 +304,11 @@ class ProblemsController extends Controller
                 $tags.=','.$tag->name;
 
         }
-//        $warnings=Problem::find($idProblem)->warnings;
 
         $problemLIS = Problem::find($idProblem);
-        $links=Link::where('problem_id','=',$problemLIS->id)->where('type','!=','Amonestación')->get();
-        //////////////// LUIS
-
-      //  dd($links);
-        //////////////////
-
-
-//      $solutions=Problem::find(10)->solutions;
+        $links=Link::where('problem_id','=',$problemLIS->id)
+            ->where('type','<>','Referencia')
+            ->where('type','<>','Amonestación')->get();
 
         $problem = Problem::find($idProblem);
         $solutions = $problem->solutionsPreview();

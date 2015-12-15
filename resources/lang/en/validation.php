@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	"accepted"             => "El :attribute debe ser accepted.",
+	"accepted"             => "El :attribute debe ser aceptado.",
 	"active_url"           => "El :attribute no es una URL válida.",
 	"after"                => "La fecha debe ser una fecha posterior a :date.",
 	"alpha"                => "El :attribute puede solo contener letters.",
@@ -54,8 +54,8 @@ return [
 		"string"  => "El :attribute debe al menos :min caracteres.",
 		"array"   => "El :attribute debe tener al menos :min elementos.",
 	],
-	"not_in"               => "El selected :attribute is invalid.",
-	"numeric"              => "El :attribute debe ser a number.",
+	"not_in"               => "El :attribute seleccionado es inválido.",
+	"numeric"              => "El :attribute debe ser un número.",
 	"regex"                => "El :attribute no coincide con la expresión que debe ser.",
 	"required"             => "El :attribute es requerido.",
 	"required_if"          => "El :attribute field is required when :other is :value.",
@@ -63,7 +63,7 @@ return [
 	"required_with_all"    => "El :attribute field is required when :values is present.",
 	"required_without"     => "El :attribute field is required when :values no es present.",
 	"required_without_all" => "El :attribute field is required when none of :values are present.",
-	"same"                 => "El :attribute and :other must match.",
+	"same"                 => "El :attribute y :other deben ser iguales.",
 	"size"                 => [
 		"numeric" => "El :attribute debe ser :size.",
 		"file"    => "El :attribute debe ser :size kilobytes.",
@@ -71,7 +71,7 @@ return [
 		"array"   => "El :attribute must contain :size items.",
 	],
 	"unique"               => ":attribute ya ha sido registrado en sistema",
-	"url"                  => "El :attribute format is invalid.",
+	"url"                  => "El formato de :attribute es inválido.",
 	"timezone"             => "El :attribute debe ser a valid zone.",
 	"languaje_with_file_extension" => "El lenguaje no coincide con la extensión del código",
 	"extension"=>"La extensión del archivo no coincide con los archivos permitidos",

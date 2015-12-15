@@ -23,7 +23,7 @@
                         <div class="row">
                             <h3>
                                 <div class="col-md-4">
-                                    <img src="{{$solution->avatar}}" alt="no imagen" class="img-rounded" onerror="imgError(this,'user');" height="42" width="42">
+                                    <img src="{{asset($solution->avatar)}}" alt="no imagen" class="img-rounded" onerror="imgError(this,'user');" height="42" width="42">
                                     <small>Solución por</small>
                                     <a href="{{(Auth::guest())?'#':url('/userPerfil/'.$solution->userId)}}">
                                         <small class="text-capitalize text-primary">{{$solution->username}}</small>

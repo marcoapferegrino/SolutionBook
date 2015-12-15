@@ -26,8 +26,8 @@ class AddUserRequest extends Request
             'username'  => 'required|unique:users,username|oneword',
             'email'     => 'required|unique:users,email',
             'password'  => 'required',
-            'avatar'    => 'extension:jpg,png,bmp'
-
+            'avatar'    => 'extension:jpg,png,bmp',
+            'termAndConditions'=>'required',
         ];
 
 

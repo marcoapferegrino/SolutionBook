@@ -167,7 +167,7 @@ class WelcomeController extends Controller {
 
         if( ! $confirmation_code)
         {
-            Session::flash('message', 'Lo sentimos no hay código de verificación');
+            Session::flash('message', 'Lo sentimos no existe este código de verificación.');
             return Redirect::to('/register');
         }
 
@@ -184,8 +184,8 @@ class WelcomeController extends Controller {
         $user->confirmation_code = null;
         $user->save();
 
-
-        Session::flash('message','Has verificado tu cuenta con exito gracias');
+        Tools::sendEmail($user->email,$user->username,"Te has registrado como Solver ","addSolver");
+        Session::flash('message','Has verificado tu cuenta con éxito gracias');
 
         return Redirect::to('/auth/login');
     }
@@ -218,7 +218,7 @@ class WelcomeController extends Controller {
             $user->save();
 
             Tools::sendEmail($user->email,$user->username,"Verifica tu cuenta de Solution Book","verificationMail",$verificationCode);
-            Session::flash('message', 'Recuerda verificar tu cuenta con el email que te enviamos :D');
+            Session::flash('message', 't');
             return Redirect::to('/auth/login');
         } else {
             Session::flash('message', 'Por favor registrate de nuevo');

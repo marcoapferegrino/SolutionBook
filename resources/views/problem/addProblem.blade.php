@@ -159,7 +159,7 @@
                         <div id="youtubemas" class="form-group">
                             <h4><label for="youtube" class="col-sm-2 control-label"><strong>Youtube</strong></label></h4>
                             <div class="col-sm-6">
-                                <input type="text"  name="youtube" class="form-control" >
+                                <input type="url"  name="youtube" class="form-control" >
                             </div>
 
                         </div>
@@ -167,7 +167,7 @@
                         <div id="githubmas" class="form-group">
                             <h4><label for="github" class="col-sm-2 control-label"><strong>Repositorio</strong></label></h4>
                             <div class="col-sm-6">
-                                    {!!Form::text('github','',['class'=>'form-control'])!!}
+                                    {!!Form::url('github','',['class'=>'form-control'])!!}
                             </div>
 
                         </div>
@@ -175,7 +175,7 @@
                         <div id="webmas" class="form-group">
                             <h4><label for="youtube" class="col-sm-2 control-label"><strong>Url</strong></label></h4>
                             <div class="col-sm-6">
-                                <input type="text"  name="web[]" class="form-control" >
+                                <input type="url"  name="web[]" class="form-control" >
                             </div>
 
                             <div class="col-sm-1 ">

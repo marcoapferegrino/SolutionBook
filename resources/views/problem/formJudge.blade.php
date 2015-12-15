@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>Nombre *</strong></label>
                         <div class="col-sm-9">
-                            {!!Form::text('name','',['class'=>'form-control','placeholder'=>'Nombre'])!!}
+                            {!!Form::text('name','',['class'=>'form-control','placeholder'=>'Nombre'],'required')!!}
                         </div>
 
                     </div>
@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label  class="col-sm-2 control-label"><strong>Url *</strong></label>
                         <div class="col-sm-9">
-                            {!!Form::text('addressWeb','',['class'=>'form-control','placeholder'=>'url del juez'])!!}
+                            {!!Form::url('addressWeb','',['class'=>'form-control','placeholder'=>'url del juez'],'required')!!}
                         </div>
 
                     </div>
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>Facebook</strong></label>
                         <div class="col-sm-9">
-                            {!!Form::text('facebook','',['class'=>'form-control','placeholder'=>'facebook'])!!}
+                            {!!Form::url('facebook','',['class'=>'form-control','placeholder'=>'facebook'])!!}
                         </div>
 
                     </div>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>Twitter</strong></label>
                         <div class="col-sm-9">
-                            {!!Form::text('twitter','',['class'=>'form-control','placeholder'=>'twitter'])!!}
+                            {!!Form::url('twitter','',['class'=>'form-control','placeholder'=>'twitter'])!!}
                         </div>
 
                     </div>

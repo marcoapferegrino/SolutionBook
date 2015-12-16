@@ -115,7 +115,7 @@ return [
             'required'=> 'El campo Ejemplo de salida es requerido',
         ],
         'tags'=> [
-            'required'=> 'El campo Tags es requerido',
+            'required'=> 'El campo Palabras clave es requerido',
         ],
         'inputs'=> [
             'required'=> 'El campo Entrada es requerido',

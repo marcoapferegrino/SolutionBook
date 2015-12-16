@@ -56,12 +56,12 @@
                         @endif @endif
 
                     <div class="form-group">
-                        <h4><label class=" control-label"><strong>Password *</strong></label></h4>
+                        <h4><label class=" control-label"><strong>Contraseña *</strong></label></h4>
                         <input type="password" id="password" class="form-control" id="password" name="password" value="">
                     </div>
 
                     <div class="form-group">
-                        <h4><label class=" control-label"  id="labelPasswordConfirm"><strong>Otra vez la Password *</strong></label></h4>
+                        <h4><label class=" control-label"  id="labelPasswordConfirm"><strong>Otra vez la Contraseña *</strong></label></h4>
                         <input type="password" id="passwordConfirm" class="form-control" name="password_confirmation">
                     </div>
 
